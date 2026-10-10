@@ -79,9 +79,8 @@ table.gis th{width:40%;color:var(--muted);font-weight:600}
 .me{width:18px;height:18px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 6px rgba(26,115,232,.25)}
 .leaflet-control-attribution{font-size:10.5px}
 .leaflet-bottom.leaflet-right{margin-bottom:var(--sab)}
-@media (max-width:760px){
+@media (max-width:900px){
   .brand span{display:none}
-  .ib .t{display:none}
   .panel{left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));width:auto;max-height:calc(70dvh - var(--sat))}
   .sheet{left:0;right:0;bottom:0;top:auto;width:auto;max-height:72dvh;border-radius:18px 18px 0 0;padding-bottom:var(--sab)}
   .grab{display:block;width:44px;height:5px;border-radius:3px;background:var(--line)}
@@ -176,7 +175,7 @@ function loadGoogle() {
 const ON = Object.assign({ rundor: true, etapper: false, platser: true, hyr: false, lopp: false, flyg: false }, store.get("on", {}));
 const sel = { race: store.get("race", "tdf"), years: new Set(store.get("years", [2026, 2025])) };
 const groups = {};
-const routed = store.get("routed", {}); // cache av vägföljande linjer från BRouter
+const routed = store.get("routed2", {}); // cache av vägföljande linjer från BRouter
 let hl = null;
 const lineStyle = (c, w) => ({ color: c, weight: w, opacity: .95, lineJoin: "round", lineCap: "round" });
 function addLine(g, key, pts, color, title, dash) {
@@ -311,7 +310,7 @@ function open(key) {
       ${gis([["Höjd", p.col ? nf(p.col.alt) + " m" : null], ["Stigning", p.col && p.col.len ? `${String(p.col.len).replace(".", ",")} km från ${esc(p.col.from)}, ${String(p.col.grad).replace(".", ",")} %` : null], ["Läge", coord([p.lat, p.lon])]])}
       <div class="actions"><a class="btn primary" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank" rel="noopener">Vägbeskrivning</a></div>`; }
   $("#sKind").textContent = kind; $("#sBody").innerHTML = h; $("#sheet").hidden = false; $("#sBody").scrollTop = 0;
-  if (it.pts.length > 1) map.fitBounds(L.latLngBounds(routed[key] ? routed[key].c.map(p => [p[1], p[0]]) : it.pts), { paddingTopLeft: [20, 80], paddingBottomRight: innerWidth > 760 ? [430, 20] : [20, innerHeight * .5] });
+  if (it.pts.length > 1) map.fitBounds(L.latLngBounds(routed[key] ? routed[key].c.map(p => [p[1], p[0]]) : it.pts), { paddingTopLeft: [20, 80], paddingBottomRight: innerWidth > 900 ? [430, 20] : [20, innerHeight * .5] });
   else map.setView(it.pts[0], Math.max(map.getZoom(), 11));
   try { history.replaceState(null, "", "#" + encodeURIComponent(key)); } catch (e) {}
 }
@@ -320,6 +319,19 @@ $("#sClose").onclick = closeSheet;
 document.addEventListener("keydown", e => { if (e.key === "Escape") { closeSheet(); $("#panel").hidden = true; } });
 map.on("click", () => { if (!$("#panel").hidden) { $("#panel").hidden = true; $("#layerBtn").classList.remove("on"); } });
 
+/* Ruttjänsten får bara start, passtoppar/mål och slut – då väljer den själv den naturliga vägen däremellan */
+const PASSRE = /\b(col|coll|collada|port|puerto|pas|hourquette|plateau|pla d|hautacam|luz ardiden|superbagn|gavarnie|peyragudes|arcal|cortals|formigal|cerler|pal|portalet|pourtalet|soudet|bonaigua|beixalis|envalira|ordino|pierre|larrau|ax 3|bonascre|cap nest|beyr)/i;
+function anchors(it) {
+  if (it.r) {
+    const w = it.r.waypoints, out = [w[0]];
+    let far = 0; w.forEach((p, i) => { if (kmBetween(p, w[0]) > kmBetween(w[far], w[0])) far = i; }); // vändpunkten på fram-och-tillbaka-turer
+    for (let i = 1; i < w.length - 1; i++) if (i === far || PASSRE.test(w[i][2] || "")) out.push(w[i]);
+    out.push(w[w.length - 1]);
+    // ta bort dubbletter som ligger direkt efter varandra
+    return out.filter((p, i) => !i || kmBetween(p, out[i - 1]) > 0.3).map(p => [p[0], p[1]]);
+  }
+  return it.pts.slice(0, 40);
+}
 /* ---- vägföljande linje via BRouter (öppen cykelrouting med höjddata) ---- */
 $("#sBody").addEventListener("click", async e => {
   const b = e.target.closest("[data-route]");
@@ -327,13 +339,13 @@ $("#sBody").addEventListener("click", async e => {
     const key = b.dataset.route, it = item(key), st = $("#rStatus");
     b.disabled = true; st.textContent = "Räknar fram vägen …";
     try {
-      const pts = it.pts.slice(0, 40);
+      const pts = anchors(it);
       const url = `https://brouter.de/brouter?lonlats=${pts.map(p => p[1].toFixed(5) + "," + p[0].toFixed(5)).join("|")}&profile=fastbike&alternativeidx=0&format=geojson`;
       const res = await fetch(url); if (!res.ok) throw new Error("http " + res.status);
       const gj = await res.json(); const f = gj.features[0];
       const c = f.geometry.coordinates.map(p => [+p[0].toFixed(5), +p[1].toFixed(5), p[2] != null ? Math.round(p[2]) : null]);
       routed[key] = { c, len: +f.properties["track-length"], asc: +f.properties["filtered ascend"] };
-      store.set("routed", routed); build(); open(key);
+      store.set("routed2", routed); build(); open(key);
     } catch (err) { b.disabled = false; st.textContent = "Det gick inte att räkna fram vägen just nu (" + err.message + "). Försök igen senare."; }
   }
   const g = e.target.closest("[data-gpx]");
