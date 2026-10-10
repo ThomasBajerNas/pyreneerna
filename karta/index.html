@@ -139,7 +139,10 @@ for (const r in RACES) for (const y of RACES[r][1]) for (const s of y.stages) {
 const YEARS = Object.fromEntries(Object.keys(RACES).map(r => [r, RACES[r][1].map(y => y.year).sort((a, b) => b - a)]));
 
 /* ---- karta och bakgrundskartor ---- */
-const map = L.map("map", { zoomControl: true, tap: true, minZoom: 6, maxBounds: [[40.5, -4.5], [45, 5.5]], maxBoundsViscosity: 0.6 }).fitBounds([[42.35, -1.8], [43.45, 3.1]]);
+const map = L.map("map", { zoomControl: true, tap: true, minZoom: 6, maxBounds: [[40.5, -4.5], [45, 5.5]], maxBoundsViscosity: 0.6 });
+const home = () => { const w = map.getSize().x; if (w > 200) map.fitBounds([[42.45, -1.6], [43.3, 3.0]], { padding: [10, 10] }); else map.setView([42.85, 0.7], innerWidth < 760 ? 7 : 8); };
+home();
+new ResizeObserver(() => map.invalidateSize()).observe(document.getElementById("map"));
 map.zoomControl.setPosition("bottomright");
 const OSMA = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 const BASE = {
