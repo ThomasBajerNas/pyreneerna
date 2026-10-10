@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d6b6e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pyrenéerna">
+<title>Kartprov – Pyrenéerna</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#e9edeb;--surface:#fbfcfb;--surface-2:#f1f4f2;--ink:#18262b;--muted:#56666b;--line:#cdd6d3;--accent:#0d6b6e;--accent-ink:#fff;--tdf:#c4242c;
+  --shadow:0 1px 2px rgba(20,35,40,.08),0 6px 24px rgba(20,35,40,.14);--f-d:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--f-ui:"Barlow","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1719;--surface:#162226;--surface-2:#1c2a2e;--ink:#e4ecea;--muted:#9aaba9;--line:#2c3d41;--accent:#4fc2c1;--accent-ink:#06282a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#0f1719;--surface:#162226;--surface-2:#1c2a2e;--ink:#e4ecea;--muted:#9aaba9;--line:#2c3d41;--accent:#4fc2c1;--accent-ink:#06282a}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--f-ui);-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--accent)}
+#map{position:fixed;inset:0;height:100dvh;background:#dfe5e2}
+.leaflet-container{font:inherit}
+.top{position:fixed;z-index:1000;left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));top:calc(10px + var(--sat));display:flex;gap:8px;align-items:center;pointer-events:none}
+.top>*{pointer-events:auto}
+.brand{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px 12px;display:flex;align-items:baseline;gap:8px;min-width:0}
+.brand b{font:700 20px var(--f-d);text-transform:uppercase;letter-spacing:.02em}
+.brand span{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fab{margin-left:auto;display:flex;gap:8px}
+.ib{min-width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ib svg{width:20px;height:20px}
+.ib.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.panel{position:fixed;z-index:1001;right:max(10px,env(safe-area-inset-right));top:calc(66px + var(--sat));width:330px;max-height:calc(100dvh - 86px - var(--sat) - var(--sab));overflow:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;display:grid;gap:12px}
+.panel[hidden],.sheet[hidden]{display:none}
+.eyebrow{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.opts{display:grid;gap:2px}
+.opt{display:flex;align-items:center;gap:10px;min-height:40px;cursor:pointer;font-weight:600}
+.opt input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+.opt small{font-weight:500;color:var(--muted)}
+.sw{width:16px;height:16px;border-radius:4px;flex:none}
+.sub{padding-left:30px;display:grid;gap:8px}
+.sub select{border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface);min-height:40px}
+.years{display:flex;flex-wrap:wrap;gap:5px}
+.yc{border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:5px 8px;font:600 15px var(--f-d);cursor:pointer;color:var(--muted);min-width:44px}
+.yc[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.yc.none{opacity:.45;border-style:dashed}
+.legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:16px;height:4px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.keybox{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+.keybox input{border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface);min-height:40px}
+.note{font-size:12.5px;color:var(--muted);margin:0}
+/* informationsark: höger på dator, botten på mobil */
+.sheet{position:fixed;z-index:1002;top:calc(66px + var(--sat));right:max(10px,env(safe-area-inset-right));bottom:calc(10px + var(--sab));width:400px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.sheet-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 6px 14px;border-bottom:1px solid var(--line)}
+.grab{display:none}
+.sheet-body{overflow:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 20px;display:grid;gap:14px;align-content:start}
+.sheet h2{font:600 28px/1.1 var(--f-d);margin:0}
+.sub2{color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;font-weight:700;border-radius:5px;padding:2px 8px;background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c)}
+table.gis{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+table.gis th,table.gis td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+table.gis th{width:40%;color:var(--muted);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-weight:600;text-decoration:none;color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn[disabled]{opacity:.6}
+.prose{font-size:15px;line-height:1.55;margin:0}
+.climbs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.climbs li{font-size:13px;border:1px solid var(--line);border-radius:6px;padding:3px 8px;background:var(--surface-2)}
+.climbs small{color:var(--muted)}
+.photo{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;display:block}
+.prof{width:100%;height:120px;display:block}
+.status{font-size:13px;color:var(--muted);min-height:1.2em}
+.lbl{background:none;border:0;box-shadow:none;font-weight:700;font-size:12px;color:#1b2528;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 2px #fff;white-space:nowrap}
+.pin{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 12px var(--f-ui);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45)}
+.me{width:18px;height:18px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 6px rgba(26,115,232,.25)}
+.leaflet-control-attribution{font-size:10.5px}
+.leaflet-bottom.leaflet-right{margin-bottom:var(--sab)}
+@media (max-width:760px){
+  .brand span{display:none}
+  .ib .t{display:none}
+  .panel{left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));width:auto;max-height:calc(70dvh - var(--sat))}
+  .sheet{left:0;right:0;bottom:0;top:auto;width:auto;max-height:72dvh;border-radius:18px 18px 0 0;padding-bottom:var(--sab)}
+  .grab{display:block;width:44px;height:5px;border-radius:3px;background:var(--line)}
+  .leaflet-control-zoom{display:none}
+}
+</style>
+</head>
+<body>
+<div id="map" role="application" aria-label="Karta över Pyrenéerna"></div>
+
+<div class="top">
+  <div class="brand"><b>Pyrenéerna</b><span>Kartprov · cykling och resmål</span></div>
+  <div class="fab">
+    <button class="ib" id="locBtn" aria-label="Visa min position"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+    <button class="ib" id="layerBtn" aria-expanded="false" aria-controls="panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg><span class="t">Lager</span></button>
+  </div>
+</div>
+
+<div class="panel" id="panel" hidden></div>
+
+<aside class="sheet" id="sheet" hidden role="dialog" aria-labelledby="sTitle">
+  <div class="sheet-bar"><span class="grab" aria-hidden="true"></span><span class="eyebrow" id="sKind"></span><button class="ib" id="sClose" aria-label="Stäng" style="box-shadow:none;border:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="sheet-body" id="sBody"></div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="data.js"></script>
+<script>
+(function () {
+"use strict";
+const D = window.KD, $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const store = { get(k, d) { try { const v = localStorage.getItem("pyrkarta:" + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem("pyrkarta:" + k, JSON.stringify(v)); } catch (e) {} } };
+const BY = Object.fromEntries(D.PLACES.map(p => [p.id, p]));
+const CATCOL = { stad: "#3b5a86", tdf: "#c4242c", spa: "#0b8a8c", borg: "#94642a", natur: "#3f7a35", grotta: "#6b5579", bad: "#2277b8", vatten: "#4659b8" };
+const RACES = { tdf: ["Tour de France", D.TDF, "Gul tröja"], vuelta: ["Vuelta a España", D.VUELTA, "Röd tröja"], occ: ["Route d'Occitanie", D.OCC, "Ledare"] };
+const YCOL = ["#c4242c", "#1565c0", "#2e7d32", "#8e44ad", "#d35400", "#00838f", "#6d4c41", "#ad1457", "#455a64", "#7cb342", "#f9a825", "#5e35b1", "#e64a19", "#0277bd", "#558b2f", "#b71c1c", "#283593"];
+const kmBetween = (a, b) => { const R = 6371, r = Math.PI / 180, dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r; const h = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
+const fmtDate = d => { try { return new Date(d + "T12:00:00").toLocaleDateString("sv-SE", { day: "numeric", month: "long", year: "numeric" }); } catch (e) { return d; } };
+const nf = n => Math.round(n).toLocaleString("sv-SE");
+
+/* ---- matchning av namn mot guidens platser (för etapplinjer) ---- */
+const norm = s => " " + String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim() + " ";
+const ALIAS = [["superbagneres", "superbagneres"], ["portet-daspet", "aspet"], ["col-du-portet", "col de portet"], ["ax3", "ax 3 domaines"], ["peyresourde", "peyresourde"], ["peyragudes", "peyragudes"], ["luz-ardiden", "luz ardiden"], ["hautacam", "hautacam"], ["beille", "plateau de beille"], ["arcalis", "arcalis"], ["les-angles", "les angles"], ["port-de-lers", "port de lers"], ["agnes", "agnes"], ["peguere", "peguere"], ["aubisque", "aubisque"], ["tourmalet", "tourmalet"], ["aspin", "aspin"], ["bales", "bales"], ["soulor", "soulor"], ["marie-blanque", "marie blanque"], ["pailheres", "pailheres"], ["montsegur", "montsegur"], ["peyrepertuse", "peyrepertuse"], ["gavarnie", "gavarnie"], ["cauterets", "cauterets"], ["bigorre", "bagneres de bigorre"], ["luchon", "luchon"], ["foix", "foix"], ["pau", "pau"], ["lourdes", "lourdes"], ["carcassonne", "carcassonne"], ["toulouse", "toulouse"], ["andorra", "andorra la vella"], ["pas-de-la-casa", "pas de la casa"], ["ax", "ax les thermes"], ["ceret", "ceret"], ["col-de-port", "col de port"], ["andorra", "andorra"]];
+const placeFor = name => { const n = norm(name); const h = ALIAS.find(([id, k]) => BY[id] && n.includes(" " + k + " ")); return h ? h[0] : null; };
+const STAGES = [];
+for (const r in RACES) for (const y of RACES[r][1]) for (const s of y.stages) {
+  s.race = r; s.year = y.year; s.key = r + "-" + y.year + "-" + s.stage; STAGES.push(s);
+  const pts = [], seen = [];
+  const push = id => { if (id && !seen.includes(id)) { seen.push(id); pts.push([BY[id].lat, BY[id].lon]); } };
+  push(placeFor(s.start)); (s.climbs || []).forEach(c => push(c && placeFor(c.name)));
+  if (s.finish_lat && s.finish_lon) pts.push([s.finish_lat, s.finish_lon]); else push(placeFor(s.finish));
+  s.pts = pts;
+}
+const YEARS = Object.fromEntries(Object.keys(RACES).map(r => [r, RACES[r][1].map(y => y.year).sort((a, b) => b - a)]));
+
+/* ---- karta och bakgrundskartor ---- */
+const map = L.map("map", { zoomControl: true, tap: true, minZoom: 6, maxBounds: [[40.5, -4.5], [45, 5.5]], maxBoundsViscosity: 0.6 }).fitBounds([[42.35, -1.8], [43.45, 3.1]]);
+map.zoomControl.setPosition("bottomright");
+const OSMA = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+const BASE = {
+  cyclosm: { name: "Cykelkarta", sub: "CyclOSM – cykelvägar, branta backar", make: () => L.tileLayer("https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", { maxZoom: 20, attribution: '<a href="https://www.cyclosm.org">CyclOSM</a> | ' + OSMA }) },
+  topo: { name: "Terräng", sub: "OpenTopoMap – höjdkurvor och relief", make: () => L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", { maxZoom: 17, attribution: 'Karta: <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA) | ' + OSMA }) },
+  osm: { name: "Standard", sub: "OpenStreetMap", make: () => L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: OSMA }) },
+  sat: { name: "Satellit", sub: "Esri World Imagery", make: () => L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxZoom: 19, attribution: "Bild: Esri, Maxar, Earthstar Geographics" }) },
+  google: { name: "Google Maps", sub: "kräver API-nyckel (gratis upp till 10 000 visningar/mån)", make: null },
+};
+let baseKey = store.get("base", "cyclosm"), baseLayer = null, gKey = store.get("gkey", "");
+function setBase(k) {
+  if (k === "google" && !gKey) { renderPanel("Lägg in en Google-nyckel nedan först."); return; }
+  if (baseLayer) map.removeLayer(baseLayer);
+  baseKey = k; store.set("base", k);
+  if (k === "google") { loadGoogle().then(() => { baseLayer = L.gridLayer.googleMutant({ type: store.get("gtype", "terrain"), maxZoom: 20 }); try { baseLayer.addGoogleLayer("BicyclingLayer"); } catch (e) {} baseLayer.addTo(map); baseLayer.bringToBack(); }).catch(() => { renderPanel("Google Maps kunde inte laddas – kontrollera nyckeln."); setBase("cyclosm"); }); }
+  else { baseLayer = BASE[k].make().addTo(map); baseLayer.bringToBack(); }
+}
+let gPromise = null;
+function loadGoogle() {
+  if (gPromise) return gPromise;
+  gPromise = new Promise((res, rej) => {
+    window.__gmReady = () => { const s = document.createElement("script"); s.src = "https://unpkg.com/leaflet.gridlayer.googlemutant@0.14.1/dist/Leaflet.GoogleMutant.js"; s.onload = res; s.onerror = rej; document.head.appendChild(s); };
+    const s = document.createElement("script"); s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(gKey)}&loading=async&callback=__gmReady&language=sv`; s.onerror = rej; document.head.appendChild(s);
+    setTimeout(() => rej(new Error("timeout")), 15000);
+  });
+  gPromise.catch(() => { gPromise = null; });
+  return gPromise;
+}
+
+/* ---- lager ---- */
+const ON = Object.assign({ rundor: true, etapper: false, platser: true, hyr: false, lopp: false, flyg: false }, store.get("on", {}));
+const sel = { race: store.get("race", "tdf"), years: new Set(store.get("years", [2026, 2025])) };
+const groups = {};
+const routed = store.get("routed", {}); // cache av vägföljande linjer från BRouter
+let hl = null;
+const lineStyle = (c, w) => ({ color: c, weight: w, opacity: .95, lineJoin: "round", lineCap: "round" });
+function addLine(g, key, pts, color, title, dash) {
+  const r = routed[key], ll = r ? r.c.map(p => [p[1], p[0]]) : pts;
+  const casing = L.polyline(ll, { color: "#fff", weight: 8, opacity: .85, interactive: false }).addTo(g);
+  const line = L.polyline(ll, Object.assign(lineStyle(color, 4.5), { dashArray: r ? null : (dash || "1 0") })).addTo(g);
+  const hit = L.polyline(ll, { color: "#000", opacity: 0, weight: 22 }).addTo(g); // stor träffyta för fingrar
+  hit.bindTooltip(esc(title), { sticky: true, direction: "top" });
+  hit.on("click", e => { L.DomEvent.stop(e); open(key); });
+  line._k = key; casing._k = key;
+}
+function pin(lat, lon, color, sym, title, key, size = 26) {
+  const m = L.marker([lat, lon], { icon: L.divIcon({ className: "", html: `<div class="pin" style="background:${color};width:${size}px;height:${size}px">${sym}</div>`, iconSize: [size, size], iconAnchor: [size / 2, size / 2] }), title, riseOnHover: true, keyboard: true });
+  m.on("click", () => open(key)); return m;
+}
+function build() {
+  Object.values(groups).forEach(g => map.removeLayer(g));
+  for (const k in groups) delete groups[k];
+  if (ON.platser) { const g = groups.platser = L.layerGroup().addTo(map);
+    D.PLACES.forEach(p => L.circleMarker([p.lat, p.lon], { radius: 6, color: "#fff", weight: 2, fillColor: CATCOL[p.cat[0]], fillOpacity: 1 }).bindTooltip(esc(p.name), { direction: "top" }).on("click", () => open("plats:" + p.id)).addTo(g)); }
+  if (ON.rundor) { const g = groups.rundor = L.layerGroup().addTo(map);
+    D.RUNDOR.routes.forEach(r => addLine(g, "runda:" + r.id, r.waypoints.map(w => [w[0], w[1]]), "#2e7d32", r.name, "8 6")); }
+  if (ON.etapper) { const g = groups.etapper = L.layerGroup().addTo(map);
+    STAGES.filter(s => s.race === sel.race && sel.years.has(s.year) && s.pts.length > 1).forEach(s => addLine(g, "stage:" + s.key, s.pts, YCOL[YEARS[s.race].indexOf(s.year) % YCOL.length], `${RACES[s.race][0]} ${s.year}, etapp ${s.stage}: ${s.start} → ${s.finish}`, "8 6")); }
+  if (ON.hyr) { const g = groups.hyr = L.layerGroup().addTo(map); D.HYR.shops.forEach((s, i) => pin(s.lat, s.lon, "#2277b8", "H", s.name, "hyr:" + i).addTo(g)); }
+  if (ON.lopp) { const g = groups.lopp = L.layerGroup().addTo(map); D.MOTION.events.forEach(e => e.lat && pin(e.lat, e.lon, "#6b5579", "M", e.name, "lopp:" + e.id).addTo(g)); }
+  if (ON.flyg) { const g = groups.flyg = L.layerGroup().addTo(map); D.RESA.airports.forEach((a, i) => pin(a.lat, a.lon, "#18262b", "✈", a.name, "flyg:" + i, 30).addTo(g)); }
+  highlight();
+}
+function highlight() {
+  Object.values(groups).forEach(g => g.eachLayer(l => { if (l._k && l.setStyle && l.options.color !== "#fff") l.setStyle({ weight: l._k === hl ? 7.5 : 4.5 }); if (l._k === hl) l.bringToFront(); }));
+}
+
+/* ---- panelen ---- */
+function renderPanel(msg) {
+  const R = RACES[sel.race];
+  const opt = (k, label, sw, sub) => `<label class="opt"><input type="checkbox" data-on="${k}" ${ON[k] ? "checked" : ""}><span class="sw" style="${sw}"></span><span>${label}${sub ? ` <small>${sub}</small>` : ""}</span></label>`;
+  $("#panel").innerHTML = `
+    <div><div class="eyebrow">Bakgrundskarta</div><div class="opts">${Object.entries(BASE).map(([k, b]) => `<label class="opt"><input type="radio" name="base" value="${k}" ${k === baseKey ? "checked" : ""}><span>${b.name} <small>${b.sub}</small></span></label>`).join("")}</div></div>
+    ${baseKey === "google" || !gKey ? `<div class="keybox"><label for="gkey">Google Maps API-nyckel</label><input id="gkey" type="text" inputmode="text" autocomplete="off" placeholder="AIza…" value="${esc(gKey)}"><div class="actions"><button class="btn" id="gSave">Spara nyckel</button>${gKey ? `<select id="gtype" aria-label="Google-karttyp" class="btn">${["roadmap", "terrain", "hybrid"].map(t => `<option value="${t}" ${store.get("gtype", "terrain") === t ? "selected" : ""}>${{ roadmap: "Vägkarta", terrain: "Terräng", hybrid: "Satellit + vägar" }[t]}</option>`).join("")}</select>` : ""}</div><p class="note">Nyckeln sparas bara i den här webbläsaren.</p></div>` : ""}
+    ${msg ? `<p class="note" style="color:var(--tdf);font-weight:600">${esc(msg)}</p>` : ""}
+    <div><div class="eyebrow">Visa</div><div class="opts">
+      ${opt("rundor", "Cykelrundor", "background:#2e7d32", D.RUNDOR.routes.length)}
+      ${opt("etapper", "Proffsetapper", "background:#c4242c")}
+      <div class="sub"><select id="race" aria-label="Lopp">${Object.entries(RACES).map(([k, r]) => `<option value="${k}" ${k === sel.race ? "selected" : ""}>${r[0]}</option>`).join("")}</select>
+        <div class="years">${YEARS[sel.race].map(y => `<button class="yc ${R[1].find(d => d.year === y).stages.length ? "" : "none"}" data-y="${y}" aria-pressed="${sel.years.has(y)}">${y}</button>`).join("")}</div>
+        ${ON.etapper ? `<div class="legend">${[...sel.years].sort((a, b) => b - a).filter(y => YEARS[sel.race].includes(y)).map(y => `<span><i style="background:${YCOL[YEARS[sel.race].indexOf(y) % YCOL.length]}"></i>${y}</span>`).join("")}</div>` : ""}</div>
+      ${opt("platser", "Guidens resmål", "background:#3b5a86;border-radius:50%", D.PLACES.length)}
+      ${opt("hyr", "Cykeluthyrning", "background:#2277b8;border-radius:50%", D.HYR.shops.length)}
+      ${opt("lopp", "Motionslopp", "background:#6b5579;border-radius:50%", D.MOTION.events.filter(e => e.lat).length)}
+      ${opt("flyg", "Flygplatser", "background:#18262b;border-radius:50%", D.RESA.airports.length)}
+    </div></div>
+    <p class="note">Streckade linjer är ungefärliga (dragna mellan kända punkter). Tryck på en linje och välj <b>Följ vägarna</b> så räknas den om längs riktiga vägar med höjdprofil.</p>`;
+}
+$("#layerBtn").onclick = () => { const p = $("#panel"); p.hidden = !p.hidden; $("#layerBtn").classList.toggle("on", !p.hidden); $("#layerBtn").setAttribute("aria-expanded", !p.hidden); if (!p.hidden) { closeSheet(); renderPanel(); } };
+$("#panel").addEventListener("change", e => {
+  const t = e.target;
+  if (t.name === "base") { setBase(t.value); renderPanel(); }
+  if (t.dataset.on) { ON[t.dataset.on] = t.checked; store.set("on", ON); build(); renderPanel(); }
+  if (t.id === "race") { sel.race = t.value; store.set("race", sel.race); ON.etapper = true; store.set("on", ON); build(); renderPanel(); }
+  if (t.id === "gtype") { store.set("gtype", t.value); if (baseKey === "google") { map.removeLayer(baseLayer); baseLayer = null; setBase("google"); } }
+});
+$("#panel").addEventListener("click", e => {
+  const y = e.target.closest("[data-y]"); if (y) { const n = +y.dataset.y; sel.years.has(n) ? sel.years.delete(n) : sel.years.add(n); store.set("years", [...sel.years]); ON.etapper = true; store.set("on", ON); build(); renderPanel(); }
+  if (e.target.id === "gSave") { gKey = $("#gkey").value.trim(); store.set("gkey", gKey); gPromise = null; if (gKey) setBase("google"); renderPanel(); }
+});
+
+/* ---- informationsark ---- */
+function item(key) {
+  const [k, id] = key.split(/:(.+)/);
+  if (k === "runda") { const r = D.RUNDOR.routes.find(x => x.id === id); return r && { k, r, pts: r.waypoints.map(w => [w[0], w[1]]) }; }
+  if (k === "stage") { const s = STAGES.find(x => x.key === id); return s && { k, s, pts: s.pts }; }
+  if (k === "hyr") { const s = D.HYR.shops[+id]; return s && { k, shop: s, pts: [[s.lat, s.lon]] }; }
+  if (k === "lopp") { const e = D.MOTION.events.find(x => x.id === id); return e && { k, ev: e, pts: [[e.lat, e.lon]] }; }
+  if (k === "flyg") { const a = D.RESA.airports[+id]; return a && { k, ap: a, pts: [[a.lat, a.lon]] }; }
+  if (k === "plats") { const p = BY[id]; return p && { k, p, pts: [[p.lat, p.lon]] }; }
+}
+const coord = p => `${p[0].toFixed(4)}° N, ${Math.abs(p[1]).toFixed(4)}° ${p[1] < 0 ? "V" : "Ö"}`;
+const gis = rows => `<table class="gis"><tbody>${rows.filter(r => r[1] != null && r[1] !== "").map(([a, b]) => `<tr><th>${a}</th><td>${b}</td></tr>`).join("")}</tbody></table>`;
+function gmaps(pts) {
+  if (pts.length < 2) return `https://www.google.com/maps/search/?api=1&query=${pts[0][0]},${pts[0][1]}`;
+  const mid = pts.slice(1, -1), n = Math.min(8, mid.length), w = [];
+  for (let i = 0; i < n; i++) w.push(mid[Math.round((i + .5) * mid.length / n - .5)]);
+  return `https://www.google.com/maps/dir/?api=1&origin=${pts[0]}&destination=${pts[pts.length - 1]}${w.length ? "&waypoints=" + encodeURIComponent(w.map(String).join("|")) : ""}&travelmode=bicycling`;
+}
+function profileSVG(c) {
+  if (!c || c.length < 2 || c[0][2] == null) return "";
+  let d = 0; const xs = [0]; for (let i = 1; i < c.length; i++) { d += kmBetween([c[i - 1][1], c[i - 1][0]], [c[i][1], c[i][0]]); xs.push(d); }
+  const zs = c.map(p => p[2]), zmin = Math.min(...zs), zmax = Math.max(...zs), W = 600, H = 120, pad = 18;
+  const X = x => (x / d) * W, Y = z => H - pad - (z - zmin) / Math.max(1, zmax - zmin) * (H - pad * 2);
+  const step = Math.max(1, Math.floor(c.length / 400));
+  let path = `M0,${H} `; for (let i = 0; i < c.length; i += step) path += `L${X(xs[i]).toFixed(1)},${Y(zs[i]).toFixed(1)} `; path += `L${W},${Y(zs[zs.length - 1]).toFixed(1)} L${W},${H} Z`;
+  return `<svg class="prof" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Höjdprofil ${nf(zmin)}–${nf(zmax)} m"><path d="${path}" fill="color-mix(in srgb,var(--accent) 30%,transparent)" stroke="var(--accent)" stroke-width="1.5" vector-effect="non-scaling-stroke"/><text x="4" y="12" font-size="11" fill="var(--muted)">${nf(zmax)} m</text><text x="4" y="${H - 4}" font-size="11" fill="var(--muted)">${nf(zmin)} m</text><text x="${W - 4}" y="${H - 4}" font-size="11" fill="var(--muted)" text-anchor="end">${d.toFixed(0)} km</text></svg>`;
+}
+function routedBlock(key) {
+  const r = routed[key];
+  if (!r) return `<div class="actions"><button class="btn primary" data-route="${key}">Följ vägarna + höjdprofil</button></div><div class="status" id="rStatus"></div>`;
+  return `<div><div class="eyebrow">Längs vägarna (BRouter)</div>${gis([["Längd", (r.len / 1000).toFixed(1).replace(".", ",") + " km"], ["Stigning", nf(r.asc) + " höjdmeter"], ["Högsta punkt", r.c[0][2] != null ? nf(Math.max(...r.c.map(p => p[2]))) + " m" : null]])}${profileSVG(r.c)}
+    <div class="actions" style="margin-top:8px"><button class="btn" data-gpx="${key}">Ladda ner GPX</button></div></div>`;
+}
+function open(key) {
+  const it = item(key); if (!it) return;
+  hl = key; highlight(); $("#panel").hidden = true; $("#layerBtn").classList.remove("on");
+  let kind = "", h = "";
+  if (it.r) { const r = it.r, top = (r.cols || []).reduce((m, c) => (c.alt_m || 0) > (m.alt_m || 0) ? c : m, {});
+    kind = "Cykelrunda";
+    h = `<div><h2 id="sTitle">${esc(r.name)}</h2><div class="sub2">Start i ${esc(r.base)} · ${{ "lätt": "lätt", "medel": "medel", "svår": "svår", "mycket svår": "mycket svår" }[r.difficulty] || ""}</div></div>
+      ${gis([["Längd (guide)", r.km + " km"], ["Höjdmeter (guide)", nf(r.hm) + " m"], ["Högsta pass", top.name ? `${esc(top.name)}, ${nf(top.alt_m)} m` : null], ["Start", coord(r.waypoints[0])], ["Säsong", r.season_sv ? esc(r.season_sv) : null]])}
+      ${routedBlock(key)}
+      <ul class="climbs">${(r.cols || []).map(c => `<li>${esc(c.name)}${c.alt_m ? ` <small>${nf(c.alt_m)} m</small>` : ""}</li>`).join("")}</ul>
+      <p class="prose">${esc(r.text_sv)}</p>${r.tips_sv ? `<p class="prose" style="color:var(--muted)">${esc(r.tips_sv)}</p>` : ""}
+      <div class="actions"><a class="btn" href="${gmaps(it.pts)}" target="_blank" rel="noopener">Öppna i Google Maps</a>${r.link ? `<a class="btn" href="${esc(r.link)}" target="_blank" rel="noopener">Ruttsida</a>` : ""}</div>`; }
+  else if (it.s) { const s = it.s, top = (s.climbs || []).filter(c => c && c.alt_m).reduce((m, c) => c.alt_m > (m.alt_m || 0) ? c : m, {}), w = s.podium && s.podium[0];
+    kind = RACES[s.race][0] + " " + s.year;
+    h = `<div><h2 id="sTitle">Etapp ${esc(s.stage)}: ${esc(s.start)} → ${esc(s.finish)}</h2><div class="sub2">${esc(fmtDate(s.date))}</div></div>
+      ${gis([["Längd", s.distance_km ? String(s.distance_km).replace(".", ",") + " km" : null], ["Högsta punkt", top.name ? `${esc(top.name)}, ${nf(top.alt_m)} m` : null], ["Vinnare", w ? esc(w.rider) + (w.team ? ` <small>(${esc(w.team)})</small>` : "") : null], [RACES[s.race][2] + " efteråt", esc(s.leader_after || s.yellow_after || "")]])}
+      ${routedBlock(key)}
+      <ul class="climbs">${(s.climbs || []).filter(Boolean).map(c => `<li><b>${esc(c.cat || "")}</b> ${esc(c.name)}${c.alt_m ? ` <small>${nf(c.alt_m)} m</small>` : ""}</li>`).join("")}</ul>
+      ${s.summary_sv ? `<p class="prose">${esc(s.summary_sv)}</p>` : ""}
+      <p class="note">Etapplinjen bygger på start, pass och mål – BRouter räknar fram en trolig väg mellan dem, inte nödvändigtvis exakt Tourens väg.</p>`; }
+  else if (it.shop) { const s = it.shop; kind = "Cykeluthyrning";
+    h = `<div><h2 id="sTitle">${esc(s.name)}</h2><div class="sub2">${esc(s.town)}</div></div><p class="prose">${esc(s.bikes_sv)}</p>${gis([["Pris", esc(s.price_sv || "")], ["Service", esc(s.service_sv || "")], ["Nära", esc((s.near || []).join(", "))]])}
+      <div class="actions">${s.url ? `<a class="btn primary" href="${esc(s.url)}" target="_blank" rel="noopener">Webbplats</a>` : ""}<a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + " " + s.town)}" target="_blank" rel="noopener">Hitta dit</a></div>`; }
+  else if (it.ev) { const e = it.ev; kind = "Motionslopp";
+    h = `<div><h2 id="sTitle">${esc(e.name)}</h2><div class="sub2">${esc(e.town)}${e.date_2026 ? " · " + esc(fmtDate(e.date_2026)) : ""}</div></div><p class="prose">${esc(e.highlight_sv)}</p>
+      ${gis((e.distances || []).map(d => [esc(d.name), `${d.km ?? "–"} km${d.hm ? " · " + nf(d.hm) + " hm" : ""}`]))}
+      <p class="prose"><b>Anmälan:</b> ${esc(e.registration_sv)}</p><div class="actions">${e.url ? `<a class="btn primary" href="${esc(e.url)}" target="_blank" rel="noopener">Officiell webbplats</a>` : ""}</div>`; }
+  else if (it.ap) { const a = it.ap; kind = "Flygplats " + a.code;
+    h = `<div><h2 id="sTitle">${esc(a.name)}</h2></div><p class="prose"><b>Från Sverige:</b> ${esc(a.from_sweden_sv)}</p><p class="prose"><b>Vidare:</b> ${esc(a.onward_sv)}</p>${gis((a.drive || []).map(d => ["Bil till " + esc(d.to), `${d.km ?? "–"} km · ${esc(d.time || "")}`]))}`; }
+  else if (it.p) { const p = it.p; kind = "Resmål";
+    h = `${p.photo ? `<img class="photo" src="../img/${esc(p.photo)}-t.jpg" alt="" onerror="this.remove()">` : ""}<div><h2 id="sTitle">${esc(p.name)}</h2><div class="sub2">${esc(p.sub)}</div></div>
+      ${gis([["Höjd", p.col ? nf(p.col.alt) + " m" : null], ["Stigning", p.col && p.col.len ? `${String(p.col.len).replace(".", ",")} km från ${esc(p.col.from)}, ${String(p.col.grad).replace(".", ",")} %` : null], ["Läge", coord([p.lat, p.lon])]])}
+      <div class="actions"><a class="btn primary" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank" rel="noopener">Vägbeskrivning</a></div>`; }
+  $("#sKind").textContent = kind; $("#sBody").innerHTML = h; $("#sheet").hidden = false; $("#sBody").scrollTop = 0;
+  if (it.pts.length > 1) map.fitBounds(L.latLngBounds(routed[key] ? routed[key].c.map(p => [p[1], p[0]]) : it.pts), { paddingTopLeft: [20, 80], paddingBottomRight: innerWidth > 760 ? [430, 20] : [20, innerHeight * .5] });
+  else map.setView(it.pts[0], Math.max(map.getZoom(), 11));
+  try { history.replaceState(null, "", "#" + encodeURIComponent(key)); } catch (e) {}
+}
+function closeSheet() { $("#sheet").hidden = true; hl = null; highlight(); try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} }
+$("#sClose").onclick = closeSheet;
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeSheet(); $("#panel").hidden = true; } });
+map.on("click", () => { if (!$("#panel").hidden) { $("#panel").hidden = true; $("#layerBtn").classList.remove("on"); } });
+
+/* ---- vägföljande linje via BRouter (öppen cykelrouting med höjddata) ---- */
+$("#sBody").addEventListener("click", async e => {
+  const b = e.target.closest("[data-route]");
+  if (b) {
+    const key = b.dataset.route, it = item(key), st = $("#rStatus");
+    b.disabled = true; st.textContent = "Räknar fram vägen …";
+    try {
+      const pts = it.pts.slice(0, 40);
+      const url = `https://brouter.de/brouter?lonlats=${pts.map(p => p[1].toFixed(5) + "," + p[0].toFixed(5)).join("|")}&profile=fastbike&alternativeidx=0&format=geojson`;
+      const res = await fetch(url); if (!res.ok) throw new Error("http " + res.status);
+      const gj = await res.json(); const f = gj.features[0];
+      const c = f.geometry.coordinates.map(p => [+p[0].toFixed(5), +p[1].toFixed(5), p[2] != null ? Math.round(p[2]) : null]);
+      routed[key] = { c, len: +f.properties["track-length"], asc: +f.properties["filtered ascend"] };
+      store.set("routed", routed); build(); open(key);
+    } catch (err) { b.disabled = false; st.textContent = "Det gick inte att räkna fram vägen just nu (" + err.message + "). Försök igen senare."; }
+  }
+  const g = e.target.closest("[data-gpx]");
+  if (g) { const key = g.dataset.gpx, r = routed[key], it = item(key); const name = it.r ? it.r.name : `${RACES[it.s.race][0]} ${it.s.year} etapp ${it.s.stage}`;
+    const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Reseguide Pyrenéerna" xmlns="http://www.topografix.com/GPX/1/1"><trk><name>${esc(name)}</name><trkseg>${r.c.map(p => `<trkpt lat="${p[1]}" lon="${p[0]}">${p[2] != null ? `<ele>${p[2]}</ele>` : ""}</trkpt>`).join("")}</trkseg></trk></gpx>`;
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([gpx], { type: "application/gpx+xml" })); a.download = name.replace(/[^\wåäöÅÄÖ\- ]+/g, "").trim().replace(/\s+/g, "-") + ".gpx"; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); }
+});
+
+/* ---- min position ---- */
+let meMarker = null;
+$("#locBtn").onclick = () => {
+  if (!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(p => {
+    const ll = [p.coords.latitude, p.coords.longitude];
+    if (!meMarker) meMarker = L.marker(ll, { icon: L.divIcon({ className: "", html: '<div class="me"></div>', iconSize: [18, 18], iconAnchor: [9, 9] }), interactive: false }).addTo(map); else meMarker.setLatLng(ll);
+    map.setView(ll, Math.max(map.getZoom(), 12));
+  }, () => alertLike("Kunde inte hämta position – tillåt platstjänster för webbläsaren."), { enableHighAccuracy: true, timeout: 10000 });
+};
+function alertLike(t) { $("#sKind").textContent = "Position"; $("#sBody").innerHTML = `<p class="prose">${esc(t)}</p>`; $("#sheet").hidden = false; }
+
+/* ---- start ---- */
+setBase(baseKey === "google" && !gKey ? "cyclosm" : baseKey);
+build();
+const h0 = decodeURIComponent((location.hash || "").slice(1)); if (h0 && item(h0)) setTimeout(() => open(h0), 300);
+})();
+</script>
+</body>
+</html>
