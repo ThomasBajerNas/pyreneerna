@@ -1312,7 +1312,8 @@ const map = (function () {
   lm.on("zoomend", () => el.classList.toggle("labels", lm.getZoom() >= 10));
   let inited = false;
   function fitAll() { if (lm.getSize().x < 640) lm.setView([42.85, 0.75], 7); else lm.fitBounds([[42.45, -1.75], [43.4, 3.1]], { padding: [10, 10] }); }
-  function resize() { lm.invalidateSize(); if (!inited && lm.getSize().x > 50) { inited = true; fitAll(); } }
+  let drawn = false;
+  function resize() { lm.invalidateSize(); if (!inited && lm.getSize().x > 50) { inited = true; fitAll(); } if (!drawn) { drawn = true; render(); } }
   function fit(latlons) { if (!latlons || !latlons.length) return; const go = () => { lm.invalidateSize(); inited = true; lm.fitBounds(L.latLngBounds(latlons.map(p => [p[0], p[1]])), { padding: [40, 40], maxZoom: 13 }); }; go(); setTimeout(go, 120); }
   function focus(p) { lm.setView([p.lat, p.lon], Math.max(lm.getZoom(), 11)); }
   $("#zfit").innerHTML = ICON.fit;
