@@ -1,6 +1,7 @@
-# Pyrenéerna – reseguide och karta
+# Pyrenéerna – reseguide
 
-Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026).
+Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutter, cykling (Tour de France, Vuelta, Route d'Occitanie, motionscykling) och Min resa.
 
-- `karta/` – interaktiv karta: cykelrundor, proffsetapper (Tour de France, Vuelta, Route d'Occitanie), resmål, cykeluthyrning, motionslopp och flygplatser. Bakgrundskartor från CyclOSM, OpenTopoMap, OpenStreetMap och Esri. Vägföljande linjer och höjdprofiler räknas fram med BRouter.
-- Kartdata © OpenStreetMap-bidragsgivare.
+- Webbplats: https://thomasbajernas.github.io/pyreneerna/
+- Karta: Leaflet med CyclOSM, OpenTopoMap, OpenStreetMap och Esri som bakgrund. Kartdata © OpenStreetMap-bidragsgivare.
+- Vägföljande linjer och höjdprofiler är beräknade i förväg med BRouter (brouter.de) och ligger i `index.html` som kodade polylinjer.
