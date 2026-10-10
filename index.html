@@ -482,14 +482,14 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .pl-saved .load{flex:1;text-align:left;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;justify-content:flex-start}
 /* ruttförslag */
 .alts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.alt{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;display:grid;gap:8px;align-content:start;text-align:left;cursor:pointer;color:var(--ink)}
-.alt[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
-.alt .rec{display:inline-block}
-.alt h4{font-family:var(--f-display);font-size:23px;font-weight:600;margin:0;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
-.alt h4 small{font-family:var(--f-ui);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-.alt p{margin:0;font-size:14px;color:var(--muted);line-height:1.45}
-.alt .kv{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13.5px;font-variant-numeric:tabular-nums}
-.alt .kv b{font-weight:700}
+.palt{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;display:grid;gap:8px;align-content:start;text-align:left;cursor:pointer;color:var(--ink)}
+.palt[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.palt .rec{display:inline-block}
+.palt h4{font-family:var(--f-display);font-size:23px;font-weight:600;margin:0;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.palt h4 small{font-family:var(--f-ui);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.palt p{margin:0;font-size:14px;color:var(--muted);line-height:1.45}
+.palt .kv{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13.5px;font-variant-numeric:tabular-nums}
+.palt .kv b{font-weight:700}
 .days{display:grid;gap:10px}
 .day{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:start;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px 14px}
 .day .dn{font-family:var(--f-display);font-weight:700;font-size:22px;line-height:1}
@@ -2367,13 +2367,13 @@ function dayCard(d) {
     <div class="dk">${d.km ? `<b>${Math.round(d.km / 5) * 5} km</b>ca ${hrs(d.km)} bil` : "ingen bilresa"}</div></div>`;
 }
 function altCard(k, a, P) {
-  if (!a) return `<div class="alt" aria-disabled="true" style="cursor:default;opacity:.6"><h4>${MODES[k].label}</h4><p>Passar inte den här resan – lägg till fler resmål som ligger längre isär.</p></div>`;
+  if (!a) return `<div class="palt" aria-disabled="true" style="cursor:default;opacity:.6"><h4>${MODES[k].label}</h4><p>Passar inte den här resan – lägg till fler resmål som ligger längre isär.</p></div>`;
   const why = {
     rund: () => `Bil från ${a.inAp.code} och tillbaka. Enklast att boka, ingen avgift för att lämna bilen på annan ort.`,
     genom: () => `Flyg in till ${a.inAp.code}, hem från ${a.outAp.code}. Mindre bilkörning, men räkna med avgift för enkelriktad hyrbil${AP_ES.has(a.inAp.code) !== AP_ES.has(a.outAp.code) ? " – särskilt mellan Spanien och Frankrike" : ""}.`,
     bas: () => `Bo i ${short(a.base)} hela tiden och gör dagsutflykter. Bara ett boende att boka${a.spread > 80 ? ", men långt till de yttersta resmålen" : ""}.`,
   }[k]();
-  return `<button class="alt" data-pmode="${k}" aria-pressed="${P.mode === k}">
+  return `<button class="palt" data-pmode="${k}" aria-pressed="${P.mode === k}">
     <h4>${MODES[k].label}${P.rec === k ? "<small>Rekommenderas</small>" : ""}</h4><p>${esc(why)}</p>
     <div class="kv"><span>Flyg <b>${a.inAp.code}${a.outAp !== a.inAp ? " → " + a.outAp.code : " t/r"}</b></span><span>Bil <b>ca ${Math.round(a.totalKm / 10) * 10} km</b></span><span><b>${a.days.length}</b> dagar</span><span><b>${a.bases.length}</b> ${a.bases.length === 1 ? "boende" : "boenden"}</span></div></button>`;
 }
