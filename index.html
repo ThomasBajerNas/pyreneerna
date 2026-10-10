@@ -518,6 +518,8 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
   .day .dk b{display:inline;margin-right:6px}
 }
 @media print{.bottomnav,.top{display:none}}
+.pl-ticket .est,.pl-price .est{display:inline-block;font-size:11px;font-weight:700;color:#8a5a00;background:#fff3d6;border-radius:4px;padding:0 5px;vertical-align:1px}
+.pl-hint{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
 .linkish{border:0;background:none;padding:0;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
 </style>
 
@@ -2457,7 +2459,7 @@ function travellers() {
 }
 const yymmdd = d => d.slice(2).replace(/-/g, "");
 const LK = (name, href, sub, pre) => `<a class="pl-link" href="${esc(href)}" target="_blank" rel="noopener"><b>${esc(name)}</b><span>${pre ? '<span class="pre">Förifylld sökning</span> · ' : ""}${esc(sub)}</span></a>`;
-const priceIn = (k, label, step = 50, unit = "") => `<label>${label}<input type="number" min="0" step="${step}" inputmode="numeric" data-pp="${k}" value="${plan.p[k] != null ? esc(plan.p[k]) : ""}" placeholder="0${unit}"></label>`;
+const priceIn = (k, label, step = 50, unit = "") => `<label><span>${label}${(plan.est || []).includes(k) ? ' <span class="est">uppskattat</span>' : ""}</span><input type="number" min="0" step="${step}" inputmode="numeric" data-pp="${k}" value="${plan.p[k] != null ? esc(plan.p[k]) : ""}" placeholder="0${unit}"></label>`;
 function stepHead(no, title, sub) { return `<div class="pl-head"><span class="no">STEG ${no}</span><h3>${title}</h3>${sub ? `<span class="sub">${sub}</span>` : ""}</div>`; }
 
 function flightHTML(P, T) {
@@ -2579,11 +2581,14 @@ function renderTicket() {
       ${B.on ? `<div class="ln"><span>${B.how === "hyr" ? "Cykelhyra" : "Cykel på flyget"}<small>${B.how === "hyr" ? `${B.n} st × ${C.bdays} dagar × ${B.eurDay} €${shop ? " · " + esc(shop.name) : ""}` : `${B.n} st × 2 sträckor × ${B.fee} €`}</small></span><span class="v">${v(C.bike)}</span></div>` : ""}
       <div class="ln"><span>Mat och övrigt<small>${val("food") ? `mat ${C.days} dagar` : "valfritt"}</small></span><span class="v">${v(C.other)}</span></div>
       <div class="perf"></div>
-      <div class="tot"><span>Totalt ca</span><span class="v">${fmtKr(C.total)}</span></div>
+      <div class="tot"><span>Totalt ca${(plan.est || []).length ? ' <span class="est">uppskattat</span>' : ""}</span><span class="v">${fmtKr(C.total)}</span></div>
       <div class="pp"><span>per person</span><span>${C.total ? fmtKr(C.total / T.pax) : "–"}</span></div>
     </div>
     <div class="tf">
-      <button class="btn primary" data-psave>Spara resan</button>
+      <button class="btn primary" data-pest>Uppskatta priser</button>
+      <p class="pl-hint">Fyller i grova, typiska prisnivåer utifrån säsong, flygplatser, antal resenärer, nätter och körsträcka. Inga live-priser – kontrollera alltid via länkarna och skriv in de riktiga priserna.</p>
+      ${(plan.est || []).length ? `<p class="pl-hint"><span class="est">uppskattat</span> = grov nivå som inte ändrats ännu</p>` : ""}
+      <button class="btn" data-psave>Spara resan</button>
       <button class="btn only-standalone" data-pprint>${ICON.print}Skriv ut resplan</button>
       <div class="status" id="plStatus" role="status"></div>
       <div class="pl-saved" id="plSaved"></div>
@@ -2621,7 +2626,7 @@ $("#plForm").addEventListener("change", e => {
   plan[m] = e.target.value; if (m === "d1" && plan.d2 <= plan.d1) plan.d2 = addDays(plan.d1, 7); savePlan(); renderBoka();
 });
 document.addEventListener("input", e => {
-  const p = e.target.closest("[data-pp]"); if (p) { plan.p[p.dataset.pp] = p.value; savePlan(); renderTicket(); return; }
+  const p = e.target.closest("[data-pp]"); if (p) { plan.p[p.dataset.pp] = p.value; if (plan.est && plan.est.includes(p.dataset.pp)) { plan.est = plan.est.filter(k => k !== p.dataset.pp); const t = p.parentElement.querySelector(".est"); if (t) t.remove(); } savePlan(); renderTicket(); return; }
   if (e.target.matches("[data-peur]")) { const x = parseFloat(e.target.value); if (x > 0) { plan.eur = x; savePlan(); renderTicket(); } return; }
   const b = e.target.closest("[data-pbike]"); if (b && b.type !== "checkbox" && b.tagName !== "SELECT") { const k = b.dataset.pbike; plan.bike[k] = Math.max(0, parseFloat(b.value) || 0); savePlan(); renderTicket(); }
 });
@@ -2661,6 +2666,47 @@ function renderSaved() {
   const el = $("#plSaved"); if (!el) return; const list = store.get("plans", []);
   el.innerHTML = list.length ? `<span class="eyebrow">Sparade resor</span>` + list.map((s, i) => `<div><button class="btn load" data-pload="${i}">${esc(s.label)}</button><button class="icon-btn" data-pdel="${i}" aria-label="Ta bort ${esc(s.label)}">${ICON.close}</button></div>`).join("") : "";
 }
+
+
+/* ----- grov prisuppskattning (inbyggda prisnivåer, inga live-priser) ----- */
+const EST = {
+  // flyg t/r per person från Skandinavien, kr: [högsäsong jun–aug, övrig tid]
+  flight: { BCN: [2400, 1700], GRO: [2500, 1900], TLS: [3600, 2900], BIQ: [3200, 2600], PGF: [3400, 2800], BIO: [3200, 2600], CCF: [3800, 3100], PUF: [3900, 3200], LDE: [3900, 3200], ZAZ: [3800, 3100], LEU: [4500, 3800] },
+  bagPP: 500,          // incheckat bagage t/r per person
+  homeParkDay: 120,    // långtidsparkering vid flygplatsen hemma per dygn
+  hotel: [1350, 1050], // per natt och rum (2 pers), 2–3-stjärnigt
+  airbnb: [1500, 1200],// per natt för hela boendet, upp till 4 pers
+  taxEur: 1.5,         // turistskatt per vuxen och natt (€)
+  car: [600, 420],     // hyrbil per dag inkl. grundförsäkring
+  oneWay: [1500, 4000],// avgift för att lämna bilen på annan ort: samma land / annat land
+  tollEur: 25,         // vägtullar för hela resan (€)
+  pt: 280,             // tåg/buss enkel resa per person från flygplatsen
+  local: 600,          // lokala resor på plats totalt
+  food: 450,           // mat per person och dag
+};
+function estimatePrices() {
+  const P = computePlan(), T = travellers(), n = Math.max(1, nightsAvail());
+  const m = +String(plan.d1).slice(5, 7), hi = m >= 6 && m <= 8 ? 0 : 1;
+  const fl = c => (EST.flight[c] || [3800, 3100])[hi];
+  const open = P.inAp !== P.outAp;
+  const flight = open ? Math.round((fl(P.inAp.code) + fl(P.outAp.code)) / 2 / 50) * 50 + 400 : fl(P.inAp.code);
+  const kids = T.ages.length, extraPpl = Math.max(0, T.pax - 4);
+  const e = {
+    flight, bags: EST.bagPP * T.pax, homePark: EST.homeParkDay * (n + 1),
+    night: plan.stay === "hotel" ? EST.hotel[hi] : EST.airbnb[hi] + extraPpl * 250,
+    stayFees: Math.round(EST.taxEur * T.adults * n * plan.eur / 10) * 10 + (plan.stay === "airbnb" ? 600 : 0),
+    food: EST.food, carDay: EST.car[hi],
+    fuel: Math.round((P.totalKm * 0.065 * 1.9 + EST.tollEur) * plan.eur / 10) * 10 + (open ? EST.oneWay[AP_ES.has(P.inAp.code) !== AP_ES.has(P.outAp.code) ? 1 : 0] : 0),
+    pt: EST.pt, local: EST.local,
+  };
+  if (kids) e.food = Math.round((EST.food * T.adults + EST.food * 0.6 * kids) / T.pax / 10) * 10;
+  plan.p = Object.assign({}, plan.p, Object.fromEntries(Object.entries(e).map(([k, v]) => [k, String(Math.round(v))])));
+  plan.est = Object.keys(e);
+  if (plan.bike.on && plan.bike.how === "hyr" && !plan.bike.eurDay) plan.bike.eurDay = BIKE_TYPES[plan.bike.type].eur;
+  savePlan(); renderBoka();
+  const ps = $("#plStatus"); if (ps) ps.textContent = `Grova prisnivåer ifyllda för ${hi ? "lågsäsong" : "högsäsong (juni–augusti)"}. Ersätt med riktiga priser från länkarna.`;
+}
+document.addEventListener("click", e => { if (e.target.closest("[data-pest]")) estimatePrices(); });
 
 /* ----- resplanen i resedokumentet ----- */
 function planDocument() {
