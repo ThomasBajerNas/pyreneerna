@@ -418,6 +418,107 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:4px;vertical-align:middle}
 @media (max-width:820px){.layer-panel{left:12px;right:12px;width:auto;top:58px;max-height:60%}.wps{columns:1}}
 .t27-cols{align-items:start}
+/* ---------- Min resa: reseplanerare ---------- */
+.pl-lbl{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.pl-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.pl-row label,.pl-price label{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--muted)}
+.pl-row label small{font-weight:500}
+.pl-row input,.pl-row select,.pl-price input,.pl-price select,.pl-inline select{width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface-2);color:var(--ink)}
+.pl-price{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.pl-price input{background:var(--surface);font-variant-numeric:tabular-nums}
+.pl-calc{font-size:13px;color:var(--muted);align-self:end;margin:0}
+.pl-board{background:var(--ink);color:var(--surface);border-radius:var(--r);padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.pl-board .lg{display:grid;gap:1px;min-width:0}
+.pl-board .cd3{font-family:var(--f-display);font-weight:700;font-size:24px;letter-spacing:.04em;color:#f6c445;line-height:1}
+.pl-board .nm{font-size:12px;opacity:.75}
+.pl-board .ar{opacity:.5;font-size:13px}
+.pl-board .bs{font-family:var(--f-display);font-size:19px;font-weight:600;line-height:1.1}
+.pl-board .dt{margin-left:auto;text-align:right;font-size:13px;font-variant-numeric:tabular-nums;opacity:.9}
+.pl-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
+.pl-stack{display:grid;gap:18px;min-width:0}
+.pl-step{gap:14px}
+.pl-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.pl-head .no{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--accent)}
+.pl-head h3{font-size:24px}
+.pl-head .sub{margin-left:auto;font-size:13px;color:var(--muted)}
+.pl-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.pl-link{display:grid;gap:2px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 11px;background:var(--surface-2)}
+.pl-link:hover{border-color:var(--accent)}
+.pl-link b{display:flex;justify-content:space-between;gap:6px;font-size:14.5px}
+.pl-link b::after{content:"↗";color:var(--muted);font-weight:400}
+.pl-link span{font-size:12px;color:var(--muted)}
+.pl-link .pre{color:var(--accent);font-weight:600}
+.pl-group{display:grid;gap:8px}
+.pl-group+.pl-group{border-top:1px dashed var(--line);padding-top:12px}
+.pl-gh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-weight:600}
+.pl-tag{font-family:var(--f-display);font-weight:700;background:var(--ink);color:#f6c445;border-radius:5px;padding:0 7px;font-size:15px}
+.pl-note{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;margin:0}
+.pl-note.warn{border-left-color:var(--c-tdf);color:var(--ink)}
+.pl-inline{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:14px}
+.pl-inline label{display:flex;align-items:center;gap:6px;font-weight:600}
+.pl-inline select{width:auto}
+.pl-switch{display:flex;align-items:center;gap:10px;font-weight:600;cursor:pointer}
+.pl-switch input{width:20px;height:20px;accent-color:var(--accent)}
+.pl-shops{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.pl-shop{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface-2);display:grid;gap:6px;align-content:start}
+.pl-shop.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.pl-shop p{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.pl-shop small{color:var(--muted)}
+.pl-shop .st-foot .btn{padding:5px 10px;font-size:13px}
+.pl-ticket{position:sticky;top:16px;padding:0;gap:0;overflow:hidden}
+.pl-ticket .th{background:var(--ink);color:var(--surface);padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.pl-ticket .th h3{font-size:22px;color:inherit}
+.pl-ticket .tb{padding:12px 16px;display:grid;gap:6px}
+.pl-ticket .ln{display:flex;justify-content:space-between;gap:10px;font-size:14.5px}
+.pl-ticket .ln small{display:block;color:var(--muted);font-size:12px}
+.pl-ticket .ln .v{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pl-ticket .perf{border-top:2px dashed var(--line);margin:6px 0}
+.pl-ticket .tot{display:flex;justify-content:space-between;align-items:baseline}
+.pl-ticket .tot .v{font-family:var(--f-display);font-size:34px;font-weight:700;font-variant-numeric:tabular-nums}
+.pl-ticket .pp{display:flex;justify-content:space-between;color:var(--muted);font-size:14px}
+.pl-ticket .tf{padding:12px 16px 16px;border-top:1px solid var(--line);background:var(--surface-2);display:grid;gap:8px}
+.pl-saved{display:grid;gap:6px}
+.pl-saved div{display:flex;gap:6px}
+.pl-saved .load{flex:1;text-align:left;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;justify-content:flex-start}
+/* ruttförslag */
+.alts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.alt{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;display:grid;gap:8px;align-content:start;text-align:left;cursor:pointer;color:var(--ink)}
+.alt[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.alt .rec{display:inline-block}
+.alt h4{font-family:var(--f-display);font-size:23px;font-weight:600;margin:0;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.alt h4 small{font-family:var(--f-ui);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.alt p{margin:0;font-size:14px;color:var(--muted);line-height:1.45}
+.alt .kv{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13.5px;font-variant-numeric:tabular-nums}
+.alt .kv b{font-weight:700}
+.days{display:grid;gap:10px}
+.day{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:start;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px 14px}
+.day .dn{font-family:var(--f-display);font-weight:700;font-size:22px;line-height:1}
+.day .dn small{display:block;font-family:var(--f-ui);font-size:12px;font-weight:500;color:var(--muted);margin-top:3px}
+.day .dm{display:grid;gap:4px;min-width:0}
+.day .dm .dstops{font-size:14.5px}
+.day .sleep{font-size:13px;color:var(--muted)}
+.day .sleep b{color:var(--ink)}
+.day .dk{text-align:right;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.day .dk b{display:block;font-size:16px;color:var(--ink)}
+.day.free{background:var(--surface-2);border-style:dashed}
+.addlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.addit{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px}
+.addit>div{min-width:0}
+.addit b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.addit small{display:block;color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.addit .btn{padding:5px 10px;font-size:13px}
+.addit button.nm{border:0;background:none;padding:0;text-align:left;cursor:pointer;color:inherit;font:inherit;min-width:0}
+@media (max-width:820px){
+  .pl-grid{grid-template-columns:1fr}
+  .pl-ticket{position:static}
+  .pl-board .dt{margin-left:0;text-align:left;width:100%}
+  .day{grid-template-columns:62px minmax(0,1fr)}
+  .day .dn{font-size:19px;white-space:nowrap}
+  .day .dk{grid-column:2;text-align:left}
+  .day .dk b{display:inline;margin-right:6px}
+}
+@media print{.bottomnav,.top{display:none}}
+.linkish{border:0;background:none;padding:0;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
 </style>
 
 <div class="app">
@@ -540,24 +641,64 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
     <section class="view" id="v-minresa" hidden aria-label="Min resa">
       <div class="page">
         <div class="page-head">
-          <span class="eyebrow">Planera och skriv ut</span>
+          <span class="eyebrow">Planera, boka och skriv ut</span>
           <h2>Min resa</h2>
-          <p id="tripHint">Spara resmål, ändra ordning och skriv egna anteckningar. Listan sparas i den här webbläsaren. Från början ligger fem av favoriterna från 2014 här som exempel.</p>
+          <p id="tripHint">Spara resmål, ändra ordning och skriv egna anteckningar. Under Ruttförslag räknas en dagsplan fram med förslag på flygplatser och upplägg, och under Boka &amp; kalkyl finns färdiga sökningar för flyg, boende, hyrbil och cykelhyra med en löpande kalkyl. Allt sparas i den här webbläsaren. Från början ligger fem av favoriterna från 2014 här som exempel.</p>
         </div>
-        <div class="trip">
+        <div class="seg mode" role="group" aria-label="Del av Min resa">
+          <button data-ptab="resmal" aria-pressed="true">1 · Resmål</button>
+          <button data-ptab="rutt" aria-pressed="false">2 · Ruttförslag</button>
+          <button data-ptab="boka" aria-pressed="false">3 · Boka &amp; kalkyl</button>
+        </div>
+
+        <!-- 1 RESMÅL -->
+        <div class="trip" id="pt-resmal">
           <div class="trip-list" id="tripList"></div>
           <aside class="panel">
             <h3>Resedokument</h3>
             <div id="tripStats"></div>
-            <button class="btn primary" id="tripMap">Visa resan på kartan</button>
+            <button class="btn primary" data-ptab="rutt">Se ruttförslag</button>
+            <button class="btn" id="tripMap">Visa resan på kartan</button>
             <button class="btn needs-dl" id="dlTrip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Ladda ner min resplan</button>
             <button class="btn needs-dl" id="dlGuide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Ladda ner hela guiden (PDF)</button>
             <button class="btn only-standalone" id="printTrip">Skriv ut min resplan</button>
             <button class="btn only-standalone" id="printGuide">Öppna guiden som PDF</button>
-            <p>Resplanen sparas som en webbsida med alla dina anteckningar. Öppna den och skriv ut, eller spara som PDF. Hela guiden är en färdig PDF i A4 med karta och alla resmål.</p>
+            <p>Resplanen innehåller dina resmål och anteckningar, dagsplanen från ruttförslaget och kalkylen. Öppna den och skriv ut, eller spara som PDF.</p>
             <div class="status" id="dlStatus" role="status"></div>
             <button class="btn" id="tripClear">Töm listan</button>
           </aside>
+        </div>
+
+        <!-- 2 RUTTFÖRSLAG -->
+        <div id="pt-rutt" hidden style="display:grid;gap:24px"></div>
+
+        <!-- 3 BOKA & KALKYL -->
+        <div id="pt-boka" hidden style="display:grid;gap:18px">
+          <div class="pl-board" id="plBoard" aria-label="Resväg"></div>
+          <div class="pl-grid">
+            <div class="pl-stack">
+              <form class="panel" id="plForm" autocomplete="off">
+                <h3>Resenärer och datum</h3>
+                <div>
+                  <span class="pl-lbl">Flyg från (jämför gärna flera)</span>
+                  <div class="filters" id="plOrigins"></div>
+                </div>
+                <div class="pl-row">
+                  <label>Utresa<input type="date" id="plD1"></label>
+                  <label>Hemresa<input type="date" id="plD2"></label>
+                  <label>Vuxna<input type="number" id="plAdults" min="1" max="12"></label>
+                  <label>Barnens åldrar <small>t.ex. 8, 12</small><input id="plAges" placeholder="tomt = inga barn"></label>
+                  <label>Hotellrum<input type="number" id="plRooms" min="1" max="6"></label>
+                </div>
+              </form>
+              <section class="panel pl-step" id="pl-flyg"></section>
+              <section class="panel pl-step" id="pl-bo"></section>
+              <section class="panel pl-step" id="pl-tr"></section>
+              <section class="panel pl-step" id="pl-bike"></section>
+              <section class="panel pl-step" id="pl-ovr"></section>
+            </div>
+            <aside class="panel pl-ticket" aria-label="Kostnadskalkyl" id="plTicket"></aside>
+          </div>
         </div>
       </div>
     </section>
@@ -1206,7 +1347,7 @@ function show(view, opts = {}) {
   if (view === "resmal") renderCards();
   if (view === "rutter") renderRoutes();
   if (view === "touren") renderCycling();
-  if (view === "minresa") renderTrip();
+  if (view === "minresa") renderMinResa();
   if (!opts.noHash) { try { history.replaceState(null, "", "#" + view); } catch (e) {} }
   store.set("view", view);
 }
@@ -1706,10 +1847,10 @@ function renderHyr() {
   const groups = {};
   HYR.shops.forEach(s => (groups[s.area] = groups[s.area] || []).push(s));
   const order = Object.keys(groups).sort((a, b) => groups[a][0].lon - groups[b][0].lon);
-  return `<p class="outlook">${esc(HYR.tips_sv)}</p>${selBtn("hyr", "Visa alla uthyrare på kartan")}
+  return `<p class="outlook">${esc(HYR.tips_sv)}</p><div class="actions">${selBtn("hyr", "Visa alla uthyrare på kartan")}<button class="btn" data-goto-bike>${ICON.bag}Planera cykelhyra i Min resa</button></div>
     <div class="stages">${order.map(a => `<article class="stage"><div class="st-bd"><h4>${esc(a)}</h4>${groups[a].map(s => `<div class="shop"><b>${esc(s.name)}</b> <small>${esc(s.town)}</small>
       <p>${esc(s.bikes_sv)}</p>${s.price_sv ? `<p><b>Pris:</b> ${esc(s.price_sv)}</p>` : ""}${s.service_sv ? `<p>${esc(s.service_sv)}</p>` : ""}
-      <div class="st-foot">${s.url ? `<a class="btn" href="${esc(s.url)}" target="_blank" rel="noopener">Webbplats</a>` : ""}<button class="btn" data-ov-show="hyr:${HYR.shops.indexOf(s)}">${ICON.map}Karta</button></div></div>`).join("")}</div></article>`).join("")}</div>
+      <div class="st-foot">${s.url ? `<a class="btn" href="${esc(s.url)}" target="_blank" rel="noopener">Webbplats</a>` : ""}<button class="btn" data-ov-show="hyr:${HYR.shops.indexOf(s)}">${ICON.map}Karta</button><button class="btn" data-pick-bike="${HYR.shops.indexOf(s)}">${ICON.bag}Räkna in i Min resa</button></div></div>`).join("")}</div></article>`).join("")}</div>
     <h4 class="mh">Utkörning, guidade turer och nätverk</h4>
     <div class="rumours">${HYR.delivery_and_tours.concat(HYR.networks).map(d => `<article class="rumour" style="--rc:var(--accent)">${d.type ? `<span class="rel">${esc(d.type)}</span>` : `<span class="rel">Nätverk</span>`}<h5>${esc(d.name)}</h5>${d.area ? `<small>${esc(d.area)}</small>` : ""}<p>${esc(d.info_sv)}</p><small>${linkA(d.url, "Webbplats")}</small></article>`).join("")}</div>
     <p class="tour-src">Kontrollerat ${esc(fmtDay(HYR.checked))}. Priser och öppettider ändras – boka direkt hos uthyraren, gärna flera månader i förväg inför juli.</p>`;
@@ -1967,8 +2108,9 @@ function tripDocument() {
 section{border-bottom:1px solid #ccd5d2;padding:12px 0;break-inside:avoid}.h{display:flex;gap:12px;align-items:baseline}.n{font:700 26px Arial,sans-serif;color:#0d6b6e;min-width:28px}
 h2{font:600 22px/1.15 "Arial Narrow",Arial,sans-serif;margin:0}.sub{margin:2px 0 0;color:#56666b;font-style:italic}.t14{background:#fff7d6;padding:6px 10px;border-radius:3px}.mine{border-left:3px solid #0d6b6e;padding-left:10px}
 .meta{font:12px Arial,sans-serif;color:#56666b}a{color:#0d6b6e}button{font:600 14px Arial,sans-serif;padding:8px 14px;border-radius:6px;border:1px solid #0d6b6e;background:#0d6b6e;color:#fff;cursor:pointer}
+table.plan{width:100%;border-collapse:collapse;font:14px Arial,sans-serif;margin-top:6px}table.plan td{border-bottom:1px solid #ccd5d2;padding:5px 6px;vertical-align:top}table.plan small{color:#56666b}
 @media print{button{display:none}body{padding:0}a{color:inherit;text-decoration:none}}</style></head><body>
-<div class="top"><div><h1>Min resa – Pyrenéerna</h1><p>${items.length} resmål · utskriven ${d} · ur Thomas Bajers reseguide (2014, uppdaterad 2026)</p></div><button onclick="window.print()">Skriv ut</button></div>${body}</body></html>`;
+<div class="top"><div><h1>Min resa – Pyrenéerna</h1><p>${items.length} resmål · utskriven ${d} · ur Thomas Bajers reseguide (2014, uppdaterad 2026)</p></div><button onclick="window.print()">Skriv ut</button></div>${planDocument()}${body}</body></html>`;
 }
 let downloads = null;
 async function save(btn, filename, getData) {
@@ -1987,7 +2129,551 @@ if (window.claude && window.claude.use) {
   window.claude.use("downloads").then(d => { downloads = d; if (!d) { document.querySelectorAll(".needs-dl").forEach(b => b.hidden = true); if (framed) $("#dlStatus").textContent = "Nedladdning är inte tillgänglig i den här vyn."; } });
 } else document.querySelectorAll(".needs-dl").forEach(b => b.hidden = true);
 
-if (store.get("trip", null)) { const th = $("#tripHint"); th.textContent = "Spara resmål, ändra ordning och skriv egna anteckningar. Listan sparas i den här webbläsaren."; }
+if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = "Spara resmål, ändra ordning och skriv egna anteckningar. Under Ruttförslag räknas en dagsplan fram med förslag på flygplatser och upplägg, och under Boka &amp; kalkyl finns färdiga sökningar för flyg, boende, hyrbil och cykelhyra med en löpande kalkyl. Allt sparas i den här webbläsaren."; }
+/* ---------- Min resa: reseplanerare (ruttförslag, resealternativ, bokning och kalkyl) ---------- */
+const AP = RESA.airports;
+const APC = Object.fromEntries(AP.map(a => [a.code, a]));
+/* Grov vikt för hur lätt det är att flyga dit från Skandinavien (i km-ekvivalenter). Stora flygplatser med många förbindelser väger lätt. */
+const AP_ACCESS = { TLS: 0, BCN: 0, BIQ: 60, GRO: 90, BIO: 90, PGF: 150, CCF: 200, PUF: 200, LDE: 200, ZAZ: 220, LEU: 260 };
+const AP_ES = new Set(["BCN", "GRO", "ZAZ", "BIO", "LEU"]);
+const ORIGINS_SE = [["ARN", "Stockholm Arlanda"], ["GOT", "Göteborg Landvetter"], ["CPH", "Köpenhamn Kastrup"], ["OSL", "Oslo Gardermoen"]];
+const PACE = {
+  lugn: { label: "Lugnt", km: 130, stops: 2, txt: "högst ca 130 km bil och två resmål per dag" },
+  lagom: { label: "Lagom", km: 210, stops: 3, txt: "högst ca 210 km bil och tre resmål per dag" },
+  mycket: { label: "Mycket på kort tid", km: 320, stops: 4, txt: "upp till ca 320 km bil och fyra resmål per dag" },
+};
+const MODES = {
+  rund: { label: "Rundresa", sub: "Flyg in och hem från samma flygplats" },
+  genom: { label: "Genomresa", sub: "Flyg in i ena änden, hem från den andra" },
+  bas: { label: "Basläger", sub: "Ett boende, dagsutflykter till resmålen" },
+};
+const ROAD = 1.35;   // vägavstånd ≈ fågelvägen × 1,35 i bergen
+const SPEED = 55;    // km/h i snitt på bergsvägar
+const BIKE_TYPES = {  // nivåer ur cykeluthyrningsfakta (HYR.tips_sv)
+  road: { label: "Landsvägscykel i kolfiber", eur: 52, range: "40–65 €/dag" },
+  top: { label: "Toppmodell (Di2, wattmätare)", eur: 100, range: "80–120 €/dag" },
+  ebike: { label: "El-landsvägscykel", eur: 60, range: "55–65 €/dag" },
+};
+const TOWNS = PLACES.filter(p => p.cat.includes("stad"));
+const enc = encodeURIComponent;
+const fmtKr = n => Math.round(n).toLocaleString("sv-SE") + " kr";
+const isoDay = d => d.toISOString().slice(0, 10);
+const addDays = (s, n) => { const d = new Date(s + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return isoDay(d); };
+const dayName = s => new Date(s + "T12:00:00").toLocaleDateString("sv-SE", { weekday: "short", day: "numeric", month: "short" });
+const hrs = k => { const m = Math.round(k / SPEED * 60 / 5) * 5; return m < 60 ? m + " min" : Math.floor(m / 60) + " h" + (m % 60 ? " " + (m % 60) + " min" : ""); };
+const road = (a, b) => km(a, b) * ROAD;
+const apPt = a => ({ lat: a.lat, lon: a.lon, name: a.name, code: a.code, ap: true });
+const short = p => (p.name || "").split(/ [–&] | \(/)[0];
+
+const plan = Object.assign({
+  tab: "resmal", mode: "auto", pace: "lagom", inAp: "auto", outAp: "auto",
+  origins: ["ARN"], d1: "2027-06-19", d2: "2027-06-26", adults: 2, ages: "", rooms: 1,
+  stay: "hotel", tr: "car", eur: 11, showAllShops: false,
+  bike: { on: false, how: "hyr", n: 2, days: 0, type: "road", eurDay: 52, shop: null, fee: 45 },
+  p: {},
+}, store.get("plan", {}));
+plan.bike = Object.assign({ on: false, how: "hyr", n: 2, days: 0, type: "road", eurDay: 52, shop: null, fee: 45 }, plan.bike || {});
+plan.p = plan.p || {};
+plan.origins = (plan.origins || []).filter(c => ORIGINS_SE.some(x => x[0] === c));
+if (!["resmal", "rutt", "boka"].includes(plan.tab)) plan.tab = "resmal";
+const savePlan = () => store.set("plan", plan);
+
+/* ----- geometri ----- */
+function nearestTown(p, max = 35) {
+  if (p.cat && p.cat.includes("stad")) return p;
+  let best = null, bd = Infinity;
+  TOWNS.forEach(t => { const d = km(p, t); if (d < bd) { bd = d; best = t; } });
+  return best && bd <= max ? best : p;
+}
+function pathLen(seq) { let t = 0; for (let i = 1; i < seq.length; i++) t += km(seq[i - 1], seq[i]); return t; }
+/* närmaste granne + 2-opt mellan fasta start- och slutpunkter */
+function optPath(start, end, nodes) {
+  const rest = nodes.slice(); let path = [], cur = start;
+  while (rest.length) { let bi = 0, bd = Infinity; rest.forEach((p, i) => { const d = km(cur, p); if (d < bd) { bd = d; bi = i; } }); cur = rest.splice(bi, 1)[0]; path.push(cur); }
+  let improved = true, guard = 0;
+  while (improved && guard++ < 60) {
+    improved = false;
+    for (let i = 0; i < path.length - 1; i++) for (let k = i + 1; k < path.length; k++) {
+      const a = i === 0 ? start : path[i - 1], b = path[i], c = path[k], d = k === path.length - 1 ? end : path[k + 1];
+      if (km(a, c) + km(b, d) < km(a, b) + km(c, d) - 1e-6) { path = path.slice(0, i).concat(path.slice(i, k + 1).reverse(), path.slice(k + 1)); improved = true; }
+    }
+  }
+  return path;
+}
+function distToPath(p, seq) {
+  let best = Infinity;
+  for (let i = 1; i < seq.length; i++) {
+    const a = seq[i - 1], b = seq[i], n = Math.max(1, Math.ceil(km(a, b) / 4));
+    for (let s = 0; s <= n; s++) { const t = s / n; const d = km(p, { lat: a.lat + (b.lat - a.lat) * t, lon: a.lon + (b.lon - a.lon) * t }); if (d < best) best = d; }
+  }
+  return best;
+}
+function nightsAvail() { const n = Math.round((new Date(plan.d2) - new Date(plan.d1)) / 864e5); return isFinite(n) && n > 0 ? n : 0; }
+
+/* ----- de tre resealternativen ----- */
+function altRund(stops, fixed) {
+  const cands = fixed ? [APC[fixed]] : AP;
+  let best = null;
+  cands.forEach(a => { const s = apPt(a); const o = optPath(s, s, stops); const L = pathLen([s, ...o, s]); const c = L + (fixed ? 0 : AP_ACCESS[a.code] || 60);
+    if (!best || c < best.cost) best = { cost: c, inAp: a, outAp: a, order: o, len: L }; });
+  return best && Object.assign(best, { mode: "rund" });
+}
+function altGenom(stops, fixIn, fixOut) {
+  let best = null;
+  const ins = fixIn ? [APC[fixIn]] : AP, outs = fixOut ? [APC[fixOut]] : AP;
+  ins.forEach(a => outs.forEach(b => {
+    if (a === b || km(a, b) < 120) return;
+    const o = optPath(apPt(a), apPt(b), stops); const L = pathLen([apPt(a), ...o, apPt(b)]);
+    const c = L + (fixIn ? 0 : AP_ACCESS[a.code] || 60) + (fixOut ? 0 : AP_ACCESS[b.code] || 60);
+    if (!best || c < best.cost) best = { cost: c, inAp: a, outAp: b, order: o, len: L };
+  }));
+  return best && Object.assign(best, { mode: "genom" });
+}
+function altBas(stops, fixed) {
+  const cands = TOWNS.concat(stops.filter(p => !p.cat.includes("stad")).map(p => nearestTown(p))).filter((t, i, a) => a.indexOf(t) === i);
+  let base = null, bs = Infinity;
+  cands.forEach(t => { const s = stops.reduce((acc, p) => acc + km(t, p), 0); if (s < bs) { bs = s; base = t; } });
+  if (!base) return null;
+  let ap = fixed ? APC[fixed] : null;
+  if (!ap) { let bd = Infinity; AP.forEach(a => { const d = km(a, base) + (AP_ACCESS[a.code] || 60); if (d < bd) { bd = d; ap = a; } }); }
+  const order = optPath(base, base, stops);
+  return { mode: "bas", base, inAp: ap, outAp: ap, order, len: 0, spread: Math.max(0, ...stops.map(p => km(base, p))) };
+}
+
+/* ----- dagsplan ----- */
+function buildDays(alt) {
+  const pace = PACE[plan.pace] || PACE.lagom, days = [];
+  const inA = apPt(alt.inAp), outA = apPt(alt.outAp);
+  if (alt.mode === "bas") {
+    const base = alt.base;
+    days.push({ kind: "arr", from: inA, stops: [], sleep: base, km: road(inA, base) });
+    let cur = null;
+    alt.order.forEach(p => {
+      if (cur) {
+        const last = cur.stops[cur.stops.length - 1];
+        const loop = cur.km - road(last, base) + road(last, p) + road(p, base);
+        if (cur.stops.length < pace.stops && loop <= pace.km * 1.15) { cur.stops.push(p); cur.km = loop; return; }
+      }
+      cur = { kind: "trip", from: base, stops: [p], sleep: base, km: road(base, p) * 2 }; days.push(cur);
+    });
+    days.push({ kind: "dep", from: base, stops: [], sleep: null, km: road(base, outA), to: outA });
+  } else {
+    let cur = { kind: "arr", from: inA, stops: [], km: 0 }, pos = inA; days.push(cur);
+    alt.order.forEach(p => {
+      const leg = road(pos, p);
+      const lim = cur.kind === "arr" ? Math.max(1, pace.stops - 1) : pace.stops;
+      if (cur.stops.length && (cur.km + leg > pace.km || cur.stops.length >= lim)) {
+        cur.sleep = nearestTown(cur.stops[cur.stops.length - 1]);
+        pos = cur.sleep; cur = { kind: "trip", from: pos, stops: [], km: 0 }; days.push(cur);
+      }
+      cur.km += road(pos, p); cur.stops.push(p); pos = p;
+    });
+    if (cur.stops.length) { cur.sleep = nearestTown(cur.stops[cur.stops.length - 1]); pos = cur.sleep; }
+    else cur.sleep = nearestTown(outA, 60);
+    days.push({ kind: "dep", from: pos, stops: [], sleep: null, km: road(pos, outA), to: outA });
+    days.forEach(d => { if (d.sleep && d.sleep.ap) d.sleep = { name: d.sleep.name + " (flygplatsen)", lat: d.sleep.lat, lon: d.sleep.lon, cat: [] }; });
+  }
+  /* lediga dagar → läggs vid de baser som har mest i närheten */
+  const need = days.length - 1, have = nightsAvail();
+  let free = Math.max(0, have - need);
+  const extra = [];
+  if (free > 0) {
+    const sleeps = days.filter(d => d.sleep).map(d => d.sleep).filter((t, i, a) => a.indexOf(t) === i);
+    const score = t => PLACES.filter(p => km(p, t) < 30 && !state.trip.includes(p.id)).length + RUNDOR.routes.filter(r => km({ lat: r.waypoints[0][0], lon: r.waypoints[0][1] }, t) < 20).length * 2;
+    const ranked = sleeps.sort((a, b) => score(b) - score(a)).slice(0, 3);
+    let i = 0; while (free-- > 0 && ranked.length) { extra.push(ranked[i % ranked.length]); i++; }
+    extra.forEach(t => {
+      let at = -1; days.forEach((d, j) => { if (d.sleep === t) at = j; });
+      if (at >= 0) days.splice(at + 1, 0, { kind: "free", from: t, stops: [], sleep: t, km: 0 });
+    });
+  }
+  days.forEach((d, i) => { d.date = addDays(plan.d1, i); d.n = i + 1; });
+  return { days, short: Math.max(0, need - have), extraNights: extra.length };
+}
+function bases(days) {
+  const out = [];
+  days.forEach(d => { if (!d.sleep) return; const last = out[out.length - 1];
+    if (last && last.town === d.sleep) last.nights++; else out.push({ town: d.sleep, d1: d.date, nights: 1 }); });
+  out.forEach(b => b.d2 = addDays(b.d1, b.nights));
+  return out;
+}
+let _pc = null;
+function computePlan() {
+  const key = JSON.stringify([state.trip, plan.mode, plan.pace, plan.inAp, plan.outAp, plan.d1, plan.d2]);
+  if (_pc && _pc.key === key) return _pc.v;
+  const v = computePlanRaw(); _pc = { key, v }; return v;
+}
+function computePlanRaw() {
+  const stops = state.trip.map(id => BY[id]).filter(Boolean);
+  const fixIn = plan.inAp !== "auto" && APC[plan.inAp] ? plan.inAp : null, fixOut = plan.outAp !== "auto" && APC[plan.outAp] ? plan.outAp : null;
+  if (!stops.length) {
+    const a = APC[fixIn || "TLS"], b = APC[fixOut || fixIn || "TLS"];
+    return { empty: true, alts: {}, chosen: null, rec: null, inAp: a, outAp: b, days: [], bases: [], totalKm: 0 };
+  }
+  const alts = {
+    rund: altRund(stops, fixIn),
+    genom: stops.length >= 2 ? altGenom(stops, fixIn, fixOut) : null,
+    bas: altBas(stops, fixIn),
+  };
+  Object.values(alts).forEach(a => { if (!a) return; const b = buildDays(a); a.days = b.days; a.short = b.short; a.extra = b.extraNights;
+    a.totalKm = a.days.reduce((s, d) => s + d.km, 0); a.bases = bases(a.days); a.moves = Math.max(0, a.bases.length - 1); });
+  /* rekommendation */
+  let rec = "rund";
+  if (alts.bas && alts.bas.spread <= 55) rec = "bas";
+  else if (alts.genom && alts.genom.totalKm < alts.rund.totalKm * 0.85) rec = "genom";
+  if (fixIn && fixOut && fixIn !== fixOut && alts.genom) rec = "genom";
+  const mode = plan.mode !== "auto" && alts[plan.mode] ? plan.mode : rec;
+  const c = alts[mode];
+  return { alts, rec, mode, chosen: c, inAp: c.inAp, outAp: c.outAp, days: c.days, bases: c.bases, totalKm: c.totalKm, stops };
+}
+
+/* ----- flikar ----- */
+function setPlanTab(t) {
+  plan.tab = t; savePlan();
+  document.querySelectorAll("[data-ptab]").forEach(b => { if (b.closest(".seg")) b.setAttribute("aria-pressed", b.dataset.ptab === t); });
+  $("#pt-resmal").hidden = t !== "resmal"; $("#pt-rutt").hidden = t !== "rutt"; $("#pt-boka").hidden = t !== "boka";
+  if (t === "resmal") renderTrip(); else if (t === "rutt") renderRutt(); else renderBoka();
+}
+function renderMinResa() { setPlanTab(plan.tab); }
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-ptab]"); if (b) { setPlanTab(b.dataset.ptab); const v = $("#v-minresa"); if (v && !b.closest(".seg")) v.scrollTop = 0; }
+});
+
+/* ----- flik 2: ruttförslag ----- */
+function apOptions(sel, withAuto) {
+  return (withAuto ? `<option value="auto"${sel === "auto" ? " selected" : ""}>Föreslå åt mig</option>` : "") +
+    AP.map(a => `<option value="${a.code}"${sel === a.code ? " selected" : ""}>${a.code} – ${esc(a.name)}</option>`).join("");
+}
+let _used = new Set();
+function stopList(d) {
+  if (d.kind === "arr" && !d.stops.length) return `Landa på ${esc(d.from.code)} och kör till ${esc(short(d.sleep))}`;
+  if (d.kind === "dep") return `Kör till ${esc(d.to.name)} och flyg hem`;
+  if (d.kind === "free") {
+    const near = PLACES.filter(p => !state.trip.includes(p.id) && p !== d.sleep && km(p, d.sleep) > 1 && km(p, d.sleep) < 30 && !_used.has(p.id)).sort((a, b) => km(a, d.sleep) - km(b, d.sleep)).slice(0, 3);
+    const r = RUNDOR.routes.find(r => !_used.has("r:" + r.id) && km({ lat: r.waypoints[0][0], lon: r.waypoints[0][1] }, d.sleep) < 20);
+    near.forEach(p => _used.add(p.id)); if (r) _used.add("r:" + r.id);
+    return `Fri dag i ${esc(short(d.sleep))}${near.length ? ` – förslag: ${near.map(p => `<button class="linkish" data-open="${p.id}">${esc(short(p))}</button>`).join(", ")}` : ""}${r ? `${near.length ? "," : " – förslag:"} cykelrundan <button class="linkish" data-ov-show="runda:${r.id}">${esc(r.name)}</button>` : ""}`;
+  }
+  return (d.kind === "arr" ? `Landa på ${esc(d.from.code)} → ` : d.kind === "trip" && d.from && d.sleep === d.from ? `Utflykt från ${esc(short(d.from))}: ` : "") +
+    d.stops.map(p => `<button class="linkish" data-open="${p.id}">${esc(short(p))}</button>`).join(" → ");
+}
+function dayCard(d) {
+  const lbl = { arr: "Ankomst", dep: "Hemresa", free: "Fri dag", trip: "" }[d.kind];
+  return `<div class="day${d.kind === "free" ? " free" : ""}"><div class="dn">Dag ${d.n}<small>${esc(dayName(d.date))}</small></div>
+    <div class="dm">${lbl ? `<span class="eyebrow">${lbl}</span>` : ""}<div class="dstops">${stopList(d)}</div>
+    ${d.sleep ? `<div class="sleep">Övernattning: <b>${esc(short(d.sleep))}</b></div>` : ""}</div>
+    <div class="dk">${d.km ? `<b>${Math.round(d.km / 5) * 5} km</b>ca ${hrs(d.km)} bil` : "ingen bilresa"}</div></div>`;
+}
+function altCard(k, a, P) {
+  if (!a) return `<div class="alt" aria-disabled="true" style="cursor:default;opacity:.6"><h4>${MODES[k].label}</h4><p>Passar inte den här resan – lägg till fler resmål som ligger längre isär.</p></div>`;
+  const why = {
+    rund: () => `Bil från ${a.inAp.code} och tillbaka. Enklast att boka, ingen avgift för att lämna bilen på annan ort.`,
+    genom: () => `Flyg in till ${a.inAp.code}, hem från ${a.outAp.code}. Mindre bilkörning, men räkna med avgift för enkelriktad hyrbil${AP_ES.has(a.inAp.code) !== AP_ES.has(a.outAp.code) ? " – särskilt mellan Spanien och Frankrike" : ""}.`,
+    bas: () => `Bo i ${short(a.base)} hela tiden och gör dagsutflykter. Bara ett boende att boka${a.spread > 80 ? ", men långt till de yttersta resmålen" : ""}.`,
+  }[k]();
+  return `<button class="alt" data-pmode="${k}" aria-pressed="${P.mode === k}">
+    <h4>${MODES[k].label}${P.rec === k ? "<small>Rekommenderas</small>" : ""}</h4><p>${esc(why)}</p>
+    <div class="kv"><span>Flyg <b>${a.inAp.code}${a.outAp !== a.inAp ? " → " + a.outAp.code : " t/r"}</b></span><span>Bil <b>ca ${Math.round(a.totalKm / 10) * 10} km</b></span><span><b>${a.days.length}</b> dagar</span><span><b>${a.bases.length}</b> ${a.bases.length === 1 ? "boende" : "boenden"}</span></div></button>`;
+}
+function renderRutt() {
+  const P = computePlan(), box = $("#pt-rutt");
+  if (P.empty) { box.innerHTML = `<div class="empty">Lägg till resmål i <button class="linkish" data-ptab="resmal">Min resa</button> först – öppna ett resmål på kartan och tryck <b>Spara i Min resa</b>, eller ta en hel rutt under <button class="linkish" data-view="rutter">Rutter</button>.</div>`; return; }
+  const c = P.chosen, n = nightsAvail();
+  const cur = [apPt(c.inAp), ...P.stops, apPt(c.outAp)], best = [apPt(c.inAp), ...c.order, apPt(c.outAp)];
+  const sameOrder = c.mode === "bas" || c.order.every((p, i) => p === P.stops[i]);
+  const save = pathLen(cur) - pathLen(best);
+  const along = PLACES.filter(p => !state.trip.includes(p.id)).map(p => ({ p, d: c.mode === "bas" ? km(p, c.base) : distToPath(p, best) }))
+    .filter(x => x.d < (c.mode === "bas" ? 35 : 14)).sort((a, b) => a.d - b.d).slice(0, 9);
+  const routes = ROUTES.map(r => ({ r, hit: r.stops.filter(id => state.trip.includes(id)).length, miss: r.stops.filter(id => !state.trip.includes(id)) }))
+    .filter(x => x.hit && x.miss.length).sort((a, b) => b.hit - a.hit).slice(0, 4);
+  const sleeps = c.bases.map(b => b.town);
+  const rundor = RUNDOR.routes.map(r => ({ r, d: Math.min(...sleeps.map(t => km({ lat: r.waypoints[0][0], lon: r.waypoints[0][1] }, t))) })).filter(x => x.d < 22).sort((a, b) => a.d - b.d).slice(0, 6);
+  const d1 = plan.d1, d2 = plan.d2, inWin = s => s && s >= d1 && s <= d2;
+  const evs = MOTION.events.filter(e => inWin(e.date_2027) || (!e.date_2027 && e.date_2026 && inWin(e.date_2026.replace(/^2026/, d1.slice(0, 4)))));
+  const races = [[TDF27, "Tour de France", "tdf"], [VUELTA27, "Vuelta a España", "vuelta"]].filter(([T]) => T && T.dates && T.dates.start && T.dates.start <= d2 && T.dates.finish >= d1);
+  box.innerHTML = `
+    <section style="display:grid;gap:12px">
+      <h3 class="mh" style="margin:0">Välj upplägg</h3>
+      <p class="tour-src" style="margin:0">Förslagen räknas fram från de ${P.stops.length} resmålen i Min resa och resdatumen ${esc(fmtDay(d1))}–${esc(fmtDay(d2))} (${n} nätter). Flygplatsen väljs så att bilkörningen blir kort och det är lätt att flyga dit från Sverige.</p>
+      <div class="alts">${["rund", "genom", "bas"].map(k => altCard(k, P.alts[k], P)).join("")}</div>
+      <div class="pl-inline">
+        <label>Tempo <select data-pset="pace">${Object.entries(PACE).map(([k, v]) => `<option value="${k}"${plan.pace === k ? " selected" : ""}>${v.label}</option>`).join("")}</select></label>
+        <label>Flyg in till <select data-pset="inAp">${apOptions(plan.inAp, true)}</select></label>
+        <label>Flyg hem från <select data-pset="outAp">${apOptions(plan.outAp, true)}</select></label>
+        <label>Utresa <input type="date" data-pset="d1" value="${esc(d1)}" style="width:auto;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--surface-2)"></label>
+        <label>Hemresa <input type="date" data-pset="d2" value="${esc(d2)}" style="width:auto;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--surface-2)"></label>
+      </div>
+      <p class="tour-src" style="margin:0">Tempo ${esc(PACE[plan.pace].label.toLowerCase())}: ${esc(PACE[plan.pace].txt)}. Körtider räknas med ca ${SPEED} km/h på bergsvägar och är ungefärliga.</p>
+    </section>
+    ${c.short ? `<p class="pl-note warn">Planen behöver ${c.days.length - 1} nätter men resan är ${n} nätter. Förläng resan, välj ett högre tempo eller ta bort något resmål.</p>` : ""}
+    ${!sameOrder && save > 15 ? `<div class="pl-note" style="display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center"><span>Ordningen nedan är ca <b>${Math.round(save * ROAD / 10) * 10} km</b> kortare än ordningen i din lista.</span><button class="btn primary" data-papply>Använd den här ordningen i Min resa</button></div>` : ""}
+    <section style="display:grid;gap:10px">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between"><h3 class="mh" style="margin:0">Dag för dag · ${MODES[c.mode].label.toLowerCase()}</h3>
+        <div class="actions"><button class="btn primary" data-pmap>${ICON.map}Visa förslaget på kartan</button><button class="btn" data-ptab="boka">Boka &amp; räkna →</button></div></div>
+      <div class="days">${(_used = new Set(), c.days.map(dayCard).join(""))}</div>
+      <p class="tour-src" style="margin:0">Totalt ca ${Math.round(c.totalKm / 10) * 10} km bil (vägavstånd uppskattat från fågelvägen). ${c.extra ? `${c.extra} ${c.extra === 1 ? "ledig dag har" : "lediga dagar har"} lagts där det finns mest att göra i närheten.` : ""} Övernattningsorterna är förslag – boka där det passar er.</p>
+    </section>
+    <section style="display:grid;gap:14px">
+      <h3 class="mh" style="margin:0">Fler resealternativ</h3>
+      ${races.length ? races.map(([T, nm, k]) => `<p class="pl-note warn"><b>${nm} ${T.dates.start.slice(0, 4)}</b> pågår ${esc(fmtDay(T.dates.start))}–${esc(fmtDay(T.dates.finish))}, samtidigt som er resa. Se ryktena om etapperna under <button class="linkish" data-goto-race="${k}">Cykling</button> – och boka boende tidigt om loppet passerar.</p>`).join("") : ""}
+      ${along.length ? `<div style="display:grid;gap:8px"><h4 class="eyebrow" style="margin:0">${c.mode === "bas" ? `Nära ${esc(short(c.base))}` : "Längs vägen – små omvägar"}</h4><div class="addlist">${along.map(({ p, d }) => `<div class="addit">${badge(p)}<div><button class="nm" data-open="${p.id}"><b>${esc(p.name)}</b></button><small>${Math.round(d)} km ${c.mode === "bas" ? "från basen" : "från rutten"} · ${esc(p.sub)}</small></div><button class="btn" data-padd="${p.id}">+ Lägg till</button></div>`).join("")}</div></div>` : ""}
+      ${routes.length ? `<div style="display:grid;gap:8px"><h4 class="eyebrow" style="margin:0">Guidens rutter som passar ihop med din resa</h4><div class="rumours">${routes.map(({ r, hit, miss }) => `<article class="rumour" style="--rc:${colorOf(r.color)}"><span class="rel">${hit} av ${r.stops.length} resmål finns redan</span><h5>${esc(r.name)}</h5><small>${esc(r.sub || "")}</small><p>Saknas: ${miss.map(id => BY[id] ? esc(short(BY[id])) : "").filter(Boolean).join(", ")}</p><div class="actions"><button class="btn primary" data-padd-route="${r.id}">+ Lägg till de ${miss.length}</button><button class="btn" data-route="${r.id}">${ICON.map}Visa</button></div></article>`).join("")}</div></div>` : ""}
+      ${rundor.length ? `<div style="display:grid;gap:8px"><h4 class="eyebrow" style="margin:0">Cykelrundor från era boenden</h4><div class="addlist">${rundor.map(({ r, d }) => `<div class="addit"><span class="badge dot" style="--c:var(--c-tdf)"></span><div><b>${esc(r.name)}</b><small>${r.km} km · ${r.hm.toLocaleString("sv-SE")} hm · ${esc(r.base)}</small></div><button class="btn" data-ov-show="runda:${r.id}">${ICON.map}</button></div>`).join("")}</div>
+        <p class="tour-src" style="margin:0">Vill ni cykla? Lägg till cykelhyra under <button class="linkish" data-goto-bike>Boka &amp; kalkyl</button> – uthyrarna nära era boenden visas där.</p></div>` : ""}
+      ${evs.length ? `<div style="display:grid;gap:8px"><h4 class="eyebrow" style="margin:0">Motionslopp under resan</h4><ul class="rank">${evs.map(e => `<li><span>${esc(e.name)} <small style="color:var(--muted)">${esc(e.town)}</small></span><span>${e.date_2027 ? esc(fmtDay(e.date_2027)) : "brukar gå runt " + esc(fmtDay(e.date_2026))}</span></li>`).join("")}</ul></div>` : ""}
+      <details class="st-src"><summary>Färdiga upplägg ur guidens resefakta</summary><div class="rumours" style="margin-top:10px">${RESA.scenarios.map(s => `<article class="rumour" style="--rc:var(--accent)"><h5>${esc(s.title_sv)}</h5><p>${esc(s.advice_sv)}</p></article>`).join("")}</div></details>
+    </section>`;
+}
+document.addEventListener("click", e => {
+  const m = e.target.closest("[data-pmode]"); if (m) { plan.mode = m.dataset.pmode; if (plan.mode === "rund" || plan.mode === "bas") plan.outAp = "auto"; savePlan(); renderRutt(); return; }
+  if (e.target.closest("[data-papply]")) { const P = computePlan(); state.trip = P.chosen.order.map(p => p.id); saveTrip(); renderRutt(); return; }
+  if (e.target.closest("[data-pmap]")) { const P = computePlan(); if (P.empty) return; const c = P.chosen;
+    const path = c.mode === "bas" ? [apPt(c.inAp), c.base, ...c.order.flatMap(p => [p]), c.base, apPt(c.outAp)] : [apPt(c.inAp), ...c.order, apPt(c.outAp)];
+    show("karta"); requestAnimationFrame(() => setRoute({ id: "trip", name: "Ruttförslag · " + MODES[c.mode].label, color: "stad", stops: c.order.map(p => p.id), path: path.map(p => [p.lat, p.lon]) })); return; }
+  const a = e.target.closest("[data-padd]"); if (a) { if (!state.trip.includes(a.dataset.padd)) state.trip.push(a.dataset.padd); saveTrip(); renderRutt(); return; }
+  const ar = e.target.closest("[data-padd-route]"); if (ar) { const r = ROUTES.find(r => r.id === ar.dataset.paddRoute); r.stops.forEach(id => { if (BY[id] && !state.trip.includes(id)) state.trip.push(id); }); saveTrip(); renderRutt(); return; }
+  const g = e.target.closest("[data-goto-race]"); if (g) { tdfState.race = g.dataset.gotoRace; tdfState.tab = "next"; mState.mode = "proffs"; show("touren"); return; }
+  if (e.target.closest("[data-goto-bike]")) { plan.bike.on = true; plan.tab = "boka"; savePlan(); closeSheet(); show("minresa"); requestAnimationFrame(() => { const el = $("#pl-bike"); if (el) el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); }); }
+});
+document.addEventListener("change", e => {
+  const s = e.target.closest("[data-pset]"); if (!s) return;
+  const k = s.dataset.pset, v = s.value; plan[k] = v;
+  if (k === "d1" && plan.d2 <= plan.d1) plan.d2 = addDays(plan.d1, 7);
+  if (k === "outAp" && v !== "auto") {
+    plan.outAp = "auto"; const inC = plan.inAp !== "auto" ? plan.inAp : computePlan().inAp.code;
+    if (v === inC) { if (plan.mode === "genom") plan.mode = "rund"; }
+    else { plan.outAp = v; plan.mode = "genom"; }
+  }
+  if (k === "inAp" && v !== "auto" && plan.outAp !== "auto" && plan.outAp === v) { plan.outAp = "auto"; if (plan.mode === "genom") plan.mode = "rund"; }
+  savePlan(); if (plan.tab === "rutt") renderRutt(); else renderBoka();
+});
+
+/* ----- flik 3: boka och kalkyl ----- */
+const val = k => Math.max(0, parseFloat(plan.p[k]) || 0);
+function travellers() {
+  const ages = String(plan.ages || "").split(/[,\s]+/).map(s => parseInt(s, 10)).filter(n => !isNaN(n) && n >= 0 && n < 18);
+  const adults = Math.max(1, parseInt(plan.adults, 10) || 1);
+  return { adults, ages, pax: adults + ages.length, rooms: Math.max(1, parseInt(plan.rooms, 10) || 1) };
+}
+const yymmdd = d => d.slice(2).replace(/-/g, "");
+const LK = (name, href, sub, pre) => `<a class="pl-link" href="${esc(href)}" target="_blank" rel="noopener"><b>${esc(name)}</b><span>${pre ? '<span class="pre">Förifylld sökning</span> · ' : ""}${esc(sub)}</span></a>`;
+const priceIn = (k, label, step = 50, unit = "") => `<label>${label}<input type="number" min="0" step="${step}" inputmode="numeric" data-pp="${k}" value="${plan.p[k] != null ? esc(plan.p[k]) : ""}" placeholder="0${unit}"></label>`;
+function stepHead(no, title, sub) { return `<div class="pl-head"><span class="no">STEG ${no}</span><h3>${title}</h3>${sub ? `<span class="sub">${sub}</span>` : ""}</div>`; }
+
+function flightHTML(P, T) {
+  const a = P.inAp, b = P.outAp, open = a !== b, kidsK = T.ages.length ? "/children-" + T.ages.join("-") : "";
+  const groups = plan.origins.map(o => {
+    let links;
+    if (!open) {
+      const sky = `https://www.skyscanner.se/transport/flights/${o.toLowerCase()}/${a.code.toLowerCase()}/${yymmdd(plan.d1)}/${yymmdd(plan.d2)}/?adultsv2=${T.adults}${T.ages.length ? "&childrenv2=" + T.ages.join("%7C") : ""}&cabinclass=economy&rtn=1`;
+      const kp = `${o}-${a.code}/${plan.d1}/${plan.d2}/${T.adults}adults${kidsK}?sort=price_a`;
+      links = [LK("Google Flights", `https://www.google.com/travel/flights?hl=sv&curr=SEK&q=${enc(`Flights from ${o} to ${a.code} on ${plan.d1} through ${plan.d2}`)}`, "Prisgraf och flexibla datum", true),
+        LK("Skyscanner", sky, "Billigast först", true), LK("Kayak", "https://www.kayak.se/flights/" + kp, "Sorterat på pris", true), LK("Momondo", "https://www.momondo.se/flight-search/" + kp, "Hittar ofta billiga kombinationer", true)];
+    } else {
+      const kp = `${o}-${a.code}/${plan.d1}/${b.code}-${o}/${plan.d2}/${T.adults}adults${kidsK}?sort=price_a`;
+      links = [LK("Kayak flera städer", "https://www.kayak.se/flights/" + kp, `${o}→${a.code}, ${b.code}→${o}`, true), LK("Momondo flera städer", "https://www.momondo.se/flight-search/" + kp, "Samma sökning, annan sajt", true),
+        LK("Google Flights utresa", `https://www.google.com/travel/flights?hl=sv&curr=SEK&q=${enc(`One way flights from ${o} to ${a.code} on ${plan.d1}`)}`, `${o} → ${a.code}`, true),
+        LK("Google Flights hemresa", `https://www.google.com/travel/flights?hl=sv&curr=SEK&q=${enc(`One way flights from ${b.code} to ${o} on ${plan.d2}`)}`, `${b.code} → ${o}`, true)];
+    }
+    return `<div class="pl-group"><div class="pl-gh"><span class="pl-tag">${o}</span>${esc(ORIGINS_SE.find(x => x[0] === o)[1])} → ${esc(a.name)}${open ? ` · hem från ${esc(b.name)}` : ""}</div><div class="pl-links">${links.join("")}</div></div>`;
+  }).join("");
+  const info = [a, open ? b : null].filter(Boolean).map(x => `<details class="st-src"><summary>Flyg till ${esc(x.code)} från Sverige</summary><p style="margin:6px 0 0">${esc(x.from_sweden_sv)}</p></details>`).join("");
+  return stepHead(1, "Flyg", `${T.pax} ${T.pax === 1 ? "resenär" : "resenärer"} · ${open ? "in och ut från olika flygplatser" : "tur och retur"}`) +
+    `<div class="pl-inline"><label>Flyg in till <select data-pset="inAp">${apOptions(plan.inAp === "auto" ? a.code : plan.inAp, false)}</select></label><label>Hem från <select data-pset="outAp">${apOptions(plan.outAp === "auto" ? b.code : plan.outAp, false)}</select></label>${plan.inAp !== "auto" || plan.outAp !== "auto" ? `<button class="btn" data-pauto style="padding:5px 10px;font-size:13px">Återställ till förslaget</button>` : `<small style="color:var(--muted)">Förslag från ruttförslaget</small>`}</div>
+    ${plan.origins.length ? groups : `<p class="pl-note">Välj minst en avreseflygplats ovan.</p>`}${info}
+    <div class="pl-price">${priceIn("flight", "Flyg t/r per person (kr)")}${priceIn("bags", "Bagage och platsval, totalt (kr)")}${priceIn("homePark", "Parkering/resa till flygplatsen hemma (kr)")}</div>`;
+}
+function stayHTML(P, T) {
+  const B = P.bases.length ? P.bases : [];
+  const nights = B.reduce((s, b) => s + b.nights, 0);
+  const ages = T.ages.map(a => "&age=" + a).join("");
+  const rows = B.map(b => {
+    const q = enc(short(b.town)), ci = b.d1, co = b.d2;
+    const links = plan.stay === "hotel"
+      ? [LK("Booking.com", `https://www.booking.com/searchresults.sv.html?ss=${q}&checkin=${ci}&checkout=${co}&group_adults=${T.adults}&group_children=${T.ages.length}${ages}&no_rooms=${T.rooms}&order=price&selected_currency=SEK`, "Billigast först", true),
+         LK("Hotels.com", `https://se.hotels.com/Hotel-Search?destination=${q}&startDate=${ci}&endDate=${co}&adults=${T.adults}&sort=PRICE_LOW_TO_HIGH`, "Bonusnätter", true),
+         LK("Google Hotels", `https://www.google.com/travel/search?hl=sv&q=${enc("hotell " + short(b.town))}`, "Jämför sajter", false)]
+      : [LK("Airbnb", `https://www.airbnb.se/s/${q}/homes?checkin=${ci}&checkout=${co}&adults=${T.adults}&children=${T.ages.length}&currency=SEK`, "Hus och lägenheter", true),
+         LK("Vrbo", `https://www.vrbo.com/sv-se/search?destination=${q}&startDate=${ci}&endDate=${co}&adults=${T.adults}`, "Hela hus", true),
+         LK("Gîtes de France", "https://www.gites-de-france.com/en", "Franska stugor, sök själv", false)];
+    if (plan.bike.on) links.push(LK("Accueil Vélo-boenden", "https://www.francevelotourisme.com/accueil-velo", "Låst cykelförvaring", false));
+    return `<div class="pl-group"><div class="pl-gh"><span class="pl-tag">${b.nights} ${b.nights === 1 ? "natt" : "nätter"}</span>${esc(short(b.town))} <small style="color:var(--muted);font-weight:500">${esc(dayName(b.d1))} – ${esc(dayName(b.d2))}</small></div><div class="pl-links">${links.join("")}</div></div>`;
+  }).join("");
+  return stepHead(2, "Boende", `<span class="seg sub" role="group" aria-label="Typ av boende"><button data-pstay="hotel" aria-pressed="${plan.stay === "hotel"}">Hotell</button><button data-pstay="airbnb" aria-pressed="${plan.stay === "airbnb"}">Airbnb / lägenhet</button></span>`) +
+    (B.length ? `<p class="tour-src" style="margin:0">${B.length === 1 ? "Ett boende" : B.length + " boenden"} enligt ruttförslaget, ${nights} nätter totalt. <button class="linkish" data-ptab="rutt">Ändra upplägg</button></p>${rows}` : `<p class="pl-note">Lägg till resmål i Min resa så föreslås orter att bo på.</p>`) +
+    `<div class="pl-price">${priceIn("night", plan.stay === "hotel" ? "Snittpris per natt och rum (kr)" : "Snittpris per natt, hela boendet (kr)")}${priceIn("stayFees", "Städavgift, turistskatt m.m. (kr)")}<p class="pl-calc" id="calcStay"></p></div>`;
+}
+function transportHTML(P, T) {
+  const a = P.inAp, b = P.outAp, open = a !== b, days = Math.max(1, nightsAvail());
+  const seq = [apPt(a), ...(P.chosen ? (P.chosen.mode === "bas" ? [P.chosen.base] : P.chosen.order) : []), apPt(b)];
+  const wp = seq.slice(1, -1), n = Math.min(8, wp.length), pick = []; for (let i = 0; i < n; i++) pick.push(wp[Math.round((i + 0.5) * wp.length / n - 0.5)]);
+  const gm = `https://www.google.com/maps/dir/?api=1&origin=${a.lat},${a.lon}&destination=${b.lat},${b.lon}${pick.length ? "&waypoints=" + enc(pick.map(p => p.lat + "," + p.lon).join("|")) : ""}&travelmode=driving`;
+  let links;
+  if (plan.tr === "car") links = [LK("Kayak hyrbil", `https://www.kayak.se/cars/${a.code}${open ? "/" + b.code : ""}/${plan.d1}/${plan.d2}?sort=price_a`, open ? `Hämta ${a.code}, lämna ${b.code}` : `Hämta och lämna på ${a.code}`, true),
+    LK("Discover Cars", "https://www.discovercars.com/sv", "Bra självriskskydd", false), LK("Rentalcars.com", "https://www.rentalcars.com/sv/", "Stort utbud", false), LK("Auto Europe", "https://www.autoeurope.se/", "Ofta fri avbokning", false), LK("Google Maps – hela rutten", gm, "Bilväg med resmålen", true)];
+  else links = [LK("Rome2Rio", `https://www.rome2rio.com/s/${enc(a.name + " Airport")}/${enc(P.bases[0] ? short(P.bases[0].town) : "Toulouse")}`, "Alla sätt att ta sig dit", true), LK("liO-tågen (Occitanie)", "https://lio.laregion.fr/", "Toulouse–Luchon, Foix, Ax", false),
+    LK("SNCF Connect", "https://www.sncf-connect.com/", "Franska tåg", false), LK("Renfe", "https://www.renfe.com/es/en", "Spanska tåg", false), LK("Trainline", "https://www.thetrainline.com/sv", "Europeiska tåg", false),
+    ...(plan.tr === "bus" ? [LK("FlixBus", "https://www.flixbus.se/", "Långfärdsbussar", false), LK("BlaBlaCar Bus", "https://www.blablacar.fr/bus", "Bussar i Frankrike", false)] : []), LK("Google Maps – kollektivt", gm.replace("driving", "transit"), "Tidtabeller och byten", true)];
+  const fuelEur = P.totalKm * 0.065 * 1.9;
+  return stepHead(3, "Transport på plats", `<span class="seg sub" role="group" aria-label="Färdsätt"><button data-ptr="car" aria-pressed="${plan.tr === "car"}">Hyrbil</button><button data-ptr="train" aria-pressed="${plan.tr === "train"}">Tåg</button><button data-ptr="bus" aria-pressed="${plan.tr === "bus"}">Buss</button></span>`) +
+    `${plan.tr === "car" && open ? `<p class="pl-note warn">Bilen lämnas på en annan flygplats än där den hämtas. Räkna med en avgift för enkelriktad hyra${AP_ES.has(a.code) !== AP_ES.has(b.code) ? " – mellan Spanien och Frankrike blir den ofta hög" : ""}. Jämför med en rundresa under Ruttförslag.</p>` : ""}
+    ${plan.tr !== "car" ? `<details class="st-src" open><summary>Tåg och buss i Pyrenéerna</summary><p style="margin:6px 0 0">${esc(RESA.trains_sv)}</p></details>` : `<details class="st-src"><summary>Bra att veta om bil</summary><p style="margin:6px 0 0">${esc(RESA.car_sv)}</p></details>`}
+    <div class="pl-links">${links.join("")}</div>` +
+    (plan.tr === "car" ? `<div class="pl-price">${priceIn("carDay", "Hyrbil per dag (kr)", 25)}${priceIn("fuel", "Bränsle, vägtullar, parkering (kr)")}<p class="pl-calc" id="calcCar"></p>
+      ${P.totalKm ? `<p class="pl-calc" style="grid-column:1/-1">Rutten är ca ${Math.round(P.totalKm / 10) * 10} km. Med 6,5 l/100 km och 1,90 €/l blir bränslet ca ${fmtKr(fuelEur * plan.eur)}, plus vägtullar. <button class="linkish" data-pfuel="${Math.round(fuelEur * plan.eur)}">Använd</button></p>` : ""}</div>`
+    : `<div class="pl-price">${priceIn("pt", "Biljett enkel resa, per person (kr)", 10)}${priceIn("local", "Lokala resor på plats, totalt (kr)")}<p class="pl-calc" id="calcPt"></p></div>`);
+}
+function bikeHTML(P, T) {
+  const B = plan.bike, refs = P.bases.length ? P.bases.map(b => b.town) : P.stops || [];
+  const shops = HYR.shops.map((s, i) => ({ s, i, d: refs.length ? Math.min(...refs.map(t => km(s, t))) : null, ref: refs.length ? refs.reduce((m, t) => km(s, t) < km(s, m) ? t : m) : null }))
+    .sort((x, y) => (x.d ?? 9e9) - (y.d ?? 9e9));
+  const near = shops.filter(x => x.d != null && x.d <= 45).slice(0, 6), list = plan.showAllShops || !near.length ? shops : near;
+  const sel = B.shop != null ? HYR.shops[B.shop] : null;
+  const shopCard = ({ s, i, d, ref }) => `<div class="pl-shop${B.shop === i ? " on" : ""}"><div><b>${esc(s.name)}</b> <small>${esc(s.town)}${d != null ? ` · ${Math.round(d)} km från ${esc(short(ref))}` : ""}</small></div>
+    <p>${esc(s.bikes_sv)}</p>${s.price_sv ? `<p><b>Pris:</b> ${esc(s.price_sv)}</p>` : ""}
+    <div class="st-foot">${s.url ? `<a class="btn" href="${esc(s.url)}" target="_blank" rel="noopener">Boka hos uthyraren</a>` : ""}<button class="btn" data-ov-show="hyr:${i}">${ICON.map}</button><button class="btn ${B.shop === i ? "on" : "primary"}" data-pshop="${i}">${B.shop === i ? "Vald ✓" : "Välj"}</button></div></div>`;
+  return stepHead(4, "Hyra cykel", B.on ? (sel ? esc(sel.name) : "välj uthyrare nedan") : "valfritt") +
+    `<label class="pl-switch"><input type="checkbox" data-pbike="on" ${B.on ? "checked" : ""}> Vi vill cykla på resan</label>` +
+    (!B.on ? `<p class="tour-src" style="margin:0">Slå på för att se cykeluthyrare nära era boenden och räkna in cykelhyran. Allt om uthyrarna finns också under <button class="linkish" data-goto-hyr>Cykling → Hyra cykel</button>.</p>` :
+    `<div class="pl-inline"><span class="seg sub" role="group" aria-label="Cykel"><button data-pbikehow="hyr" aria-pressed="${B.how === "hyr"}">Hyra på plats</button><button data-pbikehow="egen" aria-pressed="${B.how === "egen"}">Ta med egen cykel</button></span></div>` +
+    (B.how === "hyr" ? `<div class="pl-price">
+        <label>Antal cyklar<input type="number" min="1" max="12" data-pbike="n" value="${esc(B.n)}"></label>
+        <label>Cykeldagar<input type="number" min="1" max="30" data-pbike="days" value="${esc(B.days || Math.max(1, nightsAvail() - 1))}"></label>
+        <label>Typ<select data-pbike="type">${Object.entries(BIKE_TYPES).map(([k, v]) => `<option value="${k}"${B.type === k ? " selected" : ""}>${v.label} (${v.range})</option>`).join("")}</select></label>
+        <label>Pris per cykel och dag (€)<input type="number" min="0" step="1" data-pbike="eurDay" value="${esc(B.eurDay)}"></label>
+        <p class="pl-calc" id="calcBike" style="grid-column:1/-1"></p></div>
+      <p class="outlook" style="font-size:15px;margin:0">${esc(HYR.tips_sv)}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between"><h4 class="eyebrow" style="margin:0">${list === near ? `De ${near.length} närmaste uthyrarna, inom 45 km från era boenden` : `Alla ${shops.length} uthyrare${refs.length ? ", närmast först" : ""}`}</h4>
+        ${near.length && near.length < shops.length ? `<button class="linkish" data-pallshops>${plan.showAllShops ? "Visa bara de närmaste" : `Visa alla ${shops.length}`}</button>` : ""}</div>
+      <div class="pl-shops">${list.map(shopCard).join("")}</div>
+      <details class="st-src"><summary>Utkörning till boendet, guidade turer och nätverk</summary><div class="rumours" style="margin-top:10px">${HYR.delivery_and_tours.concat(HYR.networks).map(d => `<article class="rumour" style="--rc:var(--accent)"><span class="rel">${esc(d.type || "Nätverk")}</span><h5>${esc(d.name)}</h5>${d.area ? `<small>${esc(d.area)}</small>` : ""}<p>${esc(d.info_sv)}</p><small>${linkA(d.url, "Webbplats")}</small></article>`).join("")}</div></details>`
+    : `<div class="pl-price"><label>Antal cyklar<input type="number" min="1" max="12" data-pbike="n" value="${esc(B.n)}"></label><label>Cykelavgift per flygsträcka och cykel (€)<input type="number" min="0" step="1" data-pbike="fee" value="${esc(B.fee)}"></label><p class="pl-calc" id="calcBike"></p></div>
+      <p class="outlook" style="font-size:15px;margin:0">${esc(RESA.bike_transport_sv)}</p>`) +
+    `<p class="tour-src" style="margin:0">Uppgifterna kontrollerades ${esc(fmtDay(HYR.checked))}. Priser och öppettider ändras – boka direkt hos uthyraren.</p>`);
+}
+function otherHTML() {
+  return stepHead(5, "Mat och övrigt", "") + `<div class="pl-price">${priceIn("food", "Mat per person och dag (kr)", 25)}${priceIn("other", "Aktiviteter, försäkring, spa m.m. (kr)")}
+    <label>Eurokurs (kr per €)<input type="number" min="5" max="20" step="0.05" data-peur value="${esc(plan.eur)}"></label></div>`;
+}
+function costs() {
+  const P = computePlan(), T = travellers(), n = nightsAvail();
+  const bn = P.bases.reduce((s, b) => s + b.nights, 0) || n;
+  const flight = val("flight") * T.pax + val("bags") + val("homePark");
+  const stay = val("night") * (plan.stay === "hotel" ? T.rooms : 1) * bn + val("stayFees");
+  const carDays = Math.max(1, n);
+  const tr = plan.tr === "car" ? val("carDay") * carDays + val("fuel") : val("pt") * T.pax * 2 + val("local");
+  const B = plan.bike, bdays = B.days || Math.max(1, n - 1);
+  const bike = !B.on ? 0 : B.how === "hyr" ? (Math.max(1, +B.n || 1)) * bdays * (+B.eurDay || 0) * plan.eur : (Math.max(1, +B.n || 1)) * 2 * (+B.fee || 0) * plan.eur;
+  const days = Math.max(1, n), other = val("food") * T.pax * days + val("other");
+  return { P, T, n, bn, flight, stay, carDays, tr, bike, bdays, days, other, total: flight + stay + tr + bike + other };
+}
+function renderTicket() {
+  const C = costs(), T = C.T, B = plan.bike;
+  const v = x => x ? fmtKr(x) : "–";
+  const shop = B.on && B.how === "hyr" && B.shop != null ? HYR.shops[B.shop] : null;
+  $("#plTicket").innerHTML = `<div class="th"><h3>Totalpris</h3><span>${C.P.inAp.code}${C.P.outAp !== C.P.inAp ? "–" + C.P.outAp.code : ""}</span></div>
+    <div class="tb">
+      <div class="ln"><span>Flyg<small>${val("flight") ? `${fmtKr(val("flight"))} × ${T.pax} pers` : "ange pris i steg 1"}</small></span><span class="v">${v(C.flight)}</span></div>
+      <div class="ln"><span>Boende<small>${val("night") ? `${C.bn} nätter${plan.stay === "hotel" && T.rooms > 1 ? ` × ${T.rooms} rum` : ""}` : "ange pris i steg 2"}</small></span><span class="v">${v(C.stay)}</span></div>
+      <div class="ln"><span>${plan.tr === "car" ? "Hyrbil och bränsle" : plan.tr === "train" ? "Tåg" : "Buss"}<small>${plan.tr === "car" ? (val("carDay") ? `${C.carDays} dagar` : "ange pris i steg 3") : (val("pt") ? `t/r × ${T.pax} pers` : "ange pris i steg 3")}</small></span><span class="v">${v(C.tr)}</span></div>
+      ${B.on ? `<div class="ln"><span>${B.how === "hyr" ? "Cykelhyra" : "Cykel på flyget"}<small>${B.how === "hyr" ? `${B.n} st × ${C.bdays} dagar × ${B.eurDay} €${shop ? " · " + esc(shop.name) : ""}` : `${B.n} st × 2 sträckor × ${B.fee} €`}</small></span><span class="v">${v(C.bike)}</span></div>` : ""}
+      <div class="ln"><span>Mat och övrigt<small>${val("food") ? `mat ${C.days} dagar` : "valfritt"}</small></span><span class="v">${v(C.other)}</span></div>
+      <div class="perf"></div>
+      <div class="tot"><span>Totalt ca</span><span class="v">${fmtKr(C.total)}</span></div>
+      <div class="pp"><span>per person</span><span>${C.total ? fmtKr(C.total / T.pax) : "–"}</span></div>
+    </div>
+    <div class="tf">
+      <button class="btn primary" data-psave>Spara resan</button>
+      <button class="btn only-standalone" data-pprint>${ICON.print}Skriv ut resplan</button>
+      <div class="status" id="plStatus" role="status"></div>
+      <div class="pl-saved" id="plSaved"></div>
+    </div>`;
+  const s = (id, t) => { const el = $("#" + id); if (el) el.textContent = t; };
+  s("calcStay", val("night") ? `${fmtKr(val("night") * (plan.stay === "hotel" ? T.rooms : 1))} × ${C.bn} nätter = ${fmtKr(val("night") * (plan.stay === "hotel" ? T.rooms : 1) * C.bn)}` : "");
+  s("calcCar", val("carDay") ? `${fmtKr(val("carDay"))} × ${C.carDays} dagar = ${fmtKr(val("carDay") * C.carDays)}` : "");
+  s("calcPt", val("pt") ? `${fmtKr(val("pt"))} × ${T.pax} pers × 2 = ${fmtKr(val("pt") * T.pax * 2)}` : "");
+  s("calcBike", B.on ? `= ${fmtKr(C.bike)} (kurs ${String(plan.eur).replace(".", ",")} kr/€)` : "");
+  renderSaved();
+}
+function renderBoard(P, T) {
+  const bs = P.bases.map(b => `<div class="lg"><span class="bs">${esc(short(b.town))}</span><span class="nm">${b.nights} ${b.nights === 1 ? "natt" : "nätter"}</span></div>`).join('<span class="ar">──</span>');
+  const og = plan.origins.length ? plan.origins.join(" / ") : "–";
+  $("#plBoard").innerHTML = `<div class="lg"><span class="cd3">${esc(og)}</span><span class="nm">hemma</span></div><span class="ar">──✈──</span>
+    <div class="lg"><span class="cd3">${P.inAp.code}</span><span class="nm">${esc(P.inAp.name)}</span></div><span class="ar">──</span>${bs || '<span class="nm">inga resmål än</span>'}<span class="ar">──</span>
+    <div class="lg"><span class="cd3">${P.outAp.code}</span><span class="nm">${esc(P.outAp.name)}</span></div><span class="ar">──✈──</span><div class="lg"><span class="cd3">${esc(plan.origins[0] || "–")}</span><span class="nm">hem</span></div>
+    <div class="dt">${esc(dayName(plan.d1))} → ${esc(dayName(plan.d2))}<br>${nightsAvail()} nätter · ${T.pax} pers</div>`;
+}
+function renderBoka() {
+  const P = computePlan(), T = travellers();
+  $("#plOrigins").innerHTML = ORIGINS_SE.map(([c, n]) => `<button type="button" class="chip" data-porigin="${c}" aria-pressed="${plan.origins.includes(c)}" style="--c:var(--accent)"><b>${c}</b> ${esc(n)}</button>`).join("");
+  $("#plD1").value = plan.d1; $("#plD2").value = plan.d2; $("#plAdults").value = plan.adults; $("#plAges").value = plan.ages; $("#plRooms").value = plan.rooms;
+  renderBoard(P, T);
+  $("#pl-flyg").innerHTML = flightHTML(P, T);
+  $("#pl-bo").innerHTML = stayHTML(P, T);
+  $("#pl-tr").innerHTML = transportHTML(P, T);
+  $("#pl-bike").innerHTML = bikeHTML(P, T);
+  $("#pl-ovr").innerHTML = otherHTML();
+  renderTicket();
+}
+$("#plForm").addEventListener("submit", e => e.preventDefault());
+$("#plForm").addEventListener("change", e => {
+  const m = { plD1: "d1", plD2: "d2", plAdults: "adults", plAges: "ages", plRooms: "rooms" }[e.target.id]; if (!m) return;
+  plan[m] = e.target.value; if (m === "d1" && plan.d2 <= plan.d1) plan.d2 = addDays(plan.d1, 7); savePlan(); renderBoka();
+});
+document.addEventListener("input", e => {
+  const p = e.target.closest("[data-pp]"); if (p) { plan.p[p.dataset.pp] = p.value; savePlan(); renderTicket(); return; }
+  if (e.target.matches("[data-peur]")) { const x = parseFloat(e.target.value); if (x > 0) { plan.eur = x; savePlan(); renderTicket(); } return; }
+  const b = e.target.closest("[data-pbike]"); if (b && b.type !== "checkbox" && b.tagName !== "SELECT") { const k = b.dataset.pbike; plan.bike[k] = Math.max(0, parseFloat(b.value) || 0); savePlan(); renderTicket(); }
+});
+document.addEventListener("change", e => {
+  const b = e.target.closest("[data-pbike]"); if (!b) return;
+  const k = b.dataset.pbike;
+  if (k === "on") { plan.bike.on = b.checked; savePlan(); renderBoka(); }
+  else if (k === "type") { plan.bike.type = b.value; plan.bike.eurDay = BIKE_TYPES[b.value].eur; savePlan(); renderBoka(); }
+});
+document.addEventListener("click", e => {
+  const o = e.target.closest("[data-porigin]"); if (o) { const c = o.dataset.porigin; plan.origins = plan.origins.includes(c) ? plan.origins.filter(x => x !== c) : [...plan.origins, c]; plan.origins = ORIGINS_SE.map(x => x[0]).filter(x => plan.origins.includes(x)); savePlan(); renderBoka(); return; }
+  const st = e.target.closest("[data-pstay]"); if (st) { plan.stay = st.dataset.pstay; savePlan(); renderBoka(); return; }
+  const t = e.target.closest("[data-ptr]"); if (t) { plan.tr = t.dataset.ptr; savePlan(); renderBoka(); return; }
+  const h = e.target.closest("[data-pbikehow]"); if (h) { plan.bike.how = h.dataset.pbikehow; savePlan(); renderBoka(); return; }
+  const s = e.target.closest("[data-pshop]"); if (s) { const i = +s.dataset.pshop; plan.bike.shop = plan.bike.shop === i ? null : i; savePlan(); renderBoka(); return; }
+  if (e.target.closest("[data-pallshops]")) { plan.showAllShops = !plan.showAllShops; savePlan(); renderBoka(); return; }
+  if (e.target.closest("[data-pauto]")) { plan.inAp = "auto"; plan.outAp = "auto"; plan.mode = "auto"; savePlan(); renderBoka(); return; }
+  const f = e.target.closest("[data-pfuel]"); if (f) { plan.p.fuel = f.dataset.pfuel; savePlan(); renderBoka(); return; }
+  if (e.target.closest("[data-goto-hyr]")) { mState.mode = "motion"; mState.tab = "hyr"; store.set("cyMode", "motion"); store.set("mTab", "hyr"); show("touren"); return; }
+  if (e.target.closest("[data-pprint]")) { const w = window.open("", "_blank"); if (w) { w.document.write(tripDocument()); w.document.close(); } return; }
+  if (e.target.closest("[data-psave]")) {
+    const C = costs(), list = store.get("plans", []);
+    const label = `${C.P.bases.map(b => short(b.town)).slice(0, 3).join(", ") || "Resa"} · ${plan.d1} · ${fmtKr(C.total)}`;
+    list.unshift({ label, trip: state.trip.slice(), notes: Object.assign({}, state.notes), plan: JSON.parse(JSON.stringify(plan)) });
+    store.set("plans", list.slice(0, 12)); renderSaved(); const ps = $("#plStatus"); if (ps) ps.textContent = "Sparad i den här webbläsaren."; return;
+  }
+  const ld = e.target.closest("[data-pload]"); if (ld) { const it = store.get("plans", [])[+ld.dataset.pload]; if (!it) return;
+    state.trip = it.trip.filter(id => BY[id]); state.notes = it.notes || {}; Object.assign(plan, it.plan, { tab: "boka" }); saveTrip(); savePlan(); renderBoka(); const ps = $("#plStatus"); if (ps) ps.textContent = "Resan är laddad."; return; }
+  const dl = e.target.closest("[data-pdel]"); if (dl) { const list = store.get("plans", []); list.splice(+dl.dataset.pdel, 1); store.set("plans", list); renderSaved(); }
+});
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-pick-bike]"); if (!b) return;
+  Object.assign(plan.bike, { on: true, how: "hyr", shop: +b.dataset.pickBike }); plan.tab = "boka"; savePlan(); show("minresa");
+  requestAnimationFrame(() => { const el = $("#pl-bike"); if (el) el.scrollIntoView({ block: "start" }); });
+});
+function renderSaved() {
+  const el = $("#plSaved"); if (!el) return; const list = store.get("plans", []);
+  el.innerHTML = list.length ? `<span class="eyebrow">Sparade resor</span>` + list.map((s, i) => `<div><button class="btn load" data-pload="${i}">${esc(s.label)}</button><button class="icon-btn" data-pdel="${i}" aria-label="Ta bort ${esc(s.label)}">${ICON.close}</button></div>`).join("") : "";
+}
+
+/* ----- resplanen i resedokumentet ----- */
+function planDocument() {
+  const C = costs(), P = C.P; if (P.empty) return "";
+  const B = plan.bike, shop = B.on && B.how === "hyr" && B.shop != null ? HYR.shops[B.shop] : null;
+  const dayTxt = d => d.kind === "arr" && !d.stops.length ? `Landa på ${d.from.code}, kör till ${short(d.sleep)}` : d.kind === "dep" ? `Kör till ${d.to.name} och flyg hem` : d.kind === "free" ? `Fri dag i ${short(d.sleep)}` : (d.kind === "arr" ? `Landa på ${d.from.code} → ` : "") + d.stops.map(short).join(" → ");
+  const line = (k, v) => v ? `<tr><td>${k}</td><td style="text-align:right">${fmtKr(v)}</td></tr>` : "";
+  return `<section><h2>Resplan dag för dag</h2><p class="sub">${MODES[P.mode].label} · flyg ${P.inAp.code}${P.outAp !== P.inAp ? " in, " + P.outAp.code + " hem" : " t/r"} · ca ${Math.round(P.totalKm / 10) * 10} km bil · ${C.T.pax} pers</p>
+    <table class="plan">${P.days.map(d => `<tr><td><b>Dag ${d.n}</b><br><small>${esc(dayName(d.date))}</small></td><td>${esc(dayTxt(d))}${d.sleep ? `<br><small>Övernattning: ${esc(short(d.sleep))}</small>` : ""}</td><td style="text-align:right">${d.km ? Math.round(d.km / 5) * 5 + " km" : ""}</td></tr>`).join("")}</table>
+    ${shop ? `<p class="mine"><b>Cykelhyra:</b> ${esc(shop.name)}, ${esc(shop.town)} – ${B.n} cyklar, ${C.bdays} dagar. ${esc(shop.service_sv || "")} <a href="${esc(shop.url)}">${esc(shop.url)}</a></p>` : ""}
+    ${C.total ? `<h2 style="margin-top:14px">Kalkyl</h2><table class="plan">${line("Flyg", C.flight)}${line("Boende", C.stay)}${line(plan.tr === "car" ? "Hyrbil och bränsle" : "Tåg/buss", C.tr)}${line("Cykel", C.bike)}${line("Mat och övrigt", C.other)}<tr><td><b>Totalt ca</b></td><td style="text-align:right"><b>${fmtKr(C.total)}</b> (${fmtKr(C.total / C.T.pax)}/pers)</td></tr></table>` : ""}</section>`;
+}
+
 /* ---------- Om ---------- */
 $("#aboutIntro").textContent = GUIDE.intro;
 $("#aboutVagval").textContent = GUIDE.vagval;
