@@ -1605,7 +1605,7 @@ const GUIDE = {
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=5"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=6"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -1743,6 +1743,7 @@ document.addEventListener("click", e => {
   else if (state.cats.has(k)) { state.cats.delete(k); if (!state.cats.size) state.cats = new Set(Object.keys(CATS)); }
   else state.cats.add(k);
   store.set("cats", [...state.cats]); refresh();
+  if (current === "karta") map.fitMatches();
 });
 document.addEventListener("change", e => { if (e.target.matches("[data-only14]")) { state.only14 = e.target.checked; store.set("only14", state.only14); refresh(); } });
 document.addEventListener("input", e => { if (e.target.matches("[data-search]")) { state.q = e.target.value.trim(); document.querySelectorAll("[data-search]").forEach(i => { if (i !== e.target) i.value = e.target.value; }); refresh(); } });
@@ -1841,7 +1842,9 @@ const map = (function () {
   }
   lm.on("zoomend", () => el.classList.toggle("labels", lm.getZoom() >= 10));
   let inited = false;
-  function fitAll() { if (lm.getSize().x < 640) lm.setView([42.85, 0.75], 7); else lm.fitBounds([[42.45, -1.75], [43.4, 3.1]], { padding: [10, 10] }); }
+  function fitAll() { if (state.cats.size < Object.keys(CATS).length || state.q) return fitMatches(); if (lm.getSize().x < 640) lm.setView([42.85, 0.75], 7); else lm.fitBounds([[42.45, -1.75], [43.4, 3.1]], { padding: [10, 10] }); }
+  /* visa alla resmål som matchar filtret, t.ex. alla världsarv från Bordeaux till Nice */
+  function fitMatches() { const l = PLACES.filter(matches); if (!l.length) return; lm.invalidateSize(); const small = lm.getSize().x < 640; lm.fitBounds(L.latLngBounds(l.map(p => [p.lat, p.lon])), { paddingTopLeft: [20, small ? 70 : 30], paddingBottomRight: [small ? 20 : 60, 30], maxZoom: 10 }); }
   let drawn = false;
   function resize() { lm.invalidateSize(); if (!inited && lm.getSize().x > 50) { inited = true; fitAll(); } if (!drawn) { drawn = true; render(); } }
   function fit(latlons) { if (!latlons || !latlons.length) return; const go = () => { lm.invalidateSize(); inited = true; lm.fitBounds(L.latLngBounds(latlons.map(p => [p[0], p[1]])), { padding: [40, 40], maxZoom: 13 }); }; go(); setTimeout(go, 120); }
@@ -1851,7 +1854,7 @@ const map = (function () {
   $("#zout").onclick = () => lm.zoomOut();
   $("#zfit").onclick = () => te.on ? teFit() : state.route ? fit(routedLL(state.route.key) || state.route.path) : fitAll();
   new ResizeObserver(() => { if (!$("#v-karta").hidden) resize(); }).observe(el);
-  return { resize, updateMarkers, focus, fit, fitAll, render, setBase, get baseKey() { return baseKey; }, BASES, lm, tourLayer };
+  return { resize, updateMarkers, focus, fit, fitAll, fitMatches, render, setBase, get baseKey() { return baseKey; }, BASES, lm, tourLayer };
 })();
 
 
