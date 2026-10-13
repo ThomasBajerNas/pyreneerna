@@ -2009,7 +2009,7 @@ const map = (function () {
   const GKEY = "AIzaSyAl5vv16dXTNZiqQMqbYn8c0lW531m6fuo", GT = "https://tile.googleapis.com/";
   const _gs = {}; let gAttr = "";
   const gSession = t => _gs[t] || (_gs[t] = fetch(GT + "v1/createSession?key=" + GKEY, { method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(Object.assign({ mapType: t, language: { no: "nb" }[LANG] || LANG, region: "SE" }, t === "terrain" ? { layerTypes: ["layerRoadmap"] } : {})) })
+    body: JSON.stringify({ mapType: t, language: { no: "nb" }[LANG] || LANG, region: "SE" }) })
     .then(r => r.ok ? r.json() : Promise.reject(r.status)).then(j => j.session).catch(e => { delete _gs[t]; throw e; }));
   function gLayer(t) {
     const lyr = L.tileLayer("data:image/gif;base64,R0lGODlhAQABAAAAACw=", { maxZoom: 20, maxNativeZoom: t === "terrain" ? 15 : 20, attribution: "" });
