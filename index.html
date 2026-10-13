@@ -123,6 +123,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .route-pill{position:absolute;left:12px;top:12px;z-index:5;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 6px 6px 14px;box-shadow:var(--shadow);font-weight:600;font-size:13.5px;max-width:calc(100% - 80px)}
 .route-pill span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .route-pill button{border:0;background:var(--surface-2);border-radius:999px;width:26px;height:26px;cursor:pointer;flex:none}
+.route-pill #routeDl{width:auto;padding:0 10px;font:700 11.5px var(--f-ui);color:var(--ink)}
 .mobile-chips{display:none}
 
 /* ---------- sheet (detalj) ---------- */
@@ -670,7 +671,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
       <div class="map" id="map" tabindex="0" aria-label="Karta över Pyrenéerna. Dra för att flytta, scrolla eller nyp för att zooma.">
         <div class="lmap" id="lmap"></div>
         <div class="mobile-chips filters" role="group" aria-label="Kategorier"></div>
-        <div class="route-pill" id="routePill" hidden><span id="routeName"></span><button id="routeClear" aria-label="Dölj rutten">✕</button></div>
+        <div class="route-pill" id="routePill" hidden><span id="routeName"></span><button id="routeDl" aria-label="Ladda ner GPX" title="Ladda ner GPX" hidden>GPX</button><button id="routeClear" aria-label="Dölj rutten">✕</button></div>
         <div class="map-ctl">
           <button id="zin" aria-label="Zooma in">+</button>
           <button id="zout" aria-label="Zooma ut">−</button>
@@ -1807,7 +1808,10 @@ const GUIDE = {
   intro: "När ni ska åka från Biarritz rekommenderar jag franska sidan: börja på E80. Strax öster om Saint-Gaudens kan man köra inlandet och sedan komma ut i Perpignan. Det finns mycket att se hela vägen, och man kan även ta långa vägen genom Pyrenéerna genom att svänga av i Pau och sedan köra Tour de France-land över alla bergspass – en så kallad omvänd kungsetapp från Pau till Saint-Girons över Col d'Aubisque, Col du Tourmalet, Col d'Aspin, Col de Peyresourde och om man vill Col de Portet d'Aspet.",
   vagval: "Vid Luchon har man vägval: åka söderut in i Spanien via Vielha och sedan mot Barcelona. Om man väljer att åka till Saint-Girons kan man fortsätta till Foix. Där kan man välja att åka österut mot Perpignan, eller rakt ned via Ax mot Andorra. Innan Andorra kan man ta av mot sydost och följa skyltarna mot Barcelona.",
 };
+/* dagsturernas stigar (BRouter, profil hiking-mountain, OpenStreetMap-data), kodade som polylinje + höjd */
+const HIKE_PATHS = {"pont-espagne":{"p":"gipdG|hZPO?mAP_A?W\\e@\\lA?aAl@pAGeBDu@LIFj@^h@Cy@Ra@JEX\\z@Nv@f@VBzBc@j@YfACr@O^Bl@`@^?NQn@AZn@LDz@Sh@LFWFPLC`Af@zAVjCo@lDZbCSt@TEr@d@H`@KZFh@]|AMp@_@Ri@z@WxACNNPAr@XbAFbA\\h@@lBYvCoA`AJhCAjB`A`AAlALlBlAr@NvA[DM","e":"e|A@@A?IKAOACEEO?IGMWMCa@MMKIKIGQBAWEG@A@?_@KSEDCE?E@EOAFBCBAD?M]AK@GEEA?A","r":1},"gavarnie":{"p":"icycG~x@RCNTbCeAdE_AxCeBrG_@`@QrAI?s@dDi@nAEdBPjD~AnAL`BWlEuBtAC`Bv@pAvAbAbCRNxCk@jAu@Z_AxA{@fBQp@\\zABp@OjAqAjBYzAB`B^jEb@zAGb@v@d@N~@AvALdFCnEhA`DBhBa@VDhBfAj@Gh@H|@Qd@r@bAdEd@t@bAbCdBfAb@Q\\Ht@AJ_@~@eAv@Kn@i@^s@@iCDc@^}@XMV@`@Tn@@p@c@t@yAtCuBVGX]JFp@Yf@?dBs@Ve@Bs@PaA^WtAD\\Nh@t@vBA`@H|EU|@NhAd@f@l@hAEZRp@Dr@[LPfAGhEt@fBYXe@f@sBdA{C","e":"wtAA?AEAE@ABCAACACC?CEEASGOIA?EBCHB@ECAAA?CIO??MGGMCUIOSICEESMKCSCCG?@IAGE@IDC@SKGG@OC@OEw@GEAIEIOAWaAe@Oi@iA","r":1},"breche":{"p":"apucGl{HrBvBb@vAXtAj@pFhAzF\\fDx@hCt@dAxAz@vA~AjDzGnDtCbAnAvAfAhBbC~@~@P`@^vB`@`@nEjDjBx@`FjA|AlAj@eC@gCJmB\\o@LyCEa@P_B?mAVwBPs@DgAVs@LkDToBE_@JSL{@Ic@@Yv@oANk@KeBDaALa@c@mBHs@UsEEyC?m@^w@JeBMq@j@sBGq@?s@Pq@E_ADk@M_@Va@?SQw@EsAt@e@|@oDNiBKiAPa@Fu@BgC^cCX_A?s@b@gCTm@Hq@HqB[gCEmBx@qGGWJ{CFMLHNGf@q@dCs@@[Tg@EU@mAXMAYPB?QXNBaAP@BS~@x@NONe@RBRPZi@^UHSZJ?a@n@m@Hq@IO]PUCKOJe@^WzAMl@Y^uAH}@~@w@|@a@|]`B","e":"_iC??????A@??AAEGQ?CO?YIUS[QIQO@I@?@DAF?@A@@@C@B?AAAHCAIGDW@GKEGDOAHEKUE@GCGEAD@?A?BASBa@CIEIy@ASBIOGGEIUEGQIKGAMIECGSQG@CEICAILNGE_M","r":1},"lac-oo":{"p":"ck_dGc~`BhATPw@LFKc@dDXx@\\vDGfAs@j@^pBEn@k@t@If@m@rAaA~@f@rACrBXdCn@~@vAtBvAt@fATx@pBhChC`A`@B`@@rBYnCxAnBtAvAjBVtAz@~@JpAl@lBHIC}AFIXlAN^J?K{Bb@lATVIyAFKNh@~@z@Nt@MhBo@b@]dBr@GJF@b@OdAtAaBRGJD?d@PBM`AN?T_@NyAJGIfEDh@j@dAp@^`@f@fC`F^hBlA`@lAI]i@Uu@^Rb@p@pBjAvDIlATb@K~@o@ZJPWd@Up@@V[l@cBRWVeEJc@t@cAh@{A","e":"}eACGAAQCOI?EE?ISDMS[Ga@I?MSGGi@EIK?[?QGCCGIECMKCGEe@MAPUOEIIKIGEI?GIEGEBEQCXN[k@CQEHJAB?G@GKCEQ@YC?K","r":1},"ordesa":{"p":"{|hcG`tJFI@mDR_DM[I?AW[ErAsJF}AGiAd@{B?iCVkBB_Ac@{IPo@N_BfAsD|A{BRg@RiBnBuK~BmDpAm@P]v@]Xc@\\q@VmAVaEPk@|@kAPs@n@q@tAi@r@Mx@q@`DaGl@oB^kCdBu@zAmEt@_BdAcBb@YBSg@MB_@\\SL_@AYY]_@JCKHa@W_ApAk@X?RUZe@d@}Ax@qBFcCGu@\\w@IQ[?BK\\QZCZy@?Se@DBYlAg@LuB^Y|@z@fC_@ZQDk@`@w@B_@d@Qf@N^M?u@RGRFFGCWh@Cc@m@pAWVgBl@}@?{Ab@eEE]]G_@v@MBMS@c@OO_@AQWEi@Ri@VeETOl@BHoBd@_Cr@uA?[KWWQO@Sn@[f@qB|AOh@En@u@hCOZOAGUPeDTaAVmCTuGz@}ATq@@i@\\}@Be@z@}APw@GoD^uCDoFF{@GsG\\cEFe@^{@KoAR_AY_BLeE{@cEqA_EGcAiByF[kCi@{COaCYyAc@iAMeFm@mC[UgAmK_@kAI_DCGI\\C[CJIjBCeCMk@GICRGUICDo@Eu@Mb@Wg@[SEWe@WIq@US_@_A{@uDqAqB_@y@k@Gc@][g@]kASKGo@wAeEuCiCi@oAw@oAg@OaCcCkBsAgCmDgD_AgBcAeBuEiAaAg@iAw@_AoDgLcAmB}@y@iAXa@OKB_@c@AO[Eu@CaAV","e":"cqA?AAA??AC?AAIB?C?CA?ACGC?AAE??GBAA?C?AKIIBKCIBCKEBCCGOCBG?@A?IG@E@GK?BBMEGE@Y?CLBQCGE?GYI?EMHe@Vq@Ea@KEK@GCACKCAII??KECAECAAAGA@MAECGAKYC?CAC@CCA]BEH?H?JGDGGBGAEAA?@GKUKMCGCCOFBCI@GHEGCGBGBE?@E?CA?DAB?KAA@ABAA?A??AKAAG@?A@ACY","r":1},"neouvielle":{"p":"qwmdG}{Zc@f@a@?gAuA[CQOu@oA_@KgAjAkEh@KYf@oAwBaAa@i@AkCIe@y@i@sAKMDgBiAKXOAoCdBQf@WN]dAgB`@_@XmAIMFMh@wArAo@?m@SaAwAi@M?WTKNc@LyALk@LOCsBRg@z@eAL_@Ag@Jo@zAoC^gAtBaBtBqChDqD~@kCT]U\\_AjCiDpDuBpCuB`B_@fA{AnCKn@@f@M^{@dASf@BrBMNMj@MxAOb@UJ?Vh@L`AvA`@Jo@lAUv@k@b@g@|@K`@cAFgAEOACOa@Ey@F_@k@e@S{AgAg@cAGF]WgAmAk@MM_@U@a@USJW]OJWWG[ODIMF[UaCWe@o@c@GYOIWyAH}@SIOc@D[]cAUOK[]M_@AQJ_@t@Up@IhBm@dAGr@Ut@c@PWf@sAvA]n@?d@[~@@nAyAtAq@NyAlAY|@a@J]~@WV[KOb@?T]CURm@~@C\\u@h@cC^B^_Bl@{@CU[m@\\_@_@}AEw@o@aA[g@a@QaASK_@y@u@k@wAQ[]KFi@IY_@?WWq@QKCYa@{@S_Ae@MKS?o@}@O}@cAg@Gc@Hs@t@r@u@b@If@F|@bA|@N?n@JRd@LR~@`@z@BXPJVp@?VX^h@HJGZ\\vAPt@j@^x@RJP`Af@`@`AZv@n@|AD^^l@]TZz@B~Am@C_@bC_@t@i@B]l@_ATS\\B?UNc@ZJVW\\_A`@KX}@xAmAp@OxAuAAoAZ_A?e@\\o@rAwAVg@b@QTu@Fs@l@eAHiBTq@^u@PK^@\\LJZTN\\bAEZNb@RHI|@VxANHFXn@b@Vd@T`CGZHLNEFZVVNKV\\RK`@TTAL^j@LfAlA\\VFGf@bAzAfAd@R^j@x@G`@DBNN@fADbAGE`B_AfBCZc@YM\\]EWl@[~@w@pFv@qFZ_AVm@\\DL]b@XB[~@gBB{ALg@f@}@j@c@Tw@n@mA^JZCvAsALi@LGlAH^YfBa@\\eAVOPg@nCeBN@JYfBhALErAJx@h@Hd@@jC`@h@vB`Ag@nAJXjEi@fAkA^Jt@nAPNZBfAtA`@?b@g@","e":"{cCGGO??GGACAIGGKACQ?O@A?A@@@A?AEDBA?C??A?@@GCD@A@ACH?@E??DA?IB@A@AEBFAA?@??B?@ICEEECKA@EQEOe@EAGMQEIOIMGOEGCAO@?@?OEGGCSICGIEMKEOBFADCBBGJSMQKGICGE?GEKEKk@CUH@T@VDDD@DHR^D@BF?L@BLDD@@NJB@FGACKOAAEEMCAM?GCAE_@SIEAEEEWAUAITBj@JDJDF?DFBHFJPLRKFCCBE@GCNDJLDHFBHRBFFDN?A?AN@BFDNFLHNHDPLF@Dd@NDPDA@JBMQAIKCMIWVHLBJH@PLDDDBH?CED@?@AAA@?@AN?PB@JFFH@B@FF??NFJ","r":1},"aiguestortes":{"p":"as{bGu{cEDUD@VZJ]OaBPQFaAW{BKSs@CGYg@]Wk@OGMF[pAUb@Sk@Ik@OCUkAc@e@s@cB]{BF{ACKU@M\\HhAKbCDdCh@xCq@bCq@x@yAhF}BtDWv@Y|Ag@nAy@rAGhA]xAgAdBcA`AcAj@}AbDo@^{@|Bc@zB{@zA@x@d@rATbBEx@a@rB~@zBBd@m@lDg@~@WjCgApBc@nCi@zBHfDIn@QXPYSrCo@~BKrBcApDa@D[VwA`BSx@M@M_@SEYz@kAdA_@DcAOSLkAfDWnDg@pBYjDg@nC_@Bq@e@MBMJi@nAExBk@xDKvAa@fAYEg@k@[aAm@o@IUAu@Qg@g@TgCrBS|@s@v@c@|AIt@UF?{A]oBEoEPkBb@mADk@Q][KoAdA^\\TW","e":"cvBB@JEWE?J?CBCCAACAEACAEEG?AGGDQI@SI[YKAKMEIOIIUKOEKEKQGQEAUGOB?AA@BCCICQBC?ECA?IQII?EBCKEEA?CCOYKK@IGIACGIq@EWSGMAW]KEAG?GAB","r":1},"ayous":{"p":"u}rdGdzwAb@g@d@qArB{Aj@gAh@WNmB]}@iA{AQi@XTpBV`Av@fBlC|AbDj@n@x@RlAAr@`@~HNnA]z@\\HHN~@t@lAp@n@h@PDdAnCr@bCI~@rA`@z@vB~B`@Nb@d@j@jFf@|Aj@v@BnAQXKn@ApBVvFf@xBZjL^jDDzAErAi@~@Y`Ac@@SKiA`JEz@JlCBNVHdA~BNx@hAfAt@nD~AnBv@\\r@@h@a@hAD|BrAlAfC^~ACv@Zt@z@bBr@j@jBtCThCEt@Wx@iBhD}AhBGf@Dh@N`@AXMHDHAz@k@]Th@Gh@NTAb@FFGNLCXP@f@KZc@\\Mn@}@vBPp@R|Bh@zAGl@NjAEzAa@nAk@d@E~@TbAr@z@Lf@b@x@Ar@j@bDN^@ZXbAt@vANnDLt@d@p@In@f@f@Pd@h@B","e":"kwAGIMC@CAA@AG@ACEKSAm@Y??NBACO]I[OKD@U?BIIMWm@Oy@EIQa@UMEQEYCC[KCWOGG@IUYIEESIe@IA??CCGCEG?WGGS@I?EB?GEKCO@CGEA?@A?GIEEEH@?C@A@AGMI?","r":1},"lescun":{"p":"cy`eGra{B|@gA`@hB\\WFq@hAHn@SAQp@@tCu@XFb@|@nAOP`@nAd@x@fAXv@PRb@uCr@tDLVzAxAz@fDv@nAJb@Ff@CrGXnDN`@fAn@j@bAtAP|BDl@`@\\dAt@b@dE|DLCtAtAb@Pp@j@h@xA@f@VzAZjDb@lAbB~Cr@`C~@lBk@FI\\P~B`AvBFr@F~GGfAa@`DWGO_@Eo@UaAu@Bk@|@E\\OPBh@OrBHrB[dDm@zC_@r@?o@Uo@_BSk@{A{AkA_@Ha@r@E^B\\\\h@?P{@lFIbCTx@@p@k@dEGlAsAbEeAbC@h@I`@aB`Ck@hBFN~@?r@g@n@Q\\`@DYd@o@|Bs@Rn@Cv@VIPDdB`E`D~CVr@PpACdCMfAL~B`AjDCnCh@zADd@c@dCo@fBQnAI`AD`ATjAERu@bBoAAIR?j@HPt@R`C`BZjA?xCHxATz@tAzC`@xANvBj@|@nBzAvBbDxAtEl@j@tAJHZ@t@a@l@Mv@MxFa@fAWN@`Am@zBBbCd@jBf@x@?j@Ub@Ir@[l@Ad@[VCh@}BVy@G_@UYNS@]WSNOCGYc@p@`@xDb@t@hAH`A`@ZBK`@PP?xHf@pENXJr@UdEHvBEVZx@B`@Sd@Kz@LPLIfBiCb@_@\\MTXVB@J[t@RZOjA{@hBQhBDD`AeAIfAi@rB?T^OBJGbCGr@Qn@Xd@RJTv@Bh@SFQb@J^ONH\\Ah@e@v@UtBGROLElAe@`BBrDCfC]`AKvAUfA}@|CSzB","e":"wx@NJF?PH?FRB@L?LHBBJJ@TFH??FDBGUk@MCGGMACA?A@CCCIMMDBFIDLBHGGCGUKACAGCKCECGQIE???AEAOICAOGMQCEUK?EGEE@EQIK@AOCC?ECH@MGCYSGE@@Gg@UGIABWO[IC]UUG]g@w@K@EMOKUQOFe@M?HAICK@GFQUUAISEGIG?QLKBS@uAc@CGi@KGHAAGBEOICK?COGSSQCMIKCICa@E?EC@MB????G?I?FBAC?A?@?A","r":1},"canigou":{"p":"umrbGqm`N@\\j@v@xAr@d@t@j@BVz@l@TL^dBhADb@dAjDAv@NzBCpBDt@h@fALh@`@ZIrAq@bBgAjBi@JsCbBu@rBo@|Eo@~BObAATb@`A`AhAN@BjEFFAXTnBFjBZg@Le@rAQxAkBj@Kz@i@ZA~CkAzBYlE{A\\AXROuAL[`BxAtBn@zAYrBcAjLyBrDmB^On@GDK|BFhDzAo@}AnAt@Ww@LJCMFB@Id@CzAL|At@|AX@Ie@e@wAyBfCd@q@{@zBRkAeAnAJWYv@F\\G","e":"keC?C@A??CAa@AJ@ISECEIQQU?MOa@SICWk@G_@CAUMK?OUEMCm@[y@GAQCW[U_@aBi@CAA_@e@OMOAC?EMSOQEI_@]OWG[BME","r":1},"carlit":{"p":"kpwbG__fKhBfSMh@KhA@h@Mt@FN?l@XnA?Ti@|Ai@fEa@rACnBj@hAA`@d@tFAh@Uv@k@~FaB|B{@`Cc@x@}@bA[hA[d@kBzAYJY^A^Wj@mAr@m@fAAr@{@p@Q^gBlAKb@Bf@}@t@[pACp@e@fAaDjFeAP}ABK^mCr@ONK`Au@lA}@j@[z@MJwA`@_@XkDpFMBMY]Ma@JCZcA`AyAd@u@j@gA`Ce@p@e@^c@v@e@|Ac@\\KlAgAbC[|Ak@x@u@`Bg@jCIhCi@bAa@b@OEGFSbAg@h@]|@QbB}@hD?XOn@Qn@UDI\\H`Ak@~BWjB^zBMt@XdAMfCh@dD@x@XrATvDGdBw@nCIv@RhAR\\XvAKvBSdA?d@TxBf@`C?zAr@lCnAdCjDpB`@@r@f@d@DnDnFJp@Tf@l@bG\\bBZpCOp@GbCo@lDHv@Rd@CpAP\\n@b@Rj@ArDx@nBD^GhBLz@BhAJd@`AhAFv@l@tAXpALfB_@nC_@~A?hAGn@Y`AJXKdBJnCj@b@b@KBRJC?b@LRMb@H|@MJHVGNHHG`@BPJ?Cd@FA@`@LLEb@PPGXNVKX`@dAMVHp@EBBLIBJPE@HZIDJTUTSr@?\\LvAVjAAPFJIdCNdBEVD~@e@k@Fd@QM?JECFXK@N\\Ef@c@b@ANDCVVS\\JBBJ","e":"u|BO@ACEAAC?EQMWIIA?AUCGGAMGC@GIECKIGCGCC?AABACKEWAE@C??CAAA@@?EEQOSGAAM?IGMCAAF@A?ACGKO[EKICGEU@UCAFC@BCOEDBA?@F?EQ?CE@A@CQCEUC@?KSKMECQCQMCIGECWG_@UWk@c@YGMI[k@KOCCEGCOCECCICAIAGEGEEIEUKKCCCCCIEEQQKe@OAEo@c@QYEK@E@M?OWYG@OIAB","r":1},"mont-valier":{"p":"evldG_lhE\\Ch@~@XOhB\\t@_@~BkE@uBj@o@~BqEnAy@l@gAp@w@\\Kz@TZ?jC_C`AoAjAyCf@{BB]WaACq@FaBXoAr@w@l@YzAShC`@|C@j@SDi@^s@rBc@r@AfA^d@En@k@bAUrGc@nAWpA}@h@y@f@YhAGxBq@n@a@~@WVYdD_BpAuAd@w@f@_@`@sAj@NREVYV@lAs@t@P^d@j@Lj@i@n@QjC}Bn@_A\\sA`@]Hi@NG@O^Ex@}@ZiBLMLD\\I\\w@PI\\m@ZODOJNd@Wr@ILUPCTs@`AkALILJd@Sd@k@p@GTe@L?Z[RENHv@OFE@]VIl@eAXFHWg@c@g@}Ai@Il@U@KV@n@e@E[k@k@j@k@lACJFLGAWNE`@b@O_ApAjA\\LPl@JULj@HA\\kAV`@VST?z@{@x@IX_Ab@Mf@B@WRQ^O\\@DGI]^[QGGUJOMEBUOGDMcAVMIHEGe@kBK[]RYh@YDGGIRUGGb@]EQ`@SSWp@KX_@La@CGg@?^eAB]l@q@lAYf@@z@o@N_@h@STDt@o@fAPv@Mn@o@H]l@K^WLU@{@R[AaA\\m@ZM^wAFcCVoAEw@QIBUj@kA@u@^wA?m@j@oALm@h@cAh@_BBWKKPWCE`@eAf@u@HQ?a@p@[Vu@NG@o@Yi@HMEUTg@Z[Kc@REAKPME_@POESVECMPM\\cA]MBMIMHcAKSB[g@CC]Hi@TQ_@STYcA}@ROO_@Ae@Xc@Fw@f@e@f@kARI?WP[XQ`@mBP]IADUGIJGGCFOTQBSQ@QWf@s@YGFmA]WHQj@CPa@b@WAc@MMX_BY~ALL@b@c@VQ`@c@BO]^c@UkESk@Gy@LqCEo@FUEaCDmAN[@k@VoAP_@XSGQPOGKPKGEd@[p@AfBd@f@OEWPGGQNSUe@FKIIHKAa@`@[x@MKWJO@ULE?O\\I[e@JEAWQOFg@OA@QUOc@Fk@`A@KO?BKCQODKKDCQGDIEOFOc@UBOEGT}@KFAq@QR?OKH@kBh@}Cn@q@GCXe@H_@tAu@h@EEWHIEQH[e@W]PG_@_@@?KO@?m@i@CSQGc@IBEOYBUS?IG@COG??WIB@O_@A?SSCa@HKQOFMMC[WFKUQ@MYQGSJEMQCWiAMH","e":"sy@?M?MCEJEEQJ@AECG?E??D@GIGCGGGA@AGCCCEIs@GMGACg@YWSm@IC?IAACCOEAICMWCIKAE?IMMGEOMIKK?GIKCC?OCCIEMCEIIGUA@C?E?@UCOEAUKQUSCIMKAYQM?MEG]IKI[EOCDEAE?AKMAIECMGG?EASMOKEECGEIGMGOKIAEQIOUIQECASMSQCKGAMIQKIQ_@SOCAQMUIIKKUECECOMEKGMCOGEEQMIGAIIIGEEEUECEUGEEKMAMG]CKOIUKYAGGC]ECECAAECEAIKEUECF@LAENOD@MAGEAA?@SO?SOCKWICGGEGAQGGOIEEIOECEQOMIKMCECO?GKCCCKKCCECIEI?I?GC]EGQCUEECi@{@KEKO[ICCCAIIIMEEOQMMCEIMCCCEEACMEGMIEIGIIGKIGEKSH","r":1},"galamus":{"p":"qkndG_gcNrBVXc@~Co@^]x@YZb@jAI^u@B[LMSmBDm@Rc@BPKlAXHVKV[@q@J?","e":"qUGi@ZUOb@WGING?@BDJDRIN","r":1},"bugarach":{"p":"gwudGsypMKy@n@Tn@r@z@`@v@v@t@LlJLj@Hf@j@v@^`ACZw@LEdCd@v@j@p@fABfA\\dADnAXpBFzBOjCTvCRn@\\rD`@hB@fBLhAS~AVLXE`@e@|@IJTTdCNIFJtAzCL~B^nCX`ARvAn@fBn@r@~@f@x@\\vCt@h@z@v@`@ZH]kAi@o@W@YwELG~@r@QsBAeBDA|@rAh@Bv@VKgC^Ld@h@@mAEWZJb@wAEyAOg@MKSsAD_@KsFJk@Vg@b@iCh@_@b@o@lAWjEz@pAWlCMNICQj@MYMD]","e":"wh@?AEEGGw@EIKIEAa@OQ?MAKOCICCGBCAGEIQADCAQB?@BGS[Kq@HIGYEJcAKQ][ESW[m@KOQEDSWKK[Ay@GEIEQa@]CGECGAJ","r":1},"madriu":{"p":"wjmbGsilHWeCg@_BQmA@m@b@sB@}AJr@LHJGToAnAaDfAmBf@a@jE{IhDcCpDmFTq@L?b@m@RAt@i@~@?CX|@_@z@sB`KyH@_ASe@}AI[DURo@zA_@Xk@VsAINsCHgUDg@^_@A_@La@FaAKs@DmAe@iAO{@b@uB\\[VEZg@?eAv@cAl@aBFq@Iq@WGEq@Q_@UqBByA|@yDFuBZsAA}@Qi@B_@`@sAFiDr@uB@m@Rs@OuADg@\\k@M_BJoAv@_DNeBIeA`AuDJs@?iAFc@HCJqA`@Ea@w@MaAh@oD@cH`@{EZ}@R}Bv@gDE_ATa@TI^c@tAwCnA_Hn@mAVB^Wl@}BpAoBj@_@dASv@{@j@aBj@aD\\iArCwElAqDtAyB^sAx@oBdAkARe@b@kCPmB\\m@^kBDs@Lm@CiA","e":"mbAIECCICEGGE_@a@Q{@w@g@ACECKQCMQoADBL@?VFFH_A}SGQWQUSc@SSSC@MUMG?CE?ADGDKNK_@Gj@AQIJMINMG@ESU?IFFV\\EAHQKDCBKDDEC[EDACI?NAICCC?QGQCAAC?ECCM","r":1},"roquefixade":{"p":"qcaeGmuuIq@h@g@hBwA~BeAbCsA`Bc@NqAi@?Q[SPUKMNcAEiBJa@j@sAPMp@OBSVMPJVpBC~@Rt@OHQS","e":"_p@IGs@INC[GGGCWYEMCAC?HPFTIK","r":1},"montsegur":{"p":"imudGabdJ~@tAZDv@b@Gg@e@w@@IxCnAXB\\KVJnBObAy@g@k@IWEu@i@wBRWiATw@k@XMNWTMb@{@SKd@c@~@wDi@DCY[@NaA?WOUMFGMK`@o@h@Hy@UZ?e@DkAJESOOP?i@QWK^","e":"g|@OKQCBCa@CEAO@CAG_@CGWAGAOIEe@UGMICMGG?EU?SQDSBCBG","r":1}};
 </script>
+
 <script>(function () {
   var L = ["sv", "no", "da", "en", "de", "fr", "es", "it", "pt"], s = null, q = (location.search.match(/[?&]lang=([a-z]{2})/) || [])[1];
   try { s = JSON.parse(localStorage.getItem("pyr:lang")); } catch (e) {}
@@ -1816,7 +1820,7 @@ const GUIDE = {
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=11"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=12"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -2228,6 +2232,7 @@ function setRoute(r) {
   state.route = r;
   map.setFocus(!!(r && r.focus));
   $("#routePill").hidden = !r;
+  $("#routeDl").hidden = !(r && r.dl);
   if (r) $("#routeName").textContent = r.name;
   map.updateMarkers();
   if (r) map.fit(r.path); else map.render();
@@ -2724,14 +2729,15 @@ function showSelection(kind) {
   const sel = selection(kind); if (!sel || !sel.keys.length) return;
   ["rundor", "etapper", "hyr", "lopp", "flyg", "rykten"].forEach(k => OV[k] = k === kind);
   OV.only = new Set(sel.keys); OV.sel = kind; OV.hl = null; saveOV();
-  closeSheet(); state.route = null; show("karta");
-  $("#routeName").textContent = sel.label; $("#routePill").hidden = false;
+  closeSheet(); state.route = null; map.setFocus(false); show("karta");
+  $("#routeName").textContent = sel.label; $("#routePill").hidden = false; $("#routeDl").hidden = true;
   const pts = [];
   for (const k of sel.keys) { const g = routedLL(k); if (g) pts.push(...g.filter((_, i) => i % 10 === 0)); else { const it = ovItem(k); if (it) pts.push(...it.pts); } }
   requestAnimationFrame(() => { map.render(); map.updateMarkers(); if (pts.length) map.fit(pts); });
 }
 function clearSelection() { if (OV && OV.sel) { OV[OV.sel] = false; OV.sel = null; OV.only = null; saveOV(); } $("#layerPanel").hidden = true; setRoute(null); }
 $("#routeClear").onclick = clearSelection;
+$("#routeDl").onclick = () => { if (state.route && state.route.dl) state.route.dl(); };
 document.addEventListener("click", e => { const b = e.target.closest("[data-showsel]"); if (b) showSelection(b.dataset.showsel); });
 
 /* ---------- Min resa ---------- */
@@ -4252,7 +4258,7 @@ function showTrail(id, btn) {
     const pts = []; g.segs.forEach(s => s.forEach((p, i) => { if (i % 8 === 0) pts.push(p); }));
     closeSheet(); show("karta");
     const s0 = g.segs[0], s1 = g.segs[g.segs.length - 1];
-    requestAnimationFrame(() => setRoute({ id: "trail", focus: true, name: `${t.ref} · ${t.route}`, color: TRAILCOL, w: 6, halo: true, stops: [], path: pts, multi: g.segs, solid: true, ends: [s0[0], s1[s1.length - 1]] }));
+    requestAnimationFrame(() => setRoute({ id: "trail", focus: true, name: `${t.ref} · ${t.route}`, color: TRAILCOL, w: 6, halo: true, stops: [], path: pts, multi: g.segs, solid: true, ends: [s0[0], s1[s1.length - 1]], dl: () => trailGpx(t.id) }));
   }).catch(() => { if (btn) { btn.insertAdjacentHTML("afterend", `<span class="pl-note warn" style="margin-left:8px">${_t(`Leden kunde inte hämtas just nu. Försök igen om en stund.`)}</span>`); } })
     .finally(() => { if (btn) { btn.disabled = false; btn.innerHTML = old; } });
 }
@@ -4289,7 +4295,7 @@ function renderDag() {
       <div><div class="eyebrow">${_t(`Start:`)} ${esc(h.start)}</div><h4>${esc(p.name)}</h4></div>
       <div class="tags">${hikeTags(h)}<span class="tag" style="--c:var(--muted)">${esc(h.season)}</span></div>
       <p class="st-sum">${esc(h.text)}</p>
-      <div class="st-foot"><button class="btn" data-open="${p.id}">${_t(`Fakta och bilder`)}</button><button class="btn" data-showmap="${p.id}">${ICON.map}${_t(`Karta`)}</button><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
+      <div class="st-foot">${HIKE_PATHS[p.id] ? `<button class="btn primary" data-hike-show="${p.id}">${ICON.map}${_t(`Stigen på kartan`)}</button><button class="btn" data-hike-gpx="${p.id}">${ICON.dl}GPX</button>` : ""}<button class="btn" data-open="${p.id}">${_t(`Fakta och bilder`)}</button>${HIKE_PATHS[p.id] ? "" : `<button class="btn" data-showmap="${p.id}">${ICON.map}${_t(`Karta`)}</button>`}<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
     </div></article>`; }).join("")}</div>`;
 }
 function renderKatar() {
@@ -4304,11 +4310,27 @@ function renderHiking() {
   document.querySelectorAll("[data-htab]").forEach(b => b.setAttribute("aria-pressed", b.dataset.htab === hState.tab));
   $("#hikeBody").innerHTML = hState.tab === "leder" ? renderLeder() : hState.tab === "dag" ? renderDag() : renderKatar();
 }
+/* dagsturernas stigar: beräknade i förväg med BRouter (fjällvandring) på OpenStreetMap-data, med höjd */
+const HIKE_LOOP = new Set(["neouvielle"]), HIKE_STRAIGHT = new Set(["breche"]);
+const hikePath = id => HIKE_PATHS[id] ? unpackLeg(HIKE_PATHS[id]).pts : null;
+function showHike(id) {
+  const p = BY[id], pts = hikePath(id); if (!p || !pts) return;
+  closeSheet(); show("karta");
+  requestAnimationFrame(() => setRoute({ id: "hike", focus: true, name: p.name, color: TRAILCOL, w: 5, halo: true, stops: [id], path: pts, solid: true, ends: [pts[0], pts[pts.length - 1]], dl: () => hikeGpx(id) }));
+}
+function hikeGpx(id) { const p = BY[id], pts = hikePath(id); if (p && pts) gpxDownload(p.name, pts); }
+function hikeTrack(p) {
+  const pts = hikePath(p.id); if (!pts) return "";
+  const g = tourGeo([{ pts, road: true, ele: true }]), st = tourStats(g), loop = HIKE_LOOP.has(p.id);
+  return `<div style="margin-top:10px">${gisTable([[_t("Stigen"), fmt1(st.dist) + " km " + (loop ? "runt" : _t("enkel väg"))], [_t("Höjdmeter"), nf0(st.asc) + _t(" m upp")], [_t("Högsta punkt"), nf0(st.max) + " m"]])}${profileSVG(g.c)}
+    <div class="actions" style="margin-top:8px"><button class="btn primary" data-hike-show="${p.id}">${ICON.map}${_t(`Stigen på kartan`)}</button><button class="btn" data-hike-gpx="${p.id}">${ICON.dl}${_t(`Ladda ner GPX`)}</button></div>
+    <p class="coords" style="margin-top:6px">${loop ? "" : _t("Linjen visar vägen till målet – tillbaka går man samma väg. ")}${HIKE_STRAIGHT.has(p.id) ? _t("Sista biten upp till klyftan är ritad som en rak linje. ") : ""}${_t(`Stigen är beräknad med BRouter på OpenStreetMap-data. Följ alltid markeringarna på plats.`)}</p></div>`;
+}
 function hikeBlock(p) {
   if (!p.hike) return "";
   const h = p.hike;
   return `<div class="tdfbox" style="border-color:${HIKECOL}"><span class="eyebrow" style="color:${HIKECOL}">${_t(`Vandring`)}</span><div class="tags" style="margin:4px 0 6px">${hikeTags(h)}</div>
-    <div><b>${_t(`Start:`)}</b> ${esc(h.start)} · <b>${_t(`Säsong:`)}</b> ${esc(h.season)}</div><p style="margin:6px 0 0">${esc(h.text)}</p></div>`;
+    <div><b>${_t(`Start:`)}</b> ${esc(h.start)} · <b>${_t(`Säsong:`)}</b> ${esc(h.season)}</div><p style="margin:6px 0 0">${esc(h.text)}</p>${hikeTrack(p)}</div>`;
 }
 function katBlock(p) {
   if (!p.kat) return "";
@@ -4324,6 +4346,8 @@ document.addEventListener("click", e => {
   }
   const tr = e.target.closest("[data-trail]"); if (tr) { showTrail(tr.dataset.trail, tr); return; }
   const tg = e.target.closest("[data-trail-gpx]"); if (tg) { trailGpx(tg.dataset.trailGpx, tg); return; }
+  const hs = e.target.closest("[data-hike-show]"); if (hs) { showHike(hs.dataset.hikeShow); return; }
+  const hx = e.target.closest("[data-hike-gpx]"); if (hx) { hikeGpx(hx.dataset.hikeGpx); return; }
   if (e.target.closest("[data-hike-map]")) {
     state.cats = new Set(["vandring"]); store.set("cats", [...state.cats]); state.q = ""; document.querySelectorAll("[data-search]").forEach(i => i.value = "");
     show("karta"); map.setHikeTiles(true); refresh(); requestAnimationFrame(() => map.fitMatches()); return;
