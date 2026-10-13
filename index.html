@@ -1868,7 +1868,7 @@ function openPlace(id, keepView) {
   state.sel = id; map.updateMarkers();
   if (current === "karta") map.focus(p);
   const ph = p.photos || [];
-  const gal = ph.length ? `<div class="gallery">${ph.map((k, i) => `<figure><img src="${img(k)}" alt="${esc(p.name)} ${_t(`– foto`)} ${i + 1}" loading="lazy">${p.photoCaption && p.photoCaption[i] ? `<figcaption>${esc(p.photoCaption[i])}</figcaption>` : ""}${p.photoCredit && p.photoCredit[i] ? `<a class="credit" href="${esc(p.photoCredit[i].url)}" target="_blank" rel="noopener">${_t(`Foto:`)} ${esc(p.photoCredit[i].by)} · ${esc(p.photoCredit[i].lic)} ${_t(`· Wikimedia Commons`)}</a>` : ""}</figure>`).join("")}</div>` : "";
+  const gal = ph.length ? `<div class="gallery">${ph.map((k, i) => `<figure><img src="${img(k)}" alt="${esc(p.name)} ${_t(`– foto`)} ${i + 1}" loading="${i ? "lazy" : "eager"}">${p.photoCaption && p.photoCaption[i] ? `<figcaption>${esc(p.photoCaption[i])}</figcaption>` : ""}${p.photoCredit && p.photoCredit[i] ? `<a class="credit" href="${esc(p.photoCredit[i].url)}" target="_blank" rel="noopener">${_t(`Foto:`)} ${esc(p.photoCredit[i].by)} · ${esc(p.photoCredit[i].lic)} ${_t(`· Wikimedia Commons`)}</a>` : ""}</figure>`).join("")}</div>` : "";
   const near = PLACES.filter(q => q !== p).map(q => [q, km(p, q)]).sort((a, b) => a[1] - b[1]).slice(0, 4);
   const inTrip = state.trip.includes(id);
   const tags = (p.no ? `<span class="tag y14">${_t(`Guiden 2014 · nr`)} ${p.no}</span>` : `<span class="tag" style="--c:var(--accent)">${_t(`Nytt 2026`)}</span>`) +
