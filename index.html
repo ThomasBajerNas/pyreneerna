@@ -13,7 +13,7 @@
 :root{
   --bg:#e9edeb; --surface:#fbfcfb; --surface-2:#f1f4f2; --ink:#18262b; --muted:#56666b; --line:#cdd6d3;
   --accent:#0d6b6e; --accent-ink:#ffffff; --focus:#0d6b6e;
-  --c-stad:#3b5a86; --c-tdf:#c4242c; --c-spa:#0b8a8c; --c-borg:#94642a; --c-natur:#3f7a35; --c-grotta:#6b5579; --c-bad:#2277b8; --c-vatten:#4659b8; --c-varldsarv:#9a7b0a;
+  --c-stad:#3b5a86; --c-tdf:#c4242c; --c-spa:#0b8a8c; --c-borg:#94642a; --c-natur:#3f7a35; --c-grotta:#6b5579; --c-bad:#2277b8; --c-vatten:#4659b8; --c-varldsarv:#9a7b0a; --c-vandring:#7b3fa0;
   --sign-bg:#ffffff; --sign-ink:#111111;
   --note:#fff7d6; --note-ink:#3a3320; --note-line:#e8d98f;
   --mapbg:#e5e3df; --map-filter:none; --lbl:#1b2528; --lbl-halo:#ffffff;
@@ -26,7 +26,7 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0f1719; --surface:#162226; --surface-2:#1c2a2e; --ink:#e4ecea; --muted:#9aaba9; --line:#2c3d41;
   --accent:#4fc2c1; --accent-ink:#06282a; --focus:#7fdad8;
-  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a;
+  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a; --c-vandring:#c49be0;
   --sign-bg:#f4f4f2; --sign-ink:#111111;
   --note:#2c2a1d; --note-ink:#ece2b8; --note-line:#4d4628;
   --mapbg:#1b2224; --map-filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.95); --lbl:#f1f5f4; --lbl-halo:#0f1719;
@@ -35,7 +35,7 @@
 :root[data-theme="dark"]{
   --bg:#0f1719; --surface:#162226; --surface-2:#1c2a2e; --ink:#e4ecea; --muted:#9aaba9; --line:#2c3d41;
   --accent:#4fc2c1; --accent-ink:#06282a; --focus:#7fdad8;
-  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a;
+  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a; --c-vandring:#c49be0;
   --sign-bg:#f4f4f2; --sign-ink:#111111;
   --note:#2c2a1d; --note-ink:#ece2b8; --note-line:#4d4628;
   --mapbg:#1b2224; --map-filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.95); --lbl:#f1f5f4; --lbl-halo:#0f1719;
@@ -630,6 +630,18 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .whsparts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .gallery .credit{position:absolute;right:6px;top:6px;max-width:calc(100% - 12px);background:rgba(0,0,0,.55);color:#fff;font-size:10.5px;padding:2px 6px;border-radius:4px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gallery .credit:hover{text-decoration:underline}
+
+/* Vandring */
+.st-photo{display:block;border:0;padding:0;margin:0;aspect-ratio:16/7;overflow:hidden;cursor:pointer;background:var(--surface-2);width:100%}
+.st-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.ktl{list-style:none;margin:0;padding:0;display:grid;gap:0;border-left:3px solid var(--c-borg);margin-left:6px}
+.ktl li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;padding:10px 0 14px 18px;position:relative}
+.ktl li::before{content:"";position:absolute;left:-8.5px;top:15px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--c-borg)}
+.ktl .ky{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--c-borg);line-height:1.2}
+.ktl b{font-size:16px}
+.ktl p{margin:4px 0 6px;font-family:var(--f-text);font-size:15.5px;line-height:1.55;max-width:70ch}
+@media (max-width:820px){.ktl li{grid-template-columns:1fr;gap:2px}}
+@media (max-width:820px){.bottomnav button{font-size:10.5px;padding:6px 0}.bottomnav button svg{width:21px;height:21px}}
 </style>
 
 <div class="app">
@@ -751,6 +763,22 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
     </section>
 
     <!-- MIN RESA -->
+    <section class="view" id="v-vandring" hidden aria-label="Vandring i Pyrenéerna">
+      <div class="page">
+        <div class="page-head">
+          <span class="eyebrow">Randonnée · Senderismo · Hiking</span>
+          <h2>Vandring</h2>
+          <p>Legendariska leder som GR 10, GR 11 och HRP, katarernas leder och pilgrimsvägarna till Santiago de Compostela – med lederna på kartan och GPX. Dessutom klassiska dagsturer och historien om katarerna och albigenserkorståget.</p>
+        </div>
+        <div class="seg sub" role="group" aria-label="Välj ämne">
+          <button data-htab="leder" aria-pressed="true">Långa leder</button>
+          <button data-htab="dag" aria-pressed="false">Dagsturer</button>
+          <button data-htab="katar" aria-pressed="false">Katarerna</button>
+        </div>
+        <div id="hikeBody" style="display:grid;gap:22px"></div>
+      </div>
+    </section>
+
     <section class="view" id="v-minresa" hidden aria-label="Min resa">
       <div class="page">
         <div class="page-head">
@@ -1530,6 +1558,187 @@ for (const id in WHS_AT) {
   }
 }
 
+/* ---------- Vandring: långa leder, dagsturer och katarernas historia ----------
+   Ledernas linjer hämtas från OpenStreetMap via Waymarked Trails när man trycker "Visa på kartan" (rel = OSM-relationens nummer). */
+CATS.vandring = { label: "Vandring", short: "Vandring" };
+const TRAILS = [
+  { id: "gr10", grp: "pyr", ref: "GR 10", name: "GR 10 – Pyrenéerna på franska sidan", rel: 7411272, km: "ca 900 km", days: "50–60 dagar", top: "Hourquette d'Ossoue, 2 734 m",
+    route: "Hendaye → Banyuls-sur-Mer",
+    text: "Den klassiska genomvandringen från Atlanten till Medelhavet på den franska sidan, med omkring 48 000 höjdmeter. Leden går genom byar varje eller varannan dag, så man kan bo i gîtes d'étape och på värdshus i stället för att bära tält – och man kan gå en vecka i taget. Den passerar bland annat Lescun, Gourette, Cauterets, Gavarnie, Luz, Bagnères-de-Luchon, Aulus-les-Bains, Mérens och Canigou.",
+    tips: "Säsongen är mitten av juni till slutet av september – snö ligger kvar på de högsta passen långt in i juni. Boka bergsstugor i förväg i juli och augusti. Rödvit markering. FFRandonnées topoguider delar leden i fyra böcker.",
+    link: ["FFRandonnée: GR 10", "https://www.ffrandonnee.fr/randonner/sentiers/gr-10-la-grande-traversee-des-pyrenees"], places: ["hendaye", "lescun", "cauterets", "gavarnie", "luchon", "ax", "canigou", "banyuls"] },
+  { id: "gr11", grp: "pyr", ref: "GR 11", name: "GR 11 – Senda Pirenaica på spanska sidan", rel: 8865914, km: "ca 820 km", days: "40–50 dagar",
+    route: "Cabo Higuer (Hondarribia) → Cap de Creus",
+    text: "Spaniens svar på GR 10: genom Navarra, Aragonien, Andorra och Katalonien, med Ordesa, Aigüestortes och Andorras dalar på vägen. Mer högfjäll och färre byar än på franska sidan – vissa etapper slutar vid en obevakad stuga, så man behöver bära mer. Vädret är ofta stabilare och torrare än på norra sidan.",
+    tips: "Bästa tiden är juli–september. Planera matinköp – det kan vara två dagar mellan affärerna i de centrala Pyrenéerna. Rödvit markering, som GR 10.",
+    link: ["Wikipedia: GR 11", "https://es.wikipedia.org/wiki/GR_11"], places: ["ordesa", "aiguestortes", "madriu"] },
+  { id: "hrp", grp: "pyr", ref: "HRP", name: "HRP – Haute Randonnée Pyrénéenne", rel: 2018553, km: "ca 800 km", days: "40–45 dagar",
+    route: "Hendaye → Banyuls-sur-Mer, längs huvudkammen",
+    text: "Den höga vägen över Pyrenéerna, som går så nära huvudkammen som möjligt och växlar mellan Frankrike och Spanien. Den är inte markerad, går över många pass på över 2 500 meter och kräver att man kan navigera med karta och kompass. För erfarna fjällvandrare är den den mäktigaste genomvandringen i Europa.",
+    tips: "Bara för den som har gått i högfjäll tidigare. Ta med GPS-spår, karta och is-yxa tidigt i säsongen. Många nätter i tält eller obevakade stugor.",
+    link: ["Wikipedia: HRP", "https://fr.wikipedia.org/wiki/Haute_randonn%C3%A9e_pyr%C3%A9n%C3%A9enne"], places: ["gavarnie", "breche"] },
+  { id: "gr367", grp: "katar", ref: "GR 367", name: "Sentier Cathare – Katarleden", rel: 3394595, km: "ca 250 km", days: "12 dagar",
+    route: "Port-la-Nouvelle → Foix",
+    text: "Från Medelhavet genom Corbières och Pays de Sault till Foix, förbi de stora borgarna Aguilar, Peyrepertuse, Quéribus, Puilaurens, Puivert, Montségur och Roquefixade. Ingen högfjällsled – det högsta är omkring 1 300 meter – men gott om stigning, och utsikten från borgarna är oslagbar. Går att gå i delar året runt utom mitt i sommarhettan.",
+    tips: "Vår och höst är bäst – i juli och augusti är det mycket varmt och torrt i Corbières. Ta med mycket vatten. Etappen Montségur – Roquefixade är en av de vackraste.",
+    link: ["Waymarked Trails: GR 367", "https://hiking.waymarkedtrails.org/#route?id=3394595"], places: ["aguilar", "peyrepertuse", "queribus", "puilaurens", "puivert", "montsegur", "roquefixade", "foix"] },
+  { id: "gr107", grp: "katar", ref: "GR 107", name: "Chemin des Bonshommes – De goda männens väg", rel: 1181120, km: "ca 200 km", days: "8–10 dagar",
+    route: "Foix / Montségur → Berga (Katalonien)",
+    text: "Följer de vägar som katarerna, de goda männen, använde när de flydde undan inkvisitionen över Pyrenéerna till Katalonien på 1200- och 1300-talet. Leden går från Montségur och Foix via Ax-les-Thermes och Mérens, över gränsen vid Puymorens och vidare genom Cerdanya och Serra del Cadí till helgedomen Queralt ovanför Berga.",
+    tips: "Juni–september. Några etapper är långa i högfjäll – boka bergsstugorna. Leden är markerad som GR 107 på båda sidor.",
+    link: ["Camí dels Bons Homes", "http://www.camidelsbonshomes.com"], places: ["montsegur", "foix", "ax"] },
+  { id: "gr65", grp: "camino", ref: "GR 65", name: "Via Podiensis – från Le Puy till Pyrenéerna", rel: 11959152, km: "ca 740 km", days: "30–35 dagar",
+    route: "Le Puy-en-Velay → Saint-Jean-Pied-de-Port",
+    text: "Den mest gångna av de franska pilgrimsvägarna till Santiago de Compostela. Den passerar Conques och Moissac och slutar vid foten av Pyrenéerna i Saint-Jean-Pied-de-Port, där man går in på Camino Francés. Delar av leden är världsarv.",
+    tips: "Pilgrimsboende (gîtes och albergues) finns hela vägen. Skaffa ett pilgrimspass (credencial) för att få bo där.",
+    link: ["FFRandonnée: GR 65", "https://www.ffrandonnee.fr/randonner/sentiers/gr-65-le-chemin-de-compostelle-via-le-puy"], places: ["conques", "moissac", "sjpp"] },
+  { id: "camino", grp: "camino", ref: "Camino Francés", name: "Camino Francés – över Pyrenéerna till Santiago", rel: 2163573, km: "ca 770 km", days: "30–35 dagar",
+    route: "Saint-Jean-Pied-de-Port → Santiago de Compostela",
+    text: "Den klassiska pilgrimsvägen. Första dagen är den tuffaste: 25 km och omkring 1 250 höjdmeter över Pyrenéerna till klostret i Roncesvalles, längs Napoleonvägen över Col de Lepoeder.",
+    tips: "Napoleonvägen är stängd från november till mars – då går man dalvägen via Valcarlos. Boka sängen i Roncesvalles i förväg under högsäsong.",
+    link: ["Wikipedia: Camino Francés", "https://en.wikipedia.org/wiki/French_Way"], places: ["sjpp"] },
+  { id: "gr653", grp: "camino", ref: "GR 653", name: "Via Tolosana – från Arles över Somport", rel: 11813130, km: "ca 800 km", days: "35–40 dagar",
+    route: "Arles → Col du Somport",
+    text: "Den sydligaste franska pilgrimsvägen: från Arles via Montpellier, Saint-Guilhem-le-Désert, Castres, Toulouse, Auch och Oloron-Sainte-Marie upp genom Aspedalen till passet Somport (1 632 m). På andra sidan fortsätter Camino Aragonés via Jaca till Puente la Reina, där den möter Camino Francés.",
+    tips: "Mycket lugnare än Via Podiensis. Etappen genom Aspedalen till Somport är en av de vackraste på någon pilgrimsled.",
+    link: ["Wikipedia: Via Tolosana", "https://fr.wikipedia.org/wiki/Via_Tolosana"], places: ["arles", "saint-guilhem", "toulouse", "oloron"] },
+  { id: "aragones", grp: "camino", ref: "Camino Aragonés", name: "Camino Aragonés – från Somport till Puente la Reina", rel: 2163937, km: "ca 165 km", days: "6–7 dagar",
+    route: "Col du Somport → Jaca → Puente la Reina",
+    text: "Fortsättningen av Via Tolosana på spanska sidan: ned från Somport till Jaca med sin romanska katedral, förbi klostret San Juan de la Peña och vidare till Puente la Reina.",
+    tips: "Avstickaren till klostret San Juan de la Peña är väl värd en extra dag.",
+    link: ["Wikipedia: Camino Aragonés", "https://es.wikipedia.org/wiki/Camino_aragon%C3%A9s"], places: [] },
+  { id: "gr78", grp: "camino", ref: "GR 78", name: "Piémont-vägen – längs foten av Pyrenéerna", rel: 2785399, km: "ca 600 km", days: "25–30 dagar",
+    route: "Carcassonne → Saint-Jean-Pied-de-Port",
+    text: "En lugn pilgrimsväg längs Pyrenéernas förberg, förbi katarlandet, Saint-Lizier, Saint-Bertrand-de-Comminges, Lourdes och Oloron. Bergen är hela tiden i söder, och man passerar flera av guidens resmål.",
+    tips: "Lite boende på vissa sträckor – planera nätterna i förväg.",
+    link: ["FFRandonnée: GR 78", "https://www.mongr.fr/trouver-prochaine-randonnee/itineraire/gr-78-le-chemin-du-piemont-pyreneen"], places: ["carcassonne", "saint-lizier", "saint-bertrand", "oloron", "sjpp"] },
+];
+const TRAIL_GROUPS = { pyr: ["Tvärs över Pyrenéerna", "De tre stora genomvandringarna från Atlanten till Medelhavet."], katar: ["Katarernas leder", "Leder genom katarlandet och de goda männens flyktväg till Katalonien."], camino: ["Pilgrimsvägarna till Santiago de Compostela", "De franska och spanska pilgrimsvägar som går genom eller över Pyrenéerna."] };
+
+/* dagsturer: knyts till resmål (nya och befintliga) */
+PLACES.push(
+  { id: "breche", name: "Brèche de Roland", sub: "Porten i bergväggen ovanför Gavarnie", cat: ["natur"], lat: 42.6969, lon: -0.0306, cc: "FR",
+    text: "En 40 meter bred och 100 meter hög klyfta i bergkammen på 2 807 meters höjd. Enligt legenden högg riddaren Roland den med sitt svärd Durendal. Klassisk tur från Col des Tentes.", links: [W("sv", "Brèche de Roland")] },
+  { id: "neouvielle", name: "Néouvielle – Lac d'Aumar", sub: "Sjöplatån med Pyrenéernas högsta tallar", cat: ["natur"], lat: 42.836, lon: 0.137, cc: "FR",
+    text: "Naturreservatet Néouvielle har över 70 sjöar och bergtallar som växer upp till 2 600 meter. Lac d'Aumar och Lac d'Aubert speglar Pic du Néouvielle.", links: [W("fr", "Massif du Néouvielle")] },
+  { id: "ayous", name: "Lacs d'Ayous", sub: "Pic du Midi d'Ossau i spegeln", cat: ["natur"], lat: 42.849, lon: -0.473, cc: "FR",
+    text: "Tre sjöar under den karakteristiska vulkantoppen Pic du Midi d'Ossau, med bergsstugan Refuge d'Ayous vid Lac Gentau.", links: [W("fr", "Lacs d'Ayous")] },
+  { id: "lescun", name: "Cirque de Lescun", sub: "Kalkstenstoppar i Aspedalen", cat: ["natur", "stad"], lat: 42.928, lon: -0.638, cc: "FR",
+    text: "Bergsbyn Lescun ligger under en krans av vassa kalkstenstoppar och är en av de vackraste platserna på GR 10.", links: [W("fr", "Lescun")] },
+  { id: "aiguestortes", name: "Aigüestortes och Sant Maurici", sub: "Kataloniens enda nationalpark", cat: ["natur"], lat: 42.5823, lon: 1.0021, cc: "ES",
+    text: "Nationalparken Aigüestortes i Estany de Sant Maurici har omkring 200 sjöar. Tvillingtopparna Els Encantats speglar sig i Estany de Sant Maurici.", links: [W("sv", "Aigüestortes i Estany de Sant Maurici")] },
+  { id: "carlit", name: "Pic Carlit och Les Bouillouses", sub: "Pyrénées-Orientales högsta topp", cat: ["natur"], lat: 42.574, lon: 1.932, cc: "FR",
+    text: "Pic Carlit (2 921 m) är den högsta toppen i Pyrénées-Orientales. Vägen upp går från dammen vid Lac des Bouillouses förbi en rad sjöar.", links: [W("fr", "Pic Carlit")] },
+  { id: "bugarach", name: "Pech de Bugarach", sub: "Det upp-och-nedvända berget", cat: ["natur"], lat: 42.8636, lon: 2.3825, cc: "FR",
+    text: "Corbières högsta topp (1 230 m), där de översta lagren är äldre än de undre. Blev världskänd 2012 när rykten sa att den skulle överleva jordens undergång.", links: [W("fr", "Pech de Bugarach")] },
+  { id: "minerve", name: "Minerve", sub: "Bergsbyn där den första stora katarbålet brann", cat: ["borg", "stad"], lat: 43.3539, lon: 2.7467, cc: "FR",
+    text: "Byn ligger på en klippudde mellan två raviner i Minervois. Floden Cesse har grävt naturliga broar i kalkstenen under byn. Vinorten för Minervois-vinerna.", links: [W("sv", "Minerve")] },
+  { id: "villerouge", name: "Villerouge-Termenès", sub: "Där den siste katarprästen brändes 1321", cat: ["borg"], lat: 43.0081, lon: 2.6261, cc: "FR",
+    text: "Ärkebiskopens borg i Corbières med en utställning om Guillaume Bélibaste. På sommaren hålls en medeltidsfest i byn.", links: [W("fr", "Château de Villerouge-Termenès")] },
+  { id: "montaillou", name: "Montaillou", sub: "Den sista katarbyn", cat: ["stad"], lat: 42.7867, lon: 1.8939, cc: "FR",
+    text: "Liten by på platån Pays d'Aillou, känd över hela världen genom historikern Emmanuel Le Roy Ladurie. Ruinen av borgen ligger ovanför byn.", links: [W("sv", "Montaillou")] },
+  { id: "fanjeaux", name: "Fanjeaux och Prouille", sub: "Katarcentrum och dominikanernas vagga", cat: ["stad"], lat: 43.1864, lon: 2.0322, cc: "FR",
+    text: "Byn på kullen ovanför Lauragais var ett katarcentrum, och nedanför grundade Dominicus klostret Prouille. Från 'Seignadou' har man vid utsikt över slätten.", links: [W("fr", "Fanjeaux")] }
+);
+const HIKE_AT = {
+  gavarnie: { start: "Gavarnie by", km: "ca 10 km t/r", hm: "400 hm", time: "3–4 h", level: "lätt", season: "maj–oktober", text: "Från byn längs floden till Hôtellerie du Cirque och vidare till foten av Grande Cascade, Europas högsta vattenfall (ca 420 m). Hästar och åsnor kan hyras för första biten." },
+  breche: { start: "Col des Tentes (2 208 m), ovanför Gavarnie", km: "ca 12 km t/r", hm: "900 hm", time: "6–7 h", level: "svår", season: "juli–september", text: "Upp via Port de Boucharo och bergsstugan Refuge des Sarradets till klyftan på 2 807 meter, med utsikt rakt ned i Spanien mot Ordesa. Sista biten går över ett snöfält som kan vara isigt – stegjärn behövs ofta i början av sommaren." },
+  "pont-espagne": { start: "Pont d'Espagne, ovanför Cauterets", km: "ca 6 km t/r", hm: "250 hm", time: "2 h", level: "lätt", season: "juni–oktober", text: "Längs vattenfallen och genom tallskog till Lac de Gaube med Vignemale (3 298 m) i bakgrunden. Det går också en stollift halva vägen. Den som vill ha mer fortsätter in i Marcadaudalen." },
+  neouvielle: { start: "Lac d'Orédon (pendelbuss sista biten på sommaren)", km: "ca 8 km", hm: "250 hm", time: "3 h", level: "lätt", season: "juni–oktober", text: "Runt Lac d'Aumar och Lac d'Aubert och upp till Lac de Madamète eller Lac Tourrat. På sommaren är vägen till sjöarna stängd för bilar dagtid – ta pendelbussen från Orédon." },
+  "lac-oo": { start: "Granges d'Astau, ovanför Luchon", km: "ca 6 km t/r", hm: "400 hm", time: "2–3 h", level: "lätt", season: "juni–oktober", text: "En bred stig upp till sjön med det 275 meter höga vattenfallet. Den som orkar fortsätter en timme till Lac d'Espingo med bergsstuga." },
+  ordesa: { start: "Pradera de Ordesa (buss från Torla på sommaren)", km: "ca 17 km t/r", hm: "500 hm", time: "6 h", level: "medel", season: "juni–oktober", text: "Genom bokskog och förbi en rad vattenfall längs Arazas till Cola de Caballo, hästsvansfallet, under Monte Perdido. Den som har god kondition och inte är höjdrädd tar tillbaka hyllstigen Faja de Pelay högt uppe på kanjonväggen." },
+  ayous: { start: "Lac de Bious-Artigues, Ossaudalen", km: "ca 12 km", hm: "700 hm", time: "4–5 h", level: "medel", season: "juni–oktober", text: "Rundtur upp till sjöarna och Refuge d'Ayous, där Pic du Midi d'Ossau speglar sig i Lac Gentau – en av de mest fotograferade vyerna i Pyrenéerna. Tillbaka via Lac Roumassot." },
+  lescun: { start: "Lescun", km: "ca 14 km t/r", hm: "900 hm", time: "5–6 h", level: "medel", season: "juni–oktober", text: "Från byn genom betesmarker upp till Lac de Lhurs under Table des Trois Rois. Man går en bit på GR 10." },
+  aiguestortes: { start: "Estany de Sant Maurici (4x4-taxi från Espot)", km: "ca 9 km", hm: "350 hm", time: "3 h", level: "lätt", season: "juni–oktober", text: "Från Sant Maurici upp till sjöarna Ratera och Amitges med utsikt över Els Encantats. Privatbilar får inte köra in i parken – taxi går från Espot och Boí." },
+  carlit: { start: "Barrage des Bouillouses", km: "ca 15 km t/r", hm: "900 hm", time: "6 h", level: "svår", season: "juli–september", text: "Förbi en rad sjöar upp till Pic Carlit på 2 921 meter. Den sista biten är en brant stenstig där man använder händerna. På sommaren går buss till Bouillouses från Mont-Louis." },
+  canigou: { start: "Chalet des Cortalets (4x4-väg eller taxi)", km: "ca 10 km t/r", hm: "650 hm", time: "4–5 h", level: "medel", season: "juni–oktober", text: "Upp till katalanernas heliga berg, 2 784 meter. På midsommarafton tänds Flama del Canigó på toppen och bärs ned till eldar i hela Katalonien." },
+  "mont-valier": { start: "Pla de la Lau, Couserans", km: "ca 22 km t/r", hm: "1 900 hm", time: "två dagar", level: "mycket svår", season: "juli–september", text: "Couserans stolta topp (2 838 m) – för vältränade på två dagar med övernattning i Refuge des Estagnous. Utsikten sträcker sig från Aneto till slätten vid Toulouse." },
+  bugarach: { start: "Col du Linas", km: "ca 6 km t/r", hm: "450 hm", time: "2–3 h", level: "medel", season: "hela året (inte i hetta)", text: "Brant men kort upp till toppen, med utsikt över Corbières, Canigou och Medelhavet. Den sista biten går över klippor." },
+  madriu: { start: "Escaldes-Engordany", km: "ca 12 km t/r", hm: "800 hm", time: "4–5 h", level: "medel", season: "juni–oktober", text: "Längs den gamla stenlagda stigen in i världsarvsdalen till Refugi de Fontverd och fäbodarna. Den som har två dagar går över till Perafita." },
+  galamus: { start: "Parkeringen vid Gorges de Galamus", km: "ca 2 km t/r", hm: "100 hm", time: "45 min", level: "lätt", season: "hela året", text: "Ned från vägen till eremitaget Saint-Antoine, byggt in i klippväggen ovanför den smala ravinen." },
+  montsegur: { start: "Parkeringen nedanför borgen", km: "ca 1,5 km t/r", hm: "150 hm", time: "1 h", level: "lätt", season: "hela året", text: "En brant stig upp till borgen på toppen av berget. Vid stigens början, på Prat dels Cremats, står minnesstenen över de katarer som brändes 1244. För en längre tur: Sentier Cathare-etappen Montségur – Roquefixade, 18 km." },
+  roquefixade: { start: "Byn Roquefixade", km: "ca 2 km t/r", hm: "200 hm", time: "1 h", level: "lätt", season: "hela året", text: "Kort men brant upp till borgruinen som sitter på klippkammen som en örn i boet, med utsikt mot Montségur." },
+};
+const HPH = {
+  breche: [["Brèche de Roland 20060821f.jpg", "Tigerente", "CC BY 4.0"], ["Brèche de Roland 20060821a.jpg", "Tigerente", "CC BY 4.0"]],
+  neouvielle: [["Lac d'Aumar Néouvielle.jpg", "Silyba", "CC BY-SA 4.0"], ["Lac d'Aumar (3817268678).jpg", "Jorge Franganillo", "CC BY 2.0"]],
+  ayous: [["Réveil estival à Ayous.jpg", "Manon Montoulieu", "CC BY-SA 4.0"], ["Le pic du midi d'OSSAU et le lac de BIOUS-ARTIGUE - panoramio.jpg", "Serge Betbeder", "CC BY 3.0"]],
+  lescun: [["Cirque de Lescun.jpg", "Benh LIEU SONG", "CC BY-SA 4.0"], ["Cirque de Lescun from Massiv de Sesques panorama.jpg", "Sea-Empress", "CC BY-SA 3.0"]],
+  aiguestortes: [["Estany de Sant Maurici i Els Encantats, panoràmica.JPG", "Isidro Jabato", "CC BY-SA 4.0"], ["Els Encantats i l'Estany de Sant Maurici entre arbres.jpg", "Abel Cerezuela Sanjulián", "CC BY-SA 4.0"]],
+  carlit: [["Pic Carlit au Printemps.jpg", "Marc Reynes", "CC BY-SA 4.0"], ["Lac des Bouillouses @ Barrage des Bouillouses 01.jpg", "Rémih", "CC BY-SA 4.0"]],
+  bugarach: [["Pech de Bugarach 27072014 02.jpg", "Vassil", "CC0"], ["Pic de Bugarach, Hounoux.jpg", "Lucas Destrem", "CC BY-SA 4.0"]],
+  minerve: [["Village de Minerve P1010274mod.jpg", "JYB Devot", "CC BY-SA 4.0"], ["Minerve cf03.jpg", "Christian Ferrer", "CC BY-SA 4.0"]],
+  villerouge: [["Villerouge-Termenès château.jpg", "Martpan", "CC BY-SA 3.0"], ["Villerouge-Termenès, Château 2.jpg", "Rauenstein", "CC BY-SA 3.0"]],
+  montaillou: [["Vue Montaillou.JPG", "Yann Gwilhoù", "CC BY-SA 3.0"]],
+  fanjeaux: [["Fanjeaux - Paysage autour du village.jpg", "MOSSOT", "CC BY-SA 4.0"]],
+  "pont-espagne": [["Lac de Gaube et Vignemale.jpg", "Tsarabanjina", "CC BY-SA 4.0"], ["Vignemale-Lac de Gaube-19740720.jpg", "Daniel Villafruela", "CC BY-SA 4.0"]],
+  "lac-oo": [["Vue panoramique du Lac d'Ôo.jpg", "John Fanny", "CC BY-SA 4.0"], ["Gezicht op het Lac d'Oô Cascade et Lac D'Oô (près Luchon) (titel op object), RP-F-F06563.jpg", "Rijksmuseum", "CC0"]],
+  canigou: [["Pic du Canigou 66- next pic Joffre.jpg", "Anthospace", "CC BY-SA 4.0"]],
+  "mont-valier": [["Le mont Valier et le Petit Valier (Ariège).jpg", "PierreG_09", "CC BY-SA 2.0"]],
+  galamus: [["Ermitage de Galamus 20050517.jpg", "Sylvain Perrinel (Pinpin)", "CC BY-SA 3.0"]],
+  foix: [["Castle of Foix 05.jpg", "Krzysztof Golik", "CC BY-SA 4.0"]],
+  roquefixade: [["Castle of Roquefixade003.JPG", "Tournasol7", "CC BY-SA 3.0"], ["Chateau de Roquefixade octobre 2020 zoom.jpg", "Paul Kocialkowski", "CC BY-SA 4.0"]],
+  puivert: [["Château de Puivert 37.JPG", "Romain Bréget", "CC BY-SA 3.0"]],
+  "beziers-stad": [["Pont Vieux et Cathédrale Saint-Nazaire de Béziers cf02.jpg", "Christian Ferrer", "CC BY-SA 4.0"]],
+};
+
+/* katarernas historia */
+const KATAR = {
+  intro: "Katarerna – de goda männen och de goda kvinnorna, som de kallade sig själva – var en kristen rörelse som på 1100-talet fick stort stöd i Languedoc, från adeln till bönderna. Påven och den franska kronan slog ned rörelsen i ett tjugoårigt korståg, albigenserkorståget, och inkvisitionen jagade de sista i ytterligare hundra år. Kriget gjorde att Languedoc, som hade stått närmare Aragonien och Katalonien, blev en del av Frankrike.",
+  tro: "Katarerna trodde att världen styrdes av två principer: Gud hade skapat den andliga världen, men den synliga, materiella världen var ondskans verk. De förkastade katolska kyrkans sakrament, präster och rikedom, och vägrade svära eder och döda. Deras präster, de fullkomliga (parfaits), både män och kvinnor, hade tagit emot den enda katarska sakramentet consolamentum och levde i fattigdom, utan kött och sexualitet, och vandrade två och två genom byarna. Vanliga troende tog emot consolamentum först på dödsbädden. Namnet katarer gavs dem av motståndarna.",
+  arv: "Många av de borgar som kallas katarborgar byggdes av den franske kungen efter katarernas fall, för att vakta den nya gränsen mot Aragonien – därför är de nu världsarv som Kungliga capetingiska fästningar i Languedoc. Aude kallar sig i dag Pays Cathare, Katarlandet.",
+  timeline: [
+    { y: "1167", t: "Katarernas konsilium", txt: "Katarernas kyrkomöte i Saint-Félix-Lauragais organiserar stiften Toulouse, Carcassonne, Albi och Agen.", id: null },
+    { y: "1204", t: "Esclarmonde blir fullkomlig", txt: "Esclarmonde de Foix, syster till greven av Foix, tar emot consolamentum i Fanjeaux. Samma år byggs Montségur om på katarprästernas begäran.", id: "fanjeaux" },
+    { y: "1206", t: "Dominicus i Prouille", txt: "Den spanske predikanten Dominicus grundar ett kloster för omvända katarkvinnor i Prouille nedanför Fanjeaux – början på dominikanorden, som senare skulle driva inkvisitionen.", id: "fanjeaux" },
+    { y: "1208", t: "Mordet som startade kriget", txt: "Påvens sändebud Pierre de Castelnau mördas, och påve Innocentius III utlyser ett korståg mot kättarna i Languedoc – det första korståget mot kristna i Västeuropa.", id: null },
+    { y: "22 juli 1209", t: "Massakern i Béziers", txt: "Korsfararna stormar Béziers och dödar invånarna, även de tusentals som sökt skydd i kyrkorna. Påvens legat Arnaud Amaury ska ha sagt ”Döda dem alla, Gud känner de sina” – orden skrevs ned av en munk ett tiotal år senare. Staden bränns.", id: "beziers-stad" },
+    { y: "Augusti 1209", t: "Carcassonne ger upp", txt: "Efter två veckors belägring och utan vatten kapitulerar Carcassonne den 15 augusti. Vicegreve Raymond-Roger Trencavel, 24 år, tas till fånga när han förhandlar och dör i fängelset i november. Simon de Montfort blir ny herre.", id: "carcassonne" },
+    { y: "Juli 1210", t: "Bålet i Minerve", txt: "Efter sju veckors belägring, när katapulten Malvoisine har krossat vägen till brunnen, faller Minerve. 140 fullkomliga som vägrar avsvära sig sin tro bränns – det första stora bålet.", id: "minerve" },
+    { y: "1210", t: "Termes belägras", txt: "Termes står emot i fyra månader innan försvararna, utan vatten och sjuka, försöker fly och fångas.", id: "termes" },
+    { y: "1211", t: "Lavaur och Cabaret", txt: "I Lavaur bränns omkring 400 katarer – det största bålet under kriget. Borgarna i Cabaret (Lastours), som stått emot i två år, ger upp.", id: "lastours" },
+    { y: "1213", t: "Slaget vid Muret", txt: "Kung Peter II av Aragonien kommer greven av Toulouse till hjälp men stupar vid Muret. Montfort står på höjden av sin makt.", id: null },
+    { y: "25 juni 1218", t: "Simon de Montfort dödas", txt: "Under belägringen av Toulouse träffas Montfort av en sten från en kastmaskin som enligt krönikan sköts av stadens kvinnor.", id: "toulouse" },
+    { y: "1226–1229", t: "Kungen tar över", txt: "Den franske kungen Ludvig VIII leder ett nytt korståg. Freden i Meaux-Paris 1229 gör slut på grevskapet Toulouses självständighet.", id: "toulouse" },
+    { y: "1233", t: "Inkvisitionen", txt: "Påven ger dominikanerna i uppdrag att leta upp kättare. Förhören och straffen drev de sista katarerna under jorden och över bergen till Katalonien.", id: null },
+    { y: "1242", t: "Morden i Avignonet", txt: "Riddare från Montségur dödar inkvisitorerna i Avignonet. Det får kungen att bestämma sig för att ta Montségur.", id: "montsegur" },
+    { y: "16 mars 1244", t: "Bålet i Montségur", txt: "Efter tio månaders belägring kapitulerar Montségur. Omkring 220 fullkomliga och troende som vägrar avsvära sig bränns vid foten av berget, på platsen som kallas Prat dels Cremats – de brändas äng.", id: "montsegur" },
+    { y: "1255", t: "Quéribus faller", txt: "Den sista katarvänliga borgen ger upp. Tre år senare drar fördraget i Corbeil gränsen mellan Frankrike och Aragonien, och kungens fästningar byggs ut.", id: "queribus" },
+    { y: "1300–1310", t: "Den sista väckelsen", txt: "Bröderna Autier från Ax-les-Thermes väcker katarismen till liv i bergsbyarna i övre Ariège, bland annat i Montaillou.", id: "montaillou" },
+    { y: "1318–1325", t: "Förhören i Montaillou", txt: "Biskop Jacques Fournier i Pamiers, senare påve Benedictus XII, förhör byborna i Montaillou. Protokollen blev grunden för Emmanuel Le Roy Laduries bok Montaillou (1975), en av de mest lästa historieböckerna om medeltida vardagsliv.", id: "montaillou" },
+    { y: "1321", t: "Den siste fullkomlige", txt: "Guillaume Bélibaste, som flytt till Katalonien, lockas tillbaka över gränsen och bränns på borggården i Villerouge-Termenès – den siste kände katarprästen i Languedoc.", id: "villerouge" },
+  ],
+};
+const KAT_AT = {
+  "beziers-stad": "Den 22 juli 1209 stormade korsfararna Béziers. Invånarna hade vägrat lämna ut de omkring 200 katarer som bodde i staden. Tusentals dödades, många i kyrkan La Madeleine där de sökt skydd. Det var här påvens legat ska ha sagt ”Döda dem alla, Gud känner de sina”.",
+  carcassonne: "Sommaren 1209 belägrade korsfararna Carcassonne. Efter två veckor utan vatten gav staden upp den 15 augusti. Invånarna fick gå ut ”i skjorta och byxor” och lämna allt annat. Vicegreve Raymond-Roger Trencavel dog i fängelse samma höst, och Simon de Montfort tog över. Trencavels son försökte ta tillbaka staden 1240 men misslyckades.",
+  minerve: "I juli 1210 föll Minerve efter sju veckors belägring. Katapulten Malvoisine hade förstört trappan ned till brunnen. 140 fullkomliga som vägrade avsvära sig sin tro brändes – det första stora katarbålet. Ett minnesmärke med en duva står i byn.",
+  termes: "Raymond de Termes höll borgen mot Simon de Montfort i fyra månader 1210. När vattnet tog slut och sjukdom spred sig försökte försvararna fly en natt men fångades.",
+  lastours: "De fyra borgarna i Cabaret var ett fäste för katarerna. Pierre-Roger de Cabaret stod emot korsfararna i två år innan han gav upp 1211.",
+  montsegur: "Montségur byggdes om 1204 som tillflykt för katarernas präster och blev 1232 säte för deras kyrka. Efter morden på inkvisitorerna i Avignonet 1242 belägrades berget i tio månader. Den 16 mars 1244 brändes omkring 220 katarer vid foten av berget. Ruinen man ser i dag är byggd efter belägringen.",
+  queribus: "Quéribus var den sista borgen som höll ut, till 1255 – elva år efter Montségur. Därefter byggdes den om av kungen för att vakta gränsen.",
+  peyrepertuse: "Peyrepertuse gav sig till kungen 1240, och Ludvig IX byggde den övre borgen Sant Jordi högst upp på klippan.",
+  puilaurens: "Puilaurens var en tillflykt för katarer under korståget och blev kunglig fästning runt 1250.",
+  foix: "Grevarna av Foix skyddade katarerna, och grevens syster Esclarmonde var själv fullkomlig. Simon de Montfort lyckades aldrig inta borgen med våld.",
+  roquefixade: "En tillflykt för katarer och en vaktpost mot Montségur. Borgen revs på order av Ludvig XIII 1632.",
+  puivert: "Puivert föll efter tre dagars belägring i november 1210.",
+  toulouse: "Grevarna Raymond VI och Raymond VII var katarernas beskyddare. Under belägringen 1218 dödades Simon de Montfort av en sten utanför stadsmuren, och 1229 förlorade grevskapet sin självständighet. Inkvisitionen hade sitt första tribunal här.",
+  albi: "Korsfararna kallade katarerna albigenser efter Albi, och kriget fick namnet albigenserkorståget. Den fästningslika katedralen Sainte-Cécile byggdes från 1282 av biskopen och inkvisitorn Bernard de Castanet – som en påminnelse om kyrkans makt.",
+  fanjeaux: "Fanjeaux var ett katarcentrum där Esclarmonde de Foix tog emot consolamentum 1204. Dominicus predikade här mot katarerna och grundade 1206 klostret i Prouille.",
+  montaillou: "De sista katarerna levde i hemlighet i bergsbyar som Montaillou. Biskop Jacques Fournier förhörde byborna 1318–1325, och hans protokoll ger en unik bild av vardagslivet i en medeltida by.",
+  villerouge: "År 1321 brändes Guillaume Bélibaste här, den siste kände katarprästen i Languedoc.",
+  mirepoix: "Herrarna av Mirepoix var katarvänliga – Pierre-Roger de Mirepoix ledde försvaret av Montségur 1243–1244.",
+  aguilar: "Aguilar tillhörde katarvänliga herrar innan den blev kunglig fästning och en av vaktposterna mot Aragonien.",
+};
+for (const id in HIKE_AT) { const p = PLACES.find(x => x.id === id); if (!p) continue; p.hike = HIKE_AT[id]; if (!p.cat.includes("vandring")) p.cat.push("vandring"); }
+for (const id in KAT_AT) { const p = PLACES.find(x => x.id === id); if (p) p.kat = KAT_AT[id]; }
+for (const id in HPH) {
+  const p = PLACES.find(x => x.id === id); if (!p) continue;
+  const ph = HPH[id], n0 = (p.photos || []).length, cr = p.photoCredit || new Array(n0).fill(null);
+  p.photos = (p.photos || []).concat(ph.map(x => "cw:" + x[0]));
+  p.photoCredit = cr.concat(ph.map(x => ({ by: x[1], lic: x[2], url: _CW + "File:" + encodeURIComponent(x[0].replace(/ /g, "_")) })));
+}
+
 const ROUTES = [
   { id: "kung", name: "Den omvända kungsetappen", sub: "Pau → Saint-Girons över fem pass", km: 330, color: "tdf",
     text: "Från 2014-guiden: sväng av vid Pau och kör Tour de France-land över alla bergspass, en så kallad omvänd kungsetapp – Col d'Aubisque, Col du Tourmalet, Col d'Aspin, Col de Peyresourde och, om man vill, Col de Portet d'Aspet. Räkna med en hel dag med fotostopp. Passen kan vara stängda vid snö utanför sommarsäsongen.",
@@ -1605,7 +1814,7 @@ const GUIDE = {
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=6"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=7"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -1613,14 +1822,14 @@ const GUIDE = {
   if (window.LANG === "sv" || !window.I18N) return;
   var D = window.I18N;
   var tr = function (s) { if (typeof s !== "string") return s; var k = s.trim(); return D[k] != null ? s.replace(k, D[k]) : s; };
-  var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips|comp)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
-    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/ };
+  var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips|comp|kat|start|season|km|time)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
+    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/, TRAILS: /^(name|text|tips|km|days|top|route)$/, TRAIL_GROUPS: /^(pyr|katar|camino)$/, KATAR: /^(intro|tro|arv|t|txt|y)$/ };
   function walk(o, re, key) {
     if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) { if (typeof o[i] === "string") { if (key && re.test(key)) o[i] = tr(o[i]); } else walk(o[i], re, key); } return; }
     if (!o || typeof o !== "object") return;
     for (var k in o) { if (typeof o[k] === "string") { if (re.test(k)) o[k] = tr(o[k]); } else if (k !== "waypoints" && k !== "links" && k !== "photoLinks" && k !== "sources") walk(o[k], re, k); }
   }
-  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS };
+  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS, TRAILS: TRAILS, TRAIL_GROUPS: TRAIL_GROUPS, KATAR: KATAR };
   [TDF, VUELTA, OCC].forEach(function (x) { walk(x, ALLOW.RACE); });
   [TDF27, VUELTA27, OCC27].forEach(function (x) { walk(x, ALLOW.NEXT); });
   for (var g in G) walk(G[g], ALLOW[g]);
@@ -1705,12 +1914,13 @@ const ICON = {
   bike: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9.5 9h6.5l2.5 7.5M9.5 9l3 7.5L16 9M8 6h3.5"/></svg>',
   edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg>',
   whs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c-4 4.5-4 13.5 0 18M12 3c4 4.5 4 13.5 0 18M3.5 9h17M3.5 15h17"/></svg>',
+  walk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.8"/><path d="m9 21 2.5-6 2.5 2.5V21M8 12l2-4.5 3 1.5 2 3 2.5 1M10 7.5 7.5 10l-.5 3"/><path d="M18 11v10"/></svg>',
   print: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg>',
 };
 const RIDGE = '<svg class="ridgeart" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 L0 42 L22 26 L34 34 L58 10 L76 28 L92 18 L118 40 L140 14 L160 30 L178 22 L200 36 L200 60Z" fill="#fff"/></svg>';
 
 /* ---------- vyer ---------- */
-const VIEWS = [["karta", _t("Karta"), "map"], ["resmal", _t("Resmål"), "list"], ["rutter", _t("Rutter"), "route"], ["touren", _t("Cykling"), "bike"], ["minresa", _t("Min resa"), "bag"], ["om", _t("Om guiden"), "info"]];
+const VIEWS = [["karta", _t("Karta"), "map"], ["resmal", _t("Resmål"), "list"], ["rutter", _t("Rutter"), "route"], ["touren", _t("Cykling"), "bike"], ["vandring", _t("Vandring"), "walk"], ["minresa", _t("Min resa"), "bag"], ["om", _t("Om guiden"), "info"]];
 function navHTML() { return VIEWS.map(([id, label, ic]) => `<button data-view="${id}">${ICON[ic]}<span>${label}</span>${id === "minresa" ? '<span class="count"></span>' : ""}</button>`).join(""); }
 $("#nav").innerHTML = navHTML();
 $("#bottomnav").innerHTML = navHTML();
@@ -1724,6 +1934,7 @@ function show(view, opts = {}) {
   if (view === "resmal") renderCards();
   if (view === "rutter") renderRoutes();
   if (view === "touren") renderCycling();
+  if (view === "vandring") renderHiking();
   if (view === "minresa") renderMinResa();
   if (!opts.noHash) { try { history.replaceState(null, "", "#" + view); } catch (e) {} }
   store.set("view", view);
@@ -1777,9 +1988,13 @@ const map = (function () {
     osm: [_t("Standard"), () => L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: OSMA })],
     sat: [_t("Satellit"), () => L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxZoom: 19, attribution: _t("Esri, Maxar, Earthstar Geographics") })],
   };
+  const hikeTiles = L.tileLayer("https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png", { maxZoom: 18, opacity: .8, attribution: _t('<a href="https://hiking.waymarkedtrails.org">Waymarked Trails</a> (CC BY-SA)') });
+  let hikeOn = false;
+  function setHikeTiles(on) { hikeOn = !!on; store.set("hikeTiles", hikeOn); if (hikeOn) hikeTiles.addTo(lm); else lm.removeLayer(hikeTiles); }
   let baseKey = BASES[store.get("base", "cyclosm")] ? store.get("base", "cyclosm") : "cyclosm", base = null;
   function setBase(k) { if (!BASES[k]) return; if (base) lm.removeLayer(base); baseKey = k; store.set("base", k); base = BASES[k][1]().addTo(lm); }
   setBase(baseKey);
+  if (store.get("hikeTiles", false)) setHikeTiles(true);
 
   const mkLayer = L.layerGroup().addTo(lm), ovLayer = L.layerGroup().addTo(lm), routeLayer = L.layerGroup().addTo(lm);
   lm.createPane("tour").style.zIndex = 450;
@@ -1813,7 +2028,7 @@ const map = (function () {
     render();
   }
   function line(group, pts, color, w, key, title, dashed) {
-    if (!pts || pts.length < 2) return;
+    if (!pts || (pts.length < 2 && !(pts[0] && Array.isArray(pts[0][0])))) return;
     L.polyline(pts, { color: "#fff", weight: w + 3, opacity: .9, interactive: false, lineJoin: "round" }).addTo(group);
     L.polyline(pts, { color, weight: w, opacity: .95, dashArray: dashed ? "7 7" : null, interactive: false, lineJoin: "round" }).addTo(group);
     if (key) {
@@ -1834,7 +2049,7 @@ const map = (function () {
     const r = state.route;
     if (r) {
       if (r.full) line(routeLayer, r.full, "#7d8b8f", 3, null, null, true);
-      const g = r.key ? routedLL(r.key) : null; line(routeLayer, g || r.path, colorOf(r.color), r.id === "segpick" || r.id === "seg" ? 6 : 5, r.key && /^(runda|stage):/.test(r.key) ? r.key : null, null, (!g && r.id !== "trip" && !r.solid) || !!(r.key && ROUTED[r.key] && ROUTED[r.key].a));
+      const g = r.key ? routedLL(r.key) : null; line(routeLayer, r.multi || g || r.path, colorOf(r.color), r.id === "segpick" || r.id === "seg" ? 6 : 5, r.key && /^(runda|stage):/.test(r.key) ? r.key : null, null, (!g && r.id !== "trip" && !r.solid) || !!(r.key && ROUTED[r.key] && ROUTED[r.key].a));
       (r.segs || []).forEach(sg => line(routeLayer, sg.pts, cssVar("--c-tdf"), 6, null));
       (r.ends || []).forEach((p, i) => L.circleMarker(p, { radius: 7, color: "#fff", weight: 3, fillColor: i ? "#18262b" : cssVar("--c-tdf"), fillOpacity: 1, interactive: false }).addTo(routeLayer));
     }
@@ -1854,7 +2069,7 @@ const map = (function () {
   $("#zout").onclick = () => lm.zoomOut();
   $("#zfit").onclick = () => te.on ? teFit() : state.route ? fit(routedLL(state.route.key) || state.route.path) : fitAll();
   new ResizeObserver(() => { if (!$("#v-karta").hidden) resize(); }).observe(el);
-  return { resize, updateMarkers, focus, fit, fitAll, fitMatches, render, setBase, get baseKey() { return baseKey; }, BASES, lm, tourLayer };
+  return { resize, updateMarkers, focus, fit, fitAll, fitMatches, render, setBase, get baseKey() { return baseKey; }, BASES, lm, tourLayer, setHikeTiles, get hikeOn() { return hikeOn; } };
 })();
 
 
@@ -1884,6 +2099,8 @@ function openPlace(id, keepView) {
     ${p.text ? `<div class="prose"><p>${esc(p.text)}</p></div>` : ""}
     ${p.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(p.tips)}</div></div>` : ""}
     ${p.tdf ? `<div class="tdfbox"><span class="eyebrow">${_t(`Tour de France`)}</span><div>${esc(p.tdf)}</div></div>` : ""}
+    ${hikeBlock(p)}
+    ${katBlock(p)}
     ${whsBlock(p)}
     ${tdfHistory(p)}
     ${rideLikePros(p)}
@@ -2353,9 +2570,11 @@ function renderLayerPanel() {
     ${row("hyr", _t("Cykeluthyrning (") + HYR.shops.length + ")", "background:#2277b8;border-radius:50%")}
     ${row("lopp", _t("Motionslopp (") + MOTION.events.filter(e => e.lat).length + ")", "background:#6b5579;border-radius:50%")}
     ${row("flyg", _t("Flygplatser (") + RESA.airports.length + ")", "background:#18262b;border-radius:50%")}
+    <label class="lrow"><input type="checkbox" data-hiketiles ${map.hikeOn ? "checked" : ""}><span class="lsw" style="background:${HIKECOL}"></span>${_t(`Vandringsleder (Waymarked Trails)`)}</label>
     <p>${_t(`Tryck på en linje eller punkt för fakta, höjdprofil och GPX. Linjerna följer vägarna (beräknade med BRouter på OpenStreetMap-data).`)}</p>`;
 }
 document.addEventListener("change", e => {
+  if (e.target.matches("[data-hiketiles]")) map.setHikeTiles(e.target.checked);
   if (e.target.matches("[data-layer]")) { OV[e.target.dataset.layer] = e.target.checked; saveOV(); renderLayerPanel(); map.render(); }
   if (e.target.id === "layerRace") { tdfState.race = e.target.value; store.set("tdfRace", tdfState.race); OV.etapper = true; saveOV(); renderLayerPanel(); map.render(); }
 });
@@ -3971,6 +4190,106 @@ function renderEgen() {
     <p class="ty-note" style="color:var(--muted);font-size:15px;margin:0">${_t(`Vill du cykla en proffsetapp? Välj en etapp under`)} <button class="linkish" data-cymode="proffs">${_t(`Proffsloppen`)}</button> ${_t(`och tryck`)} <b>${_t(`Ändra vägen`)}</b>.</p>`;
 }
 
+/* ---------- Vandring: långa leder (linjer från OpenStreetMap), dagsturer och katarernas historia ---------- */
+const hState = { tab: ["leder", "dag", "katar"].includes(store.get("hTab")) ? store.get("hTab") : "leder" };
+const HIKECOL = "#7b3fa0";
+const WMT = "https://hiking.waymarkedtrails.org/api/v1/details/relation/";
+const _TG = {};
+/* hämtar ledens linje (huvudsträckningen, utan varianter) och gör om från Web Mercator till lat/lon */
+function trailGeo(t) {
+  if (_TG[t.id]) return _TG[t.id];
+  return (_TG[t.id] = fetch(WMT + t.rel).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(j => {
+    const segs = [], R = 6378137, k = 180 / Math.PI;
+    const walk = o => { (o.ways || []).forEach(w => { const c = w.geometry && w.geometry.coordinates; if (c && c.length > 1) segs.push(c.map(([x, y]) => [+(2 * Math.atan(Math.exp(y / R)) * k - 90).toFixed(5), +(x / R * k).toFixed(5)])); }); (o.main || []).forEach(walk); };
+    walk(j.route);
+    if (!segs.length) throw new Error("tom");
+    return { segs, km: Math.round((j.route.length || 0) / 1000) };
+  }).catch(e => { delete _TG[t.id]; throw e; }));
+}
+function showTrail(id, btn) {
+  const t = TRAILS.find(x => x.id === id); if (!t) return;
+  const old = btn ? btn.innerHTML : "";
+  if (btn) { btn.disabled = true; btn.textContent = _t("Hämtar leden …"); }
+  trailGeo(t).then(g => {
+    const pts = []; g.segs.forEach(s => s.forEach((p, i) => { if (i % 8 === 0) pts.push(p); }));
+    closeSheet(); show("karta"); map.setHikeTiles(true);
+    requestAnimationFrame(() => setRoute({ id: "trail", name: `${t.ref} · ${t.route}`, color: HIKECOL, stops: [], path: pts, multi: g.segs, solid: true }));
+  }).catch(() => { if (btn) { btn.insertAdjacentHTML("afterend", `<span class="pl-note warn" style="margin-left:8px">${_t(`Leden kunde inte hämtas just nu. Försök igen om en stund.`)}</span>`); } })
+    .finally(() => { if (btn) { btn.disabled = false; btn.innerHTML = old; } });
+}
+function trailGpx(id, btn) {
+  const t = TRAILS.find(x => x.id === id); if (!t) return;
+  trailGeo(t).then(g => {
+    const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Reseguide Pyrenéerna (data © OpenStreetMap)" xmlns="http://www.topografix.com/GPX/1/1"><trk><name>${esc(t.ref + " " + t.route)}</name>${g.segs.map(s => `<trkseg>${s.map(p => `<trkpt lat="${p[0]}" lon="${p[1]}"/>`).join("")}</trkseg>`).join("")}</trk></gpx>`;
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([gpx], { type: "application/gpx+xml" }));
+    a.download = t.ref.replace(/[^\w\-]+/g, "-") + ".gpx"; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }).catch(() => { if (btn) btn.insertAdjacentHTML("afterend", `<span class="pl-note warn" style="margin-left:8px">${_t(`Leden kunde inte hämtas just nu.`)}</span>`); });
+}
+function trailCard(t) {
+  const pl = (t.places || []).filter(id => BY[id]);
+  return `<article class="stage" id="tr-${t.id}"><div class="st-bd">
+    <div><div class="eyebrow">${esc(t.ref)} · ${esc(t.route)}</div><h4>${esc(t.name)}</h4></div>
+    <div class="tags"><span class="tag" style="--c:${HIKECOL}">${esc(t.km)}</span><span class="tag" style="--c:var(--ink)">${esc(t.days)}</span>${t.top ? `<span class="tag" style="--c:var(--ink)">${_t(`högst`)} ${esc(t.top)}</span>` : ""}</div>
+    <p class="st-sum">${esc(t.text)}</p>
+    <div class="tdfbox" style="border-color:${HIKECOL}"><span class="eyebrow" style="color:${HIKECOL}">${_t(`Tips`)}</span><div>${esc(t.tips)}</div></div>
+    ${pl.length ? `<div><div class="eyebrow">${_t(`Längs leden i guiden`)}</div><div class="whsparts">${pl.map(id => `<button class="chip" data-open="${id}" style="--c:${HIKECOL}">${esc(short(BY[id]))}</button>`).join("")}</div></div>` : ""}
+    <div class="st-foot"><button class="btn primary" data-trail="${t.id}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-trail-gpx="${t.id}">${ICON.dl}GPX</button>${t.link ? `<a class="btn" href="${esc(t.link[1])}" target="_blank" rel="noopener">${esc(t.link[0])}</a>` : ""}<a class="btn" href="https://hiking.waymarkedtrails.org/#route?id=${t.rel}" target="_blank" rel="noopener">${_t(`Waymarked Trails`)}</a></div>
+  </div></article>`;
+}
+function hikeTags(h) { return `${diffTag(h.level)}<span class="tag" style="--c:var(--ink)">${esc(h.km)}</span><span class="tag" style="--c:var(--ink)">${esc(h.hm)}</span><span class="tag" style="--c:var(--ink)">${esc(h.time)}</span>`; }
+function renderLeder() {
+  return `<p class="outlook">${_t(`Pyrenéerna har några av Europas mest legendariska vandringsleder: GR 10 och GR 11 från hav till hav, den höga vägen HRP, katarernas leder och pilgrimsvägarna till Santiago de Compostela. Tryck`)} <b>${_t(`Visa på kartan`)}</b> ${_t(`för att se hela leden – linjen hämtas direkt från OpenStreetMap, och kartlagret visar alla markerade leder i området.`)}</p>
+    ${Object.entries(TRAIL_GROUPS).map(([g, [h, sub]]) => `<h4 class="mh">${esc(h)}</h4><p class="ty-note" style="color:var(--muted);margin:-6px 0 4px">${esc(sub)}</p><div class="stages">${TRAILS.filter(t => t.grp === g).map(trailCard).join("")}</div>`).join("")}
+    <p class="tour-src">${_t(`Ledernas linjer och längder: OpenStreetMap-bidragsgivare via Waymarked Trails (CC BY-SA). Längder och dagar är ungefärliga och beror på vilka varianter man väljer.`)}</p>`;
+}
+function renderDag() {
+  const list = PLACES.filter(p => p.hike).sort((a, b) => a.lon - b.lon);
+  return `<p class="outlook">${_t(`Klassiska dagsturer från väst till öst – från lätta promenader till Europas högsta vattenfall till toppar för vältränade. Svårighetsgraden gäller sommarförhållanden. Kontrollera alltid vädret: åskväder är vanliga på eftermiddagarna i juli och augusti.`)}</p>
+    <div class="actions"><button class="btn primary" data-hike-map>${SELICON}${_t(`Visa alla dagsturer på kartan`)}</button></div>
+    <div class="stages">${list.map(p => { const h = p.hike, ph = p.photos && p.photos[0]; return `<article class="stage">${ph ? `<button class="st-photo" data-open="${p.id}" aria-label="${esc(p.name)}"><img src="${img(ph, 1)}" alt="" loading="lazy"></button>` : ""}<div class="st-bd">
+      <div><div class="eyebrow">${_t(`Start:`)} ${esc(h.start)}</div><h4>${esc(p.name)}</h4></div>
+      <div class="tags">${hikeTags(h)}<span class="tag" style="--c:var(--muted)">${esc(h.season)}</span></div>
+      <p class="st-sum">${esc(h.text)}</p>
+      <div class="st-foot"><button class="btn" data-open="${p.id}">${_t(`Fakta och bilder`)}</button><button class="btn" data-showmap="${p.id}">${ICON.map}${_t(`Karta`)}</button><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
+    </div></article>`; }).join("")}</div>`;
+}
+function renderKatar() {
+  const places = [...new Set(KATAR.timeline.map(x => x.id).filter(Boolean).concat(Object.keys(KAT_AT)))].filter(id => BY[id]);
+  return `<div class="t27-cols"><section><h4 class="mh">${_t(`Vilka var katarerna?`)}</h4><div class="prose"><p>${esc(KATAR.intro)}</p><p>${esc(KATAR.tro)}</p></div></section>
+      <section class="panel"><h3>${_t(`Katarernas platser`)}</h3><div class="whsparts">${places.map(id => `<button class="chip" data-open="${id}" style="--c:var(--c-borg)">${esc(short(BY[id]))}</button>`).join("")}</div><p>${esc(KATAR.arv)}</p>
+      <div class="actions"><button class="btn" data-htab-go="leder" data-trail-jump="gr367">${_t(`Sentier Cathare`)}</button><button class="btn" data-htab-go="leder" data-trail-jump="gr107">${_t(`Chemin des Bonshommes`)}</button></div></section></div>
+    <h4 class="mh">${_t(`Albigenserkorståget och inkvisitionen`)}</h4>
+    <ol class="ktl">${KATAR.timeline.map(e => `<li><span class="ky">${esc(e.y)}</span><div><b>${esc(e.t)}</b><p>${esc(e.txt)}</p>${e.id && BY[e.id] ? `<button class="linkish" data-open="${e.id}">${esc(short(BY[e.id]))} ${_t(`i guiden`)}</button>` : ""}</div></li>`).join("")}</ol>`;
+}
+function renderHiking() {
+  document.querySelectorAll("[data-htab]").forEach(b => b.setAttribute("aria-pressed", b.dataset.htab === hState.tab));
+  $("#hikeBody").innerHTML = hState.tab === "leder" ? renderLeder() : hState.tab === "dag" ? renderDag() : renderKatar();
+}
+function hikeBlock(p) {
+  if (!p.hike) return "";
+  const h = p.hike;
+  return `<div class="tdfbox" style="border-color:${HIKECOL}"><span class="eyebrow" style="color:${HIKECOL}">${_t(`Vandring`)}</span><div class="tags" style="margin:4px 0 6px">${hikeTags(h)}</div>
+    <div><b>${_t(`Start:`)}</b> ${esc(h.start)} · <b>${_t(`Säsong:`)}</b> ${esc(h.season)}</div><p style="margin:6px 0 0">${esc(h.text)}</p></div>`;
+}
+function katBlock(p) {
+  if (!p.kat) return "";
+  return `<div class="tdfbox" style="border-color:var(--c-borg)"><span class="eyebrow" style="color:var(--c-borg)">${_t(`Katarernas historia`)}</span><div>${esc(p.kat)}</div>
+    <div class="actions" style="margin-top:8px"><button class="btn" data-htab-go="katar">${_t(`Läs hela historien om katarerna`)}</button></div></div>`;
+}
+document.addEventListener("click", e => {
+  const ht = e.target.closest("[data-htab]"); if (ht) { hState.tab = ht.dataset.htab; store.set("hTab", hState.tab); renderHiking(); return; }
+  const hg = e.target.closest("[data-htab-go]"); if (hg) {
+    hState.tab = hg.dataset.htabGo; store.set("hTab", hState.tab); closeSheet(); show("vandring");
+    const j = hg.dataset.trailJump; if (j) requestAnimationFrame(() => { const el = document.getElementById("tr-" + j); if (el) el.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" }); });
+    return;
+  }
+  const tr = e.target.closest("[data-trail]"); if (tr) { showTrail(tr.dataset.trail, tr); return; }
+  const tg = e.target.closest("[data-trail-gpx]"); if (tg) { trailGpx(tg.dataset.trailGpx, tg); return; }
+  if (e.target.closest("[data-hike-map]")) {
+    state.cats = new Set(["vandring"]); store.set("cats", [...state.cats]); state.q = ""; document.querySelectorAll("[data-search]").forEach(i => i.value = "");
+    show("karta"); map.setHikeTiles(true); refresh(); requestAnimationFrame(() => map.fitMatches()); return;
+  }
+});
 /* ---------- Om ---------- */
 $("#aboutIntro").textContent = GUIDE.intro;
 $("#aboutVagval").textContent = GUIDE.vagval;
