@@ -560,6 +560,64 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 @media (min-width:761px) and (max-width:1180px){.nav button{padding:8px 8px;gap:5px}.nav button svg{display:none}}
 .langsel{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 8px;font:600 13px var(--f-ui);cursor:pointer;flex:none}
 @media (max-width:760px){.langsel{margin-left:auto}}
+
+/* Egen cykeltur */
+.tour-panel{position:absolute;left:12px;top:12px;bottom:12px;width:370px;z-index:1000!important;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.tour-panel.min{bottom:auto}
+.tp-head{display:flex;gap:6px;align-items:center;padding:8px 8px 6px 14px}
+.tp-ttl{flex:1;min-width:0;display:grid}
+.tp-ttl .eyebrow{color:var(--c-tdf)}
+.tp-ttl input{border:1px solid transparent;border-radius:6px;background:transparent;color:var(--ink);font:600 17px var(--f-ui);padding:2px 4px;margin-left:-5px;width:100%;min-width:0}
+.tp-ttl input:hover,.tp-ttl input:focus{border-color:var(--line);background:var(--surface-2)}
+.tp-ib{flex:none;width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;cursor:pointer;font-size:15px;line-height:1;padding:0}
+.tp-ib svg{width:15px;height:15px}
+.tp-ib:disabled{opacity:.35;cursor:default}
+.tp-sum{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:0 14px 10px;border-bottom:1px solid var(--line);font-size:14px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.tp-sum b{color:var(--ink);font-size:16px}
+.tp-busy{color:var(--accent);font-weight:600}
+.tp-body{overflow:auto;flex:1;padding:12px 14px 16px;display:grid;gap:14px;align-content:start;overscroll-behavior:contain}
+.tour-panel.min .tp-body{display:none}
+.tp-help,.tp-from{margin:0;font-size:14px;color:var(--muted)}
+.tp-from{border-left:3px solid var(--c-tdf);padding-left:10px;color:var(--ink)}
+.tp-find{display:flex;gap:6px}
+.tp-find input{flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface-2);color:var(--ink)}
+.tp-hits{display:grid;gap:4px;margin-top:-6px}
+.tp-hit{display:grid;text-align:left;border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:7px 10px;cursor:pointer;color:var(--ink)}
+.tp-hit small{color:var(--muted);font-size:12.5px}
+.tp-hit.more b{color:var(--accent)}
+.tp-none{margin:0;font-size:13px;color:var(--muted)}
+.tp-wps{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.tp-wps:empty{display:none}
+.tp-wps li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:3px 0;border-bottom:1px solid var(--line)}
+.tp-wn{border:0;background:none;padding:0;text-align:left;font:600 14px var(--f-ui);color:var(--ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tp-km{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tp-ctl{display:flex;gap:3px}
+.tp-ctl .tp-ib{width:28px;height:28px;font-size:13px}
+.tp-tools,#teAct{display:flex;flex-wrap:wrap;gap:6px}
+.tp-tools .btn{padding:6px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:default}
+.tp-opts{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:14px}
+.tp-chk{display:inline-flex;gap:6px;align-items:center;font-weight:600}
+.tp-sel select{border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--surface-2);color:var(--ink)}
+.tp-linkbox{display:grid;gap:4px}
+.tp-linkbox input{border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--surface-2);color:var(--ink);font-size:12px}
+.twp{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--surface);color:var(--ink);border:2.5px solid var(--c-tdf);font:700 12px/1 var(--f-ui);box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:grab;box-sizing:border-box}
+.twp.s{background:var(--c-natur);border-color:#fff;color:#fff;font-size:10px}
+.twp.e{background:#18262b;border-color:#fff;color:#fff}
+.tp-wps .twp{width:22px;height:22px;font-size:11px;box-shadow:none;cursor:default}
+.tp-pop{display:grid;gap:6px;font:14px var(--f-ui)}
+.tp-pop-a{display:flex;flex-wrap:wrap;gap:6px}
+.tp-pop .btn{padding:5px 9px;font-size:13px}
+.tp-pop .btn svg{width:13px;height:13px}
+.map.touring .mobile-chips,.map.touring .route-pill{display:none!important}
+.map.touring .leaflet-container{cursor:crosshair}
+.map.touring .leaflet-interactive{cursor:copy}
+.map-ctl button[data-tour-new] svg{width:18px;height:18px}
+@media (max-width:820px){
+  .tour-panel{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-height:52%}
+  .tp-head{padding-top:6px}
+  .tour-panel.min{max-height:none}
+}
 </style>
 
 <div class="app">
@@ -592,9 +650,11 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
           <button id="zin" aria-label="Zooma in">+</button>
           <button id="zout" aria-label="Zooma ut">−</button>
           <button id="zfit" aria-label="Visa hela området"></button>
+          <button data-tour-new aria-label="Rita en egen cykeltur" title="Rita en egen cykeltur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg></button>
           <button data-layers aria-label="Kartlager" title="Lager: rundor, etapper, uthyrning, motionslopp, flygplatser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg></button>
         </div>
         <div class="layer-panel" id="layerPanel" hidden></div>
+        <div class="tour-panel" id="tourPanel" hidden aria-label="Egen cykeltur"></div>
       </div>
     </section>
 
@@ -642,6 +702,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
         <div id="motion" hidden style="display:grid;gap:22px">
           <div class="seg sub" role="group" aria-label="Välj ämne">
             <button data-mtab="rundor" aria-pressed="true">Rundor</button>
+            <button data-mtab="egen" aria-pressed="false">Egen tur</button>
             <button data-mtab="lopp" aria-pressed="false">Motionslopp</button>
             <button data-mtab="hyr" aria-pressed="false">Hyra cykel</button>
             <button data-mtab="resa" aria-pressed="false">Resa dit</button>
@@ -1312,7 +1373,7 @@ const GUIDE = {
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=1"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=4"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -1362,7 +1423,7 @@ const state = {
   cats: new Set((c => c.length >= 7 && !c.includes("vatten") ? [...c, "vatten"] : c)(store.get("cats", Object.keys(CATS)))),
   only14: store.get("only14", false),
   q: "",
-  trip: store.get("trip", ["foix", "montsegur", "ax", "tourmalet", "luchon"]).filter(id => BY[id] || /^seg:/.test(id)),
+  trip: store.get("trip", ["foix", "montsegur", "ax", "tourmalet", "luchon"]).filter(id => BY[id] || /^(seg|tur):/.test(id)),
   notes: store.get("notes", {}),
   route: null,
   sel: null,
@@ -1409,6 +1470,7 @@ const ICON = {
   nav: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m3 11 18-8-8 18-2-8-8-2Z"/></svg>',
   dl: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>',
   bike: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9.5 9h6.5l2.5 7.5M9.5 9l3 7.5L16 9M8 6h3.5"/></svg>',
+  edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg>',
   print: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg>',
 };
 const RIDGE = '<svg class="ridgeart" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 L0 42 L22 26 L34 34 L58 10 L76 28 L92 18 L118 40 L140 14 L160 30 L178 22 L200 36 L200 60Z" fill="#fff"/></svg>';
@@ -1468,6 +1530,7 @@ function renderSideList() {
 /* ---------- karta: Leaflet med OpenStreetMap-baserade bakgrundskartor ---------- */
 const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || "#c4242c";
 const colorOf = c => String(c || "").startsWith("var(") ? cssVar(c.slice(4, -1)) : (CATS[c] ? cssVar("--c-" + c) : c);
+let tourHook = null;   // satt när ritverktyget för egen tur är öppet
 const map = (function () {
   const el = $("#map");
   const lm = L.map("lmap", { zoomControl: false, minZoom: 6, maxBounds: [[40.2, -4.9], [45.3, 5.7]], maxBoundsViscosity: 0.6, tap: true, attributionControl: true });
@@ -1484,6 +1547,9 @@ const map = (function () {
   setBase(baseKey);
 
   const mkLayer = L.layerGroup().addTo(lm), ovLayer = L.layerGroup().addTo(lm), routeLayer = L.layerGroup().addTo(lm);
+  lm.createPane("tour").style.zIndex = 450;
+  const tourLayer = L.layerGroup().addTo(lm);
+  lm.on("click", e => { if (tourHook) tourHook(null, e.latlng); });
   const mk = {};
   for (const p of [...PLACES, BASE]) {
     const c = p === BASE ? "stad" : p.cat[0];
@@ -1491,7 +1557,7 @@ const map = (function () {
     const icon = L.divIcon({ className: "lmk", iconSize: [0, 0], iconAnchor: [0, 0],
       html: `<span class="${cls}" data-id="${p.id}" style="--c:${catColor(c)}"><span class="pin">${p === BASE ? "★" : p.no || ""}</span><span class="lbl">${esc(p === BASE ? _t("Bas") : p.name)}</span></span>` });
     const m = L.marker([p.lat, p.lon], { icon, title: p === BASE ? p.name : p.name + ", " + p.sub, keyboard: true, riseOnHover: true });
-    if (p !== BASE) m.on("click", () => openPlace(p.id));
+    if (p !== BASE) m.on("click", () => { if (tourHook && tourHook(p)) return; openPlace(p.id); });
     m.addTo(mkLayer); mk[p.id] = { m, p };
   }
   function styleMarker(id) {
@@ -1518,7 +1584,7 @@ const map = (function () {
     if (key) {
       const h = L.polyline(pts, { color: "#000", opacity: 0, weight: 22 }).addTo(group);
       if (title) h.bindTooltip(esc(title), { sticky: true, direction: "top" });
-      h.on("click", e => { L.DomEvent.stop(e); openOverlay(key); });
+      h.on("click", e => { L.DomEvent.stop(e); if (tourHook && tourHook(null, e.latlng)) return; openOverlay(key); });
     }
   }
   function render() {
@@ -1527,7 +1593,7 @@ const map = (function () {
       for (const l of ovLines()) { const g = routedLL(l.key); line(ovLayer, g || l.pts, l.color, OV.hl === l.key ? 6.5 : 4, l.key, l.title, !g || !!(ROUTED[l.key] && ROUTED[l.key].a)); }
       for (const p of ovPoints()) {
         const m = L.marker([p.lat, p.lon], { title: p.label, icon: L.divIcon({ className: "", iconSize: [24, 24], iconAnchor: [12, 12], html: `<span class="ovpt" style="background:${p.color}">${p.sym}</span>` }) });
-        m.on("click", () => openOverlay(p.key)); m.addTo(ovLayer);
+        m.on("click", e => { if (tourHook && tourHook(null, e.latlng)) return; openOverlay(p.key); }); m.addTo(ovLayer);
       }
     }
     const r = state.route;
@@ -1549,9 +1615,9 @@ const map = (function () {
   $("#zfit").innerHTML = ICON.fit;
   $("#zin").onclick = () => lm.zoomIn();
   $("#zout").onclick = () => lm.zoomOut();
-  $("#zfit").onclick = () => state.route ? fit(routedLL(state.route.key) || state.route.path) : fitAll();
+  $("#zfit").onclick = () => te.on ? teFit() : state.route ? fit(routedLL(state.route.key) || state.route.path) : fitAll();
   new ResizeObserver(() => { if (!$("#v-karta").hidden) resize(); }).observe(el);
-  return { resize, updateMarkers, focus, fit, fitAll, render, setBase, get baseKey() { return baseKey; }, BASES };
+  return { resize, updateMarkers, focus, fit, fitAll, render, setBase, get baseKey() { return baseKey; }, BASES, lm, tourLayer };
 })();
 
 
@@ -1649,7 +1715,7 @@ function renderRoutes() {
       <h3>${esc(r.name)}</h3><div class="meta">${esc(r.sub)} ${_t(`· cirka`)} ${r.km} km${cols.length ? " · " + cols.length + _t(" pass, högst ") + Math.max(...cols.map(p => p.col.alt)).toLocaleString(LOC) + " m" : ""}</div>
       <p class="prose" style="margin:0;font-size:15.5px">${esc(r.text)}</p>
       <ol class="stops">${r.stops.map(id => `<li><button data-open="${id}">${esc(BY[id].name.split(" & ")[0].split(" – ")[0])}</button></li>`).join("")}</ol>
-      <div class="actions"><button class="btn primary" data-route="${r.id}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-route-trip="${r.id}">${ICON.bag}${_t(`Lägg alla i Min resa`)}</button></div>
+      <div class="actions"><button class="btn primary" data-route="${r.id}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-route-trip="${r.id}">${ICON.bag}${_t(`Lägg alla i Min resa`)}</button>${ROUTED["rutt:" + r.id] ? `<button class="btn" data-tour-from="rutt:${r.id}">${ICON.bike}${_t(`Gör om till egen cykeltur`)}</button>` : ""}</div>
     </div></article>`;
   }).join("");
 }
@@ -1749,7 +1815,7 @@ function stageCard(s) {
       ${s.leader ? `<div class="yellow"><span class="jersey" style="background:${R.jersey}" aria-hidden="true"></span>${R.leader}: <b>${esc(s.leader)}</b></div>` : ""}
       <div class="st-foot">
         <button class="btn" data-stage-map="${s.key}">${ICON.map}${_t(`Visa på kartan`)}</button>
-        ${ROUTED["stage:" + s.key] ? `<button class="btn primary" data-seg-pick="${s.key}">${ICON.bike}${_t(`Cykla en del själv`)}</button>` : ""}
+        ${ROUTED["stage:" + s.key] ? `<button class="btn primary" data-seg-pick="${s.key}">${ICON.bike}${_t(`Cykla en del själv`)}</button><button class="btn" data-tour-from="stage:${s.key}">${ICON.edit}${_t(`Ändra vägen`)}</button>` : ""}
         ${s.finishId ? `<button class="btn" data-open="${s.finishId}">${ICON.pin}${esc(nm(s.finishId))} ${_t(`i guiden`)}</button>` : ""}
       </div>
       ${(s.sources || []).length ? `<details class="st-src"><summary>${_t(`Källor`)}</summary><ul>${s.sources.map(u => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\/(www\.)?/, "").split("/")[0])}</a></li>`).join("")}</ul></details>` : ""}
@@ -1883,7 +1949,7 @@ function tdfHistory(p) {
 const DIFF = { "lätt": [_t("Lätt"), "#2e7d32"], "medel": [_t("Medel"), "#1565c0"], "svår": [_t("Svår"), "#c62828"], "mycket svår": [_t("Mycket svår"), "var(--ink)"] };
 const AREA = { "väst": _t("Väst – Béarn och Baskien"), "mitt": _t("Mitt – Hautes-Pyrénées och Comminges"), "ariège": _t("Ariège"), "öst": _t("Öst – Cerdagne"), "andorra": _t("Andorra"), "spanien": _t("Spanien") };
 const ETYPE = { granfondo: _t("Gran fondo"), cyclosportive: _t("Cyclosportive"), brevet: _t("Brevet / raid"), etapplopp: _t("Etapplopp") };
-const mState = { mode: store.get("cyMode", "proffs") === "motion" ? "motion" : "proffs", tab: ["rundor", "lopp", "hyr", "resa"].includes(store.get("mTab", "rundor")) ? store.get("mTab", "rundor") : "rundor", area: "alla" };
+const mState = { mode: store.get("cyMode", "proffs") === "motion" ? "motion" : "proffs", tab: ["rundor", "egen", "lopp", "hyr", "resa"].includes(store.get("mTab", "rundor")) ? store.get("mTab", "rundor") : "rundor", area: "alla" };
 const fmtLong = d => new Date(d + "T12:00:00").toLocaleDateString(LOC, { weekday: "short", day: "numeric", month: "long", year: "numeric" });
 const linkA = (u, t) => u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t || u.replace(/^https?:\/\/(www\.)?/, "").split("/")[0])}</a>` : "";
 const pathKm = pts => { let t = 0; for (let i = 1; i < pts.length; i++) t += km({ lat: pts[i - 1][0], lon: pts[i - 1][1] }, { lat: pts[i][0], lon: pts[i][1] }); return t; };
@@ -1907,7 +1973,7 @@ function rundaCard(r) {
       <p class="st-sum">${esc(r.text_sv)}</p>
       ${r.tips_sv ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(r.tips_sv)}</div></div>` : ""}
       ${r.season_sv ? `<div class="st-src">${_t(`Säsong:`)} ${esc(r.season_sv)}</div>` : ""}
-      <div class="st-foot"><button class="btn primary" data-ov-show="runda:${r.id}">${ICON.map}${_t(`Visa på kartan`)}</button><a class="btn" href="${gmapsDir(r.waypoints)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a>${r.link ? `<a class="btn" href="${esc(r.link)}" target="_blank" rel="noopener">${_t(`Ruttsida`)}</a>` : ""}</div>
+      <div class="st-foot"><button class="btn primary" data-ov-show="runda:${r.id}">${ICON.map}${_t(`Visa på kartan`)}</button>${ROUTED["runda:" + r.id] ? `<button class="btn" data-tour-from="runda:${r.id}">${ICON.edit}${_t(`Ändra rundan`)}</button>` : ""}<a class="btn" href="${gmapsDir(r.waypoints)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a>${r.link ? `<a class="btn" href="${esc(r.link)}" target="_blank" rel="noopener">${_t(`Ruttsida`)}</a>` : ""}</div>
       ${(r.sources || []).length ? `<details class="st-src"><summary>${_t(`Källor`)}</summary><ul>${r.sources.map(u => `<li>${linkA(u)}</li>`).join("")}</ul></details>` : ""}
     </div></article>`;
 }
@@ -1967,7 +2033,7 @@ function renderResa() {
 }
 function renderMotion() {
   document.querySelectorAll("[data-mtab]").forEach(b => b.setAttribute("aria-pressed", b.dataset.mtab === mState.tab));
-  $("#motionBody").innerHTML = mState.tab === "rundor" ? renderRundor() : mState.tab === "lopp" ? renderLopp() : mState.tab === "hyr" ? renderHyr() : renderResa();
+  $("#motionBody").innerHTML = mState.tab === "rundor" ? renderRundor() : mState.tab === "egen" ? renderEgen() : mState.tab === "lopp" ? renderLopp() : mState.tab === "hyr" ? renderHyr() : renderResa();
 }
 function renderCycling() {
   document.querySelectorAll("[data-cymode]").forEach(b => b.setAttribute("aria-pressed", b.dataset.cymode === mState.mode));
@@ -2072,14 +2138,14 @@ function openOverlay(key) {
       ${routedBlock(key)}<div class="eyebrow">${_t(`Pass`)}</div>${colChips(r.cols)}
       <div class="prose"><p>${esc(r.text_sv)}</p></div>
       ${r.tips_sv ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(r.tips_sv)}</div></div>` : ""}
-      <div class="actions"><a class="btn primary" href="${gmapsDir(r.waypoints)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Öppna i Google Maps (cykel)`)}</a>${r.link ? `<a class="btn" href="${esc(r.link)}" target="_blank" rel="noopener">${_t(`Ruttsida`)}</a>` : ""}</div>
+      <div class="actions">${ROUTED[key] ? `<button class="btn primary" data-tour-from="${esc(key)}">${ICON.edit}${_t(`Ändra rundan`)}</button>` : ""}<a class="btn${ROUTED[key] ? "" : " primary"}" href="${gmapsDir(r.waypoints)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Öppna i Google Maps (cykel)`)}</a>${r.link ? `<a class="btn" href="${esc(r.link)}" target="_blank" rel="noopener">${_t(`Ruttsida`)}</a>` : ""}</div>
       <div><div class="eyebrow">${_t(`Passerar`)}</div><ol class="wps">${r.waypoints.map(w => `<li>${esc(w[2] || "")}</li>`).join("")}</ol></div></div>`;
   } else if (it.s) {
     const s = it.s, pts = it.pts, tops = (s.climbs || []).filter(c => c && c.alt_m);
     const top = tops.reduce((m, c) => c.alt_m > (m.alt_m || 0) ? c : m, {});
     html = `<div class="d-pad"><div class="d-head"><div class="tags"><span class="tag" style="--c:var(--c-tdf)">${esc(RACES[s.race].name)} ${s.year}</span></div><h2 id="sheetTitle">${_t(`Etapp`)} ${esc(s.stage)}: ${esc(s.start)} → ${esc(s.finish)}</h2></div>
       ${gisTable([[_t("Datum"), esc(fmtDate(s.date))], [_t("Längd"), s.distance_km ? kmTxt(s.distance_km) : null], [_t("Typ"), (TYPE[s.type] || "") + (s.summit_finish ? _t(", bergsmål") : "")], [_t("Stigningar"), (s.climbs || []).length || null], [_t("Högsta punkt"), top.name ? `${esc(top.name)}, ${altTxt(top.alt_m)}` : null], [_t("Mål"), s.finish_lat ? coord([s.finish_lat, s.finish_lon]) : null], [_t("Vinnare"), s.podium && s.podium[0] ? esc(s.podium[0].rider) : null], [RACES[s.race].leader.replace(" efter etappen", " efteråt"), s.leader ? esc(s.leader) : null]])}
-      ${routedBlock(key)}<div class="actions"><button class="btn primary" data-seg-pick="${s.key}">${ICON.bike}${_t(`Cykla en del själv`)}</button><button class="btn" data-stage="${s.key}">${_t(`Hela etappen`)}</button><a class="btn" href="${gmapsDir(pts)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps`)}</a></div>
+      ${routedBlock(key)}<div class="actions"><button class="btn primary" data-seg-pick="${s.key}">${ICON.bike}${_t(`Cykla en del själv`)}</button><button class="btn" data-tour-from="stage:${s.key}">${ICON.edit}${_t(`Ändra vägen`)}</button><button class="btn" data-stage="${s.key}">${_t(`Hela etappen`)}</button><a class="btn" href="${gmapsDir(pts)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps`)}</a></div>
       <p class="coords">${_t(`Linjen är beräknad längs vägarna mellan start, passen och mål. Den följer i regel loppets väg men kan avvika på flacka partier mellan passen.`)}</p></div>`;
   } else if (it.shop) {
     const s = it.shop;
@@ -2122,7 +2188,7 @@ function routedBlock(key) {
 document.addEventListener("click", e => {
   const g = e.target.closest("[data-gpx]"); if (!g) return;
   const key = g.dataset.gpx;
-  if (/^seg:/.test(key)) { const p = BY[key]; if (p && p.st) gpxDownload(p.name, p.st.pts); return; }
+  if (/^(seg|tur):/.test(key)) { const p = BY[key]; if (p && p.st) gpxDownload(p.name, p.st.pts); return; }
   const c = routedFull(key); if (!c) return;
   const it = ovItem(key) || {}; gpxDownload(it.r ? it.r.name : it.s ? `${RACES[it.s.race].name} ${it.s.year} ${_t(`etapp`)} ${it.s.stage}` : key, c);
 });
@@ -2167,12 +2233,12 @@ function renderTrip() {
     const leg = i ? km(items[i - 1], p) : 0; total += leg;
     const from = i ? ` · ${Math.round(leg)} ${_t(`km fågelvägen från`)} ${esc(items[i - 1].name.split(" & ")[0])}` : "";
     return `<div class="trip-item${p.seg ? " is-seg" : ""}"><div class="n">${i + 1}</div><div class="mid">
-      ${p.seg ? `<span class="segflag">${ICON.bike}${_t(`Cykeldag ·`)} ${esc(RACES[p.s.race].short)} ${p.s.year} ${_t(`etapp`)} ${esc(p.s.stage)}</span>` : ""}
+      ${p.seg ? `<span class="segflag">${ICON.bike}${p.tour ? _t("Cykeldag · egen tur") : `${_t(`Cykeldag ·`)} ${esc(RACES[p.s.race].short)} ${p.s.year} ${_t(`etapp`)} ${esc(p.s.stage)}`}</span>` : ""}
       <button class="name" data-open="${p.id}">${esc(p.name)}</button>
       ${p.seg ? `<div class="segline"><b>${fmt1(p.st.dist)} km</b><b>${nf0(hm(p.st.asc))} hm</b><span>${_t(`högst`)} ${altTxt(p.st.max)}</span><span>ca ${fmtH(rideTime(p.st)[0])}–${fmtH(rideTime(p.st)[1])}</span>${diffTag(segLevel(p.st))}</div>
         <button class="segmini" data-open="${p.id}" aria-label="${_t(`Fakta och tips om`)} ${esc(p.name)}">${segProfile(p.g, p.st.i0, p.st.i1, { rel: true, h: 70 })}</button>
         <div class="leg">${_t(`Start`)} ${/^km /.test(p.startLbl) ? "vid " + esc(p.startLbl) + _t(" av etappen") : esc(p.startLbl)}${p.st.gap >= 3 ? ` ${_t(`· mål`)} ${esc(p.endLbl)}, ${Math.round(p.st.gap)} ${_t(`km från starten`)}` : _t(" · slutar nära starten")}${from}</div>
-        <div class="segacts"><button class="linkish" data-open="${p.id}">${_t(`Fakta och tips`)}</button><button class="linkish" data-seg-map="${p.id}">${_t(`Karta`)}</button><button class="linkish" data-gpx="${p.id}">GPX</button><button class="linkish" data-seg-edit="${p.id}">${_t(`Ändra del`)}</button></div>`
+        <div class="segacts"><button class="linkish" data-open="${p.id}">${_t(`Fakta och tips`)}</button><button class="linkish" data-seg-map="${p.id}">${_t(`Karta`)}</button><button class="linkish" data-gpx="${p.id}">GPX</button>${p.tour ? `<button class="linkish" data-tour-edit="${p.id}">${_t(`Ändra turen`)}</button>` : `<button class="linkish" data-seg-edit="${p.id}">${_t(`Ändra del`)}</button><button class="linkish" data-tour-from="${p.id}">${_t(`Rita om vägen`)}</button>`}</div>`
       : `<div class="leg">${esc(p.sub)}${from}</div>`}
       <label class="sr" for="note-${p.id}">${_t(`Anteckning för`)} ${esc(p.name)}</label>
       <textarea id="note-${p.id}" data-note="${p.id}" placeholder="${_t(`Egen anteckning – datum, boende, bokning …`)}">${esc(state.notes[p.id] || "")}</textarea></div>
@@ -2180,7 +2246,7 @@ function renderTrip() {
   }).join("") : `<div class="empty">${_t(`Din resa är tom. Öppna ett resmål och tryck`)} <b>${_t(`Spara i Min resa`)}</b>${_t(`, lägg till en hel rutt under Rutter, eller välj en del av en proffsetapp under`)} <button class="linkish" data-view="touren">${_t(`Cykling`)}</button> ${_t(`och cykla den själv.`)}</div>`;
   const sg = items.filter(p => p.seg);
   $("#tripStats").innerHTML = `<div class="stat"><span>${_t(`Resmål`)}</span><b>${items.length - sg.length}</b></div>${sg.length ? `<div class="stat"><span>${_t(`Cykeldagar`)}</span><b>${sg.length}</b></div><div class="stat"><span>${_t(`På cykeln`)}</span><b>${Math.round(sg.reduce((t, p) => t + p.st.dist, 0))} ${_t(`km ·`)} ${nf0(hm(sg.reduce((t, p) => t + p.st.asc, 0)))} hm</b></div>` : ""}<div class="stat"><span>${_t(`Fågelvägen totalt`)}</span><b>${Math.round(total)} km</b></div><div class="stat"><span>${_t(`Bergspass`)}</span><b>${items.filter(p => p.col).length}</b></div><div class="stat"><span>${_t(`Bad & spa`)}</span><b>${items.filter(p => p.cat.includes("spa")).length}</b></div>
-    ${sg.length ? "" : `<p style="margin:6px 0 0">${_t(`Vill du cykla som proffsen? Under`)} <button class="linkish" data-view="touren">${_t(`Cykling`)}</button> ${_t(`väljer du en del av en Tour- eller Vuelta-etapp och lägger den här som en cykeldag.`)}</p>`}`;
+    ${sg.length ? "" : `<p style="margin:6px 0 0">${_t(`Vill du cykla som proffsen? Under`)} <button class="linkish" data-view="touren">${_t(`Cykling`)}</button> ${_t(`väljer du en del av en Tour- eller Vuelta-etapp och lägger den här som en cykeldag – eller rita en`)} <button class="linkish" data-tour-new>${_t(`egen cykeltur`)}</button> ${_t(`på kartan.`)}</p>`}`;
 }
 document.addEventListener("click", e => {
   const m = e.target.closest("[data-move]"); if (m) { const [i, d] = m.dataset.move.split(":").map(Number); const t = state.trip; [t[i], t[i + d]] = [t[i + d], t[i]]; saveTrip(); renderTrip(); }
@@ -2201,7 +2267,7 @@ $("#tripClear").onclick = e => {
 function tripDocument() {
   const items = state.trip.map(id => BY[id]);
   const d = new Date().toLocaleDateString(LOC);
-  const body = items.map((p, i) => p.seg ? segDocument(p, i) : `<section><div class="h"><span class="n">${i + 1}</span><div><h2>${esc(p.name)}</h2><p class="sub">${esc(p.sub)} · ${CC[p.cc]}${p.col ? ` · ${p.col.alt} m ö.h.` : ""}</p></div></div>
+  const body = items.map((p, i) => p.seg ? (p.tour ? tourDocument(p, i) : segDocument(p, i)) : `<section><div class="h"><span class="n">${i + 1}</span><div><h2>${esc(p.name)}</h2><p class="sub">${esc(p.sub)} · ${CC[p.cc]}${p.col ? ` · ${p.col.alt} m ö.h.` : ""}</p></div></div>
     ${state.notes[p.id] ? `<p class="mine"><b>${_t(`Min anteckning:`)}</b> ${esc(state.notes[p.id])}</p>` : ""}
     ${p.t14 ? `<p class="t14"><b>${_t(`Guiden 2014:`)}</b> ${esc(p.t14)}</p>` : ""}${p.tLang ? `<p class="t14"><b>${_t(`Languedoc-guiden:`)}</b> ${esc(p.tLang)}</p>` : ""}${p.text ? `<p>${esc(p.text)}</p>` : ""}${p.tdf ? `<p><b>${_t(`Tour de France:`)}</b> ${esc(p.tdf)}</p>` : ""}
     <p class="meta">${_t(`GPS`)} ${p.lat.toFixed(4)}, ${p.lon.toFixed(4)} · <a href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}">${_t(`Vägbeskrivning`)}</a>${(p.links || []).map(([t, u]) => ` · <a href="${esc(u)}">${esc(t)}</a>`).join("")}</p></section>`).join("");
@@ -2941,7 +3007,7 @@ function segProfile(g, i0, i1, o = {}) {
   }
   let line = ""; for (let i = i0; i <= i1; i++) line += `${i === i0 ? "M" : "L"}${X(i).toFixed(1)},${Y(g.c[i][2]).toFixed(1)} `;
   out += `<path d="${line}" fill="none" stroke="currentColor" stroke-width="1.4" vector-effect="non-scaling-stroke"/>`;
-  if (o.labels && o.s) stageClimbs(o.s, g).filter(c => c.top >= f0 && c.top <= f1).forEach(c => {
+  if (o.labels && (o.s || o.climbs)) (o.climbs || stageClimbs(o.s, g)).filter(c => c.top >= f0 && c.top <= f1).forEach(c => {
     const x = X(c.top), anchor = x > W - 90 ? "end" : x < 90 ? "start" : "middle";
     out += `<circle cx="${x.toFixed(1)}" cy="${Y(g.c[c.top][2]).toFixed(1)}" r="3" fill="#fff" stroke="#18262b" stroke-width="1.2" vector-effect="non-scaling-stroke"/><text x="${x.toFixed(1)}" y="12" font-size="11" text-anchor="${anchor}" fill="#6b7a7f">${esc(cleanName(c.name).replace(/^(Col|Port|Puerto|Coll) (du |de la |de l'|des |de |d')?/, ""))} ${nf0(g.c[c.top][2])}</text>`;
   });
@@ -2962,6 +3028,118 @@ function statsTable(st, s, g) {
     [_t("Tid på cykeln"), `ca ${fmtH(t[0])} – ${fmtH(t[1])}`], [_t("Svårighet"), diffTag(segLevel(st))]]);
 }
 
+/* ---------- Egen cykeltur: geometri, statistik och sparade turer ---------- */
+const TOURS = store.get("tours", {});
+function encPoly(nums) {
+  let s = "";
+  for (let v of nums) { v = v < 0 ? ~(v << 1) : v << 1; while (v >= 0x20) { s += String.fromCharCode((0x20 | (v & 0x1f)) + 63); v >>= 5; } s += String.fromCharCode(v + 63); }
+  return s;
+}
+function packLeg(l) {
+  const a = [], e = []; let la = 0, lo = 0, el = 0;
+  for (const p of l.pts) {
+    const x = Math.round(p[0] * 1e5), y = Math.round(p[1] * 1e5); a.push(x - la, y - lo); la = x; lo = y;
+    if (l.ele) { const z = Math.round(p[2]); e.push(z - el); el = z; }
+  }
+  return { p: encPoly(a), e: l.ele ? encPoly(e) : "", r: l.road ? 1 : 0 };
+}
+function unpackLeg(o) {
+  const a = decPoly(o.p || ""), e = o.e ? decPoly(o.e) : null, pts = []; let la = 0, lo = 0, el = 0;
+  for (let i = 0, j = 0; i < a.length; i += 2, j++) { la += a[i]; lo += a[i + 1]; if (e) el += e[j] || 0; pts.push([la / 1e5, lo / 1e5, e ? el : null]); }
+  return { pts, ele: !!e, road: !!o.r };
+}
+/* hela turen som en linje med avstånd; saknade höjder fylls i längs linjen */
+function tourGeo(legs) {
+  const c = [];
+  legs.forEach(l => (l ? l.pts : []).forEach((p, j) => {
+    const q = c[c.length - 1];
+    if (!j && q && Math.abs(q[0] - p[0]) < 2e-4 && Math.abs(q[1] - p[1]) < 2e-4) { if (q[2] == null) q[2] = p[2]; return; }
+    c.push([p[0], p[1], p[2]]);
+  }));
+  if (c.length < 2) return null;
+  const d = [0];
+  for (let i = 1; i < c.length; i++) d.push(d[i - 1] + km({ lat: c[i - 1][0], lon: c[i - 1][1] }, { lat: c[i][0], lon: c[i][1] }));
+  const known = c.map(p => p[2] != null), any = known.some(Boolean);
+  if (!any) c.forEach(p => p[2] = 0);
+  else {
+    let prev = -1;
+    for (let i = 0; i < c.length; i++) if (known[i]) {
+      for (let k = prev + 1; k < i; k++) c[k][2] = prev < 0 ? c[i][2] : Math.round(c[prev][2] + (c[i][2] - c[prev][2]) * (d[k] - d[prev]) / Math.max(1e-6, d[i] - d[prev]));
+      prev = i;
+    }
+    for (let k = prev + 1; k < c.length; k++) c[k][2] = c[prev][2];
+  }
+  return { c, d, tot: d[d.length - 1], noEle: !any, partEle: any && known.some(k => !k), approx: legs.some(l => l && !l.road) };
+}
+/* stigningar hittas i höjdprofilen: minst 150 höjdmeter och 3 % i snitt */
+function tourClimbs(g) {
+  if (g.noEle) return [];
+  const { c, d } = g, n = c.length;
+  const z = new Array(n); let a = 0, b = 0, sum = 0;
+  for (let i = 0; i < n; i++) {
+    while (b < n && d[b] - d[i] <= .3) sum += c[b++][2];
+    while (d[i] - d[a] > .3) sum -= c[a++][2];
+    z[i] = sum / (b - a);
+  }
+  const rises = []; let mode = 0, lo = 0, hi = 0;
+  for (let i = 1; i < n; i++) {
+    if (mode !== 1) { if (z[i] < z[lo]) lo = i; if (z[i] - z[lo] >= 30) { mode = 1; hi = i; } }
+    else { if (z[i] > z[hi]) hi = i; if (z[hi] - z[i] >= 30) { rises.push([lo, hi]); mode = -1; lo = i; } }
+  }
+  if (mode === 1) rises.push([lo, hi]);
+  const out = [];
+  for (let [lo0, top] of rises) {
+    let t = top; for (let j = Math.max(lo0, top - 40); j <= Math.min(n - 1, top + 40); j++) if (c[j][2] > c[t][2] && Math.abs(d[j] - d[top]) < .5) t = j;
+    let foot = lo0, best = -1;
+    for (let j = t - 1; j >= lo0; j--) { const sc = (z[t] - z[j]) - 35 * (d[t] - d[j]); if (sc > best) { best = sc; foot = j; } }
+    const len = d[t] - d[foot], h = c[t][2] - c[foot][2], grad = len > 0 ? h / len / 10 : 0;
+    if (h < 150 || grad < 3 || len < 1) continue;
+    const top0 = { lat: c[t][0], lon: c[t][1] };
+    let col = null, cd = 1.5; PLACES.forEach(p => { if (p.col) { const x = km(top0, p); if (x < cd) { cd = x; col = p; } } });
+    const np = col ? null : nearPlace(top0.lat, top0.lon);
+    const sc = h * grad, cat = sc >= 8000 ? "HC" : sc >= 3600 ? "1" : sc >= 1800 ? "2" : sc >= 800 ? "3" : "4";
+    out.push({ name: col ? col.name.split(" & ")[0] : np ? _t("Upp mot ") + short(np) : _t("Stigning vid km ") + fmt1(d[t]), id: col ? col.id : null,
+      cat, alt: col && col.col ? col.col.alt : Math.round(c[t][2]), top: t, foot, len, h, grad, full: true });
+  }
+  return out;
+}
+function tourStats(g) {
+  const pts = g.c, d = g.d;
+  let asc = 0, desc = 0, mx = -1e9, mn = 1e9, ref = pts[0][2];
+  for (const p of pts) { if (p[2] > mx) mx = p[2]; if (p[2] < mn) mn = p[2]; const dz = p[2] - ref; if (dz >= 3) { asc += dz; ref = p[2]; } else if (dz <= -3) { desc -= dz; ref = p[2]; } }
+  let steep = 0, steepAt = 0;
+  for (let j = 0, k = 0; j < pts.length; j++) { while (k < pts.length - 1 && d[k] - d[j] < 1) k++; if (d[k] - d[j] >= 0.9) { const gr = (pts[k][2] - pts[j][2]) / ((d[k] - d[j]) * 10); if (gr > steep && gr < 18) { steep = gr; steepAt = d[j]; } } }
+  return { i0: 0, i1: pts.length - 1, pts, d, dist: g.tot, asc, desc, max: mx, min: mn, steep, steepAt, climbs: tourClimbs(g),
+    gap: km({ lat: pts[0][0], lon: pts[0][1] }, { lat: pts[pts.length - 1][0], lon: pts[pts.length - 1][1] }) };
+}
+function wpLabel(w) {
+  if (w.name) return w.name;
+  const p = nearPlace(w.lat, w.lon); if (p) return short(p);
+  let q = null, qd = 12; TOWNS.forEach(x => { const k = km(w, x); if (k < qd) { qd = k; q = x; } });
+  if (!q) { qd = 15; PLACES.forEach(x => { const k = km(w, x); if (k < qd) { qd = k; q = x; } }); }
+  return q ? "nära " + short(q) : _t("Punkt på kartan");
+}
+function tourAutoName(wps) {
+  if (wps.length < 2) return _t("Egen cykeltur");
+  const a = wpLabel(wps[0]).replace(/^nära /, ""), b = wpLabel(wps[wps.length - 1]).replace(/^nära /, "");
+  if (km(wps[0], wps[wps.length - 1]) < 1.5) {
+    const mid = wps.slice(1, -1).map(wpLabel).filter(x => !/^nära |^\d/.test(x) && x !== a);
+    return mid.length ? `${_t(`Runda från`)} ${a} ${_t(`via`)} ${mid.slice(0, 2).join(" och ")}` : `${_t(`Runda från`)} ${a}`;
+  }
+  return a === b ? `${_t(`Tur vid`)} ${a}` : `${a} → ${b}`;
+}
+const tourFromStore = o => ({ name: o.name, wps: o.wps.map(w => ({ lat: w[0], lon: w[1], name: w[2] || "" })), legs: o.legs.map(unpackLeg), prof: o.prof || "fastbike", from: o.from || null });
+function regTour(id) {
+  const o = TOURS[id]; if (!o) return null;
+  let t, g; try { t = tourFromStore(o); g = tourGeo(t.legs); } catch (e) { return null; }
+  if (!g) return null;
+  const st = tourStats(g), p0 = st.pts[0];
+  let cc = "FR", bd = 1e9; PLACES.forEach(p => { const d = km({ lat: p0[0], lon: p0[1] }, p); if (d < bd) { bd = d; cc = p.cc; } });
+  const town = (() => { let x = null, d = 1e9; TOWNS.forEach(y => { const k = km({ lat: p0[0], lon: p0[1] }, y); if (k < d) { d = k; x = y; } }); return d < 60 ? x : null; })();
+  return (BY[id] = { id, seg: o, tour: t, s: null, g, st, name: o.name, sub: `${_t(`Egen cykeltur ·`)} ${fmt1(st.dist)} ${_t(`km ·`)} ${nf0(hm(st.asc))} hm`,
+    cat: ["tdf"], lat: p0[0], lon: p0[1], cc, links: [], startLbl: wpLabel(t.wps[0]), endLbl: wpLabel(t.wps[t.wps.length - 1]), near: nearPlace(p0[0], p0[1]), town });
+}
+
 /* registrera sparade delar som "resmål" så att Min resa, ruttförslaget och kalkylen kan räkna med dem */
 function regSeg(id) {
   const sg = SEGS[id]; if (!sg) return null;
@@ -2973,6 +3151,7 @@ function regSeg(id) {
     cat: ["tdf"], lat: p0[0], lon: p0[1], cc, links: [], startLbl: ptLabel(s, g, st.i0), endLbl: ptLabel(s, g, st.i1), near: np, town });
 }
 Object.keys(SEGS).forEach(regSeg);
+Object.keys(TOURS).forEach(regTour);
 state.trip = state.trip.filter(id => BY[id]);
 const segsInTrip = () => state.trip.map(id => BY[id]).filter(p => p && p.seg);
 
@@ -3005,7 +3184,7 @@ function openSegPicker(key, o = {}) {
     </div>
     <div id="spStats"></div>
     <label class="sp-name"><span class="eyebrow">${_t(`Namn i Min resa`)}</span><input id="spName" type="text" maxlength="80" value="${esc(name)}"></label>
-    <div class="actions" id="spAct"><button class="btn primary" data-sp-save>${ICON.bag}${o.edit ? _t("Spara ändringen") : _t("Lägg till i Min resa")}</button><button class="btn" data-sp-gpx>${ICON.dl}GPX</button></div>
+    <div class="actions" id="spAct"><button class="btn primary" data-sp-save>${ICON.bag}${o.edit ? _t("Spara ändringen") : _t("Lägg till i Min resa")}</button><button class="btn" data-sp-gpx>${ICON.dl}GPX</button><button class="btn" data-tour-from="segpick">${ICON.edit}${_t(`Ändra vägen fritt`)}</button></div>
     ${g.approx ? `<p class="pl-note warn" style="margin:0">${_t(`Etappens exakta väg är inte känd här. Linjen är den kortaste vägen mellan start, pass och mål (etappen var`)} ${esc(kmTxt(s.distance_km))}${_t(`), så delen kan avvika från loppets väg på flacka partier.`)}</p>` : ""}
     <p class="coords">${_t(`Vägen och höjderna är beräknade med BRouter på OpenStreetMap-data. Kontrollera alltid vägen på plats.`)}</p>
   </div>`;
@@ -3055,7 +3234,7 @@ document.addEventListener("click", e => {
     const bikeWasOff = !plan.bike.on; plan.bike.on = true; savePlan(); saveTrip();
     const n = segsInTrip().length;
     $("#spAct").innerHTML = `<div class="pl-note" style="width:100%"><b>${sp.edit ? _t("Ändringen är sparad.") : _t("Tillagd i Min resa.")}</b> ${n === 1 ? _t("Det är resans första cykeldag") : `${_t(`Resan har nu`)} ${n} ${_t(`cykeldagar`)}`} ${_t(`– ruttförslaget lägger in den som en egen dag med övernattning nära starten.`)}${bikeWasOff ? _t(" Cykelhyra är påslagen under Boka &amp; kalkyl.") : ""}</div>
-      <button class="btn primary" data-view="minresa">${ICON.bag}${_t(`Öppna Min resa`)}</button><button class="btn" data-open="${id}">${_t(`Fakta och tips om delen`)}</button><button class="btn" data-stage="${s.key}">${_t(`Tillbaka till etappen`)}</button>`;
+      <button class="btn primary" data-view="minresa">${ICON.bag}${_t(`Öppna Min resa`)}</button><button class="btn" data-open="${id}">${_t(`Fakta och tips om delen`)}</button><button class="btn" data-tour-from="${id}">${ICON.edit}${_t(`Ändra vägen fritt`)}</button><button class="btn" data-stage="${s.key}">${_t(`Tillbaka till etappen`)}</button>`;
     sp.edit = id; if (current === "minresa") renderMinResa();
     return;
   }
@@ -3065,28 +3244,29 @@ function showSegOnMap(id) {
   const p = BY[id]; if (!p || !p.seg) return;
   const pts = p.st.pts.map(x => [x[0], x[1]]);
   closeSheet(); show("karta");
-  requestAnimationFrame(() => setRoute({ id: "seg", name: p.name, color: "tdf", stops: [], path: pts, solid: true, ends: [pts[0], pts[pts.length - 1]], full: p.g.c.map(x => [x[0], x[1]]) }));
+  requestAnimationFrame(() => setRoute({ id: "seg", name: p.name, color: "tdf", stops: [], path: pts, solid: true, ends: [pts[0], pts[pts.length - 1]], full: p.tour ? null : p.g.c.map(x => [x[0], x[1]]) }));
 }
 
 /* ----- fakta och tips om en sparad del ----- */
-function segPractical(p) {
+function segPractical(p, tipsIn) {
   const st = p.st, s = p.s, start = { lat: st.pts[0][0], lon: st.pts[0][1] };
   const shops = HYR.shops.map((x, i) => ({ x, i, d: km(start, x) })).sort((a, b) => a.d - b.d).slice(0, 3);
   const towns = TOWNS.map(t => ({ t, d: km(start, t) })).sort((a, b) => a.d - b.d).slice(0, 2);
   const loop = st.gap < 3;
-  const tips = [];
-  tips.push(loop ? `${_t(`Delen slutar nära där den börjar (`)}${fmt1(st.gap)} ${_t(`km fågelvägen).`)}`
+  const tips = tipsIn || [];
+  if (!tipsIn) tips.push(loop ? `${_t(`Delen slutar nära där den börjar (`)}${fmt1(st.gap)} ${_t(`km fågelvägen).`)}`
     : `${_t(`Delen slutar`)} ${fmt1(st.gap)} ${_t(`km fågelvägen från starten. Cykla tillbaka samma väg (totalt`)} ${fmt1(st.dist * 2)} ${_t(`km och`)} ${nf0(hm(st.asc + st.desc))} ${_t(`hm) eller ordna så att någon hämtar vid målet.`)}`);
-  if (st.max >= 1500) tips.push(`${_t(`Delen går upp till`)} ${altTxt(st.max)}${_t(`. Pass på den höjden kan vara stängda av snö en bra bit in på våren – kontrollera att vägen är öppen innan ni åker, och ta med vindjacka och långa handskar till utförsåkningen.`)}`);
+  if (tipsIn) {} else if (st.max >= 1500) tips.push(`${_t(`Delen går upp till`)} ${altTxt(st.max)}${_t(`. Pass på den höjden kan vara stängda av snö en bra bit in på våren – kontrollera att vägen är öppen innan ni åker, och ta med vindjacka och långa handskar till utförsåkningen.`)}`);
   else if (st.max >= 1000) tips.push(`${_t(`Högsta punkten är`)} ${altTxt(st.max)}${_t(`. Även på sommaren kan det vara kyligt och blåsigt på toppen – ta med en vindjacka till utförsåkningen.`)}`);
-  if (st.climbs.length) tips.push(_t("Fyll vattenflaskorna i byarna före stigningarna. På passen finns ofta bara ett café eller ingenting alls."));
-  if (s.race === "tdf") tips.push(`${_t(`Under Tour de France stängs vägarna över passen redan tidigt på tävlingsdagen. Vill ni cykla delen samma vecka som Touren passerar – kolla datumen under Cykling.`)}`);
+  if (!tipsIn && st.climbs.length) tips.push(_t("Fyll vattenflaskorna i byarna före stigningarna. På passen finns ofta bara ett café eller ingenting alls."));
+  if (!tipsIn && s && s.race === "tdf") tips.push(`${_t(`Under Tour de France stängs vägarna över passen redan tidigt på tävlingsdagen. Vill ni cykla delen samma vecka som Touren passerar – kolla datumen under Cykling.`)}`);
   return `<div><div class="eyebrow">${_t(`Praktiskt`)}</div><ul class="segtips">${tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>
     <div><div class="eyebrow">${_t(`Bo nära starten`)}</div><div class="near">${towns.map(({ t, d }) => `<button class="row" data-open="${t.id}">${badge(t)}<div><b>${esc(t.name)}</b><small>${esc(t.sub)}</small></div><span class="alt">${Math.round(d)} km</span></button>`).join("")}</div></div>
     <div><div class="eyebrow">${_t(`Hyr cykel nära starten`)}</div><div class="segshops">${shops.map(({ x, i, d }) => `<div class="shop"><b>${esc(x.name)}</b> <small>${esc(x.town)} · ${Math.round(d)} ${_t(`km från starten`)}</small><p>${esc(x.bikes_sv)}</p>${x.price_sv ? `<p><b>${_t(`Pris:`)}</b> ${esc(x.price_sv)}</p>` : ""}<div class="st-foot">${x.url ? `<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">${_t(`Webbplats`)}</a>` : ""}<button class="btn" data-pick-bike="${i}">${ICON.bag}${_t(`Räkna in i Min resa`)}</button></div></div>`).join("")}</div></div>`;
 }
 function openSeg(id) {
   const p = BY[id]; if (!p || !p.seg) return;
+  if (p.tour) return openTour(id);
   const st = p.st, s = p.s, R = RACES[s.race], g = p.g, inTrip = state.trip.includes(id);
   const others = []; st.climbs.forEach(c => (c.id ? TDF_BY_PLACE[c.id] || [] : []).forEach(x => { if (x.s !== s && !others.some(o => o.s === x.s)) others.push(x); }));
   others.sort((a, b) => b.s.year - a.s.year);
@@ -3099,7 +3279,7 @@ function openSeg(id) {
     <div>${segProfile(g, st.i0, st.i1, { labels: true, s, rel: true })}${GRADKEY}</div>
     ${st.climbs.length ? `<div><div class="eyebrow">${_t(`Stigningar på vägen`)}</div>${climbList(st)}</div>` : ""}
     <div class="actions"><button class="btn primary" data-seg-map="${id}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-gpx="${esc(id)}">${ICON.dl}${_t(`GPX till cykeldatorn`)}</button><a class="btn" href="${gm}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a></div>
-    <div class="actions"><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${startPt[0]},${startPt[1]}&travelmode=driving" target="_blank" rel="noopener">${ICON.pin}${_t(`Kör till starten`)}${/^km /.test(p.startLbl) ? "" : ` (${esc(p.startLbl.replace(/^nära /, ""))})`}</a><button class="btn" data-seg-edit="${id}">${_t(`Ändra start och mål`)}</button><button class="btn ${inTrip ? "on" : "primary"}" data-toggle-trip="${id}">${ICON.bag}${inTrip ? _t("Sparad i Min resa") : _t("Spara i Min resa")}</button></div>
+    <div class="actions"><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${startPt[0]},${startPt[1]}&travelmode=driving" target="_blank" rel="noopener">${ICON.pin}${_t(`Kör till starten`)}${/^km /.test(p.startLbl) ? "" : ` (${esc(p.startLbl.replace(/^nära /, ""))})`}</a><button class="btn" data-seg-edit="${id}">${_t(`Ändra start och mål`)}</button><button class="btn" data-tour-from="${id}">${ICON.edit}${_t(`Rita om vägen`)}</button><button class="btn ${inTrip ? "on" : "primary"}" data-toggle-trip="${id}">${ICON.bag}${inTrip ? _t("Sparad i Min resa") : _t("Spara i Min resa")}</button></div>
     <div class="tdfbox"><span class="eyebrow">${_t(`Så gick det för proffsen ·`)} ${esc(fmtDate(s.date))}</span>
       ${s.summary_sv ? `<p class="st-sum" style="margin:4px 0 8px">${esc(s.summary_sv)}</p>` : ""}${podiumHTML(s.podium)}
       ${s.leader ? `<div class="yellow"><span class="jersey" style="background:${R.jersey}" aria-hidden="true"></span>${R.leader}: <b>${esc(s.leader)}</b></div>` : ""}
@@ -3124,6 +3304,419 @@ function segDocument(p, i) {
     ${st.climbs.length ? `<p><b>${_t(`Stigningar:`)}</b> ${st.climbs.map(c => `${esc(cleanName(c.name))} (${fmt1(c.len)} km, ${fmt1(c.grad)} %)`).join(" · ")}</p>` : ""}
     ${s.summary_sv ? `<p><b>${_t(`Proffsen`)} ${s.year}:</b> ${esc(s.summary_sv)}</p>` : ""}
     <p class="meta">${_t(`Start GPS`)} ${st.pts[0][0].toFixed(4)}, ${st.pts[0][1].toFixed(4)} · <a href="https://www.google.com/maps/dir/?api=1&destination=${st.pts[0][0]},${st.pts[0][1]}">${_t(`Kör till starten`)}</a>${st.gap >= 3 ? ` ${_t(`· målet ligger`)} ${fmt1(st.gap)} ${_t(`km fågelvägen från starten`)}` : ""}</p></section>`;
+}
+
+/* ---------- Egen cykeltur: rita på kartan, sök platser, ändra etapper och rundor ---------- */
+const BROUTER = "https://brouter.de/brouter";
+const PROFS = { fastbike: _t("Landsvägscykel"), trekking: _t("Blandat underlag (grus)") };
+const te = { on: false, id: null, replace: null, wps: [], legs: [], prof: PROFS[store.get("tourProf")] ? store.get("tourProf") : "fastbike", road: store.get("tourRoad", true) !== false,
+  from: null, named: false, hist: [], dirty: false, min: false, saved: false };
+const isLoop = () => te.wps.length >= 3 && km(te.wps[0], te.wps[te.wps.length - 1]) < .05;
+/* kö mot BRouter: högst tre frågor samtidigt */
+const _rq = []; let _ra = 0;
+function rq(fn) { _rq.push(fn); rqNext(); }
+function rqNext() { while (_ra < 3 && _rq.length) { const f = _rq.shift(); _ra++; f().finally(() => { _ra--; rqNext(); }); } }
+function straightLeg(a, b) {
+  const n = Math.max(1, Math.ceil(km(a, b) / .25)), pts = [];
+  for (let k = 0; k <= n; k++) pts.push([a.lat + (b.lat - a.lat) * k / n, a.lon + (b.lon - a.lon) * k / n, null]);
+  return { pts, road: false, ele: false };
+}
+function routeLeg(i) {
+  const a = te.wps[i], b = te.wps[i + 1]; if (!a || !b) return;
+  const L = straightLeg(a, b);
+  te.legs[i] = L;
+  if (!te.road) return;
+  L.busy = true;
+  const prof = te.prof;
+  rq(() => {
+    if (te.legs.indexOf(L) < 0) { L.busy = false; L.lost = true; return Promise.resolve(); }
+    const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 25000);
+    const url = `${BROUTER}?lonlats=${a.lon.toFixed(6)},${a.lat.toFixed(6)}|${b.lon.toFixed(6)},${b.lat.toFixed(6)}&profile=${prof}&alternativeidx=0&format=geojson`;
+    return fetch(url, { signal: ctl.signal }).then(r => { if (!r.ok) throw new Error("http " + r.status); return r.json(); }).then(j => {
+      const co = j && j.features && j.features[0] && j.features[0].geometry.coordinates;
+      if (!co || co.length < 2) throw new Error("tom");
+      const pts = co.map(p => [p[1], p[0], p.length > 2 && p[2] != null ? Math.round(+p[2]) : null]);
+      done({ pts, road: true, ele: pts.every(p => p[2] != null) });
+    }).catch(() => done(Object.assign(straightLeg(a, b), { err: true }))).finally(() => clearTimeout(tm));
+  });
+  function done(N) { L.busy = false; const k = te.legs.indexOf(L); if (k < 0) { L.lost = true; return; } te.legs[k] = N; teRenderSoon(); }
+}
+function teRouteMissing() { te.legs.forEach((l, i) => { if (!l || (l.busy && l.lost)) routeLeg(i); }); te.dirty = true; te.saved = false; teRender(); }
+function teSnap() { te.hist.push({ wps: te.wps.map(w => Object.assign({}, w)), legs: te.legs.slice() }); if (te.hist.length > 50) te.hist.shift(); }
+function teAdd(w, at) {
+  teSnap();
+  if (at == null) at = isLoop() ? te.wps.length - 1 : te.wps.length;
+  te.wps.splice(at, 0, w);
+  const n = te.wps.length;
+  if (n < 2) te.legs = [];
+  else if (at === n - 1) te.legs.push(null);
+  else if (at === 0) te.legs.unshift(null);
+  else te.legs.splice(at - 1, 1, null, null);
+  teRouteMissing();
+}
+function teMove(i, ll) {
+  teSnap();
+  te.wps[i] = { lat: ll.lat, lon: ll.lng != null ? ll.lng : ll.lon, name: "" };
+  if (i > 0) te.legs[i - 1] = null;
+  if (i < te.legs.length) te.legs[i] = null;
+  teRouteMissing();
+}
+function teRemove(i) {
+  teSnap();
+  te.wps.splice(i, 1);
+  const n = te.wps.length;
+  if (n < 2) te.legs = [];
+  else if (i === 0) te.legs.shift();
+  else if (i === n) te.legs.pop();
+  else te.legs.splice(i - 1, 2, null);
+  teRouteMissing();
+}
+function teSwap(i, j) {
+  if (i < 0 || j < 0 || i >= te.wps.length || j >= te.wps.length) return;
+  teSnap();
+  [te.wps[i], te.wps[j]] = [te.wps[j], te.wps[i]];
+  const lo = Math.min(i, j), hi = Math.max(i, j);
+  for (let k = lo - 1; k <= hi; k++) if (k >= 0 && k < te.legs.length) te.legs[k] = null;
+  teRouteMissing();
+}
+function teReverse() {
+  if (te.wps.length < 2) return;
+  teSnap();
+  te.wps.reverse();
+  te.legs = te.legs.reverse().map(l => l && !l.busy ? Object.assign({}, l, { pts: l.pts.slice().reverse() }) : null);
+  teRouteMissing();
+}
+function teUndo() {
+  const h = te.hist.pop(); if (!h) return;
+  te.wps = h.wps; te.legs = h.legs;
+  te.legs.forEach((l, i) => { if (l && l.busy && l.lost) te.legs[i] = null; });
+  teRouteMissing();
+}
+/* starta från en etapp, en runda, en rutt eller en sparad del – punkterna läggs på den beräknade linjen */
+function anchorsOn(c, pts, tol) {
+  const out = []; let from = 0;
+  const dist = (w, j) => km(w, { lat: c[j][0], lon: c[j][1] });
+  for (const w of pts) {
+    let best = -1, bd = 1e9, hit = -1;
+    for (let j = from; j < c.length; j++) {
+      const x = dist(w, j); if (x < bd) { bd = x; best = j; }
+      if (x < .3) { hit = j; while (hit + 1 < c.length && dist(w, hit + 1) < dist(w, hit)) hit++; break; }
+    }
+    const j = hit >= 0 ? hit : bd <= tol ? best : -1;
+    if (j < 0 || (out.length && j - out[out.length - 1].i < 2)) continue;
+    out.push({ i: j, name: w.name || "" }); from = j + 1;
+  }
+  return out;
+}
+function fromGeom(c, an, from, name) {
+  if (!c || c.length < 2) return null;
+  an = an.filter((a, k) => !k || a.i > an[k - 1].i);
+  if (!an.length) an = [{ i: 0, name: "" }];
+  const last = c.length - 1, near = (i, j) => km({ lat: c[i][0], lon: c[i][1] }, { lat: c[j][0], lon: c[j][1] }) < 1.5;
+  if (an[0].i > 0 && !near(an[0].i, 0)) an.unshift({ i: 0, name: "" }); else an[0].i = 0;
+  if (an.length < 2 || (an[an.length - 1].i < last && !near(an[an.length - 1].i, last))) an.push({ i: last, name: "" }); else an[an.length - 1].i = last;
+  an = an.filter((a, k) => !k || a.i > an[k - 1].i);
+  const wps = an.map(a => ({ lat: c[a.i][0], lon: c[a.i][1], name: a.name }));
+  const legs = [];
+  for (let k = 0; k < an.length - 1; k++) legs.push({ pts: c.slice(an[k].i, an[k + 1].i + 1).map(p => [p[0], p[1], p[2]]), road: true, ele: true });
+  return { wps, legs, from, name: name || "" };
+}
+function tourSource(src) {
+  const [k, id] = src.split(/:(.+)/);
+  if (k === "stage") {
+    const s = STAGES.find(x => x.key === id), g = s && stageGeo(id); if (!g) return null;
+    const an = [{ i: 0, name: cleanName(s.start) }].concat(stageClimbs(s, g).map(x => ({ i: x.top, name: cleanName(x.name) })), [{ i: g.c.length - 1, name: cleanName(s.finish) }]);
+    return fromGeom(g.c, an, { key: src, label: `${RACES[s.race].name} ${s.year}${_t(`, etapp`)} ${s.stage}` }, `${cleanName(s.start)} → ${cleanName(s.finish)} ${_t(`(egen version)`)}`);
+  }
+  if (k === "runda") {
+    const r = RUNDOR.routes.find(x => x.id === id), c = routedFull(src); if (!r || !c) return null;
+    return fromGeom(c, anchorsOn(c, r.waypoints.map(w => ({ lat: w[0], lon: w[1], name: w[2] })), 2), { key: src, label: r.name }, r.name + " (egen version)");
+  }
+  if (k === "rutt") {
+    const r = ROUTES.find(x => x.id === id), c = routedFull(src); if (!r || !c) return null;
+    return fromGeom(c, anchorsOn(c, r.stops.map(x => BY[x]).filter(Boolean).map(p => ({ lat: p.lat, lon: p.lon, name: short(p) })), 5), { key: src, label: r.name }, r.name + " (cykel)");
+  }
+  if (k === "seg" || k === "segpick") {
+    let s, g, st, name;
+    if (k === "seg") { const p = BY[src]; if (!p || !p.st) return null; s = p.s; g = p.g; st = p.st; name = p.name; }
+    else { s = STAGES.find(x => x.key === sp.key); g = s && stageGeo(sp.key); if (!g) return null; st = segStats(s, g, sp.a, sp.b); name = ($("#spName") && $("#spName").value.trim()) || autoName(s, g, st); }
+    const an = [{ i: 0, name: ptLabel(s, g, st.i0) }].concat(st.climbs.filter(x => x.top > st.i0 && x.top < st.i1).map(x => ({ i: x.top - st.i0, name: cleanName(x.name) })), [{ i: st.pts.length - 1, name: ptLabel(s, g, st.i1) }]);
+    an.forEach(a => { if (/^km /.test(a.name)) a.name = ""; });
+    return fromGeom(st.pts, an, { key: "stage:" + s.key, label: `${RACES[s.race].name} ${s.year}${_t(`, etapp`)} ${s.stage}` }, name);
+  }
+  return null;
+}
+/* delbar länk: #tur=<punkter> */
+function tourLink() {
+  const a = []; let la = 0, lo = 0;
+  te.wps.forEach(w => { const x = Math.round(w.lat * 1e5), y = Math.round(w.lon * 1e5); a.push(x - la, y - lo); la = x; lo = y; });
+  const u = new URL(location.href); u.search = LANG !== "sv" ? "?lang=" + LANG : ""; u.hash = "tur=" + encodeURIComponent(encPoly(a)) + (te.prof !== "fastbike" ? "!" + te.prof : "");
+  return u.href;
+}
+function wpsFromLink(s) {
+  const [p, prof] = decodeURIComponent(s).split("!"); const a = decPoly(p), out = []; let la = 0, lo = 0;
+  for (let i = 0; i + 1 < a.length; i += 2) { la += a[i]; lo += a[i + 1]; out.push({ lat: la / 1e5, lon: lo / 1e5, name: "" }); }
+  return { wps: out.filter(w => w.lat > 40 && w.lat < 46 && w.lon > -5 && w.lon < 6).slice(0, 60), prof: PROFS[prof] ? prof : null };
+}
+
+function openTourEditor(o = {}) {
+  const src = o.src ? tourSource(o.src) : null;
+  closeSheet();
+  if (state.route) setRoute(null);
+  Object.assign(te, { on: true, id: null, replace: o.replace || null, wps: [], legs: [], from: null, named: false, hist: [], dirty: false, min: false, saved: false });
+  let name = "";
+  if (o.id && TOURS[o.id]) { const t = tourFromStore(TOURS[o.id]); Object.assign(te, { id: o.id, wps: t.wps, legs: t.legs, prof: t.prof, from: t.from, named: true, saved: true }); name = TOURS[o.id].name; }
+  else if (o.src) { const L = src; if (L) { Object.assign(te, { wps: L.wps, legs: L.legs, from: L.from }); name = L.name; te.named = !!name; } }
+  else if (o.wps) { te.wps = o.wps; te.legs = o.wps.slice(1).map(() => null); if (o.prof) te.prof = o.prof; }
+  show("karta");
+  $("#map").classList.add("touring");
+  tourHook = teHook;
+  const P = $("#tourPanel");
+  P.innerHTML = `<div class="tp-head"><div class="tp-ttl"><span class="eyebrow">${_t(`Egen cykeltur`)}</span><label class="sr" for="teName">${_t(`Namn på turen`)}</label><input id="teName" type="text" maxlength="80" placeholder="${_t(`Namn på turen`)}" value="${esc(name)}" autocomplete="off"></div>
+      <button class="tp-ib" data-te-min aria-label="${_t(`Fäll ihop panelen`)}" aria-expanded="true">▾</button><button class="tp-ib" data-te-close aria-label="${_t(`Stäng ritverktyget`)}">${ICON.close}</button></div>
+    <div class="tp-sum" id="teSum"></div>
+    <div class="tp-body" id="teBody">
+      <div id="teFrom"></div>
+      <p class="tp-help" id="teHelp"></p>
+      <form class="tp-find" id="teFind" autocomplete="off"><label class="sr" for="teQ">${_t(`Lägg till en plats`)}</label><input id="teQ" type="search" placeholder="${_t(`Lägg till ort eller pass – t.ex. Tourmalet`)}"><button class="btn" type="submit">${_t(`Lägg till`)}</button></form>
+      <div class="tp-hits" id="teHits" hidden></div>
+      <ol class="tp-wps" id="teList"></ol>
+      <div class="tp-tools" id="teTools"></div>
+      <div class="tp-opts"><label class="tp-chk" title="${_t(`Av: nya delar ritas som raka linjer, t.ex. för en stig som inte finns på kartan`)}"><input type="checkbox" id="teRoad" ${te.road ? "checked" : ""}> ${_t(`Följ vägarna`)}</label>
+        <label class="tp-sel"><span class="sr">${_t(`Cykeltyp`)}</span><select id="teProf" aria-label="${_t(`Cykeltyp`)}">${Object.entries(PROFS).map(([k, v]) => `<option value="${k}"${k === te.prof ? " selected" : ""}>${v}</option>`).join("")}</select></label></div>
+      <div id="teWarn"></div>
+      <div id="teStats"></div>
+      <div class="actions" id="teAct"></div>
+      <p class="coords">${_t(`Vägen beräknas med BRouter (brouter.de) på OpenStreetMap-data. Kontrollera alltid vägen på plats – särskilt grusvägar, stängda pass och trafik.`)}</p>
+    </div>`;
+  P.hidden = false; P.classList.remove("min");
+  te.legs.forEach((l, i) => { if (!l) routeLeg(i); });
+  requestAnimationFrame(() => { map.resize(); teRender(); teFit(); if (!te.wps.length && matchMedia("(min-width: 821px)").matches) $("#teQ").focus({ preventScroll: true }); });
+}
+function teHook(p, ll) {
+  if (!te.on) return false;
+  if (p) teAdd({ lat: p.lat, lon: p.lon, name: short(p) });
+  else if (ll) teAdd({ lat: ll.lat, lon: ll.lng, name: "" });
+  return true;
+}
+function teClose(force) {
+  const b = $("[data-te-close]");
+  if (!force && te.dirty && !te.saved && te.wps.length > 1 && b && !b.dataset.armed) {
+    b.dataset.armed = "1"; $("#teWarn").innerHTML = `<p class="pl-note warn">${_t(`Turen är inte sparad. Tryck på ✕ igen för att stänga ändå, eller spara den i Min resa.`)}</p>`;
+    setTimeout(() => { if (b) delete b.dataset.armed; }, 4000); return;
+  }
+  te.on = false; tourHook = null; map.tourLayer.clearLayers();
+  $("#tourPanel").hidden = true; $("#tourPanel").innerHTML = ""; $("#map").classList.remove("touring");
+  map.resize();
+}
+function teFit() {
+  const pts = []; te.legs.forEach(l => l && l.pts.forEach((p, i) => { if (i % 5 === 0) pts.push([p[0], p[1]]); })); te.wps.forEach(w => pts.push([w.lat, w.lon]));
+  if (!pts.length) return;
+  const wide = matchMedia("(min-width: 821px)").matches, P = $("#tourPanel");
+  const opt = wide ? { paddingTopLeft: [Math.min(400, (P ? P.offsetWidth : 360) + 30), 40], paddingBottomRight: [60, 40], maxZoom: 13 } : { paddingTopLeft: [30, 70], paddingBottomRight: [30, (P ? P.offsetHeight : 200) + 20], maxZoom: 13 };
+  map.lm.invalidateSize();
+  if (pts.length === 1) map.lm.setView(pts[0], Math.max(map.lm.getZoom(), 11)); else map.lm.fitBounds(L.latLngBounds(pts), opt);
+}
+let _teRaf = 0;
+function teRenderSoon() { cancelAnimationFrame(_teRaf); _teRaf = requestAnimationFrame(teRender); }
+function teCurrent() {
+  const ready = te.wps.length > 1 && te.legs.length === te.wps.length - 1 && te.legs.every(l => l);
+  const g = ready ? tourGeo(te.legs) : null;
+  return { g, st: g ? tourStats(g) : null, busy: te.legs.some(l => l && l.busy), err: te.legs.some(l => l && l.err) };
+}
+function teDraw() {
+  const Lg = map.tourLayer; Lg.clearLayers(); if (!te.on) return;
+  const col = cssVar("--c-tdf"), hover = matchMedia("(hover: hover)").matches;
+  te.legs.forEach((l, i) => {
+    if (!l) return; const ll = l.pts.map(p => [p[0], p[1]]);
+    L.polyline(ll, { pane: "tour", color: "#fff", weight: 9, opacity: .9, interactive: false, lineJoin: "round" }).addTo(Lg);
+    L.polyline(ll, { pane: "tour", color: l.err ? "#7d8b8f" : col, weight: 5, opacity: l.busy ? .45 : .95, dashArray: l.road && !l.busy ? null : "8 8", interactive: false, lineJoin: "round" }).addTo(Lg);
+    const h = L.polyline(ll, { pane: "tour", color: "#000", opacity: 0, weight: 22 }).addTo(Lg);
+    if (hover) h.bindTooltip(_t("Klicka för att lägga in en punkt här och dra den dit du vill"), { sticky: true, direction: "top" });
+    h.on("click", e => { L.DomEvent.stop(e); teAdd({ lat: e.latlng.lat, lon: e.latlng.lng, name: "" }, i + 1); });
+  });
+  const n = te.wps.length;
+  te.wps.forEach((w, i) => {
+    const end = n > 1 && i === n - 1, lab = i === 0 ? "▶" : end ? "⚑" : String(i);
+    const m = L.marker([w.lat, w.lon], { draggable: true, autoPan: true, keyboard: false, zIndexOffset: 3000 + i, title: wpLabel(w),
+      icon: L.divIcon({ className: "", iconSize: [28, 28], iconAnchor: [14, 14], html: `<span class="twp${i === 0 ? " s" : end ? " e" : ""}">${lab}</span>` }) });
+    m.on("dragend", e => teMove(i, e.target.getLatLng()));
+    m.on("click", () => {
+      m.bindPopup(`<div class="tp-pop"><b>${esc(wpLabel(w))}</b><div class="tp-pop-a"><button class="btn" data-te-del="${i}">${ICON.close}${_t(`Ta bort punkten`)}</button>${i && !end ? "" : n > 2 && !isLoop() && end ? `<button class="btn" data-te-loop>${_t(`Tillbaka till start`)}</button>` : ""}</div><small>${_t(`Dra punkten för att flytta den.`)}</small></div>`, { closeButton: true, autoPan: true }).openPopup();
+    });
+    m.addTo(Lg);
+  });
+}
+function teRender() {
+  if (!te.on || !$("#teBody")) return;
+  teDraw();
+  const { g, st, busy, err } = teCurrent(), n = te.wps.length;
+  const nm = ($("#teName").value || "").trim();
+  if (!te.named && n > 1) $("#teName").value = tourAutoName(te.wps);
+  $("#teSum").innerHTML = st ? `<b>${fmt1(st.dist)} km</b><b>${g.noEle ? _t("– hm") : nf0(hm(st.asc)) + " hm"}</b>${g.noEle ? "" : `<span>${_t(`högst`)} ${altTxt(Math.round(st.max))}</span>`}<span>ca ${fmtH(rideTime(st)[0])}–${fmtH(rideTime(st)[1])}</span>${busy ? `<span class="tp-busy">${_t(`Hämtar vägen …`)}</span>` : ""}`
+    : busy ? `<span class="tp-busy">${_t(`Hämtar vägen …`)}</span>` : `<span>${n ? _t("Lägg till minst en punkt till") : _t("Ingen punkt än")}</span>`;
+  $("#teFrom").innerHTML = te.from ? `<p class="tp-from">${_t(`Utgår från`)} <b>${esc(te.from.label)}</b>${_t(`. Ändra fritt – flytta, lägg till eller ta bort punkter.`)}</p>` : "";
+  $("#teHelp").innerHTML = n === 0 ? _t("Tryck på kartan där turen ska börja, eller sök en ort eller ett pass nedan. Tryck sedan på nästa ställe – vägen ritas längs vägarna.")
+    : n === 1 ? _t("Tryck på kartan eller sök nästa ställe. Tryck på en ort eller ett pass på kartan för att åka via den.")
+    : _t("Tryck på kartan för att förlänga turen. Dra en punkt för att ändra vägen, tryck på linjen för att lägga in en ny punkt, eller tryck på en punkt för att ta bort den.");
+  let acc = 0;
+  $("#teList").innerHTML = te.wps.map((w, i) => {
+    if (i && te.legs[i - 1]) acc += pathKm(te.legs[i - 1].pts);
+    const end = n > 1 && i === n - 1;
+    return `<li><span class="twp${i === 0 ? " s" : end ? " e" : ""}" aria-hidden="true">${i === 0 ? "▶" : end ? "⚑" : i}</span><button class="tp-wn" data-te-goto="${i}">${esc(wpLabel(w))}</button><span class="tp-km">${i ? Math.round(acc) + " km" : _t("start")}</span>
+      <span class="tp-ctl"><button class="tp-ib" data-te-up="${i}" aria-label="${_t(`Flytta upp`)}" ${i ? "" : "disabled"}>↑</button><button class="tp-ib" data-te-dn="${i}" aria-label="${_t(`Flytta ner`)}" ${i < n - 1 ? "" : "disabled"}>↓</button><button class="tp-ib" data-te-del="${i}" aria-label="${_t(`Ta bort`)} ${esc(wpLabel(w))}">${ICON.close}</button></span></li>`;
+  }).join("");
+  $("#teTools").innerHTML = `<button class="btn" data-te-undo ${te.hist.length ? "" : "disabled"}>${_t(`↶ Ångra`)}</button><button class="btn" data-te-rev ${n > 1 ? "" : "disabled"}>${_t(`⇄ Vänd riktning`)}</button><button class="btn" data-te-loop ${n > 1 && !isLoop() ? "" : "disabled"}>${_t(`↺ Tillbaka till start`)}</button><button class="btn" data-te-clear ${n ? "" : "disabled"}>${_t(`Rensa`)}</button>`;
+  $("#teWarn").innerHTML = err ? `<p class="pl-note warn">${_t(`Vägen kunde inte hämtas för en del av turen (ingen anslutning eller ingen väg). Den visas som en rak, grå linje.`)} <button class="linkish" data-te-retry>${_t(`Försök igen`)}</button></p>`
+    : st && g.approx ? `<p class="pl-note">${_t(`Streckade delar är raka linjer`)}${g.partEle || g.noEle ? _t(" utan höjddata – höjdmetrarna är ungefärliga") : ""}.</p>` : "";
+  $("#teStats").innerHTML = st ? `${statsTable(st)}${g.noEle ? "" : `<div>${segProfile(g, 0, g.c.length - 1, { labels: true, climbs: st.climbs, h: 120 })}${GRADKEY}</div>`}${st.climbs.length ? `<div><div class="eyebrow">${_t(`Stigningar`)}</div>${climbList(st)}</div>` : ""}` : "";
+  const ok = st && !busy;
+  $("#teAct").innerHTML = te.saved && te.id ? `<div class="pl-note" style="width:100%"><b>${_t(`Sparad i Min resa.`)}</b> ${_t(`Den ligger som en cykeldag i ruttförslaget, med karta, GPX och tips.`)}</div><button class="btn primary" data-te-open-trip>${ICON.bag}${_t(`Öppna Min resa`)}</button><button class="btn" data-gpx-te>${ICON.dl}GPX</button><button class="btn" data-te-link>${_t(`Kopiera länk`)}</button>`
+    : `<button class="btn primary" data-te-save ${ok ? "" : "disabled"}>${ICON.bag}${te.id ? _t("Spara ändringen") : _t("Spara i Min resa")}</button><button class="btn" data-gpx-te ${ok ? "" : "disabled"}>${ICON.dl}GPX</button>${n > 1 ? `<a class="btn" href="${gmapsDir(te.wps.map(w => [w.lat, w.lon]))}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps`)}</a><button class="btn" data-te-link>${_t(`Kopiera länk`)}</button>` : ""}`;
+}
+function teSave() {
+  const { st, busy } = teCurrent(); if (!st || busy) return;
+  const id = te.id || "tur:" + Date.now().toString(36);
+  const name = ($("#teName").value || "").trim() || tourAutoName(te.wps);
+  TOURS[id] = { name, wps: te.wps.map(w => [+w.lat.toFixed(5), +w.lon.toFixed(5), w.name || ""]), legs: te.legs.map(packLeg), prof: te.prof, from: te.from, made: new Date().toISOString().slice(0, 10) };
+  store.set("tours", TOURS); regTour(id); _pc = null;
+  if (te.replace && state.trip.includes(te.replace)) { const k = state.trip.indexOf(te.replace); state.trip[k] = id; if (state.notes[te.replace]) state.notes[id] = state.notes[te.replace]; te.replace = null; }
+  else if (!state.trip.includes(id)) state.trip.push(id);
+  plan.bike.on = true; savePlan(); saveTrip();
+  Object.assign(te, { id, saved: true, dirty: false, named: true });
+  teRender();
+  if (current === "touren") renderCycling();
+}
+async function teFind(q, osm) {
+  const H = $("#teHits"); q = q.trim(); if (!q) { H.hidden = true; return; }
+  const nq = norm(q).trim(), loc = PLACES.filter(p => norm(p.name + " " + p.sub).includes(nq)).sort((a, b) => (!!b.col - !!a.col) || (norm(a.name).indexOf(nq) - norm(b.name).indexOf(nq))).slice(0, 6);
+  const row = (lat, lon, name, sub) => `<button class="tp-hit" data-te-hit="${lat},${lon}" data-te-hitname="${esc(name)}"><b>${esc(name)}</b>${sub ? `<small>${esc(sub)}</small>` : ""}</button>`;
+  let html = loc.map(p => row(p.lat, p.lon, short(p), p.sub)).join("");
+  if (osm) {
+    H.innerHTML = html + `<p class="tp-busy">${_t(`Söker i OpenStreetMap …`)}</p>`; H.hidden = false;
+    try {
+      const r = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=${LANG === "no" ? "nb" : LANG}&viewbox=-2.6,43.8,3.8,41.6&bounded=1&q=${enc(q)}`);
+      const j = await r.json();
+      html += j.length ? j.map(x => row((+x.lat).toFixed(5), (+x.lon).toFixed(5), String(x.name || x.display_name.split(",")[0]), x.display_name.split(",").slice(1, 3).join(",").trim())).join("") : `<p class="tp-none">${_t(`Inget hittades i OpenStreetMap.`)}</p>`;
+    } catch (e) { html += `<p class="tp-none">${_t(`Sökningen fungerar inte just nu. Tryck på kartan i stället.`)}</p>`; }
+  } else html += `<button class="tp-hit more" data-te-osm><b>${_t(`Sök ”`)}${esc(q)}${_t(`” i OpenStreetMap`)}</b><small>${_t(`Byar, vägar, adresser och toppar`)}</small></button>`;
+  H.innerHTML = html; H.hidden = false;
+}
+let _teQt = 0;
+document.addEventListener("input", e => {
+  if (e.target.id === "teQ") { clearTimeout(_teQt); const v = e.target.value; _teQt = setTimeout(() => teFind(v, false), 120); }
+  if (e.target.id === "teName") { te.named = !!e.target.value.trim(); te.saved = false; te.dirty = true; }
+});
+document.addEventListener("submit", e => {
+  if (e.target.id !== "teFind") return; e.preventDefault(); clearTimeout(_teQt);
+  const first = $("#teHits [data-te-hit]"), q = $("#teQ").value;
+  if (first && !$("#teHits").hidden) first.click(); else teFind(q, true);
+});
+document.addEventListener("change", e => {
+  if (e.target.id === "teRoad") { te.road = e.target.checked; store.set("tourRoad", te.road); }
+  if (e.target.id === "teProf") { te.prof = e.target.value; store.set("tourProf", te.prof); if (te.legs.length && te.road) { teSnap(); te.legs = te.legs.map(() => null); teRouteMissing(); } }
+});
+document.addEventListener("click", e => {
+  const t = e.target;
+  const nw = t.closest("[data-tour-new]"); if (nw) { e.preventDefault(); if (te.on) { $("#tourPanel").classList.remove("min"); return; } openTourEditor(); return; }
+  const fr = t.closest("[data-tour-from]"); if (fr) { e.preventDefault(); const src = fr.dataset.tourFrom; openTourEditor({ src, replace: /^seg:/.test(src) && state.trip.includes(src) ? src : null }); return; }
+  const ed = t.closest("[data-tour-edit]"); if (ed) { e.preventDefault(); openTourEditor({ id: ed.dataset.tourEdit }); return; }
+  const dl = t.closest("[data-tour-del]"); if (dl) {
+    if (!dl.dataset.armed) { dl.dataset.armed = "1"; dl.textContent = _t("Tryck igen för att radera"); setTimeout(() => { delete dl.dataset.armed; dl.textContent = _t("Radera turen"); }, 3000); return; }
+    const id = dl.dataset.tourDel; delete TOURS[id]; delete BY[id]; store.set("tours", TOURS); state.trip = state.trip.filter(x => x !== id); saveTrip(); _pc = null; closeSheet(); if (current === "touren") renderCycling(); if (current === "minresa") renderMinResa(); return;
+  }
+  if (!te.on) return;
+  const hit = t.closest("[data-te-hit]"); if (hit) { const [la, lo] = hit.dataset.teHit.split(",").map(Number); teAdd({ lat: la, lon: lo, name: hit.dataset.teHitname }); $("#teQ").value = ""; $("#teHits").hidden = true; teFit(); return; }
+  if (t.closest("[data-te-osm]")) { teFind($("#teQ").value, true); return; }
+  const del = t.closest("[data-te-del]"); if (del) { map.lm.closePopup(); teRemove(+del.dataset.teDel); return; }
+  const up = t.closest("[data-te-up]"); if (up) { const i = +up.dataset.teUp; teSwap(i, i - 1); return; }
+  const dn = t.closest("[data-te-dn]"); if (dn) { const i = +dn.dataset.teDn; teSwap(i, i + 1); return; }
+  const go = t.closest("[data-te-goto]"); if (go) { const w = te.wps[+go.dataset.teGoto]; if (w) map.lm.setView([w.lat, w.lon], Math.max(map.lm.getZoom(), 12)); if (!matchMedia("(min-width: 821px)").matches) { $("#tourPanel").classList.add("min"); } return; }
+  if (t.closest("[data-te-undo]")) { teUndo(); return; }
+  if (t.closest("[data-te-rev]")) { teReverse(); return; }
+  if (t.closest("[data-te-loop]")) { map.lm.closePopup(); if (te.wps.length > 1 && !isLoop()) teAdd(Object.assign({}, te.wps[0]), te.wps.length); return; }
+  const cl = t.closest("[data-te-clear]"); if (cl) {
+    if (!cl.dataset.armed) { cl.dataset.armed = "1"; cl.textContent = _t("Tryck igen för att rensa"); setTimeout(() => { if (cl.isConnected) { delete cl.dataset.armed; cl.textContent = _t("Rensa"); } }, 3000); return; }
+    teSnap(); te.wps = []; te.legs = []; te.from = null; te.named = false; $("#teName").value = ""; teRouteMissing(); return;
+  }
+  if (t.closest("[data-te-retry]")) { te.legs = te.legs.map(l => l && l.err ? null : l); teRouteMissing(); return; }
+  if (t.closest("[data-te-save]")) { teSave(); return; }
+  if (t.closest("[data-gpx-te]")) { const { st } = teCurrent(); if (st) gpxDownload(($("#teName").value || "").trim() || tourAutoName(te.wps), st.pts.map(p => [+p[0].toFixed(6), +p[1].toFixed(6), Math.round(p[2])])); return; }
+  const lk = t.closest("[data-te-link]"); if (lk) {
+    const u = tourLink();
+    const ok = () => { lk.textContent = _t("Länken är kopierad"); setTimeout(() => { if (lk.isConnected) lk.textContent = _t("Kopiera länk"); }, 2500); };
+    const fail = () => { $("#teWarn").innerHTML = `<label class="tp-linkbox"><span class="eyebrow">${_t(`Länk till turen`)}</span><input type="text" readonly value="${esc(u)}" onfocus="this.select()"></label>`; };
+    try { navigator.clipboard.writeText(u).then(ok, fail); } catch (er) { fail(); }
+    return;
+  }
+  if (t.closest("[data-te-open-trip]")) { teClose(true); show("minresa"); return; }
+  const mn = t.closest("[data-te-min]"); if (mn) { const P = $("#tourPanel"); P.classList.toggle("min"); mn.setAttribute("aria-expanded", !P.classList.contains("min")); mn.textContent = P.classList.contains("min") ? "▴" : "▾"; return; }
+  if (t.closest("[data-te-close]")) { teClose(); return; }
+});
+document.addEventListener("keydown", e => {
+  if (!te.on || e.target.matches("input, textarea, select")) return;
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); teUndo(); }
+});
+
+/* ----- fakta och tips om en sparad egen tur ----- */
+function tourTips(p) {
+  const st = p.st, tips = [];
+  tips.push(st.gap < 3 ? `${_t(`Turen slutar nära där den börjar (`)}${fmt1(st.gap)} ${_t(`km fågelvägen).`)}`
+    : `${_t(`Turen slutar`)} ${fmt1(st.gap)} ${_t(`km fågelvägen från starten. Cykla tillbaka samma väg eller ordna så att någon hämtar vid målet.`)}`);
+  if (st.max >= 1500) tips.push(`${_t(`Turen går upp till`)} ${altTxt(Math.round(st.max))}${_t(`. Pass på den höjden kan vara stängda av snö en bra bit in på våren – kontrollera att vägen är öppen innan ni åker, och ta med vindjacka och långa handskar till utförsåkningen.`)}`);
+  else if (st.max >= 1000) tips.push(`${_t(`Högsta punkten är`)} ${altTxt(Math.round(st.max))}${_t(`. Även på sommaren kan det vara kyligt och blåsigt på toppen – ta med en vindjacka till utförsåkningen.`)}`);
+  if (st.climbs.length) tips.push(_t("Fyll vattenflaskorna i byarna före stigningarna. På passen finns ofta bara ett café eller ingenting alls."));
+  if (p.g.approx) tips.push(_t("En del av turen är ritad som raka linjer. Kontrollera att det finns en väg eller stig där innan ni åker."));
+  return tips;
+}
+function openTour(id) {
+  const p = BY[id]; if (!p || !p.tour) return;
+  const st = p.st, g = p.g, t = p.tour, inTrip = state.trip.includes(id), startPt = st.pts[0];
+  lastFocus = document.activeElement; state.sel = null;
+  $("#sheetBody").innerHTML = `<div class="d-pad">
+    <div class="d-head"><div class="tags"><span class="tag" style="--c:var(--c-tdf)">${_t(`Cykeldag`)}</span><span class="tag" style="--c:var(--accent)">${_t(`Egen tur`)}</span>${diffTag(segLevel(st))}</div>
+      <h2 id="sheetTitle">${esc(p.name)}</h2><div class="sub">${st.gap < 3 ? `${_t(`Runda från`)} ${esc(p.startLbl)}` : `${esc(p.startLbl)} → ${esc(p.endLbl)}`}${t.from ? ` ${_t(`· utgår från`)} ${esc(t.from.label)}` : ""}</div></div>
+    ${statsTable(st)}
+    ${g.noEle ? "" : `<div>${segProfile(g, 0, g.c.length - 1, { labels: true, climbs: st.climbs })}${GRADKEY}</div>`}
+    ${st.climbs.length ? `<div><div class="eyebrow">${_t(`Stigningar på vägen`)}</div>${climbList(st)}</div>` : ""}
+    <div class="actions"><button class="btn primary" data-tour-edit="${esc(id)}">${ICON.edit}${_t(`Ändra turen`)}</button><button class="btn" data-seg-map="${esc(id)}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-gpx="${esc(id)}">${ICON.dl}${_t(`GPX till cykeldatorn`)}</button></div>
+    <div class="actions"><a class="btn" href="${gmapsDir(t.wps.map(w => [w.lat, w.lon]))}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${startPt[0]},${startPt[1]}&travelmode=driving" target="_blank" rel="noopener">${ICON.pin}${_t(`Kör till starten`)}</a><button class="btn ${inTrip ? "on" : "primary"}" data-toggle-trip="${esc(id)}">${ICON.bag}${inTrip ? _t("Sparad i Min resa") : _t("Spara i Min resa")}</button></div>
+    <div><div class="eyebrow">${_t(`Via`)}</div><ol class="wps">${t.wps.map(w => `<li>${esc(wpLabel(w))}</li>`).join("")}</ol></div>
+    ${segPractical(p, tourTips(p))}
+    <div class="actions"><button class="btn" data-tour-del="${esc(id)}">${_t(`Radera turen`)}</button></div>
+    <p class="coords">${_t(`Längd, höjder och tider är beräknade på OpenStreetMap-data (BRouter) och är ungefärliga. Tiden räknar med ca 20–26 km/h på flacken och 500–800 höjdmeter i timmen uppför. Start`)} ${coord(startPt)}.</p>
+  </div>`;
+  $("#scrim").hidden = false; $("#sheet").hidden = false; $("#sheetBody").scrollTop = 0; $("#sheetClose").focus({ preventScroll: true });
+  try { history.replaceState(null, "", "#p-" + id); } catch (e) {}
+}
+function tourDocument(p, i) {
+  const st = p.st, t = rideTime(st);
+  return `<section><div class="h"><span class="n">${i + 1}</span><div><h2>${esc(p.name)}</h2><p class="sub">${_t(`Cykeldag · egen tur`)}${p.tour.from ? _t(", utgår från ") + esc(p.tour.from.label) : ""}</p></div></div>
+    ${state.notes[p.id] ? `<p class="mine"><b>${_t(`Min anteckning:`)}</b> ${esc(state.notes[p.id])}</p>` : ""}
+    <table class="plan"><tr><td>${_t(`Längd`)}</td><td>${fmt1(st.dist)} km</td><td>${_t(`Höjdmeter`)}</td><td>${nf0(hm(st.asc))} ${_t(`upp ·`)} ${nf0(hm(st.desc))} ${_t(`ner`)}</td></tr>
+      <tr><td>${_t(`Högsta punkt`)}</td><td>${altTxt(Math.round(st.max))}</td><td>${_t(`Tid på cykeln`)}</td><td>ca ${fmtH(t[0])} – ${fmtH(t[1])}</td></tr>
+      <tr><td>${_t(`Start`)}</td><td>${esc(p.startLbl)}</td><td>${_t(`Mål`)}</td><td>${esc(p.endLbl)}</td></tr></table>
+    ${p.g.noEle ? "" : `<div style="margin:8px 0">${segProfile(p.g, 0, p.g.c.length - 1, { labels: true, climbs: st.climbs, h: 120 })}</div>`}
+    <p><b>${_t(`Via:`)}</b> ${p.tour.wps.map(w => esc(wpLabel(w))).join(" → ")}</p>
+    ${st.climbs.length ? `<p><b>${_t(`Stigningar:`)}</b> ${st.climbs.map(c => `${esc(cleanName(c.name))} (${fmt1(c.len)} km, ${fmt1(c.grad)} %)`).join(" · ")}</p>` : ""}
+    <p class="meta">${_t(`Start GPS`)} ${st.pts[0][0].toFixed(4)}, ${st.pts[0][1].toFixed(4)} · <a href="https://www.google.com/maps/dir/?api=1&destination=${st.pts[0][0]},${st.pts[0][1]}">${_t(`Kör till starten`)}</a>${st.gap >= 3 ? ` ${_t(`· målet ligger`)} ${fmt1(st.gap)} ${_t(`km fågelvägen från starten`)}` : ""}</p></section>`;
+}
+/* fliken Egen tur under Cykla själv */
+function renderEgen() {
+  const mine = Object.keys(TOURS).map(id => BY[id] || regTour(id)).filter(Boolean);
+  const rr = RUNDOR.routes.filter(r => ROUTED["runda:" + r.id]);
+  return `<p class="outlook">${_t(`Rita din egen cykeltur på kartan: tryck där du vill börja och sedan på ställena du vill cykla via – vägen följer vägarna och du ser direkt längd, höjdmeter, höjdprofil och stigningarna. Du kan också söka orter och pass och lägga till dem i en lista. Turen sparas i Min resa som en cykeldag och kan laddas ner som GPX.`)}</p>
+    <div class="actions"><button class="btn primary" data-tour-new>${ICON.edit}${_t(`Rita en egen tur på kartan`)}</button></div>
+    ${mine.length ? `<h4 class="mh">${_t(`Mina turer`)}</h4><div class="stages">${mine.map(p => `<article class="stage"><div class="st-bd">
+      <div><div class="eyebrow">${p.st.gap < 3 ? _t("runda") : _t("från punkt till punkt")}${p.tour.from ? _t(" · utgår från ") + esc(p.tour.from.label) : ""}</div><h4>${esc(p.name)}</h4></div>
+      <div class="tags">${diffTag(segLevel(p.st))}<span class="tag" style="--c:var(--ink)">${fmt1(p.st.dist)} km</span><span class="tag" style="--c:var(--ink)">${nf0(hm(p.st.asc))} hm</span>${state.trip.includes(p.id) ? `<span class="tag" style="--c:var(--accent)">${_t(`I Min resa`)}</span>` : ""}</div>
+      ${p.g.noEle ? "" : `<button class="segmini" data-open="${esc(p.id)}" aria-label="${_t(`Fakta om`)} ${esc(p.name)}">${segProfile(p.g, 0, p.g.c.length - 1, { h: 70 })}</button>`}
+      <div class="st-foot"><button class="btn primary" data-tour-edit="${esc(p.id)}">${ICON.edit}${_t(`Ändra`)}</button><button class="btn" data-open="${esc(p.id)}">${_t(`Fakta och tips`)}</button><button class="btn" data-seg-map="${esc(p.id)}">${ICON.map}${_t(`Karta`)}</button><button class="btn" data-gpx="${esc(p.id)}">${ICON.dl}GPX</button></div>
+    </div></article>`).join("")}</div>` : ""}
+    <h4 class="mh">${_t(`Börja från en klassisk runda`)}</h4>
+    <p class="ty-note" style="color:var(--muted);font-size:15px;margin:0">${_t(`Ta en av guidens rundor och gör den till din egen – korta av, förläng eller lägg till ett pass.`)}</p>
+    <div class="sp-chips">${rr.map(r => `<button class="chip" data-tour-from="runda:${r.id}" style="--c:var(--c-natur)">${esc(r.name)} <small>${r.km} km</small></button>`).join("")}</div>
+    <p class="ty-note" style="color:var(--muted);font-size:15px;margin:0">${_t(`Vill du cykla en proffsetapp? Välj en etapp under`)} <button class="linkish" data-cymode="proffs">${_t(`Proffsloppen`)}</button> ${_t(`och tryck`)} <b>${_t(`Ändra vägen`)}</b>.</p>`;
 }
 
 /* ---------- Om ---------- */
@@ -3153,7 +3746,8 @@ $("#stat14").textContent = PLACES.filter(p => p.no).length;
 /* ---------- start ---------- */
 renderChips(); renderSideList(); updateCounts();
 const h = (location.hash || "").slice(1);
-if (h.startsWith("p-") && BY[h.slice(2)]) { show("karta", { noHash: true }); requestAnimationFrame(() => openPlace(h.slice(2))); }
+if (h.startsWith("tur=")) { const L0 = wpsFromLink(h.slice(4)); show("karta", { noHash: true }); requestAnimationFrame(() => openTourEditor({ wps: L0.wps, prof: L0.prof })); }
+else if (h.startsWith("p-") && BY[h.slice(2)]) { show("karta", { noHash: true }); requestAnimationFrame(() => openPlace(h.slice(2))); }
 else show(h || store.get("view", "karta"), { noHash: !h });
 })();
 </script>
