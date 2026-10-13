@@ -1814,7 +1814,7 @@ const GUIDE = {
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=8"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=9"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -1984,7 +1984,9 @@ const map = (function () {
   const OSMA = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
   const BASES = {
     cyclosm: [_t("Cykelkarta"), () => L.tileLayer("https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", { maxZoom: 20, attribution: _t('<a href="https://www.cyclosm.org">CyclOSM</a> | ') + OSMA })],
-    topo: [_t("Terräng"), () => L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", { maxZoom: 17, attribution: _t('<a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA) | ') + OSMA })],
+    topo: [_t("Terrängkarta (OpenTopoMap)"), () => L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", { maxZoom: 17, attribution: _t('<a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA) | ') + OSMA })],
+    ignfr: [_t("Plan IGN (Frankrike)"), () => L.tileLayer("https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", { maxZoom: 19, attribution: '&copy; <a href="https://www.ign.fr">IGN</a> – Géoplateforme' })],
+    mtn: [_t("Topografisk karta (IGN Spanien)"), () => L.tileLayer("https://www.ign.es/wmts/mapa-raster?service=WMTS&request=GetTile&version=1.0.0&layer=MTN&style=default&tilematrixset=GoogleMapsCompatible&format=image/jpeg&tilematrix={z}&tilerow={y}&tilecol={x}", { maxZoom: 18, maxNativeZoom: 17, attribution: '&copy; <a href="https://www.ign.es">Instituto Geográfico Nacional</a> (CC BY 4.0)' })],
     osm: [_t("Standard"), () => L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: OSMA })],
     sat: [_t("Satellit"), () => L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxZoom: 19, attribution: _t("Esri, Maxar, Earthstar Geographics") })],
   };
@@ -2049,7 +2051,9 @@ const map = (function () {
     const r = state.route;
     if (r) {
       if (r.full) line(routeLayer, r.full, "#7d8b8f", 3, null, null, true);
-      const g = r.key ? routedLL(r.key) : null; line(routeLayer, r.multi || g || r.path, colorOf(r.color), r.id === "segpick" || r.id === "seg" ? 6 : 5, r.key && /^(runda|stage):/.test(r.key) ? r.key : null, null, (!g && r.id !== "trip" && !r.solid) || !!(r.key && ROUTED[r.key] && ROUTED[r.key].a));
+      const g = r.key ? routedLL(r.key) : null;
+      if (r.halo) L.polyline(r.multi || r.path, { color: "#111", weight: (r.w || 5) + 9, opacity: .28, interactive: false, lineJoin: "round" }).addTo(routeLayer);
+      line(routeLayer, r.multi || g || r.path, colorOf(r.color), r.w || (r.id === "segpick" || r.id === "seg" ? 6 : 5), r.key && /^(runda|stage):/.test(r.key) ? r.key : null, null, (!g && r.id !== "trip" && !r.solid) || !!(r.key && ROUTED[r.key] && ROUTED[r.key].a));
       (r.segs || []).forEach(sg => line(routeLayer, sg.pts, cssVar("--c-tdf"), 6, null));
       (r.ends || []).forEach((p, i) => L.circleMarker(p, { radius: 7, color: "#fff", weight: 3, fillColor: i ? "#18262b" : cssVar("--c-tdf"), fillOpacity: 1, interactive: false }).addTo(routeLayer));
     }
@@ -4192,7 +4196,7 @@ function renderEgen() {
 
 /* ---------- Vandring: långa leder (linjer från OpenStreetMap), dagsturer och katarernas historia ---------- */
 const hState = { tab: ["leder", "dag", "katar"].includes(store.get("hTab")) ? store.get("hTab") : "leder" };
-const HIKECOL = "#7b3fa0";
+const HIKECOL = "#7b3fa0", TRAILCOL = "#e6007e";   // lila för vandring i listor, stark magenta för den valda leden på kartan
 const WMT = "https://hiking.waymarkedtrails.org/api/v1/details/relation/";
 const _TG = {};
 /* hämtar ledens linje (huvudsträckningen, utan varianter) och gör om från Web Mercator till lat/lon */
@@ -4212,8 +4216,10 @@ function showTrail(id, btn) {
   if (btn) { btn.disabled = true; btn.textContent = _t("Hämtar leden …"); }
   trailGeo(t).then(g => {
     const pts = []; g.segs.forEach(s => s.forEach((p, i) => { if (i % 8 === 0) pts.push(p); }));
-    closeSheet(); show("karta"); map.setHikeTiles(true);
-    requestAnimationFrame(() => setRoute({ id: "trail", name: `${t.ref} · ${t.route}`, color: HIKECOL, stops: [], path: pts, multi: g.segs, solid: true }));
+    closeSheet(); show("karta"); map.setHikeTiles(false);
+    if (OV) { ["rundor", "etapper", "hyr", "lopp", "flyg"].forEach(k => OV[k] = false); OV.sel = null; OV.only = null; OV.hl = null; saveOV(); map.render(); }
+    const s0 = g.segs[0], s1 = g.segs[g.segs.length - 1];
+    requestAnimationFrame(() => setRoute({ id: "trail", name: `${t.ref} · ${t.route}`, color: TRAILCOL, w: 6, halo: true, stops: [], path: pts, multi: g.segs, solid: true, ends: [s0[0], s1[s1.length - 1]] }));
   }).catch(() => { if (btn) { btn.insertAdjacentHTML("afterend", `<span class="pl-note warn" style="margin-left:8px">${_t(`Leden kunde inte hämtas just nu. Försök igen om en stund.`)}</span>`); } })
     .finally(() => { if (btn) { btn.disabled = false; btn.innerHTML = old; } });
 }
