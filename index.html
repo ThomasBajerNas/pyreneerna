@@ -1820,7 +1820,7 @@ const HIKE_PATHS = {"pont-espagne":{"p":"gipdG|hZPO?mAP_A?W\\e@\\lA?aAl@pAGeBDu@
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=13"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=14"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -2008,9 +2008,12 @@ const map = (function () {
   /* Googles kartbilder (Map Tiles API): en session per karttyp, copyright hämtas för det som syns */
   const GKEY = "AIzaSyAl5vv16dXTNZiqQMqbYn8c0lW531m6fuo", GT = "https://tile.googleapis.com/";
   const _gs = {}; let gAttr = "";
-  const gSession = t => _gs[t] || (_gs[t] = fetch(GT + "v1/createSession?key=" + GKEY, { method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(Object.assign({ mapType: t, language: { no: "nb" }[LANG] || LANG, region: "SE" }, t === "terrain" ? { layerTypes: ["layerRoadmap"], styles: [{ featureType: "road", stylers: [{ visibility: "off" }] }] } : {})) })
-    .then(r => r.ok ? r.json() : Promise.reject(r.status)).then(j => j.session).catch(e => { delete _gs[t]; throw e; }));
+  /* vägar i Googles kartor kan slås på och av i lagerpanelen (av som standard) */
+  let gRoads = store.get("gRoads", false) === true;
+  const gSession = t => { const k = t + (gRoads ? "+r" : ""); return _gs[k] || (_gs[k] = fetch(GT + "v1/createSession?key=" + GKEY, { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(Object.assign({ mapType: t, language: { no: "nb" }[LANG] || LANG, region: "SE" }, t === "terrain" ? { layerTypes: ["layerRoadmap"] } : {}, t !== "satellite" && !gRoads ? { styles: [{ featureType: "road", stylers: [{ visibility: "off" }] }] } : {})) })
+    .then(r => r.ok ? r.json() : Promise.reject(r.status)).then(j => j.session).catch(e => { delete _gs[k]; throw e; })); };
+  function setRoads(on) { gRoads = !!on; store.set("gRoads", gRoads); if (/^g(map|terrain)$/.test(baseKey)) setBase(baseKey); }
   function gLayer(t) {
     const lyr = L.tileLayer("data:image/gif;base64,R0lGODlhAQABAAAAACw=", { maxZoom: 20, maxNativeZoom: t === "terrain" ? 15 : 20, attribution: "" });
     gSession(t).then(s => { lyr._gs = s; lyr._gt = t; lyr.setUrl(`${GT}v1/2dtiles/{z}/{x}/{y}?session=${s}&key=${GKEY}`); gCopy(); })
@@ -2109,7 +2112,7 @@ const map = (function () {
   $("#zout").onclick = () => lm.zoomOut();
   $("#zfit").onclick = () => te.on ? teFit() : state.route ? fit(routedLL(state.route.key) || state.route.path) : fitAll();
   new ResizeObserver(() => { if (!$("#v-karta").hidden) resize(); }).observe(el);
-  return { resize, updateMarkers, focus, fit, fitAll, fitMatches, render, setBase, get baseKey() { return baseKey; }, BASES, lm, tourLayer, setHikeTiles, setFocus, get hikeOn() { return hikeOn; } };
+  return { resize, updateMarkers, focus, fit, fitAll, fitMatches, render, setBase, setRoads, get roads() { return gRoads; }, get baseKey() { return baseKey; }, BASES, lm, tourLayer, setHikeTiles, setFocus, get hikeOn() { return hikeOn; } };
 })();
 
 
@@ -2603,7 +2606,7 @@ function overlaySVG(toS, s) {
 function renderLayerPanel() {
   const R = RACES[tdfState.race], ys = [...curYears()].sort((a, b) => b - a);
   const row = (k, label, sw) => `<label class="lrow"><input type="checkbox" data-layer="${k}" ${OV[k] ? "checked" : ""}><span class="lsw" style="${sw}"></span>${label}</label>`;
-  $("#layerPanel").innerHTML = `<div class="eyebrow">${_t(`Bakgrundskarta`)}</div><div class="lbase">${Object.entries(map.BASES).map(([k, b]) => `<label class="lrow"><input type="radio" name="lbase" data-base value="${k}" ${k === map.baseKey ? "checked" : ""}>${b[0]}</label>`).join("")}</div><div class="eyebrow">${_t(`Visa på kartan`)}</div>
+  $("#layerPanel").innerHTML = `<div class="eyebrow">${_t(`Bakgrundskarta`)}</div><div class="lbase">${Object.entries(map.BASES).map(([k, b]) => `<label class="lrow"><input type="radio" name="lbase" data-base value="${k}" ${k === map.baseKey ? "checked" : ""}>${b[0]}</label>`).join("")}</div>${/^g(map|terrain)$/.test(map.baseKey) ? `<label class="lrow"><input type="checkbox" data-groads ${map.roads ? "checked" : ""}><span class="lsw" style="background:#9aa3a6"></span>${_t(`Visa vägar`)}</label>` : ""}<div class="eyebrow">${_t(`Visa på kartan`)}</div>
     ${row("rundor", _t("Cykelrundor (") + RUNDOR.routes.length + ")", "background:#2e7d32")}
     ${row("etapper", _t("Proffsetapper"), "background:#c4242c")}
     <div class="lsub"><select id="layerRace" aria-label="${_t(`Lopp`)}">${RKEYS.map(r => `<option value="${r}" ${r === tdfState.race ? "selected" : ""}>${esc(RACES[r].name)}</option>`).join("")}</select>
@@ -2618,6 +2621,7 @@ function renderLayerPanel() {
 document.addEventListener("change", e => {
   if (e.target.matches("[data-hiketiles], [data-layer]") && state.route && state.route.focus) { state.route.focus = false; map.setFocus(false); }
   if (e.target.matches("[data-hiketiles]")) map.setHikeTiles(e.target.checked);
+  if (e.target.matches("[data-groads]")) map.setRoads(e.target.checked);
   if (e.target.matches("[data-layer]")) { OV[e.target.dataset.layer] = e.target.checked; saveOV(); renderLayerPanel(); map.render(); }
   if (e.target.id === "layerRace") { tdfState.race = e.target.value; store.set("tdfRace", tdfState.race); OV.etapper = true; saveOV(); renderLayerPanel(); map.render(); }
 });
@@ -2706,7 +2710,7 @@ document.addEventListener("click", e => {
   const c = routedFull(key); if (!c) return;
   const it = ovItem(key) || {}; gpxDownload(it.r ? it.r.name : it.s ? `${RACES[it.s.race].name} ${it.s.year} ${_t(`etapp`)} ${it.s.stage}` : key, c);
 });
-document.addEventListener("change", e => { if (e.target.matches("[data-base]")) map.setBase(e.target.value); });
+document.addEventListener("change", e => { if (e.target.matches("[data-base]")) { map.setBase(e.target.value); renderLayerPanel(); } });
 
 /* ---------- "Visa på kartan" för det man valt under Cykling ---------- */
 const SELICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>';
