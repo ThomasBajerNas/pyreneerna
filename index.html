@@ -13,7 +13,7 @@
 :root{
   --bg:#e9edeb; --surface:#fbfcfb; --surface-2:#f1f4f2; --ink:#18262b; --muted:#56666b; --line:#cdd6d3;
   --accent:#0d6b6e; --accent-ink:#ffffff; --focus:#0d6b6e;
-  --c-stad:#3b5a86; --c-tdf:#c4242c; --c-spa:#0b8a8c; --c-borg:#94642a; --c-natur:#3f7a35; --c-grotta:#6b5579; --c-bad:#2277b8; --c-vatten:#4659b8;
+  --c-stad:#3b5a86; --c-tdf:#c4242c; --c-spa:#0b8a8c; --c-borg:#94642a; --c-natur:#3f7a35; --c-grotta:#6b5579; --c-bad:#2277b8; --c-vatten:#4659b8; --c-varldsarv:#9a7b0a;
   --sign-bg:#ffffff; --sign-ink:#111111;
   --note:#fff7d6; --note-ink:#3a3320; --note-line:#e8d98f;
   --mapbg:#e5e3df; --map-filter:none; --lbl:#1b2528; --lbl-halo:#ffffff;
@@ -26,7 +26,7 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0f1719; --surface:#162226; --surface-2:#1c2a2e; --ink:#e4ecea; --muted:#9aaba9; --line:#2c3d41;
   --accent:#4fc2c1; --accent-ink:#06282a; --focus:#7fdad8;
-  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2;
+  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a;
   --sign-bg:#f4f4f2; --sign-ink:#111111;
   --note:#2c2a1d; --note-ink:#ece2b8; --note-line:#4d4628;
   --mapbg:#1b2224; --map-filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.95); --lbl:#f1f5f4; --lbl-halo:#0f1719;
@@ -35,7 +35,7 @@
 :root[data-theme="dark"]{
   --bg:#0f1719; --surface:#162226; --surface-2:#1c2a2e; --ink:#e4ecea; --muted:#9aaba9; --line:#2c3d41;
   --accent:#4fc2c1; --accent-ink:#06282a; --focus:#7fdad8;
-  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2;
+  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a;
   --sign-bg:#f4f4f2; --sign-ink:#111111;
   --note:#2c2a1d; --note-ink:#ece2b8; --note-line:#4d4628;
   --mapbg:#1b2224; --map-filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.95); --lbl:#f1f5f4; --lbl-halo:#0f1719;
@@ -618,6 +618,18 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
   .tp-head{padding-top:6px}
   .tour-panel.min{max-height:none}
 }
+
+/* Världsarv */
+.mk.whs .pin{box-shadow:0 0 0 2.5px var(--c-varldsarv),0 1px 4px rgba(0,0,0,.4)}
+.whsbox{border:1px solid var(--line);border-top:4px solid var(--c-varldsarv);border-radius:var(--r);padding:12px 14px 14px;display:grid;gap:10px;background:var(--surface)}
+.whsbox .eyebrow{color:var(--c-varldsarv);display:flex;align-items:center;gap:6px}
+.whsbox .eyebrow svg{width:16px;height:16px}
+.whsbox h3{margin:0;font-size:18px;line-height:1.25;text-wrap:balance}
+.whsbox p{margin:0;font-size:15px}
+.whsbox .links{margin:0}
+.whsparts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.gallery .credit{position:absolute;right:6px;top:6px;max-width:calc(100% - 12px);background:rgba(0,0,0,.55);color:#fff;font-size:10.5px;padding:2px 6px;border-radius:4px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gallery .credit:hover{text-decoration:underline}
 </style>
 
 <div class="app">
@@ -638,7 +650,6 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
           <label class="sr" for="q1">Sök resmål</label>
           <input class="search" id="q1" data-search type="search" placeholder="Sök – t.ex. Foix, bad, katar …" autocomplete="off">
           <div class="filters" role="group" aria-label="Kategorier"></div>
-          <label class="toggle"><input type="checkbox" id="o1" data-only14> Visa bara resmålen från 2014 (nr 1–29)</label>
         </div>
         <div class="side-list" id="sideList"></div>
       </aside>
@@ -670,7 +681,6 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
           <div><label class="sr" for="q2">Sök resmål</label><input class="search" id="q2" data-search type="search" placeholder="Sök resmål …" autocomplete="off"></div>
           <div class="filters" role="group" aria-label="Kategorier"></div>
         </div>
-        <label class="toggle"><input type="checkbox" id="o2" data-only14> Visa bara resmålen från 2014</label>
         <div id="cards" style="display:grid;gap:30px"></div>
       </div>
     </section>
@@ -1298,6 +1308,228 @@ const PLACES = [
     links: [W("en", "Cirque de Troumouse")] },
 ];
 
+/* ---------- Världsarv (UNESCO) i södra Frankrike, Pyrenéerna och Andorra ----------
+   Fakta kontrollerade mot UNESCO:s världsarvslista och Frankrikes kulturministerium, oktober 2026.
+   Foton: fritt licensierade bilder från Wikimedia Commons (fotograf och licens anges vid varje bild). */
+const WHS = {
+  345: { name: "Den befästa historiska staden Carcassonne", year: "1997", type: "kultur", crit: "ii, iv",
+    desc: "Europas största bevarade medeltida befästa stad: tre kilometer dubbla ringmurar med 52 torn, borgen Château Comtal och basilikan Saint-Nazaire. Arkitekten Viollet-le-Duc restaurerade staden på 1800-talet, och hans restaurering är i sig en del av världsarvet.",
+    visit: "Gatorna i La Cité är fria att gå i. Borgen och vallgången på ringmuren kräver biljett. Kom tidigt på morgonen eller efter klockan 18 när dagsturisterna åkt – murarna lyses upp på kvällen.",
+    site: ["Château et remparts de Carcassonne", "https://www.remparts-carcassonne.fr/"] },
+  1755: { name: "Kungliga capetingiska fästningar i Languedoc", year: "2026", type: "kultur", crit: "iv",
+    desc: "Åtta fästningar som de franska kungarna byggde eller byggde om på 1200- och 1300-talet efter albigenserkorståget, för att hålla gränsen mot kungariket Aragonien: borgen i Carcassonne och sju vaktposter på klippkammar – Aguilar, Lastours, Montségur, Peyrepertuse, Puilaurens, Quéribus och Termes. De kallas ofta katarborgar, men murarna man ser i dag är till största delen kungens, byggda efter katarernas fall. Världsarv sedan juli 2026.",
+    visit: "Alla borgarna har entréavgift och ligger på branta toppar – räkna med 15–45 minuters promenad uppför i sol och vind. Peyrepertuse och Quéribus kan stängas när tramontanen blåser hårt.",
+    site: ["Forteresses royales du Languedoc", "https://forteressesroyalesdulanguedoc.fr/"] },
+  770: { name: "Canal du Midi", year: "1996", type: "kultur", crit: "i, ii, iv, vi",
+    desc: "Den 240 kilometer långa kanalen från Toulouse till Étang de Thau grävdes 1666–1681 under ledning av Pierre-Paul Riquet och var en av sin tids största ingenjörsbedrifter: 63 slussar, akvedukter, en tunnel och dammar i Montagne Noire som förser kanalen med vatten. Tillsammans med Garonnekanalen binder den ihop Atlanten och Medelhavet.",
+    visit: "Dragvägen längs kanalen passar perfekt för cykel – långa sträckor är asfalterade eller packat grus. Man kan hyra kanalbåt utan båtkörkort. Missa inte slusstrappan i Fonserannes vid Béziers.",
+    site: ["Voies navigables de France", "https://www.vnf.fr/"] },
+  344: { name: "Pont du Gard (romersk akvedukt)", year: "1985", type: "kultur", crit: "i, ii, iv",
+    desc: "Tre våningar valvbågar, 49 meter hög och 275 meter lång, byggd omkring år 50 e.Kr. som en del av den 50 kilometer långa akvedukten som förde vatten från Uzès till Nîmes. Den högsta romerska akvedukt som finns bevarad.",
+    visit: "Parkeringen ingår i entrén, som också ger tillträde till museet. Bada i floden Gardon nedanför bron på sommaren, och kom tillbaka på kvällen när bron är upplyst.",
+    site: ["Pont du Gard", "https://pontdugard.fr/"] },
+  1337: { name: "Biskopsstaden Albi", year: "2010", type: "kultur", crit: "iv, v",
+    desc: "Den gamla staden vid floden Tarn är byggd i rött tegel. Mitt i den reser sig katedralen Sainte-Cécile, världens största tegelbyggnad, uppförd som en fästning efter katarkrigen, och bredvid ligger biskopspalatset Palais de la Berbie med Toulouse-Lautrec-museet.",
+    visit: "Se katedralen och Pont Vieux från andra sidan floden i kvällsljus. Interiören i katedralen är helt målad och gratis att se; koret kostar en liten avgift.",
+    site: ["Albi Tourisme", "https://www.albi-tourisme.fr/"] },
+  1153: { name: "Causses och Cevennerna", year: "2011", type: "kultur", crit: "iii, v",
+    desc: "Ett bergigt kulturlandskap format av tre tusen år av herdeliv och fäbodbruk: kalkplatåer (causses), djupa raviner och skogsklädda Cevennerberg med stenbyar, fårvägar och fårfållor. Fåren vandrar fortfarande mellan sommar- och vinterbete.",
+    visit: "Kör eller cykla över Causse Méjean och ned genom Gorges du Tarn. Florac och Millau är bra utgångspunkter.",
+    site: ["Causses & Cévennes", "https://www.causses-et-cevennes.fr/"] },
+  773: { name: "Pyrénées – Mont Perdu", year: "1997 (utökat 1999)", type: "blandat", crit: "iii, iv, v, vii, viii",
+    desc: "Ett gränsöverskridande världsarv runt toppen Monte Perdido (3 355 m): på franska sidan de jättelika cirkusdalarna Gavarnie, Estaubé och Troumouse, på spanska sidan några av Europas djupaste kanjoner, Ordesa och Añisclo. Det skyddas både för naturen och för det gamla herdelandskapet.",
+    visit: "Cirque de Gavarnie och Ordesadalen nås på vandringsleder från byarna Gavarnie och Torla. Till Ordesa går det bussar från Torla på sommaren – privatbil är då inte tillåten.",
+    site: ["Parc national des Pyrénées", "https://www.pyrenees-parcnational.fr/"] },
+  1283: { name: "Vaubans fästningsverk", year: "2008", type: "kultur", crit: "i, ii, iv",
+    desc: "Tolv befästningar längs Frankrikes gränser som militäringenjören Vauban ritade åt Ludvig XIV. I Pyrenéerna ingår murstaden Villefranche-de-Conflent med Fort Libéria och citadellstaden Mont-Louis, Frankrikes högst belägna befästa stad.",
+    visit: "Villefranche och Mont-Louis ligger längs linjen för det gula tåget, Train Jaune – ta tåget mellan dem.",
+    site: ["Réseau Vauban", "https://www.sites-vauban.org/"] },
+  868: { name: "Pilgrimsvägarna till Santiago de Compostela i Frankrike", year: "1998", type: "kultur", crit: "ii, iv, vi",
+    desc: "71 kyrkor, kloster, broar och hospital längs de fyra franska pilgrimsvägarna till Santiago de Compostela, plus sju sträckor av själva leden. I guidens område ingår bland annat Saint-Sernin i Toulouse, katedralerna i Saint-Bertrand-de-Comminges, Saint-Lizier och Oloron, Porte Saint-Jacques i Saint-Jean-Pied-de-Port samt klostren i Moissac, Conques och Saint-Guilhem-le-Désert.",
+    visit: "Vandra en dagsetapp på GR 65 eller GR 653 – musselsymbolen visar vägen. Saint-Jean-Pied-de-Port är startpunkten för de flesta som går Camino Francés över Pyrenéerna.",
+    site: ["Agence des chemins de Compostelle", "https://www.chemins-compostelle.com/"] },
+  1569: { name: "Maison Carrée i Nîmes", year: "2023", type: "kultur", crit: "iv",
+    desc: "Ett av de bäst bevarade romerska templen i världen, byggt omkring år 2–4 e.Kr. till minne av kejsar Augustus barnbarn. Templet har använts utan avbrott i två tusen år och inspirerade senare byggnader som Madeleinekyrkan i Paris.",
+    visit: "Ett kombinerat pass ger entré till Maison Carrée, amfiteatern Arènes och Tour Magne. Inne i templet visas en kortfilm om Nîmes historia.",
+    site: ["Nîmes Romaine", "https://www.arenes-nimes.com/"] },
+  164: { name: "Arles, romerska och romanska monument", year: "1981", type: "kultur", crit: "ii, iv",
+    desc: "Amfiteatern, antika teatern, kryptoportikerna, Konstantins termer och gravfältet Alyscamps från romartiden, plus kyrkan Saint-Trophime med sin berömda portal och klostergång från medeltiden.",
+    visit: "Ett gemensamt pass gäller för alla monument. Van Gogh målade här 1888 – leta upp platserna i staden.",
+    site: ["Arles Tourisme", "https://www.arlestourisme.com/"] },
+  228: { name: "Avignons historiska centrum", year: "1995", type: "kultur", crit: "i, ii, iv",
+    desc: "Påvarnas residens på 1300-talet: Palais des Papes, världens största gotiska palats, ärkebiskopsensemblet, ringmuren och den halva bron Pont Saint-Bénézet – ”Sur le pont d’Avignon”.",
+    visit: "Köp kombinerad biljett till palatset och bron. Teaterfestivalen i juli fyller staden – boka boende tidigt.",
+    site: ["Palais des Papes", "https://www.palais-des-papes.com/"] },
+  163: { name: "Den antika teatern och triumfbågen i Orange", year: "1981", type: "kultur", crit: "iii, vi",
+    desc: "En av de bäst bevarade romerska teatrarna, med sin 103 meter långa och 37 meter höga scenvägg intakt – Ludvig XIV kallade den ”den vackraste muren i mitt kungarike”. Triumfbågen från Augustus tid står vid den gamla romerska vägen norrut.",
+    visit: "Operafestivalen Chorégies d’Orange spelar i teatern på sommarkvällarna. Utsikten från kullen Colline Saint-Eutrope ovanför teatern är gratis.",
+    site: ["Théâtre antique d’Orange", "https://www.theatre-antique.com/"] },
+  1635: { name: "Nice, Rivierans vinterkurort", year: "2021", type: "kultur", crit: "ii",
+    desc: "Från mitten av 1700-talet gjorde det milda vinterklimatet Nice till en kurort för Europas överklass. Världsarvet omfattar stadsdelarna som växte fram för vintergästerna, med Promenade des Anglais, villor, hotellpalats och parker.",
+    visit: "Gå Promenade des Anglais till Colline du Château för utsikten, och vidare till gamla staden Vieux Nice.",
+    site: ["Explore Nice Côte d’Azur", "https://www.explorenicecotedazur.com/"] },
+  258: { name: "Golfe de Porto på Korsika: Calanche de Piana, Golfe de Girolata och Scandolareservatet", year: "1983", type: "natur", crit: "vii, viii, ix",
+    desc: "Röda porfyrklippor som stupar rakt i havet, med vridna klippformationer (calanche), havsgrottor och ett av Medelhavets rikaste marina reservat vid Scandola.",
+    visit: "Scandola når man bara med båt – turer går från Porto och Calvi. Vägen genom Calanche de Piana är smal och slingrig men en av Europas vackraste.",
+    site: ["Visit Corsica", "https://www.visit-corsica.com/"] },
+  1256: { name: "Bordeaux, Månens hamn", year: "2007", type: "kultur", crit: "ii, iv",
+    desc: "Hamnstaden vid Garonnes halvmåneformade krök, med en enhetlig 1700-talsstad i ljus kalksten längs kajerna – Place de la Bourse, Grand Théâtre och kilometervis av fasader.",
+    visit: "Miroir d’eau framför Place de la Bourse är världens största reflekterande vattenspegel – gå dit i skymningen.",
+    site: ["Bordeaux Tourisme", "https://www.bordeaux-tourisme.com/"] },
+  932: { name: "Saint-Émilions jurisdiktion", year: "1999", type: "kultur", crit: "iii, iv",
+    desc: "Vinbyn och de åtta socknarna runt omkring, där romarna började odla vin. Landskapet med vingårdar, slott och den underjordiska monolitkyrkan visar en levande vintradition sedan medeltiden.",
+    visit: "Monolitkyrkan visas bara med guide från turistbyrån. Många châteaux tar emot för provning – boka i förväg.",
+    site: ["Saint-Émilion Tourisme", "https://www.saint-emilion-tourisme.com/"] },
+  1625: { name: "Fyren Cordouan", year: "2021", type: "kultur", crit: "i, iv",
+    desc: "”Havets Versailles”: en renässansfyr från 1611 på ett skär i Girondes mynning, med kapell och kungliga våningar inuti. Den är fortfarande i drift.",
+    visit: "Båtar går från Le Verdon-sur-Mer och Royan när tidvattnet tillåter – sista biten går man till fots över revet. 301 trappsteg upp till toppen.",
+    site: ["Phare de Cordouan", "https://www.phare-de-cordouan.fr/"] },
+  85: { name: "Förhistoriska platser och målade grottor i Vézèredalen", year: "1979", type: "kultur", crit: "i, iii",
+    desc: "147 förhistoriska fyndplatser och 25 målade grottor, bland dem Lascaux med sina 17 000 år gamla målningar av hästar, uroxar och hjortar. Les Eyzies kallas ”förhistoriens huvudstad”.",
+    visit: "Originalgrottan Lascaux är stängd sedan 1963. Den fullständiga kopian Lascaux IV vid Montignac är mycket väl gjord. Font-de-Gaume i Les Eyzies har äkta målningar men få platser – boka i förväg.",
+    site: ["Lascaux", "https://www.lascaux.fr/"] },
+  1426: { name: "Den målade grottan vid Pont d’Arc (Chauvetgrottan), Ardèche", year: "2014", type: "kultur", crit: "i, iii",
+    desc: "Världens äldsta kända figurativa grottmålningar, omkring 36 000 år gamla: lejon, noshörningar, mammutar och hästar målade med träkol. Grottan upptäcktes 1994 och är stängd för allmänheten.",
+    visit: "Kopian Grotte Chauvet 2 i Vallon-Pont-d’Arc återskapar grottan i full skala. Kombinera med naturbågen Pont d’Arc över floden Ardèche.",
+    site: ["Grotte Chauvet 2", "https://www.grottechauvet2ardeche.com/"] },
+  1321: { name: "Le Corbusiers arkitektur", year: "2016", type: "kultur", crit: "i, ii, vi",
+    desc: "17 byggnader i sju länder som visar Le Corbusiers modernism. I södra Frankrike ingår bostadshuset Unité d’habitation – Cité radieuse – i Marseille (1952) och hans lilla fritidsstuga Cabanon vid Roquebrune-Cap-Martin.",
+    visit: "I Cité radieuse finns hotell, restaurang och en takterrass med konstcenter som är öppen för besökare.",
+    site: ["Fondation Le Corbusier", "https://www.fondationlecorbusier.fr/"] },
+  1133: { name: "Urgamla bokskogar i Karpaterna och andra delar av Europa", year: "2007 (Massane 2021)", type: "natur", crit: "ix",
+    desc: "En europeisk serie av orörda bokskogar. Massaneskogen i Albèresbergen ovanför Argelès-sur-Mer är en av Frankrikes delar: en av de sydligaste urskogarna av bok i Europa, nära Medelhavet.",
+    visit: "Skogen är ett strikt naturreservat. Vandra dit från Col de l’Ouillat eller Argelès och håll dig på stigarna.",
+    site: ["Pyrénées-Orientales turism", "https://www.tourisme-pyreneesorientales.com/"] },
+  1160: { name: "Madriu-Perafita-Claror-dalen", year: "2004 (utökat 2006)", type: "kultur", crit: "v",
+    desc: "En glaciärdal i Andorra utan vägar, där herdar, skogsbruk och järnframställning har format landskapet i tusen år. Den täcker nästan en tiondel av landet.",
+    visit: "Vandringsleder börjar i Escaldes-Engordany. Det finns obevakade stugor (refugis) för övernattning.",
+    site: ["Visit Andorra", "https://visitandorra.com/"] },
+  988: { name: "Katalanska romanska kyrkor i Vall de Boí", year: "2000", type: "kultur", crit: "ii, iv",
+    desc: "Nio små romanska kyrkor från 1000- och 1100-talen i en bergsdal, med smala klocktorn i lombardisk stil. Kalkmålningarna från Sant Climent de Taüll finns i dag i museet MNAC i Barcelona, och i kyrkan visas de med ljusprojektion.",
+    visit: "Köp kombinerad biljett på Centre del Romànic i Erill la Vall. Klättra upp i klocktornen i Taüll och Erill la Vall för utsikten.",
+    site: ["Centre del Romànic de la Vall de Boí", "https://www.centreromanic.com/"] },
+};
+const _CW = "https://commons.wikimedia.org/wiki/";
+const WPH = {   // [fil på Wikimedia Commons, fotograf, licens]
+  carcassonne: [["1_carcassonne_aerial_2016.jpg", "Chensiyuan", "CC BY-SA 4.0"], ["Ramparts of the historic fortified city of Carcassone 08.jpg", "Krzysztof Golik", "CC BY-SA 4.0"], ["Ciudadela, Carcasona, Francia, 2023-01-07, DD 216-218 HDR.jpg", "Diego Delso", "CC BY-SA 4.0"]],
+  montsegur: [["Château_de_Montségur_-_vue_aérienne.jpg", "MDanis", "CC BY-SA 3.0"]],
+  peyrepertuse: [["Châteaux du Pays cathare - Château de Peyrepertuse - 02.jpg", "H. Zell", "CC BY-SA 3.0"], ["Châteaux du Pays cathare - Château de Peyrepertuse - 20.jpg", "H. Zell", "CC BY-SA 3.0"]],
+  queribus: [["130610-Queribus-03.jpg", "BlueBreezeWiki", "CC BY-SA 3.0"]],
+  puilaurens: [["Château_de_Puilaurens_-_Plan_large.jpg", "Guillaume Paumier", "CC BY 2.5"], ["Ch_Puylaurens_(11).jpg", "Jcb-caz-11", "CC BY-SA 4.0"]],
+  lastours: [["France_-_Château_de_Lastours2.jpg", "Pinpin", "CC BY-SA 3.0"], ["France-Château_de_Lastours3.jpg", "Pinpin", "CC BY-SA 3.0"]],
+  aguilar: [["ChateaudAguilar.jpg", "Hien Le", "CC BY 2.0"], ["100520-Aguilar-01.jpg", "BlueBreezeWiki", "CC BY-SA 3.0"]],
+  termes: [["Le_château_et_le_village_de_Termes_(Aude)_vus_depuis_l'Est.jpg", "OlivierDeTermes", "CC BY-SA 3.0"], ["Château_de_Termes_vu_depuis_l'ouest.jpg", "OlivierDeTermes", "CC BY-SA 3.0"]],
+  gavarnie: [["Cirque_de_Gavarnie,_Haute-Pyrénées,_France.jpg", "Benh LIEU SONG", "CC BY-SA 2.0"], ["Cirque_de_Gavarnie-Photochrom-Restored.jpg", "Photochrom, okänd fotograf", "Public domain"]],
+  troumouse: [["Troumouse-Cirque-Pano.jpg", "Jean-Christophe BENOIST", "CC BY 3.0"], ["Cirque de Troumouse, Pyrenees, France.jpg", "Pimlico27", "CC BY-SA 4.0"]],
+  ordesa: [["WLE_-_2020_-_Parque_nacional_de_Ordesa_y_Monte_Perdido_-_01.jpg", "Moahim", "CC BY-SA 4.0"], ["Cirque_de_Cotatuero,_Ordesa_y_Monte_Perdido_National_Park,_Spain.jpg", "Heparina1985", "CC BY-SA 4.0"]],
+  boi: [["Catalan_Romanesque_Churches_of_the_Vall_de_Boí-113981.jpg", "Yvon Fruneau / UNESCO", "CC BY-SA 3.0 IGO"], ["Cardet_Santa_María_4825.JPG", "Reinhardhauke", "CC BY-SA 3.0"], ["Durro_-_Iglesia_de_la_Nativitat.jpg", "Xavigivax", "CC BY-SA 3.0"]],
+  "saint-bertrand": [["110_St-Bertrand-de-Comminges.JPG", "B25es", "Public domain"], ["Cathédrale_Saint-Bertrand_de_Comminges-Eglise_en_bois.JPG", "Jean-Christophe BENOIST", "CC BY 3.0"]],
+  toulouse: [["Basilique_Saint-Sernin_de_Toulouse_-_exposition_ouest-1-.jpg", "Didier Descouens", "CC BY-SA 4.0"]],
+  villefranche: [["Villefranche-de-Conflent_10.jpg", "H. Zell", "CC BY-SA 3.0"]],
+  "mont-louis": [["Mont-Louis (2).jpg", "Alberto-g-rovi", "CC BY 3.0"], ["Mont-Louis - Fortifications Porte de France.jpg", "MOSSOT", "CC BY-SA 4.0"]],
+  "canal-midi": [["Bridge_over_Canal_du_Midi.jpg", "Peter Gugerell", "CC BY 2.5"], ["Aqueduct_Agent-Double_from_the_towpath_(Nancy).JPG", "Nancy", "CC BY-SA 3.0"]],
+  "pont-canal-orb": [["Pont-canal_de_l'Orb004.JPG", "Tournasol7", "CC BY-SA 3.0"]],
+  nimes: [["Maison_Carree_in_Nimes_(16).jpg", "Krzysztof Golik", "CC BY-SA 4.0"], ["La_Maison_carrée.JPG", "Aoudot25", "CC BY-SA 3.0"]],
+  "pont-du-gard": [["Pont_du_Gard_BLS.jpg", "Benh LIEU SONG", "CC BY-SA 3.0"], ["Pont-de-gard-clerisseau-1804.jpg", "Charles-Louis Clérisseau (1804)", "Public domain"]],
+  "saint-lizier": [["Saint Lizier-Notre Dame de la Sède et les remparts-20150501.jpg", "Daniel Villafruela", "CC BY-SA 4.0"], ["Saint-Lizier-_Cloître.jpg", "Olybrius", "CC BY-SA 4.0"]],
+  sjpp: [["Saint-Jean-Pied-de-Port.jpg", "Hayden Soloviev", "CC BY 4.0"], ["PorteSaint-Jacques.jpg", "Kolossus", "CC BY-SA 3.0"]],
+  oloron: [["Oloron_Ste-Marie_02.JPG", "Jean Michel Etchecolonea", "CC BY-SA 3.0"], ["Cathedrale_Sainte-Marie_Oloron_portail.jpg", "Myrabella", "CC BY-SA 3.0"]],
+  moissac: [["Cloisters_of_Moissac_Abbey.jpg", "Benh LIEU SONG", "CC BY-SA 4.0"], ["Moissac_4.jpg", "Membeth", "Public domain"]],
+  conques: [["Abbaye Sainte-Foy de Conques 03.jpg", "Krzysztof Golik", "CC BY-SA 4.0"], ["Saint Faith Abbey Church of Conques 21.jpg", "Krzysztof Golik", "CC BY-SA 4.0"]],
+  "saint-guilhem": [["Extérieur_de_l'Abbaye_de_Gellone_à_Saint_guilhem_le_désert.jpg", "Wikinicoj", "CC BY-SA 3.0"], ["Saint-Guilhem-le-Désert 2018 26.jpg", "Houss 2020", "CC BY-SA 4.0"]],
+  massane: [["Hêtraie dans la forêt de la Massane.jpg", "Pmau", "CC BY-SA 3.0"]],
+  madriu: [["Vall del Madriu 2019.jpg", "Austral Lights", "CC BY-SA 4.0"], ["Els Estanyons (Vall del Madriu).jpg", "Catalaalatac", "CC BY-SA 4.0"]],
+  albi: [["(Albi) North views of the Ste Cécile Cathedral and the Old Bridge.jpg", "Didier Descouens", "CC BY-SA 4.0"], ["Albi_Sainte-Cécile.JPG", "ByacC", "CC BY-SA 3.0"], ["(Albi) Palais de la Berbie, depuis le Vieux Pont.jpg", "Didier Descouens", "CC BY-SA 4.0"]],
+  arles: [["FranceArlesArenes_07-2010.jpg", "Rolf Süssbrich", "CC BY-SA 3.0"], ["Arles_-_2017-05-24_-_Roman_Amphitheatre_-_3804.jpg", "PierreSelim", "CC BY 3.0"]],
+  avignon: [["Avignon_Palais_des_Papes_2013.jpg", "François de Dijon", "CC BY-SA 3.0"], ["Avignon,_Palais_des_Papes_by_JM_Rosier.jpg", "Jean-Marc Rosier", "CC BY-SA 3.0"]],
+  orange: [["ORANGE_Camerone2010.jpg", "Jeanlouiszimmermann", "CC BY-SA 3.0"], ["Orange_Roemisches_Theater.jpg", "KlausF", "CC BY-SA 3.0"]],
+  nice: [["Promenade_des_Anglais_in_Nice.jpg", "Staeiou", "CC BY-SA 3.0"], ["Beach,_Nice_France.JPG", "Eric T Gunther", "CC BY-SA 3.0"]],
+  porto: [["Piana_Golfe_vu_des_Calanche.jpg", "Pierre Bona", "CC BY-SA 3.0"], ["Corse_Ota_Porto_genoese_tower_sunset.jpg", "Myrabella", "CC BY-SA 3.0"]],
+  bordeaux: [["Miroir d'eau et place de la Bourse (Bordeaux) (4).jpg", "Gzen92", "CC BY-SA 4.0"], ["Place de la Bourse et le miroir d'eau - Bordeaux 02.jpg", "Javier Perez Montes", "CC BY-SA 4.0"]],
+  "saint-emilion": [["1_Saint-Émilion_aerial_pano_2016.jpg", "Chensiyuan", "CC BY-SA 4.0"], ["1_saint-emilion_pano_2016.jpg", "Chensiyuan", "CC BY-SA 4.0"]],
+  cordouan: [["Phare de Cordouan 18.jpg", "Rémih", "CC BY-SA 4.0"], ["2014-09-27 Le Verdon, Gironde, phare de Cordouan (32).JPG", "Selvejp", "CC BY-SA 4.0"]],
+  vezere: [["Abri_Pataud_-_Les_Eyzies_de_Tayac_-_20090922.jpg", "Sémhur", "CC BY-SA 4.0"], ["Montignac-Lascaux, Vézère-47017.jpg", "Raimond Spekking", "CC BY-SA 4.0"], ["A l'intérieur de Lascaux 2, Montignac-Lascaux-47028.jpg", "Raimond Spekking", "CC BY-SA 4.0"]],
+  chauvet: [["Paintings_from_the_Chauvet_cave_(museum_replica).jpg", "HTO", "Public domain"], ["Lions_painting,_Chauvet_Cave_(museum_replica).jpg", "HTO", "Public domain"]],
+  corbusier: [["Le Corbusier, La Cité Radieuse, Marseille.jpg", "Cyril Caton", "CC BY 2.0"], ["Marseille Le Corbusier.jpg", "seier+seier", "CC BY 2.0"]],
+  causses: [["Cevennes_Florac_Mimente_depuis_Causse_Mejean.jpg", "Myrabella", "CC BY-SA 3.0"]],
+};
+/* nya resmål för världsarven (de som redan fanns i guiden märks nedan) */
+PLACES.push(
+  { id: "aguilar", name: "Château d'Aguilar", sub: "Den lägsta vaktposten, bland vinodlingarna i Corbières", cat: ["borg"], lat: 42.8906, lon: 2.7469, cc: "FR",
+    text: "Sexkantig yttre ringmur från 1200-talet på en kulle ovanför Tuchan, med utsikt över vingårdarna i Fitou och bort mot Canigou. Den mest lättbesökta av borgarna – kort promenad från parkeringen.", links: [W("fr", "Château d'Aguilar")] },
+  { id: "termes", name: "Château de Termes", sub: "Borgen som stod emot Simon de Montfort i fyra månader", cat: ["borg"], lat: 43.0022, lon: 2.5567, cc: "FR",
+    text: "Belägrades 1210 av korsfararna i fyra månader innan försvararna gav upp, sedan vattnet tagit slut. Ruinen ligger på en bergsrygg ovanför byn Termes, med de vilda ravinerna Gorges du Terminet intill.", links: [W("fr", "Château de Termes")] },
+  { id: "mont-louis", name: "Mont-Louis", sub: "Vaubans citadell på 1 600 meters höjd", cat: ["stad"], lat: 42.5092, lon: 2.1208, cc: "FR",
+    text: "Frankrikes högst belägna befästa stad, byggd 1679–1681 av Vauban för att vakta gränsen mot Spanien. Citadellet används fortfarande av armén. Här finns också världens första solugn från 1949, som går att besöka.", links: [W("sv", "Mont-Louis")] },
+  { id: "saint-lizier", name: "Saint-Lizier", sub: "Biskopsstad med två katedraler", cat: ["stad"], lat: 43.0028, lon: 1.1375, cc: "FR",
+    text: "Liten medeltida stad på en kulle ovanför Saint-Girons med romansk katedral och klostergång, biskopspalats och ett 1700-talsapotek. Del av pilgrimsvägen till Santiago.", links: [W("fr", "Saint-Lizier")] },
+  { id: "sjpp", name: "Saint-Jean-Pied-de-Port", sub: "Pilgrimernas port till Pyrenéerna", cat: ["stad"], lat: 43.1632, lon: -1.2378, cc: "FR",
+    text: "Baskisk murstad vid floden Nive där tre av pilgrimsvägarna möts innan de går över passet Roncesvalles till Spanien. Porte Saint-Jacques, där pilgrimerna kommer in i staden, är världsarv.", links: [W("sv", "Saint-Jean-Pied-de-Port")] },
+  { id: "oloron", name: "Oloron-Sainte-Marie", sub: "Romansk katedral med en av Frankrikes finaste portaler", cat: ["stad"], lat: 43.1878, lon: -0.6161, cc: "FR",
+    text: "Katedralen Sainte-Marie har en 1100-talsportal i marmor med musiker, fiskare och vinbönder ur vardagslivet. Oloron är porten till dalarna Aspe och Barétous.", links: [W("fr", "Cathédrale Sainte-Marie d'Oloron")] },
+  { id: "moissac", name: "Moissac", sub: "Klostergången och portalen i Saint-Pierre", cat: ["stad"], lat: 44.1056, lon: 1.0847, cc: "FR",
+    text: "Klostret Saint-Pierre har den äldsta bevarade historierade klostergången, från 1100, med 76 kapitäl, och en portal med Uppenbarelsebokens 24 äldste. Moissac ligger vid Garonnekanalen – fin cykling längs dragvägen.", links: [W("sv", "Moissac")] },
+  { id: "conques", name: "Conques", sub: "Abbotskyrkan Sainte-Foy i en dold dal", cat: ["stad"], lat: 44.5993, lon: 2.3979, cc: "FR",
+    text: "Medeltida by i skiffertak runt abbotskyrkan Sainte-Foy, känd för tympanonet med Yttersta domen och klosterskatten med guldstatyn av Sainte Foy. Ett av de viktigaste stoppen på pilgrimsleden från Le Puy.", links: [W("sv", "Conques")] },
+  { id: "saint-guilhem", name: "Saint-Guilhem-le-Désert", sub: "Klosterby i Héraultravinen", cat: ["stad", "natur"], lat: 43.7336, lon: 3.5489, cc: "FR",
+    text: "Klostret Gellone grundades år 804 av Guilhem, en släkting till Karl den store. Byn ligger i en trång ravin vid floden Hérault, nära Pont du Diable och grottan Clamouse.", links: [W("fr", "Saint-Guilhem-le-Désert")] },
+  { id: "massane", name: "Massaneskogen", sub: "Urskog av bok ovanför Medelhavet", cat: ["natur"], lat: 42.476, lon: 3.025, cc: "FR",
+    text: "En av Europas sydligaste urskogar av bok, i Albèresbergen mellan Argelès och spanska gränsen. Gamla, ihåliga träd får stå kvar och murkna i fred, och skogen har studerats av forskare i mer än ett halvsekel.", links: [W("fr", "Forêt de la Massane")] },
+  { id: "madriu", name: "Madriu-Perafita-Claror-dalen", sub: "Andorras vildmarksdal utan vägar", cat: ["natur"], lat: 42.4947, lon: 1.5956, cc: "AD",
+    text: "Glaciärdal med sjöar, stenmurar, fäbodar och gamla smedjor, bara en timmes promenad från Andorra la Vella. Leder från Escaldes-Engordany.", links: [W("en", "Madriu-Perafita-Claror Valley")] },
+  { id: "albi", name: "Albi", sub: "Röd tegelstad med världens största tegelkatedral", cat: ["stad"], lat: 43.9286, lon: 2.1428, cc: "FR",
+    text: "Katedralen Sainte-Cécile ser ut som en fästning utanför men är helt målad inuti, med Yttersta domen från 1400-talet. Toulouse-Lautrec föddes här – museet med världens största samling av hans verk ligger i biskopspalatset. En timme från Toulouse.", links: [W("sv", "Albi")] },
+  { id: "arles", name: "Arles", sub: "Romersk arena och Van Goghs stad", cat: ["stad"], lat: 43.6778, lon: 4.6311, cc: "FR",
+    text: "Amfiteatern från år 90 används fortfarande för föreställningar. Arles är porten till Camargue med flamingor och vita hästar.", links: [W("sv", "Arles")] },
+  { id: "avignon", name: "Avignon", sub: "Påvepalatset och bron", cat: ["stad"], lat: 43.9508, lon: 4.8075, cc: "FR",
+    text: "Påvarna regerade härifrån 1309–1377. Palatset Palais des Papes är det största gotiska palatset i världen.", links: [W("sv", "Avignon")] },
+  { id: "orange", name: "Orange", sub: "Den bäst bevarade romerska teatern", cat: ["stad"], lat: 44.1357, lon: 4.8084, cc: "FR",
+    text: "Teaterns scenvägg är intakt efter två tusen år. Staden ligger nära vinbyn Châteauneuf-du-Pape.", links: [W("sv", "Orange, Vaucluse")] },
+  { id: "nice", name: "Nice", sub: "Rivierans vinterkurort", cat: ["stad", "bad"], lat: 43.695, lon: 7.265, cc: "FR",
+    text: "Promenade des Anglais längs Baie des Anges, gamla staden och Matisse- och Chagallmuseerna.", links: [W("sv", "Nice")] },
+  { id: "porto", name: "Golfe de Porto, Korsika", sub: "Röda klippor och Scandolareservatet", cat: ["natur", "bad"], lat: 42.267, lon: 8.695, cc: "FR",
+    text: "Röda klippor i havet vid Piana, byn Girolata som bara nås till fots eller med båt, och marinreservatet Scandola.", links: [W("sv", "Golfe de Porto")] },
+  { id: "bordeaux", name: "Bordeaux", sub: "Månens hamn och vinets huvudstad", cat: ["stad"], lat: 44.8414, lon: -0.5698, cc: "FR",
+    text: "1700-talsstad i ljus kalksten längs Garonne, med vinmuseet Cité du Vin. Bra startpunkt för Saint-Émilion och för cykelleden Canal des Deux Mers längs Garonne mot Toulouse.", links: [W("sv", "Bordeaux")] },
+  { id: "saint-emilion", name: "Saint-Émilion", sub: "Vinby med underjordisk kyrka", cat: ["stad"], lat: 44.8936, lon: -0.1547, cc: "FR",
+    text: "Medeltida by bland vingårdarna, med en monolitkyrka uthuggen i berget på 1100-talet. 40 minuter från Bordeaux.", links: [W("sv", "Saint-Émilion")] },
+  { id: "cordouan", name: "Fyren Cordouan", sub: "Havets Versailles i Girondes mynning", cat: ["natur", "bad"], lat: 45.5863, lon: -1.1735, cc: "FR",
+    text: "Renässansfyr från 1611 på ett skär ute i havet, Frankrikes äldsta fyr som fortfarande är i drift.", links: [W("sv", "Cordouan")] },
+  { id: "vezere", name: "Vézèredalen och Lascaux", sub: "Förhistoriens dal i Dordogne", cat: ["grotta"], lat: 44.9367, lon: 1.0105, cc: "FR",
+    text: "Les Eyzies med det förhistoriska nationalmuseet och grottan Font-de-Gaume, och 25 km uppströms Montignac med Lascaux IV.", links: [W("sv", "Lascaux")] },
+  { id: "chauvet", name: "Chauvetgrottan och Pont d'Arc", sub: "36 000 år gammal grottkonst", cat: ["grotta", "natur"], lat: 44.397, lon: 4.402, cc: "FR",
+    text: "Kopian Grotte Chauvet 2 visar världens äldsta kända grottmålningar. Intill välver sig naturbågen Pont d'Arc över floden Ardèche – populär för kanot.", links: [W("sv", "Chauvetgrottan")] },
+  { id: "corbusier", name: "Cité radieuse, Marseille", sub: "Le Corbusiers bostadsmaskin", cat: ["stad"], lat: 43.2617, lon: 5.3962, cc: "FR",
+    text: "Le Corbusiers 'vertikala by' från 1952 med 337 lägenheter, butiksgata, hotell och takterrass.", links: [W("sv", "Unité d'habitation")] },
+  { id: "causses", name: "Causse Méjean och Cevennerna", sub: "Herdelandskap och djupa raviner", cat: ["natur"], lat: 44.2203, lon: 3.4731, cc: "FR",
+    text: "Kalkplatån Causse Méjean mellan ravinerna Gorges du Tarn och Gorges de la Jonte, med gåsgamar och Przewalskihästar. Florac är porten till Cevennerna.", links: [W("sv", "Cevennerna")] }
+);
+/* vilka resmål som hör till vilket världsarv, och vilken del de är */
+const WHS_AT = {
+  carcassonne: [[345], [1755, "Borgen och ringmuren"]], aguilar: [[1755]], lastours: [[1755]], montsegur: [[1755]], peyrepertuse: [[1755]], puilaurens: [[1755]], queribus: [[1755]], termes: [[1755]],
+  "canal-midi": [[770]], beziers: [[770, "Slusstrappan i Fonserannes"]], "pont-canal-orb": [[770, "Kanalbron över Orb"]],
+  "pont-du-gard": [[344]], albi: [[1337]], causses: [[1153]],
+  gavarnie: [[773, "Cirque de Gavarnie"]], troumouse: [[773, "Cirque de Troumouse"]], ordesa: [[773, "Ordesa och Monte Perdido"]],
+  villefranche: [[1283, "Murstaden och Fort Libéria"]], "mont-louis": [[1283, "Citadellet och murstaden"]],
+  toulouse: [[868, "Basilikan Saint-Sernin och Hôtel-Dieu Saint-Jacques"]], "saint-bertrand": [[868, "Katedralen Notre-Dame och basilikan Saint-Just i Valcabrère"]],
+  "saint-lizier": [[868, "Katedralen, klostergången och biskopspalatset"]], sjpp: [[868, "Porte Saint-Jacques"]], oloron: [[868, "Katedralen Sainte-Marie"]],
+  moissac: [[868, "Klostret och kyrkan Saint-Pierre"]], conques: [[868, "Abbotskyrkan Sainte-Foy och bron över Dourdou"]], "saint-guilhem": [[868, "Klostret Gellone"]],
+  nimes: [[1569, "Maison Carrée"]], arles: [[164]], avignon: [[228]], orange: [[163]], nice: [[1635]], porto: [[258]], bordeaux: [[1256]], "saint-emilion": [[932]],
+  cordouan: [[1625]], vezere: [[85]], chauvet: [[1426]], corbusier: [[1321, "Unité d'habitation (Cité radieuse)"]], massane: [[1133, "Massaneskogen"]], madriu: [[1160]], boi: [[988]],
+};
+CATS.varldsarv = { label: "Världsarv (UNESCO)", short: "Världsarv" };
+for (const id in WHS_AT) {
+  const p = PLACES.find(x => x.id === id); if (!p) continue;
+  p.whs = WHS_AT[id].map(([ref, comp]) => ({ ref, comp: comp || "" }));
+  if (!p.cat.includes("varldsarv")) p.cat.push("varldsarv");
+  const ph = WPH[id] || [];
+  if (ph.length) {
+    const n0 = (p.photos || []).length;
+    p.photos = (p.photos || []).concat(ph.map(x => "cw:" + x[0]));
+    p.photoCredit = new Array(n0).fill(null).concat(ph.map(x => ({ by: x[1], lic: x[2], url: _CW + "File:" + encodeURIComponent(x[0].replace(/ /g, "_")) })));
+  }
+}
+
 const ROUTES = [
   { id: "kung", name: "Den omvända kungsetappen", sub: "Pau → Saint-Girons över fem pass", km: 330, color: "tdf",
     text: "Från 2014-guiden: sväng av vid Pau och kör Tour de France-land över alla bergspass, en så kallad omvänd kungsetapp – Col d'Aubisque, Col du Tourmalet, Col d'Aspin, Col de Peyresourde och, om man vill, Col de Portet d'Aspet. Räkna med en hel dag med fotostopp. Passen kan vara stängda vid snö utanför sommarsäsongen.",
@@ -1373,7 +1605,7 @@ const GUIDE = {
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=4"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=5"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -1381,14 +1613,14 @@ const GUIDE = {
   if (window.LANG === "sv" || !window.I18N) return;
   var D = window.I18N;
   var tr = function (s) { if (typeof s !== "string") return s; var k = s.trim(); return D[k] != null ? s.replace(k, D[k]) : s; };
-  var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
-    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/ };
+  var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips|comp)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
+    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/ };
   function walk(o, re, key) {
     if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) { if (typeof o[i] === "string") { if (key && re.test(key)) o[i] = tr(o[i]); } else walk(o[i], re, key); } return; }
     if (!o || typeof o !== "object") return;
     for (var k in o) { if (typeof o[k] === "string") { if (re.test(k)) o[k] = tr(o[k]); } else if (k !== "waypoints" && k !== "links" && k !== "photoLinks" && k !== "sources") walk(o[k], re, k); }
   }
-  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE };
+  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS };
   [TDF, VUELTA, OCC].forEach(function (x) { walk(x, ALLOW.RACE); });
   [TDF27, VUELTA27, OCC27].forEach(function (x) { walk(x, ALLOW.NEXT); });
   for (var g in G) walk(G[g], ALLOW[g]);
@@ -1419,9 +1651,10 @@ const store = {
   get(k, d) { try { const v = localStorage.getItem("pyr:" + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem("pyr:" + k, JSON.stringify(v)); } catch (e) {} },
 };
+if (!store.get("catsV2")) { const c = store.get("cats", null); if (c && !c.includes("varldsarv")) store.set("cats", [...c, "varldsarv"]); store.set("catsV2", 1); }
 const state = {
   cats: new Set((c => c.length >= 7 && !c.includes("vatten") ? [...c, "vatten"] : c)(store.get("cats", Object.keys(CATS)))),
-  only14: store.get("only14", false),
+  only14: false,
   q: "",
   trip: store.get("trip", ["foix", "montsegur", "ax", "tourmalet", "luchon"]).filter(id => BY[id] || /^(seg|tur):/.test(id)),
   notes: store.get("notes", {}),
@@ -1432,8 +1665,8 @@ const saveTrip = () => { store.set("trip", state.trip); store.set("notes", state
 
 /* ---------- helpers ---------- */
 const catColor = c => `${_t(`var(--c-`)}${c})`;
-const region = p => p.lon < 0.3 ? "vast" : p.lon < 1.95 ? "mitt" : "ost";
-const REGIONS = { vast: [_t("Väst"), _t("Baskien, Béarn och Hautes-Pyrénées")], mitt: [_t("Mitt"), _t("Comminges, Ariège och Andorra")], ost: [_t("Ost"), _t("Aude, Cerdagne, Roussillon och Medelhavet")] };
+const region = p => p.lon >= 3.4 ? "provence" : p.lat > 43.75 ? "norr" : p.lon < 0.3 ? "vast" : p.lon < 1.95 ? "mitt" : "ost";
+const REGIONS = { vast: [_t("Väst"), _t("Baskien, Béarn och Hautes-Pyrénées")], mitt: [_t("Mitt"), _t("Comminges, Ariège och Andorra")], ost: [_t("Ost"), _t("Aude, Cerdagne, Roussillon och Medelhavet")], norr: [_t("Norr"), _t("Bordeaux, Dordogne, Quercy och Tarn")], provence: [_t("Provence och Rivieran"), _t("Cevennerna, Nîmes, Provence, Rivieran och Korsika")] };
 const CC = { FR: _t("Frankrike"), ES: _t("Spanien"), AD: _t("Andorra") };
 function km(a, b) { const R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLo = (b.lon - a.lon) * r;
   const h = Math.sin(dLa / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); }
@@ -1448,7 +1681,7 @@ function badge(p, big) {
   const cls = ["badge", c === "tdf" ? "tdf" : "", p.no ? "num" : (big ? "" : "dot")].join(" ");
   return `<span class="${cls}" style="--c:${catColor(c)}" aria-hidden="true">${num}</span>`;
 }
-const img = (k, thumb) => `img/${k}${thumb ? "-t" : ""}.jpg`;
+const img = (k, thumb) => /^cw:/.test(k) ? `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(k.slice(3))}?width=${thumb ? 500 : 1280}` : `img/${k}${thumb ? "-t" : ""}.jpg`;
 function gradColor(g) { return g >= 8.5 ? "#111" : g >= 7 ? "#c62828" : g >= 5 ? "#1565c0" : "#2e7d32"; }
 function colSign(p) {
   const c = p.col; if (!c) return "";
@@ -1471,6 +1704,7 @@ const ICON = {
   dl: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>',
   bike: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9.5 9h6.5l2.5 7.5M9.5 9l3 7.5L16 9M8 6h3.5"/></svg>',
   edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg>',
+  whs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c-4 4.5-4 13.5 0 18M12 3c4 4.5 4 13.5 0 18M3.5 9h17M3.5 15h17"/></svg>',
   print: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg>',
 };
 const RIDGE = '<svg class="ridgeart" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 L0 42 L22 26 L34 34 L58 10 L76 28 L92 18 L118 40 L140 14 L160 30 L178 22 L200 36 L200 60Z" fill="#fff"/></svg>';
@@ -1518,7 +1752,7 @@ function refresh() { renderChips(); renderSideList(); map.updateMarkers(); if (c
 function renderSideList() {
   const list = PLACES.filter(matches);
   let html = "";
-  for (const r of ["vast", "mitt", "ost"]) {
+  for (const r of ["vast", "mitt", "ost", "norr", "provence"]) {
     const items = list.filter(p => region(p) === r).sort((a, b) => (a.no || 99) - (b.no || 99) || a.lon - b.lon);
     if (!items.length) continue;
     html += `<div class="group-h eyebrow">${REGIONS[r][0]} · ${items.length}</div>`;
@@ -1533,7 +1767,7 @@ const colorOf = c => String(c || "").startsWith("var(") ? cssVar(c.slice(4, -1))
 let tourHook = null;   // satt när ritverktyget för egen tur är öppet
 const map = (function () {
   const el = $("#map");
-  const lm = L.map("lmap", { zoomControl: false, minZoom: 6, maxBounds: [[40.2, -4.9], [45.3, 5.7]], maxBoundsViscosity: 0.6, tap: true, attributionControl: true });
+  const lm = L.map("lmap", { zoomControl: false, minZoom: 6, maxBounds: [[40.2, -4.9], [46.3, 10]], maxBoundsViscosity: 0.6, tap: true, attributionControl: true });
   lm.attributionControl.setPrefix(_t('<a href="https://leafletjs.com">Leaflet</a>'));
   const OSMA = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
   const BASES = {
@@ -1553,7 +1787,7 @@ const map = (function () {
   const mk = {};
   for (const p of [...PLACES, BASE]) {
     const c = p === BASE ? "stad" : p.cat[0];
-    const cls = ["mk", p === BASE ? "base" : "", c === "tdf" ? "tdf" : "", p.no ? "num" : "small"].join(" ");
+    const cls = ["mk", p === BASE ? "base" : "", c === "tdf" ? "tdf" : "", p.no ? "num" : "small", p.whs ? "whs" : ""].join(" ");
     const icon = L.divIcon({ className: "lmk", iconSize: [0, 0], iconAnchor: [0, 0],
       html: `<span class="${cls}" data-id="${p.id}" style="--c:${catColor(c)}"><span class="pin">${p === BASE ? "★" : p.no || ""}</span><span class="lbl">${esc(p === BASE ? _t("Bas") : p.name)}</span></span>` });
     const m = L.marker([p.lat, p.lon], { icon, title: p === BASE ? p.name : p.name + ", " + p.sub, keyboard: true, riseOnHover: true });
@@ -1634,7 +1868,7 @@ function openPlace(id, keepView) {
   state.sel = id; map.updateMarkers();
   if (current === "karta") map.focus(p);
   const ph = p.photos || [];
-  const gal = ph.length ? `<div class="gallery">${ph.map((k, i) => `<figure><img src="${img(k)}" alt="${esc(p.name)} ${_t(`– foto`)} ${i + 1}" loading="lazy">${p.photoCaption && p.photoCaption[i] ? `<figcaption>${esc(p.photoCaption[i])}</figcaption>` : ""}</figure>`).join("")}</div>` : "";
+  const gal = ph.length ? `<div class="gallery">${ph.map((k, i) => `<figure><img src="${img(k)}" alt="${esc(p.name)} ${_t(`– foto`)} ${i + 1}" loading="lazy">${p.photoCaption && p.photoCaption[i] ? `<figcaption>${esc(p.photoCaption[i])}</figcaption>` : ""}${p.photoCredit && p.photoCredit[i] ? `<a class="credit" href="${esc(p.photoCredit[i].url)}" target="_blank" rel="noopener">${_t(`Foto:`)} ${esc(p.photoCredit[i].by)} · ${esc(p.photoCredit[i].lic)} ${_t(`· Wikimedia Commons`)}</a>` : ""}</figure>`).join("")}</div>` : "";
   const near = PLACES.filter(q => q !== p).map(q => [q, km(p, q)]).sort((a, b) => a[1] - b[1]).slice(0, 4);
   const inTrip = state.trip.includes(id);
   const tags = (p.no ? `<span class="tag y14">${_t(`Guiden 2014 · nr`)} ${p.no}</span>` : `<span class="tag" style="--c:var(--accent)">${_t(`Nytt 2026`)}</span>`) +
@@ -1647,6 +1881,7 @@ function openPlace(id, keepView) {
     ${p.text ? `<div class="prose"><p>${esc(p.text)}</p></div>` : ""}
     ${p.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(p.tips)}</div></div>` : ""}
     ${p.tdf ? `<div class="tdfbox"><span class="eyebrow">${_t(`Tour de France`)}</span><div>${esc(p.tdf)}</div></div>` : ""}
+    ${whsBlock(p)}
     ${tdfHistory(p)}
     ${rideLikePros(p)}
     <div class="actions">
@@ -1662,6 +1897,20 @@ function openPlace(id, keepView) {
   $("#sheetBody").scrollTop = 0;
   $("#sheetClose").focus({ preventScroll: true });
   try { history.replaceState(null, "", "#p-" + id); } catch (e) {}
+}
+function whsBlock(p) {
+  if (!p.whs) return "";
+  const TY = { kultur: _t("Kulturarv"), natur: _t("Naturarv"), blandat: _t("Kultur- och naturarv") };
+  return p.whs.map(({ ref, comp }) => {
+    const w = WHS[ref]; if (!w) return "";
+    const parts = PLACES.filter(q => q !== p && q.whs && q.whs.some(x => x.ref === ref));
+    return `<div class="whsbox"><span class="eyebrow">${ICON.whs}${_t(`UNESCO:s världsarv`)}</span><h3>${esc(w.name)}</h3>
+      ${gisTable([[_t("Världsarv sedan"), esc(w.year)], [_t("Typ"), TY[w.type]], [_t("Kriterier"), esc(w.crit)], [_t("Nummer på listan"), String(ref)], [_t("Den här platsen"), comp ? esc(comp) : null]])}
+      <p>${esc(w.desc)}</p>
+      <p><b>${_t(`Besök:`)}</b> ${esc(w.visit)}</p>
+      ${parts.length ? `<div><div class="eyebrow">${_t(`Fler delar av världsarvet i guiden`)}</div><div class="whsparts">${parts.map(q => `<button class="chip" data-open="${q.id}" style="--c:var(--c-varldsarv)">${esc(short(q))}</button>`).join("")}</div></div>` : ""}
+      <ul class="links"><li><a href="https://whc.unesco.org/en/list/${ref}/" target="_blank" rel="noopener">${_t(`UNESCO:`)} ${esc(w.name)}</a></li><li><a href="https://whc.unesco.org/en/list/${ref}/gallery/" target="_blank" rel="noopener">${_t(`UNESCO:s officiella bilder`)}</a></li>${w.site ? `<li><a href="${esc(w.site[1])}" target="_blank" rel="noopener">${esc(w.site[0])} ${_t(`– officiell webbplats`)}</a></li>` : ""}</ul></div>`;
+  }).join("");
 }
 function closeSheet() {
   if ($("#sheet").hidden) return;
@@ -1684,7 +1933,7 @@ document.addEventListener("click", e => {
 function renderCards() {
   const list = PLACES.filter(matches);
   let html = "";
-  for (const r of ["vast", "mitt", "ost"]) {
+  for (const r of ["vast", "mitt", "ost", "norr", "provence"]) {
     const items = list.filter(p => region(p) === r).sort((a, b) => (a.no || 99) - (b.no || 99) || a.lon - b.lon);
     if (!items.length) continue;
     html += `<section class="region"><h3>${REGIONS[r][0]} <small>${REGIONS[r][1]} · ${items.length} ${_t(`resmål`)}</small></h3><div class="cards">${items.map(card).join("")}</div></section>`;
