@@ -1816,7 +1816,7 @@ const GUIDE = {
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=10"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=11"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -1997,7 +1997,10 @@ const map = (function () {
   };
   const hikeTiles = L.tileLayer("https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png", { maxZoom: 18, opacity: .8, attribution: _t('<a href="https://hiking.waymarkedtrails.org">Waymarked Trails</a> (CC BY-SA)') });
   let hikeOn = false;
+  let focusOn = false;
   function setHikeTiles(on) { hikeOn = !!on; store.set("hikeTiles", hikeOn); if (hikeOn) hikeTiles.addTo(lm); else lm.removeLayer(hikeTiles); }
+  /* en vald led visas ensam; övriga lager göms bara tillfälligt och kommer tillbaka när leden stängs */
+  function setFocus(on) { on = !!on; if (on === focusOn) return; focusOn = on; if (on) lm.removeLayer(hikeTiles); else if (hikeOn) hikeTiles.addTo(lm); }
   /* Googles kartbilder (Map Tiles API): en session per karttyp, copyright hämtas för det som syns */
   const GKEY = "AIzaSyAl5vv16dXTNZiqQMqbYn8c0lW531m6fuo", GT = "https://tile.googleapis.com/";
   const _gs = {}; let gAttr = "";
@@ -2024,6 +2027,7 @@ const map = (function () {
   let baseKey = BASES[store.get("base", "cyclosm")] ? store.get("base", "cyclosm") : "cyclosm", base = null;
   function setBase(k) { if (!BASES[k]) return; if (base) lm.removeLayer(base); baseKey = k; store.set("base", k); base = BASES[k][1]().addTo(lm); gCopy(); }
   setBase(baseKey);
+  if (!store.get("trailFix1", false)) { store.set("trailFix1", true); if (store.get("layers", null)) store.set("hikeTiles", true); }
   if (store.get("hikeTiles", false)) setHikeTiles(true);
 
   const mkLayer = L.layerGroup().addTo(lm), ovLayer = L.layerGroup().addTo(lm), routeLayer = L.layerGroup().addTo(lm);
@@ -2069,7 +2073,7 @@ const map = (function () {
   }
   function render() {
     ovLayer.clearLayers(); routeLayer.clearLayers();
-    if (OV) {
+    if (OV && !focusOn) {
       for (const l of ovLines()) { const g = routedLL(l.key); line(ovLayer, g || l.pts, l.color, OV.hl === l.key ? 6.5 : 4, l.key, l.title, !g || !!(ROUTED[l.key] && ROUTED[l.key].a)); }
       for (const p of ovPoints()) {
         const m = L.marker([p.lat, p.lon], { title: p.label, icon: L.divIcon({ className: "", iconSize: [24, 24], iconAnchor: [12, 12], html: `<span class="ovpt" style="background:${p.color}">${p.sym}</span>` }) });
@@ -2101,7 +2105,7 @@ const map = (function () {
   $("#zout").onclick = () => lm.zoomOut();
   $("#zfit").onclick = () => te.on ? teFit() : state.route ? fit(routedLL(state.route.key) || state.route.path) : fitAll();
   new ResizeObserver(() => { if (!$("#v-karta").hidden) resize(); }).observe(el);
-  return { resize, updateMarkers, focus, fit, fitAll, fitMatches, render, setBase, get baseKey() { return baseKey; }, BASES, lm, tourLayer, setHikeTiles, get hikeOn() { return hikeOn; } };
+  return { resize, updateMarkers, focus, fit, fitAll, fitMatches, render, setBase, get baseKey() { return baseKey; }, BASES, lm, tourLayer, setHikeTiles, setFocus, get hikeOn() { return hikeOn; } };
 })();
 
 
@@ -2222,6 +2226,7 @@ function renderRoutes() {
 }
 function setRoute(r) {
   state.route = r;
+  map.setFocus(!!(r && r.focus));
   $("#routePill").hidden = !r;
   if (r) $("#routeName").textContent = r.name;
   map.updateMarkers();
@@ -2606,6 +2611,7 @@ function renderLayerPanel() {
     <p>${_t(`Tryck på en linje eller punkt för fakta, höjdprofil och GPX. Linjerna följer vägarna (beräknade med BRouter på OpenStreetMap-data).`)}</p>`;
 }
 document.addEventListener("change", e => {
+  if (e.target.matches("[data-hiketiles], [data-layer]") && state.route && state.route.focus) { state.route.focus = false; map.setFocus(false); }
   if (e.target.matches("[data-hiketiles]")) map.setHikeTiles(e.target.checked);
   if (e.target.matches("[data-layer]")) { OV[e.target.dataset.layer] = e.target.checked; saveOV(); renderLayerPanel(); map.render(); }
   if (e.target.id === "layerRace") { tdfState.race = e.target.value; store.set("tdfRace", tdfState.race); OV.etapper = true; saveOV(); renderLayerPanel(); map.render(); }
@@ -4244,10 +4250,9 @@ function showTrail(id, btn) {
   if (btn) { btn.disabled = true; btn.textContent = _t("Hämtar leden …"); }
   trailGeo(t).then(g => {
     const pts = []; g.segs.forEach(s => s.forEach((p, i) => { if (i % 8 === 0) pts.push(p); }));
-    closeSheet(); show("karta"); map.setHikeTiles(false);
-    if (OV) { ["rundor", "etapper", "hyr", "lopp", "flyg"].forEach(k => OV[k] = false); OV.sel = null; OV.only = null; OV.hl = null; saveOV(); map.render(); }
+    closeSheet(); show("karta");
     const s0 = g.segs[0], s1 = g.segs[g.segs.length - 1];
-    requestAnimationFrame(() => setRoute({ id: "trail", name: `${t.ref} · ${t.route}`, color: TRAILCOL, w: 6, halo: true, stops: [], path: pts, multi: g.segs, solid: true, ends: [s0[0], s1[s1.length - 1]] }));
+    requestAnimationFrame(() => setRoute({ id: "trail", focus: true, name: `${t.ref} · ${t.route}`, color: TRAILCOL, w: 6, halo: true, stops: [], path: pts, multi: g.segs, solid: true, ends: [s0[0], s1[s1.length - 1]] }));
   }).catch(() => { if (btn) { btn.insertAdjacentHTML("afterend", `<span class="pl-note warn" style="margin-left:8px">${_t(`Leden kunde inte hämtas just nu. Försök igen om en stund.`)}</span>`); } })
     .finally(() => { if (btn) { btn.disabled = false; btn.innerHTML = old; } });
 }
