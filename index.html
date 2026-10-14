@@ -13,7 +13,7 @@
 :root{
   --bg:#e9edeb; --surface:#fbfcfb; --surface-2:#f1f4f2; --ink:#18262b; --muted:#56666b; --line:#cdd6d3;
   --accent:#0d6b6e; --accent-ink:#ffffff; --focus:#0d6b6e;
-  --c-stad:#3b5a86; --c-tdf:#c4242c; --c-spa:#0b8a8c; --c-borg:#94642a; --c-natur:#3f7a35; --c-grotta:#6b5579; --c-bad:#2277b8; --c-vatten:#4659b8; --c-varldsarv:#9a7b0a; --c-vandring:#7b3fa0;
+  --c-stad:#3b5a86; --c-tdf:#c4242c; --c-spa:#0b8a8c; --c-borg:#94642a; --c-natur:#3f7a35; --c-grotta:#6b5579; --c-bad:#2277b8; --c-vatten:#4659b8; --c-varldsarv:#9a7b0a; --c-vandring:#7b3fa0; --c-topp:#37474f;
   --sign-bg:#ffffff; --sign-ink:#111111;
   --note:#fff7d6; --note-ink:#3a3320; --note-line:#e8d98f;
   --mapbg:#e5e3df; --map-filter:none; --lbl:#1b2528; --lbl-halo:#ffffff;
@@ -26,7 +26,7 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0f1719; --surface:#162226; --surface-2:#1c2a2e; --ink:#e4ecea; --muted:#9aaba9; --line:#2c3d41;
   --accent:#4fc2c1; --accent-ink:#06282a; --focus:#7fdad8;
-  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a; --c-vandring:#c49be0;
+  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a; --c-vandring:#c49be0; --c-topp:#b0bec5;
   --sign-bg:#f4f4f2; --sign-ink:#111111;
   --note:#2c2a1d; --note-ink:#ece2b8; --note-line:#4d4628;
   --mapbg:#1b2224; --map-filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.95); --lbl:#f1f5f4; --lbl-halo:#0f1719;
@@ -35,7 +35,7 @@
 :root[data-theme="dark"]{
   --bg:#0f1719; --surface:#162226; --surface-2:#1c2a2e; --ink:#e4ecea; --muted:#9aaba9; --line:#2c3d41;
   --accent:#4fc2c1; --accent-ink:#06282a; --focus:#7fdad8;
-  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a; --c-vandring:#c49be0;
+  --c-stad:#7d9fd1; --c-tdf:#f0575d; --c-spa:#3fc6c5; --c-borg:#d39a55; --c-natur:#7fb86e; --c-grotta:#b29bc4; --c-bad:#5fb0ea; --c-vatten:#9aa8f2; --c-varldsarv:#e2bf4a; --c-vandring:#c49be0; --c-topp:#b0bec5;
   --sign-bg:#f4f4f2; --sign-ink:#111111;
   --note:#2c2a1d; --note-ink:#ece2b8; --note-line:#4d4628;
   --mapbg:#1b2224; --map-filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.95); --lbl:#f1f5f4; --lbl-halo:#0f1719;
@@ -645,6 +645,28 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 @media (max-width:820px){.bottomnav button{font-size:10.5px;padding:6px 0}.bottomnav button svg{width:21px;height:21px}}
 
 .map-toast{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:1100;background:var(--ink);color:var(--surface);padding:8px 14px;border-radius:8px;font-size:14px;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
+.pkbars{display:grid;gap:6px;max-width:760px}
+.pkbar{display:grid;grid-template-columns:minmax(120px,190px) 1fr 64px;gap:10px;align-items:center;border:0;background:none;padding:2px 0;cursor:pointer;text-align:left;color:var(--ink);font:inherit}
+.pkbar:hover .pkn,.pkbar:focus-visible .pkn{text-decoration:underline}
+.pkn{font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pkt{position:relative;height:14px;background:color-mix(in srgb,var(--c-topp) 10%,transparent);border-radius:3px}
+.pkf{position:absolute;left:0;top:0;bottom:0;background:var(--c-topp);border-radius:3px}
+.pk3{position:absolute;top:-3px;bottom:-3px;border-left:2px dashed var(--c-tdf)}
+.pka{font-size:13px;font-variant-numeric:tabular-nums;color:var(--muted);text-align:right}
+.pk-steps{margin:8px 0 0;padding-left:20px;display:grid;gap:6px;font-size:14.5px;line-height:1.5}
+.pk-first,.pk-alt{margin:0;font-size:14px;color:var(--muted)}
+.pk-alt{margin-top:8px}
+.grades{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px 20px}
+.grade{display:grid;gap:4px;align-content:start}
+.grade .tag{justify-self:start}
+.grade p{margin:0;font-size:14.5px;line-height:1.5}
+.prose.climb{display:grid;gap:8px}
+.prose.climb .mh{font-size:20px;margin:8px 0 0}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pktab{min-width:560px}
+.pktab th{text-align:left;font-size:12.5px;color:var(--muted);font-weight:600}
+.pktab td,.pktab th{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}
+@media (max-width:560px){.pkbar{grid-template-columns:110px 1fr 58px;gap:8px}}
 </style>
 
 <div class="app">
@@ -771,11 +793,13 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
         <div class="page-head">
           <span class="eyebrow">Randonnée · Senderismo · Hiking</span>
           <h2>Vandring</h2>
-          <p>Legendariska leder som GR 10, GR 11 och HRP, katarernas leder och pilgrimsvägarna till Santiago de Compostela – med lederna på kartan och GPX. Dessutom klassiska dagsturer och historien om katarerna och albigenserkorståget.</p>
+          <p>Legendariska leder som GR 10, GR 11 och HRP, katarernas leder och pilgrimsvägarna till Santiago de Compostela – med lederna på kartan och GPX. Dessutom klassiska dagsturer, de högsta och mest legendariska topparna – Aneto, Posets, Monte Perdido, Vignemale, Montcalm och Pica d'Estats – med normalvägarna steg för steg, en guide till bergsbestigning och historien om katarerna och albigenserkorståget.</p>
         </div>
         <div class="seg sub" role="group" aria-label="Välj ämne">
           <button data-htab="leder" aria-pressed="true">Långa leder</button>
           <button data-htab="dag" aria-pressed="false">Dagsturer</button>
+          <button data-htab="toppar" aria-pressed="false">Toppar</button>
+          <button data-htab="klattring" aria-pressed="false">Bergsbestigning</button>
           <button data-htab="katar" aria-pressed="false">Katarerna</button>
         </div>
         <div id="hikeBody" style="display:grid;gap:22px"></div>
@@ -1685,6 +1709,229 @@ const HPH = {
   "beziers-stad": [["Pont Vieux et Cathédrale Saint-Nazaire de Béziers cf02.jpg", "Christian Ferrer", "CC BY-SA 4.0"]],
 };
 
+/* ---------- Toppar och bergsbestigning ----------
+   Höjder enligt Wikipedia (oktober 2026). Normalvägar och tider är ungefärliga och gäller sommarförhållanden. */
+CATS.topp = { label: "Toppar", short: "Topp" };
+PLACES.push(
+  { id: "aneto", name: "Aneto", sub: "Pyrenéernas högsta topp, 3 404 m", cat: ["topp", "natur"], lat: 42.6322, lon: 0.6578, cc: "ES",
+    text: "Pyrenéernas tak reser sig i Maladetamassivet ovanför Benasque i Aragonien. Toppen nås över Anetoglaciären och den smala klippeggen Pont de Mahomet. Från Plan de la Besurta och bergsstugan La Renclusa ser man hela massivet.",
+    links: [W("sv", "Aneto"), W("es", "Aneto")] },
+  { id: "posets", name: "Posets (Llardana)", sub: "Pyrenéernas näst högsta topp, 3 369 m", cat: ["topp", "natur"], lat: 42.6656, lon: 0.4244, cc: "ES",
+    text: "Massivet mellan dalarna Benasque och Gistaín kallas Llardana på aragonesiska. Normalvägen korsar ingen glaciär, och utsikten mot Aneto och Monte Perdido är en av de bästa i Pyrenéerna. Ingår i naturparken Posets-Maladeta.",
+    links: [W("en", "Pico Posets"), W("es", "Pico de Posets")] },
+  { id: "perdido", name: "Monte Perdido", sub: "Europas högsta kalkstensmassiv, 3 355 m", cat: ["topp", "natur"], lat: 42.6755, lon: 0.0343, cc: "ES",
+    text: "Det förlorade berget ligger mitt i nationalparken Ordesa y Monte Perdido och är en del av världsarvet Pyrénées–Mont Perdu. Från Gavarnie syns det inte – därav namnet – men från spanska sidan dominerar det Ordesadalen. Bergsstugan Góriz är utgångspunkten.",
+    links: [W("sv", "Monte Perdido"), W("es", "Monte Perdido")] },
+  { id: "maladeta", name: "Maladeta", sub: "Det förbannade berget, 3 308 m", cat: ["topp", "natur"], lat: 42.6472, lon: 0.6394, cc: "ES",
+    text: "Anetos lillebror och namngivare till hela massivet. Glaciären på nordsidan syns från Plan de la Besurta och La Renclusa. Mindre besökt än Aneto men minst lika alpin.",
+    links: [W("en", "Maladeta"), W("es", "Pico de la Maladeta")] },
+  { id: "vignemale", name: "Vignemale", sub: "Gränsens högsta topp och Russells berg, 3 298 m", cat: ["topp", "natur"], lat: 42.7767, lon: -0.1431, cc: "FR",
+    text: "Pique Longue är den högsta toppen på gränsen mellan Frankrike och Spanien. Den 800 meter höga nordväggen syns från Lac de Gaube ovanför Cauterets. Normalvägen går från Barrage d'Ossoue ovanför Gavarnie via Refuge de Bayssellance och Glacier d'Ossoue.",
+    links: [W("sv", "Vignemale"), W("fr", "Vignemale")] },
+  { id: "pic-long", name: "Pic Long", sub: "Högsta toppen helt i Frankrike, 3 192 m", cat: ["topp", "natur"], lat: 42.8011, lon: 0.1003, cc: "FR",
+    text: "I Néouvielleområdet, ovanför sjön Cap de Long, ligger den högsta toppen som är helt fransk. Den har ingen enkel vandringsväg och är ett mål för alpinister.",
+    links: [W("fr", "Pic Long")] },
+  { id: "balaitous", name: "Balaïtous", sub: "Den västligaste tretusenmetarstoppen, 3 144 m", cat: ["topp", "natur"], lat: 42.8386, lon: -0.29, cc: "FR",
+    text: "En vild granitmassiv på gränsen mellan Béarn och Aragonien, med glaciären Las Néous på franska sidan. Från spanska sidan går man från Sallent de Gállego och dammen La Sarra.",
+    links: [W("fr", "Balaïtous"), W("en", "Balaïtous")] },
+  { id: "taillon", name: "Taillón", sub: "En av de lättaste tretusentopparna, 3 144 m", cat: ["topp", "natur"], lat: 42.6942, lon: -0.0533, cc: "FR",
+    text: "Toppen ligger strax väster om Brèche de Roland ovanför Gavarnie. Den räknas som en av de lättaste tretusentopparna i Pyrenéerna och är ett bra första steg för den som vill över 3 000 meter.",
+    links: [W("fr", "Taillon (montagne)"), W("en", "Pic du Taillon")] },
+  { id: "estats", name: "Pica d'Estats", sub: "Kataloniens högsta topp, 3 143 m", cat: ["topp", "natur"], lat: 42.6672, lon: 1.3972, cc: "ES",
+    text: "Gränsen mellan Ariège och Katalonien går över toppen, som är både Kataloniens och Ariège högsta punkt. På toppen står ett järnkors. De flesta tar Montcalm samma dag.",
+    links: [W("ca", "Pica d'Estats"), W("en", "Pica d'Estats")] },
+  { id: "montcalm", name: "Montcalm", sub: "Den rundade jätten i Ariège, 3 077 m", cat: ["topp", "natur"], lat: 42.6667, lon: 1.4083, cc: "FR",
+    text: "Den östligaste tretusenmetarstoppen ligger helt i Frankrike, i slutet av Vicdessosdalen ovanför Auzat. En bred, rundad topp utan svåra passager – ihop med Pica d'Estats en klassisk tvådagarstur från Refuge du Pinet.",
+    links: [W("fr", "Pic du Montcalm"), W("en", "Montcalm Massif")] },
+  { id: "comapedrosa", name: "Comapedrosa", sub: "Andorras högsta topp, 2 942 m", cat: ["topp", "natur"], lat: 42.5914, lon: 1.4442, cc: "AD",
+    text: "Andorras högsta topp ligger i naturparken Comapedrosa ovanför Arinsal. En lång men okomplicerad vandring, med utsikt mot Pica d'Estats och Andorras dalar.",
+    links: [W("ca", "Pic de Comapedrosa"), W("en", "Comapedrosa")] },
+  { id: "ossau", name: "Pic du Midi d'Ossau", sub: "Pyrenéernas symbol, 2 884 m", cat: ["topp", "natur"], lat: 42.8431, lon: -0.4381, cc: "FR",
+    text: "Den tvåuddiga resten av en urgammal vulkan syns från hela Béarn och är Pyrenéernas mest kända siluett. Normalvägen är en riktig klättring genom tre kaminer. För den som inte klättrar är turen runt berget via Lacs d'Ayous och Refuge de Pombie en av de vackraste dagsturerna.",
+    links: [W("fr", "Pic du Midi d'Ossau"), W("en", "Pic du Midi d'Ossau")] }
+);
+const PEAKS = [
+  { id: "aneto", alt: 3404, massif: "Maladeta", country: "Aragonien, Spanien", first: "1842 – Platon de Tchihatcheff och Albert de Franqueville med guiderna Pierre Sanio, Bernard Arrazau, Pierre Redonnet och Jean Sors",
+    story: "Pont de Mahomet, den sista smala eggen före toppen, fick sitt namn av Franqueville efter en muslimsk legend om att vägen till paradiset är smal som en sabelegg. Glaciären har krympt från över 100 hektar 1981 till omkring 30 hektar 2025, och forskarna tror att Pyrenéernas glaciärer kan vara borta inom ett årtionde.",
+    grade: "PD", level: "svår", days: "2 dagar", season: "slutet av juni–september",
+    start: "Plan de la Besurta (1 900 m), ovanför Benasque – på sommaren är vägen stängd för bilar sista biten och buss går från Llanos del Hospital",
+    hut: "Refugio de La Renclusa (2 140 m)", gain: "ca 1 260 hm från stugan", time: "5–6 h upp, 9–10 h tur och retur",
+    steps: ["Dag 1: från Plan de la Besurta på en dryg timme upp till La Renclusa. Middag tidigt och tidigt i säng.",
+      "Dag 2: starta före gryningen och gå upp genom blockterrängen till Portillón Superior (ca 2 870 m), skaret genom kammen.",
+      "Ta på stegjärn och rep och gå över Anetoglaciären mot Collado de Coronas. Sprickorna är svåra att se när det ligger snö.",
+      "En brant snöbrant leder upp till förtoppen. Därifrån går man över Pont de Mahomet – en knappt 30 meter lång, luftig klippegg (II) – till toppkorset.",
+      "Samma väg ned. Var tillbaka på glaciären före middag, när snön blir blöt och åskan kommer."],
+    warn: "Glaciärtur: rep, sele, stegjärn, isyxa och hjälm. Sent på sommaren är glaciären blank is med öppna sprickor, och stenras är vanliga vid Portillón. Olyckor sker varje år – gå med bergsguide om du saknar glaciärvana.",
+    alt2: "Från söder går en väg från Vallibiernadalen via Coronas-sjöarna, med mindre glaciär men längre anmarsch." },
+  { id: "posets", alt: 3369, massif: "Posets", country: "Aragonien, Spanien", first: "1856 – engelsmannen Halkett med lokala guider",
+    story: "Äldre kartor och böcker anger 3 375 m. Toppen ligger mitt i naturparken Posets-Maladeta, och från toppen ser man över halva Pyrenéerna – från Aneto i öster till Monte Perdido i väster.",
+    grade: "F", level: "svår", days: "2 dagar", season: "juli–september",
+    start: "Espigantosa i Eristedalen (buss från Eriste på sommaren)", hut: "Refugio Ángel Orús (2 095 m)", gain: "ca 1 270 hm från stugan", time: "ca 4 h upp, 7 h tur och retur",
+    steps: ["Dag 1: från Espigantosa upp genom skogen till Refugio Ángel Orús, 2–3 timmar.",
+      "Dag 2: följ stigen mot nordväst upp i den långa rännan Canal Fonda, där snö ligger kvar långt in på sommaren.",
+      "Från toppen av rännan går man under tanden Diente de Llardana och upp längs den breda ryggen till toppen.",
+      "Samma väg ned."],
+    warn: "Ingen glaciär på normalvägen, men stegjärn och isyxa behövs så länge det ligger snö i Canal Fonda (oftast till mitten av juli).",
+    alt2: "Från norr går man från Refugio de Viadós i Gistaíndalen." },
+  { id: "perdido", alt: 3355, massif: "Monte Perdido", country: "Aragonien, Spanien", first: "1802 – guiderna Laurens och Rondo med en herde den 6 augusti, Ramond de Carbonnières själv den 10 augusti",
+    story: "Louis Ramond de Carbonnières, Pyrenéernas förste store utforskare, letade länge efter vägen upp. Glaciären på nordsidan står i dag på den internationella listan över glaciärer som har dött.",
+    grade: "F", level: "svår", days: "2 dagar", season: "juli–september",
+    start: "Pradera de Ordesa (ca 1 300 m) – buss från Torla på sommaren, privatbilar får inte köra in", hut: "Refugio de Góriz (2 190 m)", gain: "ca 1 165 hm från stugan", time: "4–5 h upp, 7–8 h tur och retur",
+    steps: ["Dag 1: genom Ordesadalen förbi vattenfallen till Circo de Soaso och Cola de Caballo, sedan brant upp till Refugio de Góriz. 4–5 timmar.",
+      "Dag 2: från Góriz upp genom kalkstensplatåerna till Lago Helado (2 980 m), den frusna sjön under toppen.",
+      "Sista biten går upp i den branta rännan La Escupidera, med grus och ofta hård snö, och vidare till toppen.",
+      "Samma väg ned. Ta det lugnt i Escupidera – de flesta olyckorna sker i nedstigningen."],
+    warn: "La Escupidera är farlig när den är isig eller snötäckt: stegjärn och isyxa ska med om det ligger snö. Góriz är mycket populär – boka i god tid.",
+    alt2: "Från Frankrike går man från Gavarnie via Refuge de Tuquerouye, en längre och mer alpin väg." },
+  { id: "maladeta", alt: 3308, massif: "Maladeta", country: "Aragonien, Spanien", first: "1817 – Friedrich Parrot med guiden Pierre Barrau",
+    story: "Namnet betyder den förbannade. 1824 föll Pierre Barrau, som hade lett den första bestigningen, ned i en spricka på Maladetaglaciären. Glaciären släppte fram hans kropp först 1931 – och då hade lokalbefolkningen länge sett massivet som förbannat.",
+    grade: "PD", level: "svår", days: "2 dagar", season: "slutet av juni–september",
+    start: "Plan de la Besurta (1 900 m), ovanför Benasque", hut: "Refugio de La Renclusa (2 140 m)", gain: "ca 1 170 hm från stugan", time: "4–5 h upp",
+    steps: ["Dag 1: som för Aneto, upp till La Renclusa.",
+      "Dag 2: från stugan över blockterrängen mot glaciären och upp över Maladetaglaciären.",
+      "Under kammen finns ofta en djup randspricka som måste passeras. Sedan klättrar man upp på kammen och längs den till toppen.",
+      "Samma väg ned."],
+    warn: "Glaciärtur med samma utrustning som Aneto. Randsprickan under kammen kan vara svår sent på säsongen.",
+    alt2: "" },
+  { id: "vignemale", alt: 3298, massif: "Vignemale", country: "Hautes-Pyrénées, Frankrike/Aragonien", first: "1837 – guiderna Henri Cazaux och Bernard Guillembert (kanske herdar redan 1792)",
+    story: "Engelskan Anne Lister från Yorkshire gjorde den första dokumenterade turistbestigningen 1838. Greve Henry Russell besteg toppen 33 gånger mellan 1861 och 1904, lät hugga ut sju grottor i berget – bland dem Villa Russell på 3 205 meter – och tillbringade en natt 1880 nedgrävd i stenar på toppen. 1889 arrenderade han toppen i 99 år för en franc om året. Nordväggens Couloir de Gaube, en av Pyrenéernas klassiska isleder, bestegs första gången 1889.",
+    grade: "PD–", level: "svår", days: "2 dagar", season: "juli–september",
+    start: "Barrage d'Ossoue (ca 1 830 m), grusväg från Gavarnie", hut: "Refuge de Bayssellance (2 651 m) – Pyrenéernas högsta bemannade bergsstuga", gain: "ca 650 hm från stugan", time: "3–3,5 h upp från stugan",
+    steps: ["Dag 1: från dammen förbi Russells grottor vid Bellevue upp till Refuge de Bayssellance, 3–4 timmar.",
+      "Dag 2: över Hourquette d'Ossoue (2 734 m) och ned på Glacier d'Ossoue.",
+      "Gå upp över glaciären mot Col de Cerbillona. Grottorna Villa Russell, Grotte des Guides och Grotte des Dames ligger i klipporna här.",
+      "Den sista biten är en kort klättring i lösa stenhällar upp till Pique Longue. Samma väg tillbaka."],
+    warn: "Glacier d'Ossoue krymper snabbt och har sprickor sent på sommaren – rep, stegjärn och isyxa behövs. Den som vill ha en lättare tretusenmetarstopp går upp på Petit Vignemale (3 032 m) direkt från Hourquette d'Ossoue.",
+    alt2: "Från Cauterets går man via Lac de Gaube och Refuge des Oulettes de Gaube under nordväggen, och upp över Hourquette d'Ossoue." },
+  { id: "pic-long", alt: 3192, massif: "Néouvielle", country: "Hautes-Pyrénées, Frankrike", first: "1890 – Henri Brulle med guiderna Célestin Passet och François Bernat-Salles",
+    story: "Henri Brulle och Célestin Passet var det stora klätterparet i Pyrenéernas guldålder i slutet av 1800-talet – samma år tog de också Couloir de Gaube på Vignemale.",
+    grade: "AD", level: "mycket svår", days: "2 dagar", season: "juli–september",
+    start: "Lac de Cap de Long, Néouvielle", hut: "", gain: "", time: "",
+    steps: ["Pic Long har ingen enkel vandringsväg: alla vägar upp är alpina leder med branta rännor, firningar och glaciärrester.",
+      "Gå med bergsguide om du inte har alpin erfarenhet. Bergsguiderna i Hautes-Pyrénées ordnar turer."],
+    warn: "För alpinister. Den som vill uppleva Néouvielle utan rep går runt sjöarna vid Lac d'Aumar.",
+    alt2: "" },
+  { id: "balaitous", alt: 3144, massif: "Balaïtous", country: "Béarn, Frankrike/Aragonien", first: "1825 – geodeterna Peytier och Hossard under kartläggningen av gränsen",
+    story: "Balaïtous är den västligaste toppen över 3 000 meter. Den kallas ofta Pyrenéernas vildaste: lång anmarsch, granit och få människor.",
+    grade: "F+", level: "svår", days: "2 dagar", season: "juli–september",
+    start: "Dammen La Sarra ovanför Sallent de Gállego (Aragonien)", hut: "Refugio de Respomuso", gain: "ca 1 000 hm från stugan", time: "ca 3 h upp",
+    steps: ["Dag 1: från La Sarra längs dalen och sjön upp till Refugio de Respomuso, 2–3 timmar.",
+      "Dag 2: förbi sjöarna upp mot sydsidan. Gran Diagonal är en lång, sned avsats tvärs över sydväggen, med lätt klättring (I).",
+      "Från avsatsen går man upp genom block till toppen.",
+      "Samma väg ned."],
+    warn: "Hjälm behövs – stenras från sällskap ovanför. Väg som går via Brecha Latour är svårare (PD, II).",
+    alt2: "Från Frankrike går man från Refuge de Larribet över glaciären Las Néous." },
+  { id: "taillon", alt: 3144, massif: "Gavarnie", country: "Hautes-Pyrénées, Frankrike/Aragonien", first: "1792",
+    story: "Taillón ligger på samma kam som Brèche de Roland, klyftan som riddaren Roland enligt legenden högg ut med sitt svärd. Turen går förbi den och ger en tretusenmetarstopp och legenden på samma dag.",
+    grade: "F", level: "svår", days: "1 dag (eller 2 med natt i Sarradets)", season: "juli–september",
+    start: "Col des Tentes (2 208 m), ovanför Gavarnie", hut: "Refuge des Sarradets (2 587 m)", gain: "ca 950 hm från Col des Tentes", time: "ca 4 h upp, 7 h tur och retur",
+    steps: ["Från Col des Tentes längs den gamla vägen till Port de Boucharo och sedan upp till Refuge des Sarradets.",
+      "Över snöfältet under Brèche de Roland upp genom klyftan (2 807 m) – utsikten ned mot Ordesa är fantastisk.",
+      "Följ stigen västerut på spanska sidan under kammen, förbi tornen Doigt och Fausse Brèche.",
+      "Sista biten upp på den breda toppen. Samma väg ned."],
+    warn: "Snöfältet under Brèche de Roland kan vara isigt – stegjärn behövs ofta fram till mitten av juli. Utan snö är turen en lång men lätt fjällvandring.",
+    alt2: "" },
+  { id: "estats", alt: 3143, massif: "Montcalm", country: "Ariège, Frankrike/Katalonien", first: "1864 – Henry Russell och Jean-Jacques Denjean",
+    story: "Toppen är både Kataloniens och Ariège högsta punkt, och den katalanska flaggan och järnkorset på toppen är populära fotomotiv.",
+    grade: "F", level: "svår", days: "2 dagar", season: "juli–september",
+    start: "L'Artigue (1 185 m), ovanför Auzat i Vicdessosdalen", hut: "Refuge du Pinet (2 225 m)", gain: "ca 920 hm från stugan", time: "ca 2,5 h upp från stugan",
+    steps: ["Dag 1: från L'Artigue brant upp till Refuge du Pinet, ca 3 timmar.",
+      "Dag 2: förbi Étang d'Estats upp mot kammen.",
+      "Antingen direkt upp genom klipporna på nordsidan (I) eller över Coll de Riufred till toppen.",
+      "Gå över till Montcalm på ca en timme och ned via Étang de Montcalm tillbaka till Pinet – en klassisk dag på 8–9 timmar."],
+    warn: "Ingen glaciär, men gott om snö fram till juli. Åska är vanlig på eftermiddagarna – var nere från kammen i tid.",
+    alt2: "Från Katalonien går man från Vall Ferrera via Port de Sotllo och Coll de Riufred." },
+  { id: "montcalm", alt: 3077, massif: "Montcalm", country: "Ariège, Frankrike", first: "1827 – geodeterna Corabœuf och Testu",
+    story: "Montcalm är den östligaste toppen över 3 000 meter i Pyrenéerna och den högsta som ligger helt i Ariège.",
+    grade: "F", level: "svår", days: "2 dagar", season: "juli–september",
+    start: "L'Artigue (1 185 m), ovanför Auzat", hut: "Refuge du Pinet (2 225 m)", gain: "ca 850 hm från stugan", time: "ca 2,5 h upp från stugan",
+    steps: ["Dag 1: från L'Artigue upp till Refuge du Pinet, ca 3 timmar.",
+      "Dag 2: via Étang de Montcalm (ca 2 560 m) och upp längs den breda ryggen till toppen.",
+      "De flesta fortsätter till Pica d'Estats och går runt."],
+    warn: "En lång dag – starta tidigt. Vid dimma är den breda toppen svår att navigera på.",
+    alt2: "" },
+  { id: "comapedrosa", alt: 2942, massif: "Comapedrosa", country: "Andorra", first: "",
+    story: "Andorras högsta topp ligger i naturparken Comapedrosa. En klar dag ser man Pica d'Estats och Montcalm i öster.",
+    grade: "T3", level: "medel", days: "1 dag", season: "juni–oktober",
+    start: "Prats Sobirans (1 575 m), ovanför Arinsal", hut: "Refugi de Comapedrosa (2 265 m)", gain: "ca 1 400 hm", time: "ca 3 h upp, 5–6 h tur och retur",
+    steps: ["Från Prats Sobirans brant upp längs bäcken till Refugi de Comapedrosa.",
+      "Vidare förbi sjön Estany Negre upp i rasbranten under toppen.",
+      "Sista biten på grus och sten till toppen. Samma väg ned."],
+    warn: "Ingen teknisk svårighet, men 1 400 höjdmeter och grus nära toppen.",
+    alt2: "" },
+  { id: "carlit", alt: 2921, massif: "Carlit", country: "Pyrénées-Orientales, Frankrike", first: "",
+    story: "Pic Carlit är den högsta toppen i Pyrénées-Orientales och tronar över platån med tolv sjöar vid Les Bouillouses.",
+    grade: "T4", level: "svår", days: "1 dag", season: "juli–september",
+    start: "Barrage des Bouillouses (2 001 m) – buss från Mont-Louis på sommaren", hut: "", gain: "ca 950 hm", time: "6–7 h runt",
+    steps: ["Förbi en rad sjöar upp mot toppens östsida.", "Den sista biten är en brant stenstig där man använder händerna.", "Ned samma väg eller runt via de tolv sjöarna."],
+    warn: "Luftigt nära toppen. Undvik vid åskväder.", alt2: "" },
+  { id: "ossau", alt: 2884, massif: "Ossau", country: "Béarn, Frankrike", first: "1797 – Guillaume Delfau med herden Mathieu (uppgifter om en bestigning 1552 är omstridda)",
+    story: "Berget är resterna av en vulkan som var aktiv för omkring 280 miljoner år sedan. Med sina två uddar är det Béarns och kanske hela Pyrenéernas symbol, och det finns också många klassiska klätterleder på de branta väggarna.",
+    grade: "PD", level: "mycket svår", days: "1–2 dagar", season: "juli–september",
+    start: "Anéou (1 730 m), nedanför Col du Pourtalet", hut: "Refuge de Pombie (2 031 m)", gain: "ca 850 hm från stugan, varav ca 550 m klättring", time: "ca 2,5 h upp från stugan",
+    steps: ["Från Anéou på ca 1,5 timme till Refuge de Pombie under sydväggen.",
+      "Från stugan över det stora blockfältet till sydsidans fot.",
+      "Den första kaminen (ca 15 m, II) och den andra (ca 30 m, II+) har borrade bultar. Den tredje är lång men lättare (I+).",
+      "Över toppens rasbrant till den högsta punkten, Grand Pic. Ned samma väg – de flesta firar ned i kaminerna."],
+    warn: "En riktig klättring: hjälm, sele och rep. Stenras från sällskap ovanför är den stora risken – det är trångt i kaminerna en vacker lördag i augusti. Gå med guide om du inte klättrar.",
+    alt2: "Vandrare går i stället runt berget: Tour du Pic du Midi d'Ossau, via Refuge de Pombie och Lacs d'Ayous, ca 8 timmar." },
+  { id: "tourmalet", alt: 2877, name: "Pic du Midi de Bigorre", massif: "Pic du Midi", country: "Hautes-Pyrénées, Frankrike", first: "",
+    story: "På toppen ligger observatoriet, byggt från slutet av 1800-talet. 1963 fotograferade ett teleskop som NASA betalade månen härifrån inför Apolloresorna. I dag kan man ta linbanan från La Mongie och till och med sova på toppen.",
+    grade: "T2", level: "medel", days: "1 dag", season: "juni–oktober",
+    start: "Virage de Toue (ca 1 944 m) på vägen mellan Col du Tourmalet och Barèges", hut: "", gain: "ca 890 hm", time: "ca 5 h tur och retur",
+    steps: ["Från vägkröken upp genom betesmarkerna till sjön Lac d'Oncet.", "Vidare i serpentiner till Col de Sencours och den sista biten upp till observatoriet.", "Ta linbanan ned till La Mongie om benen har fått nog – kontrollera tiderna i förväg."],
+    warn: "Lätt fjällvandring, men det blir kallt och blåsigt på toppen.", alt2: "Linbanan från La Mongie går upp på ca 15 minuter." },
+  { id: "mont-valier", alt: 2838, massif: "Couserans", country: "Ariège, Frankrike", first: "enligt legenden Saint Valier på 400-talet",
+    story: "Berget bär namnet efter Couserans förste biskop. Under andra världskriget gick flyktvägar över bergen här till Spanien.",
+    grade: "T4", level: "mycket svår", days: "2 dagar", season: "juli–september",
+    start: "Pla de la Lau (970 m), Couserans", hut: "Refuge des Estagnous (2 246 m)", gain: "ca 1 900 hm", time: "ca 6 h upp",
+    steps: ["Dag 1: från Pla de la Lau upp till Refuge des Estagnous.", "Dag 2: över Col Faustin och upp längs sydsidan till toppen.", "Samma väg ned till Pla de la Lau."],
+    warn: "Mycket lång: 1 900 höjdmeter. Bara för vältränade.", alt2: "" },
+  { id: "canigou", alt: 2784, massif: "Canigou", country: "Pyrénées-Orientales, Frankrike", first: "enligt traditionen kung Peter III av Aragonien på 1200-talet (1276 eller 1285)",
+    story: "Enligt krönikan gick kungen upp med sitt följe, som vände om. Ensam fann han en sjö där en drake steg upp ur vattnet – och kom ned med berättelsen. Länge trodde man att Canigou var Pyrenéernas högsta berg eftersom det reser sig så tydligt från slätten. Varje år den 23 juni tänds Flama del Canigó på toppen.",
+    grade: "T3", level: "medel", days: "1 dag", season: "juni–oktober",
+    start: "Chalet des Cortalets (2 150 m), 4x4-väg eller taxi", hut: "Refuge des Cortalets (2 150 m)", gain: "ca 650 hm", time: "4–5 h tur och retur",
+    steps: ["Från Cortalets längs stigen mot söder och upp på ryggen.", "Sista biten över stenblock till toppkorset med den katalanska flaggan.", "Samma väg ned."],
+    warn: "Lätt från Cortalets. Den klassiska vägen från Refuge de Mariailles avslutas med la Cheminée, en brant ränna där man använder händerna.",
+    alt2: "Från Refuge de Mariailles i söder, via la Cheminée." },
+];
+for (const k of PEAKS) { const p = PLACES.find(x => x.id === k.id); if (!p) continue; if (!p.cat.includes("topp")) p.cat.splice(p.cat[0] === "natur" ? 0 : 1, 0, "topp"); }
+
+/* bergsbestigning: grunder, svårighetsgrader, utrustning, säkerhet och klätterområden */
+const CLIMB = {
+  intro: "Pyrenéerna har 212 toppar över 3 000 meter enligt den internationella listan från 1990 – 129 huvudtoppar och 83 bitoppar – de flesta i de centrala Pyrenéerna mellan Balaïtous och Pica d'Estats. Till skillnad från i Alperna når man många av de högsta topparna med god kondition, lite snö- och glaciärvana och en natt i en bergsstuga. Men glaciärerna krymper, stenras ökar och vädret slår om snabbt – en bestigning är aldrig en promenad.",
+  how: [
+    { h: "Så går en bestigning till", t: "De flesta höga toppar tar två dagar. Första dagen går man upp till en bemannad bergsstuga (refuge, refugio). Middag serveras tidigt, och frukost ofta redan klockan fyra eller fem. Man startar i mörker med pannlampa, når toppen före middag och är nere från glaciären och kammen innan åskan kommer på eftermiddagen." },
+    { h: "Säsong", t: "Sommarsäsongen är juli till september. I juni ligger mycket snö kvar högt upp och man behöver stegjärn och isyxa även på enkla toppar. Från mitten av augusti är glaciärerna blank is med öppna sprickor. Vinter och vår är det turskidåkning och isklättring som gäller." },
+    { h: "Bergsstugor", t: "De bemannade stugorna är öppna från juni till september och ibland på helger i övrigt. Bokning krävs, särskilt i juli och augusti. Halvpension, alltså middag, frukost och säng, är det vanliga. Ta med ett lakan eller lakanspåse (sac à viande), pannlampa och kontanter. Utanför säsongen finns ofta ett vinterrum." },
+    { h: "Bergsguider", t: "Saknar du glaciär- eller klättervana: gå med en certifierad bergsguide (UIAGM/IFMGA). Det finns guidebyråer i Benasque för Aneto och Posets, i Gavarnie, Cauterets och Luz-Saint-Sauveur för Vignemale och Monte Perdido, och i Ariège för Montcalm och Pica d'Estats. Guiden har rep och ofta utrustning att hyra ut." },
+    { h: "Glaciärerna försvinner", t: "Pyrenéerna hade 26 glaciärer 2011 – i dag är de omkring 14, och glaciären på Monte Perdido räknas som död. Anetoglaciären har krympt från över 100 hektar till omkring 30. Det gör normalvägarna mer utsatta för stenras, och sprickorna öppnar sig tidigare på sommaren. Fråga i stugan om förhållandena." },
+  ],
+  grades: [
+    ["T1–T3", "Vandring: stig, ibland brant eller stenig, men inga händer behövs. Exempel: Pic du Midi de Bigorre, Canigou, Comapedrosa."],
+    ["T4–T5", "Krävande fjällvandring: block, rasbranter och lätt klättring med händerna, ibland luftigt. Exempel: Pic Carlit, Mont Valier."],
+    ["F", "Facile – lätt alpin tur: snö eller lätt glaciär, enkel klättring. Stegjärn och isyxa. Exempel: Posets, Monte Perdido, Pica d'Estats, Taillón."],
+    ["PD", "Peu difficile – något svår: glaciär med sprickor, luftiga eggar, klättring av grad II. Rep och glaciärvana. Exempel: Aneto, Maladeta, Vignemale, Pic du Midi d'Ossau."],
+    ["AD och svårare", "Assez difficile och uppåt: riktig alpin klättring med firningar och säkring. Exempel: Pic Long, Couloir de Gaube."],
+  ],
+  gear: ["Stegjärn och isyxa – på alla höga toppar så länge det ligger snö", "Sele, rep och glaciärutrustning på Aneto, Maladeta och Vignemale", "Hjälm – stenras är vanligt i rännor och på normalvägar med många människor", "Pannlampa, karta, kompass eller GPS med spåret nedladdat", "Varma kläder, vantar och regnställ – även i augusti kan det snöa på 3 000 meter", "Solglasögon och solkräm – snön och höjden bränner", "Vatten (minst 2 liter) och mat för hela dagen"],
+  safety: [
+    { h: "Väder", t: "Åskväder är vanliga på eftermiddagarna i juli och augusti. Läs bergsprognosen kvällen före: Météo-France (meteofrance.com, montagne), AEMET (aemet.es, montaña) och Meteocat för Katalonien. På vintern och våren finns lavinbulletiner – i Frankrike kallas den BERA." },
+    { h: "Nödnummer", t: "112 fungerar i Frankrike, Spanien och Andorra. Mobiltäckningen är dålig i många dalar – berätta i stugan vart du går." },
+    { h: "Räddning och försäkring", t: "I Frankrike är fjällräddningen i regel kostnadsfri. I Katalonien kan räddningen debiteras den som har gett sig ut i stängt område, utan rätt utrustning eller utan rimligt skäl – en helikoptertimme kostar flera tusen euro. Ha en försäkring som täcker räddning och helikopter, till exempel via medlemskap i en alpin klubb." },
+    { h: "Vänd i tid", t: "Bestäm en vändtid innan du går. Toppen är bara halva turen, och de flesta olyckor sker på väg ned när man är trött." },
+  ],
+  links: [["FFCAM – boka franska bergsstugor", "https://www.ffcam.fr/reserver-votre-refuge-en-ligne.html"], ["Albergues y Refugios de Aragón", "https://www.alberguesyrefugiosdearagon.com/"], ["Météo-France – bergsväder", "https://meteofrance.com/meteo-montagne"], ["AEMET – Pirineo", "https://www.aemet.es/es/eltiempo/prediccion/montana?p=arn1"], ["Wikipedia: Pyrenéernas tretusentoppar", "https://en.wikipedia.org/wiki/List_of_Pyrenean_three-thousanders"]],
+  areas: [
+    { name: "Mallos de Riglos", place: null, t: "Röda konglomerattorn upp till 300 meter höga, som reser sig rakt ur slätten norr om Huesca. Långa, luftiga leder – och gamar som seglar förbi." },
+    { name: "Rodellar", place: null, t: "Ravin i Aragoniens förberg med överhängande kalkstensväggar. Ett av Europas mest kända områden för sportklättring – svår och inte för nybörjare." },
+    { name: "Ordesa – Tozal del Mallo", place: "ordesa", t: "Kalkstenstornet vid ingången till Ordesadalen har väggar på upp till 400 meter och omkring 150 leder." },
+    { name: "Pic du Midi d'Ossau", place: "ossau", t: "Vulkanklippan har klassiska alpina klätterleder på alla sidor, utöver normalvägen genom de tre kaminerna." },
+    { name: "Gavarnie – isfallen", place: "gavarnie", t: "På vintern fryser vattenfallen i Cirque de Gavarnie till över 50 isleder, från december till februari. Thanatos (1984) var Frankrikes första isled av graden WI6." },
+    { name: "Vignemale – Couloir de Gaube", place: "vignemale", t: "Den 600 meter långa isrännan i nordväggen är en av Pyrenéernas mest berömda alpina leder, sedan 1889." },
+  ],
+};
+
 /* katarernas historia */
 const KATAR = {
   intro: "Katarerna – de goda männen och de goda kvinnorna, som de kallade sig själva – var en kristen rörelse som på 1100-talet fick stort stöd i Languedoc, från adeln till bönderna. Påven och den franska kronan slog ned rörelsen i ett tjugoårigt korståg, albigenserkorståget, och inkvisitionen jagade de sista i ytterligare hundra år. Kriget gjorde att Languedoc, som hade stått närmare Aragonien och Katalonien, blev en del av Frankrike.",
@@ -1822,7 +2069,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=15"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=16"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -1831,13 +2078,13 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   var D = window.I18N;
   var tr = function (s) { if (typeof s !== "string") return s; var k = s.trim(); return D[k] != null ? s.replace(k, D[k]) : s; };
   var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips|comp|kat|start|season|km|time)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
-    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/, TRAILS: /^(name|text|tips|km|days|top|route)$/, TRAIL_GROUPS: /^(pyr|katar|camino)$/, KATAR: /^(intro|tro|arv|t|txt|y)$/ };
+    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/, TRAILS: /^(name|text|tips|km|days|top|route)$/, TRAIL_GROUPS: /^(pyr|katar|camino)$/, KATAR: /^(intro|tro|arv|t|txt|y)$/, PEAKS: /^(name|massif|country|first|story|days|season|start|hut|gain|time|steps|warn|alt2)$/, CLIMB: /^(intro|h|t|gear|grades|name)$/ };
   function walk(o, re, key) {
     if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) { if (typeof o[i] === "string") { if (key && re.test(key)) o[i] = tr(o[i]); } else walk(o[i], re, key); } return; }
     if (!o || typeof o !== "object") return;
     for (var k in o) { if (typeof o[k] === "string") { if (re.test(k)) o[k] = tr(o[k]); } else if (k !== "waypoints" && k !== "links" && k !== "photoLinks" && k !== "sources") walk(o[k], re, k); }
   }
-  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS, TRAILS: TRAILS, TRAIL_GROUPS: TRAIL_GROUPS, KATAR: KATAR };
+  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS, TRAILS: TRAILS, TRAIL_GROUPS: TRAIL_GROUPS, KATAR: KATAR, PEAKS: PEAKS, CLIMB: CLIMB };
   [TDF, VUELTA, OCC].forEach(function (x) { walk(x, ALLOW.RACE); });
   [TDF27, VUELTA27, OCC27].forEach(function (x) { walk(x, ALLOW.NEXT); });
   for (var g in G) walk(G[g], ALLOW[g]);
@@ -2159,6 +2406,7 @@ function openPlace(id, keepView) {
     ${p.text ? `<div class="prose"><p>${esc(p.text)}</p></div>` : ""}
     ${p.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(p.tips)}</div></div>` : ""}
     ${p.tdf ? `<div class="tdfbox"><span class="eyebrow">${_t(`Tour de France`)}</span><div>${esc(p.tdf)}</div></div>` : ""}
+    ${peakBlock(p)}
     ${hikeBlock(p)}
     ${katBlock(p)}
     ${whsBlock(p)}
@@ -4258,7 +4506,7 @@ function renderEgen() {
 }
 
 /* ---------- Vandring: långa leder (linjer från OpenStreetMap), dagsturer och katarernas historia ---------- */
-const hState = { tab: ["leder", "dag", "katar"].includes(store.get("hTab")) ? store.get("hTab") : "leder" };
+const hState = { tab: ["leder", "dag", "toppar", "klattring", "katar"].includes(store.get("hTab")) ? store.get("hTab") : "leder" };
 const HIKECOL = "#7b3fa0", TRAILCOL = "#e6007e";   // lila för vandring i listor, stark magenta för den valda leden på kartan
 const WMT = "https://hiking.waymarkedtrails.org/api/v1/details/relation/";
 const _TG = {};
@@ -4329,9 +4577,67 @@ function renderKatar() {
     <h4 class="mh">${_t(`Albigenserkorståget och inkvisitionen`)}</h4>
     <ol class="ktl">${KATAR.timeline.map(e => `<li><span class="ky">${esc(e.y)}</span><div><b>${esc(e.t)}</b><p>${esc(e.txt)}</p>${e.id && BY[e.id] ? `<button class="linkish" data-open="${e.id}">${esc(short(BY[e.id]))} ${_t(`i guiden`)}</button>` : ""}</div></li>`).join("")}</ol>`;
 }
+/* ---------- Vandring: toppar och bergsbestigning ---------- */
+const TOPPCOL = "var(--c-topp)";
+const peakName = k => k.name || (BY[k.id] ? BY[k.id].name : k.id);
+const peakSorted = () => PEAKS.filter(k => BY[k.id]).slice().sort((a, b) => b.alt - a.alt);
+function peakCard(k) {
+  const p = BY[k.id], hp = HIKE_PATHS[k.id];
+  const rows = [[_t("Start"), esc(k.start)], [_t("Bergsstuga"), esc(k.hut)], [_t("Höjdmeter"), esc(k.gain)], [_t("Tid"), esc(k.time)], [_t("Säsong"), esc(k.season)]].filter(r => r[1]);
+  return `<article class="stage" id="pk-${k.id}"><div class="st-bd">
+    <div><div class="eyebrow">${esc(k.massif)} · ${esc(k.country)}</div><h4>${esc(peakName(k))}</h4></div>
+    <div class="tags"><span class="tag" style="--c:${TOPPCOL}">${nf0(k.alt)} m</span><span class="tag" style="--c:var(--ink)">${_t(`Grad`)} ${esc(k.grade)}</span>${diffTag(k.level)}<span class="tag" style="--c:var(--ink)">${esc(k.days)}</span></div>
+    <p class="st-sum">${esc(k.story)}</p>
+    ${k.first ? `<p class="pk-first"><b>${_t(`Första bestigning:`)}</b> ${esc(k.first)}</p>` : ""}
+    <div class="tdfbox" style="border-color:${TOPPCOL}"><span class="eyebrow" style="color:${TOPPCOL}">${_t(`Normalvägen`)}</span>
+      ${rows.length ? gisTable(rows) : ""}
+      <ol class="pk-steps">${k.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>
+      ${k.alt2 ? `<p class="pk-alt"><b>${_t(`Andra vägar:`)}</b> ${esc(k.alt2)}</p>` : ""}</div>
+    <p class="pl-note warn">${esc(k.warn)}</p>
+    <div class="st-foot"><button class="btn primary" data-open="${k.id}">${_t(`Fakta och bilder`)}</button>${hp ? `<button class="btn" data-hike-show="${k.id}">${ICON.map}${_t(`Stigen på kartan`)}</button><button class="btn" data-hike-gpx="${k.id}">${ICON.dl}GPX</button>` : `<button class="btn" data-showmap="${k.id}">${ICON.map}${_t(`Karta`)}</button>`}</div>
+  </div></article>`;
+}
+function peakBars(list) {
+  const lo = 2600, hi = Math.max(...list.map(k => k.alt)), w = a => ((a - lo) / (hi - lo) * 100).toFixed(1);
+  return `<div class="pkbars" role="list">${list.map(k => `<button class="pkbar" role="listitem" data-pk-jump="${k.id}"><span class="pkn">${esc(peakName(k))}</span><span class="pkt"><span class="pkf" style="width:${w(k.alt)}%"></span><span class="pk3" style="left:${w(3000)}%"></span></span><span class="pka">${nf0(k.alt)} m</span></button>`).join("")}</div>
+    <p class="ty-note" style="color:var(--muted);font-size:13.5px;margin:4px 0 0">${_t(`Staplarna börjar vid 2 600 m. Det streckade strecket är 3 000 m. Tryck på en topp för att läsa om normalvägen.`)}</p>`;
+}
+function renderToppar() {
+  const list = peakSorted();
+  return `<p class="outlook">${_t(`Pyrenéernas högsta och mest legendariska toppar – från Aneto, 3 404 meter, till katalanernas heliga Canigou. För varje topp finns historien, den vanliga vägen upp steg för steg, svårighetsgrad och vad som krävs. Läs också`)} <button class="linkish" data-htab="klattring">${_t(`Bergsbestigning`)}</button> ${_t(`om grader, utrustning och säkerhet innan du ger dig iväg.`)}</p>
+    <div class="actions"><button class="btn primary" data-peak-map>${SELICON}${_t(`Visa alla toppar på kartan`)}</button></div>
+    <h4 class="mh">${_t(`De högsta topparna`)}</h4>
+    ${peakBars(list)}
+    <h4 class="mh">${_t(`Topparna och normalvägarna`)}</h4>
+    <div class="stages">${list.map(peakCard).join("")}</div>
+    <p class="tour-src">${_t(`Höjder enligt Wikipedia, oktober 2026 – olika källor och mätningar skiljer sig med några meter. Tider och höjdmeter är ungefärliga och gäller sommarförhållanden. Förhållandena på glaciärerna ändras snabbt: fråga alltid i bergsstugan eller hos en bergsguide innan du går. Källor: Wikipedia, SummitPost, Randozone, Visorando och bergsstugornas webbplatser.`)}</p>`;
+}
+function renderKlattring() {
+  const C = CLIMB, list = peakSorted().filter(k => k.alt >= 3000);
+  return `<p class="outlook">${esc(C.intro)}</p>
+    <div class="t27-cols"><section><div class="prose climb">${C.how.map(s => `<h4 class="mh">${esc(s.h)}</h4><p>${esc(s.t)}</p>`).join("")}</div></section>
+      <section class="panel"><h3>${_t(`Utrustning`)}</h3><ul class="checks">${C.gear.map(g => `<li><span>${esc(g)}</span></li>`).join("")}</ul></section></div>
+    <h4 class="mh">${_t(`Svårighetsgrader`)}</h4>
+    <div class="grades">${C.grades.map(([g, t]) => `<div class="grade"><span class="tag" style="--c:${TOPPCOL}">${esc(g)}</span><p>${esc(t)}</p></div>`).join("")}</div>
+    <p class="ty-note" style="color:var(--muted);font-size:13.5px;margin:-8px 0 0">${_t(`T-graderna kommer från den schweiziska vandringsskalan, F–AD från den franska alpina skalan. Klippklättring anges med UIAA-grader (I–III på normalvägarna).`)}</p>
+    <h4 class="mh">${_t(`Så bestiger du tretusentopparna`)}</h4>
+    <div class="tblwrap"><table class="dist pktab"><thead><tr><th>${_t(`Topp`)}</th><th>${_t(`Höjd`)}</th><th>${_t(`Grad`)}</th><th>${_t(`Start och bergsstuga`)}</th><th>${_t(`Dagar`)}</th></tr></thead><tbody>${list.map(k => `<tr><td><button class="linkish" data-pk-jump="${k.id}">${esc(peakName(k))}</button></td><td>${nf0(k.alt)} m</td><td>${esc(k.grade)}</td><td>${esc(k.start.split(" – ")[0].split(", ")[0])}${k.hut ? " → " + esc(k.hut.split(" – ")[0]) : ""}</td><td>${esc(k.days)}</td></tr>`).join("")}</tbody></table></div>
+    <h4 class="mh">${_t(`Säkerhet`)}</h4>
+    <div class="grades">${C.safety.map(s => `<div class="grade"><b>${esc(s.h)}</b><p>${esc(s.t)}</p></div>`).join("")}</div>
+    <h4 class="mh">${_t(`Klättring och isklättring`)}</h4>
+    <div class="stages">${C.areas.map(a => `<article class="stage"><div class="st-bd"><h4>${esc(a.name)}</h4><p class="st-sum">${esc(a.t)}</p>${a.place && BY[a.place] ? `<div class="st-foot"><button class="btn" data-open="${a.place}">${esc(short(BY[a.place]))} ${_t(`i guiden`)}</button></div>` : ""}</div></article>`).join("")}</div>
+    <div><div class="eyebrow">${_t(`Bra länkar`)}</div><ul class="links">${C.links.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
+    <p class="tour-src">${_t(`Det här är en översikt, ingen ersättning för erfarenhet, utbildning eller en bergsguide. Förhållandena i bergen ändras från dag till dag.`)}</p>`;
+}
+function peakBlock(p) {
+  const k = PEAKS.find(x => x.id === p.id); if (!k) return "";
+  return `<div class="tdfbox" style="border-color:${TOPPCOL}"><span class="eyebrow" style="color:${TOPPCOL}">${_t(`Bestigning`)}</span><div class="tags" style="margin:4px 0 6px"><span class="tag" style="--c:${TOPPCOL}">${nf0(k.alt)} m</span><span class="tag" style="--c:var(--ink)">${_t(`Grad`)} ${esc(k.grade)}</span>${diffTag(k.level)}<span class="tag" style="--c:var(--ink)">${esc(k.days)}</span></div>
+    <div><b>${_t(`Start:`)}</b> ${esc(k.start)}${k.hut ? ` · <b>${_t(`Bergsstuga:`)}</b> ${esc(k.hut)}` : ""}</div><p style="margin:6px 0 0">${esc(k.story)}</p>
+    <div class="actions" style="margin-top:8px"><button class="btn" data-htab-go="toppar" data-jump="pk-${k.id}">${_t(`Så går man upp – normalvägen steg för steg`)}</button></div></div>`;
+}
 function renderHiking() {
   document.querySelectorAll("[data-htab]").forEach(b => b.setAttribute("aria-pressed", b.dataset.htab === hState.tab));
-  $("#hikeBody").innerHTML = hState.tab === "leder" ? renderLeder() : hState.tab === "dag" ? renderDag() : renderKatar();
+  $("#hikeBody").innerHTML = hState.tab === "leder" ? renderLeder() : hState.tab === "dag" ? renderDag() : hState.tab === "toppar" ? renderToppar() : hState.tab === "klattring" ? renderKlattring() : renderKatar();
 }
 /* dagsturernas stigar: beräknade i förväg med BRouter (fjällvandring) på OpenStreetMap-data, med höjd */
 const HIKE_LOOP = new Set(["neouvielle"]), HIKE_STRAIGHT = new Set(["breche"]);
@@ -4364,13 +4670,22 @@ document.addEventListener("click", e => {
   const ht = e.target.closest("[data-htab]"); if (ht) { hState.tab = ht.dataset.htab; store.set("hTab", hState.tab); renderHiking(); return; }
   const hg = e.target.closest("[data-htab-go]"); if (hg) {
     hState.tab = hg.dataset.htabGo; store.set("hTab", hState.tab); closeSheet(); show("vandring");
-    const j = hg.dataset.trailJump; if (j) requestAnimationFrame(() => { const el = document.getElementById("tr-" + j); if (el) el.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" }); });
+    const j = hg.dataset.trailJump ? "tr-" + hg.dataset.trailJump : hg.dataset.jump; if (j) requestAnimationFrame(() => { const el = document.getElementById(j); if (el) el.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" }); });
     return;
   }
   const tr = e.target.closest("[data-trail]"); if (tr) { showTrail(tr.dataset.trail, tr); return; }
   const tg = e.target.closest("[data-trail-gpx]"); if (tg) { trailGpx(tg.dataset.trailGpx, tg); return; }
   const hs = e.target.closest("[data-hike-show]"); if (hs) { showHike(hs.dataset.hikeShow); return; }
   const hx = e.target.closest("[data-hike-gpx]"); if (hx) { hikeGpx(hx.dataset.hikeGpx); return; }
+  const pj = e.target.closest("[data-pk-jump]"); if (pj) {
+    if (hState.tab !== "toppar") { hState.tab = "toppar"; store.set("hTab", hState.tab); renderHiking(); }
+    requestAnimationFrame(() => { const el = document.getElementById("pk-" + pj.dataset.pkJump); if (el) { el.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" }); el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 1600); } });
+    return;
+  }
+  if (e.target.closest("[data-peak-map]")) {
+    state.cats = new Set(["topp"]); store.set("cats", [...state.cats]); state.q = ""; document.querySelectorAll("[data-search]").forEach(i => i.value = "");
+    show("karta"); refresh(); requestAnimationFrame(() => map.fitMatches()); return;
+  }
   if (e.target.closest("[data-hike-map]")) {
     state.cats = new Set(["vandring"]); store.set("cats", [...state.cats]); state.q = ""; document.querySelectorAll("[data-search]").forEach(i => i.value = "");
     show("karta"); map.setLegends(true); refresh(); requestAnimationFrame(() => map.fitMatches()); return;
