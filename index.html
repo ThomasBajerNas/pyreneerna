@@ -1897,6 +1897,13 @@ const PEAKS = [
 ];
 for (const k of PEAKS) { const p = PLACES.find(x => x.id === k.id); if (!p) continue; if (!p.cat.includes("topp")) p.cat.splice(p.cat[0] === "natur" ? 0 : 1, 0, "topp"); }
 
+const PKPH = {"aneto": [["Aneto from Medium Ibon Coronas.jpg", "Sea-Empress", "CC BY-SA 3.0"], ["Alpinista cruzando el Paso de Mahoma.jpg", "Pablosievert", "CC BY-SA 4.0"], ["Aneto summit - panoramio - Santi Garcia.jpg", "Santi Garcia", "CC BY 3.0"]], "posets": [["Pocets.jpg", "Pacopac", "CC BY-SA 4.0"], ["Pico Posets from Forqueta.jpg", "Miguel303xm", "CC BY-SA 3.0"]], "perdido": [["Pic de Marboré Monte Perdido Pyrenees 20080821b.jpg", "Tigerente", "CC BY-SA 4.0"], ["Monte Perdido, Senda de los Cazadores.jpg", "Martin Stiburek", "CC BY-SA 4.0"]], "maladeta": [["Maladeta pirineu.JPG", "Aimaras", "CC BY-SA 3.0"], ["Macizo de la Maladeta - panoramio.jpg", "Jorge Franganillo", "CC BY 3.0"]], "vignemale": [["Grand Vignemale au soleil levant.jpg", "Philippe Manael", "CC BY-SA 4.0"], ["Massif du Vignemale et glacier d'Ossoue depuis le plateau des Cardous.jpg", "Guillaume Baviere", "CC BY-SA 2.0"], ["Vignemale-2005.jpg", "Seb_cazu", "CC BY-SA 2.5"]], "pic-long": [["Pic Long via Badet.jpg", "Fabrice742", "CC0"], ["Pic Long via Maubic.jpg", "Fabrice742", "CC0"]], "balaitous": [["Pic du Balaïtous 1.jpg", "Sotos", "CC BY-SA 4.0"]], "taillon": [["Pic du Taillon Pyrenees 20060821b.jpg", "Tigerente", "CC BY-SA 4.0"], ["Pic du Taillon Pyrenees 20060820b.jpg", "Tigerente", "CC BY-SA 4.0"]], "estats": [["Pica Estats.jpg", "Bocian & Tusia", "CC BY 2.0"], ["Pica d'Estats - 1.jpg", "Ferran Llorens", "CC BY-SA 2.0"]], "montcalm": [["PicDuMontcalmFromPicaDEstats1280 7.jpg", "David Edgar", "CC BY 2.5"]], "comapedrosa": [["Comapedrosa01.jpg", "Jlm", "Public domain"], ["Basses de l'Estany Negre - 2020.jpg", "Austral Lights", "CC BY-SA 4.0"]], "ossau": [["Gentau Pic du Midi Ossau.jpg", "Myrabella", "CC BY-SA 3.0"], ["Pic du Midi d'Ossau (2).jpg", "Tournasol7", "CC BY 4.0"]]};
+for (const id in PKPH) {
+  const p = PLACES.find(x => x.id === id); if (!p) continue;
+  const ph = PKPH[id], n0 = (p.photos || []).length, cr = p.photoCredit || new Array(n0).fill(null);
+  p.photos = (p.photos || []).concat(ph.map(x => "cw:" + x[0]));
+  p.photoCredit = cr.concat(ph.map(x => ({ by: x[1], lic: x[2], url: _CW + "File:" + encodeURIComponent(x[0].replace(/ /g, "_")) })));
+}
 /* bergsbestigning: grunder, svårighetsgrader, utrustning, säkerhet och klätterområden */
 const CLIMB = {
   intro: "Pyrenéerna har 212 toppar över 3 000 meter enligt den internationella listan från 1990 – 129 huvudtoppar och 83 bitoppar – de flesta i de centrala Pyrenéerna mellan Balaïtous och Pica d'Estats. Till skillnad från i Alperna når man många av de högsta topparna med god kondition, lite snö- och glaciärvana och en natt i en bergsstuga. Men glaciärerna krymper, stenras ökar och vädret slår om snabbt – en bestigning är aldrig en promenad.",
@@ -2069,7 +2076,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=16"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=17"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -4584,7 +4591,8 @@ const peakSorted = () => PEAKS.filter(k => BY[k.id]).slice().sort((a, b) => b.al
 function peakCard(k) {
   const p = BY[k.id], hp = HIKE_PATHS[k.id];
   const rows = [[_t("Start"), esc(k.start)], [_t("Bergsstuga"), esc(k.hut)], [_t("Höjdmeter"), esc(k.gain)], [_t("Tid"), esc(k.time)], [_t("Säsong"), esc(k.season)]].filter(r => r[1]);
-  return `<article class="stage" id="pk-${k.id}"><div class="st-bd">
+  const ph = p.photos && p.photos[0];
+  return `<article class="stage" id="pk-${k.id}">${ph ? `<button class="st-photo" data-open="${k.id}" aria-label="${esc(peakName(k))}"><img src="${img(ph, 1)}" alt="" loading="lazy"></button>` : ""}<div class="st-bd">
     <div><div class="eyebrow">${esc(k.massif)} · ${esc(k.country)}</div><h4>${esc(peakName(k))}</h4></div>
     <div class="tags"><span class="tag" style="--c:${TOPPCOL}">${nf0(k.alt)} m</span><span class="tag" style="--c:var(--ink)">${_t(`Grad`)} ${esc(k.grade)}</span>${diffTag(k.level)}<span class="tag" style="--c:var(--ink)">${esc(k.days)}</span></div>
     <p class="st-sum">${esc(k.story)}</p>
