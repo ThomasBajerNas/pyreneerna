@@ -642,6 +642,8 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .ktl b{font-size:16px}
 .ktl p{margin:4px 0 6px;font-family:var(--f-text);font-size:15.5px;line-height:1.55;max-width:70ch}
 @media (max-width:820px){.ktl li{grid-template-columns:1fr;gap:2px}}
+.d-pad .ktl li{grid-template-columns:118px minmax(0,1fr);gap:10px}.d-pad .ktl .ky{font-size:15px}.d-pad .ktl p{font-size:14.5px;margin:0}
+@media (max-width:520px){.d-pad .ktl li{grid-template-columns:1fr;gap:2px}}
 @media (max-width:820px){.bottomnav button{font-size:10.5px;padding:6px 0}.bottomnav button svg{width:21px;height:21px}}
 
 .map-toast{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:1100;background:var(--ink);color:var(--surface);padding:8px 14px;border-radius:8px;font-size:14px;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
@@ -1021,13 +1023,21 @@ const PLACES = [
   { id: "foix", no: 18, name: "Foix", sub: "Stad med borg, mycket mysig – favorit", cat: ["stad", "borg"], lat: 42.9653, lon: 1.6053, cc: "FR",
     photos: ["foix-tdf-1", "foix-1", "foix-2", "foix-3", "foix-4"], photoCaption: ["Prisceremonin vid TdF-målgången i Foix – foto Thomas", "", "", "", ""],
     t14: "Detta är i området där vi brukar hålla till, denna stad besöker vi ofta. Vi har även varit nära att köpa bostad här. En borg där Roger-Bernard, greve av Foix, höll till – han var också katar. Borgen är värd ett besök.",
-    text: "Château de Foix med sina tre torn syns från hela dalen och har ett nyrenoverat museum. Marknad på fredagar. Målort för Tour de France-etappen från Carcassonne den 7 juli 2026.",
+    text: "Château de Foix med sina tre torn syns från hela dalen. Borgen blev säte för grevskapet Foix 1034 och har aldrig erövrats med storm. Efter en renovering 2018–2019 är den ett interaktivt museum med en 16 meter hög blida på gården, ett rum om Gaston Fébus jaktbok och utsikt från tornen. Marknad på fredagar. Målort för Tour de France-etappen från Carcassonne den 7 juli 2026.",
+    hist: ["987 – Borgen nämns första gången. Kring 1012 blir Bernard den förste greven av Foix, och 1034 blir borgen säte för grevskapet.",
+      "1209–1218 – Greve Raymond-Roger stöder katarerna mot albigenserkorståget. Simon de Montfort härjar i grevskapet 1211–1212, men borgen anfalls aldrig. 1214 lämnas den i pant till påvens legat och öppnas för Montfort – 1218 får greven tillbaka den.",
+      "1272 – Greve Roger-Bernard III ger upp för kung Filip III:s armé och förs till Carcassonne. Kronan behåller borgen till 1285.",
+      "1300-talet – Grevarna av Foix ärver Béarn. Gaston Fébus (1331–1391) styr från Orthez men håller fångarna från slaget vid Launac 1362 i Foix tills lösen är betald – pengarna bekostar ombyggnader av borgen.",
+      "1589–1607 – Henrik IV, kung av Frankrike och Navarra, är den siste greven av Foix. 1607 förenas grevskapet med franska kronan.",
+      "1600-talet–1862 – Borgen blir fängelse i över två hundra år. Fångarnas ristningar syns fortfarande i väggarna.",
+      "1930 – Départementets museum flyttar in.",
+      "2019 – Den nya borgen öppnar efter en renovering för omkring 8 miljoner euro. Omkring 112 000 besökare om året."],
     tdf: "Etapp 4, 7 juli 2026: Carcassonne – Foix via Col de Montségur.",
     links: [W("sv", "Foix"), ["Château de Foix", "https://www.sites-touristiques-ariege.fr/"]] },
-  { id: "lombrives", no: 19, name: "Grotte de Lombrives", sub: "En av Europas största grottor", cat: ["grotta"], lat: 42.818, lon: 1.616, cc: "FR",
+  { id: "lombrives", no: 19, name: "Grotte de Lombrives", sub: "En av Europas största grottor", cat: ["grotta"], lat: 42.8248, lon: 1.6178, cc: "FR",
     photos: ["lombrives-1"],
     t14: "Några mil söder om Foix, på väg mot Ax och Andorra några km söder om Tarascon, ligger ett grottsystem med Lombrives- och Niaux-grottorna. Det finns målningar från stenåldern i Niaux. I Lombrives finns fortfarande kung Henriks namnteckning kvar.",
-    text: "Lombrives har ett litet tåg in i berget och vissa somrar kvällsföreställningar inne i grottan. För grottmålningarna, se Niaux här intill.",
+    text: "Grottan vid Ussat-les-Bains är 7–8 kilometer lång – 14 kilometer om man räknar med de sammanhängande systemen vid Niaux och Sabart – och dess största sal, Katedralen, är omkring 80 meter hög. Ett litet tåg kör de 1,4 kilometerna från biljettkontoret till ingången. På en vägg finns Henrik IV:s namn inristat från ett besök 1578. Enligt legenden ligger prinsessan Pyrène, som gett bergen deras namn, begravd här, och sägnen berättar att 500 katarer murades in i grottan 1328 – det är en legend, inte historia. Vissa somrar hålls kvällsföreställningar inne i berget. För grottmålningarna, se Niaux intill.",
     links: [W("fr", "Grotte de Lombrives")] },
   { id: "beille", no: 20, name: "Plateau de Beille", sub: "Legendarisk stigning, 360° utsikt", cat: ["tdf", "natur"], lat: 42.724, lon: 1.688, cc: "FR",
     col: { alt: 1780, from: "Les Cabannes", len: 15.8, grad: 7.9 },
@@ -1216,8 +1226,9 @@ const PLACES = [
     links: [W("es", "Balneario de Panticosa")] },
 
   // ---------- Nytt: borgar, natur, grottor, städer ----------
-  { id: "fontestorbes", name: "Fontaine de Fontestorbes", sub: "Källan som andas – vid Bélesta", cat: ["natur"], lat: 42.897, lon: 1.948, cc: "FR",
-    text: "En intermittent källa: under torra perioder (oftast juli–oktober) stiger och sjunker vattnet i en rytm på någon timme. Bara ett par minuter från Bélesta, där vi bodde 18–28 juli 2014.",
+  { id: "fontestorbes", name: "Fontaine de Fontestorbes", sub: "Källan som andas – vid Bélesta", cat: ["natur", "vatten"], lat: 42.8932, lon: 1.9269, cc: "FR",
+    text: "En av världens ovanligaste källor: färre än 30 intermittenta källor är kända. Vattnet väller fram ur en grotta i kalkberget en dryg kilometer söder om Bélesta, där vi bodde 18–28 juli 2014. Det mesta av året flödar den jämnt, men vid lågvatten – oftast juli till oktober – börjar den andas: under ungefär en timme sjunker vattnet till en porlande bäck och stiger sedan till ett brusande flöde igen. Platsen är skyddad sedan 1921, och fri att besöka året runt.",
+    tips: "Så fungerar den: inne i berget finns en underjordisk sjö som töms genom en låg kanal och fungerar som en hävert. När tillflödet under sommaren blir mindre än vad kanalen kan föra bort, sjunker vattnet tills en högre kanal suger in luft – häverten bryts och flödet nästan stannar. Sjön fylls på igen, häverten startar på nytt och kastar ut upp till 1 800 liter i sekunden. En cykel tar ungefär 40 minuter med sjunkande och 20 minuter med stigande vatten, längre mot slutet av säsongen. Stanna minst en timme – och ta en kaffe på baren mittemot.",
     links: [W("fr", "Fontaine de Fontestorbes")] },
   { id: "puivert", name: "Château de Puivert", sub: "Trubadurernas borg", cat: ["borg"], lat: 42.923, lon: 2.045, cc: "FR",
     text: "Katarborg som blev känd för sina trubadurfester. Musikrummet har stenreliefer av medeltida musiker. Nära sjön Lac de Puivert där man kan bada.",
@@ -1234,8 +1245,9 @@ const PLACES = [
   { id: "galamus", name: "Gorges de Galamus", sub: "Vägen hängande i ravinväggen", cat: ["natur", "bad"], lat: 42.84, lon: 2.48, cc: "FR",
     text: "Smal väg huggen ur klippan, med Ermitage Saint-Antoine i ravinen. Bad i Agly-floden nedanför. Ligger mellan Saint-Paul-de-Fenouillet och Cubières.",
     links: [W("en", "Gorges de Galamus")] },
-  { id: "niaux", name: "Grotte de Niaux", sub: "Äkta stenåldersmålningar", cat: ["grotta"], lat: 42.819, lon: 1.594, cc: "FR",
-    text: "Bison och hästar målade för cirka 14 000 år sedan, i originalgrottan. Begränsat antal besökare per dag – boka i förväg. Pyrenéernas förhistoriska park ligger strax intill i Tarascon.",
+  { id: "niaux", name: "Grotte de Niaux", sub: "Äkta stenåldersmålningar", cat: ["grotta"], lat: 42.8202, lon: 1.5935, cc: "FR",
+    text: "En av få grottor i världen där man fortfarande får se äkta stenåldersmålningar. I Salon Noir, långt inne i berget, finns över 70 djur – bison, hästar och stenbockar – målade med kol och lera för omkring 14 000–17 000 år sedan. Man går 2,5 kilometer i mörker med bara handlampor, i grupper om högst 25 personer. Visningen tar 1 h 45 och måste bokas i förväg.",
+    tips: "Ta varma kläder – det är kallt inne i grottan även mitt i sommaren. Kombinera med Parc de la Préhistoire i Tarascon, där Salon Noir finns i full skala.",
     links: [W("sv", "Niauxgrottan")] },
   { id: "betharram", name: "Grottes de Bétharram", sub: "Båt och tåg genom grottan", cat: ["grotta"], lat: 43.096, lon: -0.195, cc: "FR",
     text: "Guidad tur genom fem våningar grottsalar, med båtfärd på en underjordisk flod och ett litet tåg ut. Bra med barn, strax väster om Lourdes.",
@@ -1663,7 +1675,8 @@ PLACES.push(
   { id: "villerouge", name: "Villerouge-Termenès", sub: "Där den siste katarprästen brändes 1321", cat: ["borg"], lat: 43.0081, lon: 2.6261, cc: "FR",
     text: "Ärkebiskopens borg i Corbières med en utställning om Guillaume Bélibaste. På sommaren hålls en medeltidsfest i byn.", links: [W("fr", "Château de Villerouge-Termenès")] },
   { id: "montaillou", name: "Montaillou", sub: "Den sista katarbyn", cat: ["stad"], lat: 42.7867, lon: 1.8939, cc: "FR",
-    text: "Liten by på platån Pays d'Aillou, känd över hela världen genom historikern Emmanuel Le Roy Ladurie. Ruinen av borgen ligger ovanför byn.", links: [W("sv", "Montaillou")] },
+    text: "Den lilla byn ligger på omkring 1 300 meters höjd på högplatån mellan Ax-les-Thermes och Pays de Sault, granne med Prades. Den blev känd över hela världen genom historikern Emmanuel Le Roy Laduries bok Montaillou, village occitan de 1294 à 1324 (1975), som bygger på inkvisitorn Jacques Fourniers förhörsprotokoll. Där möter man byborna – herdar, bönder, den mäktiga familjen Clergue och adelsdamen Béatrice de Planissoles, som greps 1320 – med deras tro, kärlekar och gräl. Ruinen av borgen, byggd av herrarna av Alion i slutet av 1100-talet, ligger på kullen ovanför byn.",
+    tips: "Kör dit över Col du Chioula från Ax-les-Thermes. Läs gärna boken innan.", links: [W("sv", "Montaillou")] },
   { id: "fanjeaux", name: "Fanjeaux och Prouille", sub: "Katarcentrum och dominikanernas vagga", cat: ["stad"], lat: 43.1864, lon: 2.0322, cc: "FR",
     text: "Byn på kullen ovanför Lauragais var ett katarcentrum, och nedanför grundade Dominicus klostret Prouille. Från 'Seignadou' har man vid utsikt över slätten.", links: [W("fr", "Fanjeaux")] }
 );
@@ -1708,6 +1721,49 @@ const HPH = {
   puivert: [["Château de Puivert 37.JPG", "Romain Bréget", "CC BY-SA 3.0"]],
   "beziers-stad": [["Pont Vieux et Cathédrale Saint-Nazaire de Béziers cf02.jpg", "Christian Ferrer", "CC BY-SA 4.0"]],
 };
+
+/* fler resmål 2026: Gers, Ossau, grottorna vid Tarascon, Pays de Sault, Val d'Aran och Louron */
+PLACES.push(
+  { id: "auch", name: "Auch", sub: "D'Artagnans stad i Gers", cat: ["stad"], lat: 43.6456, lon: 0.5872, cc: "FR",
+    text: "Gers huvudstad på en kulle ovanför floden Gers. Från floden leder Escalier monumental, en trappa från 1863 med 234 steg (374 med båda trapploppen), upp 35 meter till katedralen. På mellanavsatsen står d'Artagnan i brons, gjord av Firmin Michelet 1931. Katedralen Sainte-Marie, påbörjad 1489, har 18 glasmålningar av Arnaut de Moles (1507–1513) och ett korstol med omkring 1 500 snidade figurer – den är världsarv som del av pilgrimsvägen till Santiago. Bredvid reser sig Tour d'Armagnac från 1400-talet, som var fängelse.",
+    tips: "Den verklige d'Artagnan, Charles de Batz de Castelmore, föddes på slottet Castelmore vid Lupiac, en halvtimme väster om Auch, och stupade vid belägringen av Maastricht 1673. Slottet är privat, men i Lupiac finns Musée d'Artagnan i kapellet Saint-Jacques. Gers är också Armagnacs och foie gras land – passa på att äta en magret de canard.",
+    links: [W("sv", "Auch"), W("fr", "Charles de Batz de Castelmore d'Artagnan"), ["Musée d'Artagnan, Lupiac", "https://www.armagnac-dartagnan.com/en/destination/villages/lupiac/le-musee-dartagnan/"]] },
+  { id: "condom", name: "Condom", sub: "De tre musketörerna och armagnac", cat: ["stad"], lat: 43.9578, lon: 0.3728, cc: "FR",
+    text: "Huvudorten i Ténarèze, ett av armagnacens tre distrikt, vid floden Baïse. På Place Saint-Pierre, vid foten av katedralen, står d'Artagnan och de tre musketörerna Athos, Porthos och Aramis i brons – 2,5 meter höga, gjorda av den georgiske skulptören Zurab Tsereteli och invigda 2010. Staden ligger på pilgrimsvägen Via Podiensis, och armagnachusen i och runt staden tar emot besökare.",
+    tips: "De verkliga musketörerna kom från Béarn: Athos från Athos-Aspis, Aramis från Aramits och Porthos från Pau – Alexandre Dumas gjorde dem till hjältar. Fem kilometer väster om Condom ligger den befästa medeltidsbyn Larressingle, en av Frankrikes vackraste byar.",
+    links: [W("fr", "Condom (Gers)"), W("sv", "De tre musketörerna"), W("en", "Larressingle")] },
+  { id: "ossau-dal", name: "Vallée d'Ossau", sub: "Dalen söder om Pau under Pic du Midi d'Ossau", cat: ["natur", "stad"], lat: 42.9831, lon: -0.4161, cc: "FR",
+    text: "Från Pau går dalen söderut via Arudy, Bielle – den gamla huvudorten i Ossau – och Laruns upp mot Col du Pourtalet (1 794 m) och Spanien. Vid Aste-Béon häckar gåsgamar i klippväggen Falaise aux Vautours, ett naturreservat sedan 1974, där kameror i museet visar boet på nära håll. Från Fabrèges går en gondol upp till Petit train d'Artouste, ett smalspårigt tåg från 1924 som kör 10 kilometer på omkring 2 000 meters höjd till Lac d'Artouste – enligt operatören Europas högst belägna turisttåg. Kurorterna Eaux-Bonnes och Eaux-Chaudes och skidorten Gourette ligger i sidodalarna.",
+    tips: "Köp fårost, Ossau-Iraty, direkt från gårdarna. Laruns stora fest är 15 augusti, med folkdräkter, polyfon sång och dans till trehålsflöjt. Tåget till Artouste går maj–början av oktober – boka på sommaren. Pic du Midi d'Ossau, under Toppar, syns från hela dalen.",
+    links: [W("fr", "Vallée d'Ossau"), ["Petit train d'Artouste", "https://www.artouste.fr/"], W("fr", "Falaise aux vautours")] },
+  { id: "bedeilhac", name: "Grotte de Bédeilhac", sub: "Grottan där ett flygplan landade", cat: ["grotta"], lat: 42.8714, lon: 1.5706, cc: "FR",
+    text: "En väldig grotta norr om Tarascon med en mynning så stor att flygplan har fått plats. 1940 började flygbolaget Dewoitine bygga en fabrik i ingången, och under ockupationen använde den tyska armén grottan för att lagra och reparera Junkersplan. 1972 landade piloten Georges Bonnet ett litet flygplan inne i grottan. Längre in finns över 100 målningar och ristningar från magdalénien-tiden, den första upptäckt 1906.",
+    tips: "Öppen april–november, visningen tar ungefär 1,5 timme. Varma kläder.",
+    links: [W("en", "Bédeilhac Cave"), ["Sites touristiques Ariège", "https://www.sites-touristiques-ariege.fr/"]] },
+  { id: "vache", name: "Grotte de la Vache", sub: "Stenåldersjägarnas vinterbostad", cat: ["grotta"], lat: 42.8208, lon: 1.5875, cc: "FR",
+    text: "Grottan vid Alliat, mitt emot Niaux, var vinterbostad för jägare under magdalénien för 15 000–12 000 år sedan. Arkeologen Romain Robert grävde här från 1940, och man fann omkring 400 dekorerade föremål av ben och horn. Visningen visar hur människorna levde, jagade och lagade mat.",
+    tips: "Guidad visning på 1 h 15. Bra komplement till målningarna i Niaux på andra sidan dalen.",
+    links: [W("fr", "Grotte de la Vache (Alliat)")] },
+  { id: "prehistoire", name: "Parc de la Préhistoire", sub: "Stenåldern för hela familjen", cat: ["grotta"], lat: 42.8556, lon: 1.5748, cc: "FR",
+    text: "Parken utanför Tarascon-sur-Ariège har en kopia i full skala av Salon Noir i Niaux i Grand Atelier, och verkstäder där man får tända eld, slå flinta, kasta spjut och måla som på stenåldern. Perfekt med barn, eller som förberedelse inför Niaux.",
+    links: [["Sites touristiques Ariège", "https://www.sites-touristiques-ariege.fr/"]] },
+  { id: "labouiche", name: "Rivière souterraine de Labouiche", sub: "Båttur på en underjordisk flod", cat: ["grotta", "vatten"], lat: 43.0034, lon: 1.5733, cc: "FR",
+    text: "Sex kilometer nordväst om Foix åker man båt omkring 1,5 kilometer på en flod inne i berget, förbi droppstenar och små vattenfall – med två båtbyten på vägen. Floden utforskades 1908 och har varit öppen för besökare sedan 1938. Turen tar 75 minuter.",
+    tips: "Det är svalt inne i berget – ta en tröja. Boka på sommaren.",
+    links: [W("fr", "Rivière souterraine de Labouiche")] },
+  { id: "chioula", name: "Col du Chioula", sub: "Utsiktspasset ovanför Ax-les-Thermes", cat: ["natur"], lat: 42.7564, lon: 1.841, cc: "FR",
+    text: "Passet på 1 431 meter förbinder övre Ariègedalen med högplatån mot Prades, Montaillou och Pays de Sault. Från passet och längdskidspåren ser man över mer än 100 kilometer av Pyrenéernas huvudkam, från Andorras toppar till Carlit. Tour de France har passerat här fyra gånger, senast 2001. På vintern finns omkring 60 kilometer längdspår, snöskoleder och hundspann.",
+    tips: "Kör upp från Ax-les-Thermes på D613 och vidare mot Montaillou och Fontestorbes – en av de vackraste vägarna i Ariège. Bäst i kvällsljus.",
+    links: [W("fr", "Col du Chioula")] },
+  { id: "aran", name: "Val d'Aran", sub: "Kataloniens dal på Atlantsidan", cat: ["natur", "stad"], lat: 42.7042, lon: 0.7961, cc: "ES",
+    text: "Den enda delen av Katalonien på norra sidan av Pyrenéerna, där Garonne rinner upp på Pla de Beret och flyter mot Atlanten. Här talar man aranesiska, en gaskognisk form av occitanska, som är officiellt språk sedan 1990, och dalen har ett eget råd, Conselh Generau d'Aran. Huvudorten Vielha (980 m) nås från söder genom Vielhatunneln och från öster över Port de la Bonaigua (2 072 m). Alla dalens 33 byar har en kyrka – de romanska kyrkorna i Arties, Salardú och Bossòst är finast. Baqueira-Beret är en av Spaniens största skidorter.",
+    tips: "Kör in från Luchon över Col du Portillon till Bossòst. Gå till vattenfallet Saut deth Pish ovanför Arròs, och avsluta med en olla aranesa, dalens gryträtt.",
+    links: [W("sv", "Val d'Aran"), ["Visit Val d'Aran", "https://www.visitvaldaran.com/"]] },
+  { id: "loudenvielle", name: "Loudenvielle", sub: "Sjön och fritidsaktiviteterna i Vallée du Louron", cat: ["stad", "natur"], lat: 42.7972, lon: 0.4119, cc: "FR",
+    text: "Byn vid sjön Lac de Génos-Loudenvielle i Vallée du Louron är dalens fritidscentrum. På sjön hyr man trampbåtar, kanoter, kajaker och paddelbrädor, och det finns öringfiske och en tre kilometer lång promenad runt sjön. Runt sjön finns klätterpark i träden, klätterklippa, bågskytte, minigolf, studsmattor på sommaren och simhallen Ludéo. Termalbadet Balnéa ligger vid sjön, och gondolen Skyvall tar dig på nio minuter upp till Peyragudes, där det på sommaren finns bikepark, en 335 meter lång zipline, tubing och tandemskärmflygning.",
+    tips: "Ta Skyvall upp och sparkcykeln eller mountainbiken ned till sjön, och avsluta dagen i Balnéa. Byn är också start för cykelpassen Col de Peyresourde och Col d'Azet.",
+    links: [["Vallée du Louron", "https://www.vallee-du-louron.com/en/outdoor"], ["Peyragudes", "https://www.peyragudes.com/"], W("fr", "Loudenvielle")] }
+);
 
 /* ---------- Toppar och bergsbestigning ----------
    Höjder enligt Wikipedia (oktober 2026). Normalvägar och tider är ungefärliga och gäller sommarförhållanden. */
@@ -1897,7 +1953,7 @@ const PEAKS = [
 ];
 for (const k of PEAKS) { const p = PLACES.find(x => x.id === k.id); if (!p) continue; if (!p.cat.includes("topp")) p.cat.splice(p.cat[0] === "natur" ? 0 : 1, 0, "topp"); }
 
-const PKPH = {"aneto": [["Aneto from Medium Ibon Coronas.jpg", "Sea-Empress", "CC BY-SA 3.0"], ["Alpinista cruzando el Paso de Mahoma.jpg", "Pablosievert", "CC BY-SA 4.0"], ["Aneto summit - panoramio - Santi Garcia.jpg", "Santi Garcia", "CC BY 3.0"]], "posets": [["Pocets.jpg", "Pacopac", "CC BY-SA 4.0"], ["Pico Posets from Forqueta.jpg", "Miguel303xm", "CC BY-SA 3.0"]], "perdido": [["Pic de Marboré Monte Perdido Pyrenees 20080821b.jpg", "Tigerente", "CC BY-SA 4.0"], ["Monte Perdido, Senda de los Cazadores.jpg", "Martin Stiburek", "CC BY-SA 4.0"]], "maladeta": [["Maladeta pirineu.JPG", "Aimaras", "CC BY-SA 3.0"], ["Macizo de la Maladeta - panoramio.jpg", "Jorge Franganillo", "CC BY 3.0"]], "vignemale": [["Grand Vignemale au soleil levant.jpg", "Philippe Manael", "CC BY-SA 4.0"], ["Massif du Vignemale et glacier d'Ossoue depuis le plateau des Cardous.jpg", "Guillaume Baviere", "CC BY-SA 2.0"], ["Vignemale-2005.jpg", "Seb_cazu", "CC BY-SA 2.5"]], "pic-long": [["Pic Long via Badet.jpg", "Fabrice742", "CC0"], ["Pic Long via Maubic.jpg", "Fabrice742", "CC0"]], "balaitous": [["Pic du Balaïtous 1.jpg", "Sotos", "CC BY-SA 4.0"]], "taillon": [["Pic du Taillon Pyrenees 20060821b.jpg", "Tigerente", "CC BY-SA 4.0"], ["Pic du Taillon Pyrenees 20060820b.jpg", "Tigerente", "CC BY-SA 4.0"]], "estats": [["Pica Estats.jpg", "Bocian & Tusia", "CC BY 2.0"], ["Pica d'Estats - 1.jpg", "Ferran Llorens", "CC BY-SA 2.0"]], "montcalm": [["PicDuMontcalmFromPicaDEstats1280 7.jpg", "David Edgar", "CC BY 2.5"]], "comapedrosa": [["Comapedrosa01.jpg", "Jlm", "Public domain"], ["Basses de l'Estany Negre - 2020.jpg", "Austral Lights", "CC BY-SA 4.0"]], "ossau": [["Gentau Pic du Midi Ossau.jpg", "Myrabella", "CC BY-SA 3.0"], ["Pic du Midi d'Ossau (2).jpg", "Tournasol7", "CC BY 4.0"]]};
+const PKPH = {"aneto": [["Aneto from Medium Ibon Coronas.jpg", "Sea-Empress", "CC BY-SA 3.0"], ["Alpinista cruzando el Paso de Mahoma.jpg", "Pablosievert", "CC BY-SA 4.0"], ["Aneto summit - panoramio - Santi Garcia.jpg", "Santi Garcia", "CC BY 3.0"]], "posets": [["Pocets.jpg", "Pacopac", "CC BY-SA 4.0"], ["Pico Posets from Forqueta.jpg", "Miguel303xm", "CC BY-SA 3.0"]], "perdido": [["Pic de Marboré Monte Perdido Pyrenees 20080821b.jpg", "Tigerente", "CC BY-SA 4.0"], ["Monte Perdido, Senda de los Cazadores.jpg", "Martin Stiburek", "CC BY-SA 4.0"]], "maladeta": [["Maladeta pirineu.JPG", "Aimaras", "CC BY-SA 3.0"], ["Macizo de la Maladeta - panoramio.jpg", "Jorge Franganillo", "CC BY 3.0"]], "vignemale": [["Grand Vignemale au soleil levant.jpg", "Philippe Manael", "CC BY-SA 4.0"], ["Massif du Vignemale et glacier d'Ossoue depuis le plateau des Cardous.jpg", "Guillaume Baviere", "CC BY-SA 2.0"], ["Vignemale-2005.jpg", "Seb_cazu", "CC BY-SA 2.5"]], "pic-long": [["Pic Long via Badet.jpg", "Fabrice742", "CC0"], ["Pic Long via Maubic.jpg", "Fabrice742", "CC0"]], "balaitous": [["Pic du Balaïtous 1.jpg", "Sotos", "CC BY-SA 4.0"]], "taillon": [["Pic du Taillon Pyrenees 20060821b.jpg", "Tigerente", "CC BY-SA 4.0"], ["Pic du Taillon Pyrenees 20060820b.jpg", "Tigerente", "CC BY-SA 4.0"]], "estats": [["Pica Estats.jpg", "Bocian & Tusia", "CC BY 2.0"], ["Pica d'Estats - 1.jpg", "Ferran Llorens", "CC BY-SA 2.0"]], "montcalm": [["PicDuMontcalmFromPicaDEstats1280 7.jpg", "David Edgar", "CC BY 2.5"]], "comapedrosa": [["Comapedrosa01.jpg", "Jlm", "Public domain"], ["Basses de l'Estany Negre - 2020.jpg", "Austral Lights", "CC BY-SA 4.0"]], "ossau": [["Gentau Pic du Midi Ossau.jpg", "Myrabella", "CC BY-SA 3.0"], ["Pic du Midi d'Ossau (2).jpg", "Tournasol7", "CC BY 4.0"]], "auch": [["(Auch) L'escalier monumental - Statue de D'Artagnan.jpg", "Didier Descouens", "CC BY-SA 4.0"], ["(Auch) L'escalier monumental vu du Boulevard Sadi Carnot à Auch.jpg", "Didier Descouens", "CC BY-SA 4.0"]], "condom": [["Condom.jpg", "Oxxo", "CC BY-SA 3.0"], ["Condom Gers le port.jpg", "Asabengurtza", "CC BY-SA 3.0"], ["Cathédrale Condom Choeur BLS.jpg", "Benh LIEU SONG", "CC BY-SA 4.0"]], "ossau-dal": [["Vallee d'Ossau.JPG", "Willtron", "CC BY-SA 3.0"], ["Vallee d'Ossau (14).jpg", "Tournasol7", "CC BY 4.0"], ["Le Petit train d’Artouste en gare du Lac d’Artouste.jpg", "ErnestoLaPomme", "CC BY 4.0"], ["Petit train d'Artouste 5.jpg", "Selmoval", "CC BY-SA 4.0"]], "bedeilhac": [["Entrée de la grotte de Bédeilhac.jpg", "Kvardek du", "CC BY-SA 3.0"], ["Bison on plaque Bedeilhac grottoe Ariege.jpg", "World Imaging", "CC BY-SA 3.0"]], "vache": [["Entrée grotte de la Vache 2.jpg", "Kvardek du", "CC BY-SA 3.0"]], "labouiche": [["Rivière souterraine de Labouiche 07.jpg", "Tylwyth Eldar", "CC BY-SA 4.0"], ["Rivière souterraine de Labouiche 27.jpg", "Tylwyth Eldar", "CC BY-SA 4.0"]], "chioula": [["Chioula 11-2010.jpg", "Jcb-caz-11", "CC BY-SA 4.0"], ["Chioula pano 2.jpg", "Jcb-caz-11", "CC BY-SA 4.0"]], "aran": [["VIELHA - VAL D'ARAN - IB-399.JPG", "Isidre blanc", "CC BY-SA 4.0"], ["Val d'Aran, Barranc de Tarters.jpg", "AndyScott", "CC BY-SA 4.0"], ["Vielha e Mijaran Glèsia de Sant Miquèu.jpg", "Gorkaazk", "CC BY-SA 4.0"]], "loudenvielle": [["Génos 65 Village&lac vue E 2009.jpg", "JLPC", "CC BY-SA 3.0"], ["Lac de Génos-Loudenvielle 3.jpg", "Patrice Bon", "CC BY-SA 4.0"]], "fontestorbes": [["Fontaine de Fontestorbes.JPG", "Audouy (fr.wikipedia)", "CC BY-SA 3.0"], ["Fontestorbes 908-909mod.jpg", "JYB Devot", "CC BY-SA 4.0"]], "niaux": [["Grotte de Niaux depuis la Vache.jpg", "Kvardek du", "CC BY-SA 3.0"], ["Grotte de Niaux 3.jpg", "Thilo Parg", "CC BY-SA 4.0"]], "prehistoire": [["Parc de la Préhistoire (Parc pyrénéen de l'art préhistorique) , Tarascon sur Ariège.jpg", "Juan Emilio Prades Bel", "CC BY-SA 4.0"], ["Parc de la préhistoire - Mammouth 02.jpg", "Tylwyth Eldar", "CC BY-SA 4.0"]]};
 for (const id in PKPH) {
   const p = PLACES.find(x => x.id === id); if (!p) continue;
   const ph = PKPH[id], n0 = (p.photos || []).length, cr = p.photoCredit || new Array(n0).fill(null);
@@ -2076,7 +2132,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=17"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=18"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -2084,7 +2140,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (window.LANG === "sv" || !window.I18N) return;
   var D = window.I18N;
   var tr = function (s) { if (typeof s !== "string") return s; var k = s.trim(); return D[k] != null ? s.replace(k, D[k]) : s; };
-  var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips|comp|kat|start|season|km|time)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
+  var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips|comp|kat|start|season|km|time|hist)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
     RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/, TRAILS: /^(name|text|tips|km|days|top|route)$/, TRAIL_GROUPS: /^(pyr|katar|camino)$/, KATAR: /^(intro|tro|arv|t|txt|y)$/, PEAKS: /^(name|massif|country|first|story|days|season|start|hut|gain|time|steps|warn|alt2)$/, CLIMB: /^(intro|h|t|gear|grades|name)$/ };
   function walk(o, re, key) {
     if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) { if (typeof o[i] === "string") { if (key && re.test(key)) o[i] = tr(o[i]); } else walk(o[i], re, key); } return; }
@@ -2411,6 +2467,7 @@ function openPlace(id, keepView) {
     ${p.t14 ? `<div class="note14"><span class="eyebrow">${_t(`Ur guiden 2014 – Thomas`)}</span>${esc(p.t14)}</div>` : ""}
     ${p.tLang ? `<div class="note14"><span class="eyebrow">${_t(`Ur Languedoc-guiden – Thomas`)}</span>${esc(p.tLang)}</div>` : ""}
     ${p.text ? `<div class="prose"><p>${esc(p.text)}</p></div>` : ""}
+    ${p.hist ? `<div><div class="eyebrow">${_t(`Historia`)}</div><ol class="ktl" style="margin-top:8px">${p.hist.map(h => { const i = h.indexOf(" – "); return `<li><span class="ky">${esc(h.slice(0, i))}</span><div><p>${esc(h.slice(i + 3))}</p></div></li>`; }).join("")}</ol></div>` : ""}
     ${p.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(p.tips)}</div></div>` : ""}
     ${p.tdf ? `<div class="tdfbox"><span class="eyebrow">${_t(`Tour de France`)}</span><div>${esc(p.tdf)}</div></div>` : ""}
     ${peakBlock(p)}
