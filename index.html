@@ -757,7 +757,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
         <div class="page-head">
           <span class="eyebrow">Proffsloppen och att cykla själv</span>
           <h2>Cykling</h2>
-          <p>Under <b>Proffsloppen</b> finns alla gånger Tour de France, Vueltan och Route d'Occitanie kört i Pyrenéerna sedan 2010, och ryktena om 2027. Under <b>Cykla själv</b> finns klassiska rundor, motionslopp och hur man anmäler sig, cykeluthyrning och hur man tar sig dit. Tryck på <b>Visa på kartan</b> för att se just det du valt – år, sökning eller område – eller slå på lagren med knappen <b>Lager</b> på kartan.</p>
+          <p>Under <b>Proffsloppen</b> finns alla gånger Tour de France, Vueltan och Route d'Occitanie kört i Pyrenéerna sedan 2010, och ryktena om 2027. Under <b>Cykla själv</b> finns klassiska rundor, mountainbike med bikeparker och stigar, motionslopp och hur man anmäler sig, cykeluthyrning och hur man tar sig dit. Tryck på <b>Visa på kartan</b> för att se just det du valt – år, sökning eller område – eller slå på lagren med knappen <b>Lager</b> på kartan.</p>
         </div>
         <div class="seg mode" role="group" aria-label="Välj del">
           <button data-cymode="proffs" aria-pressed="true">Proffsloppen</button>
@@ -767,6 +767,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
           <div class="seg sub" role="group" aria-label="Välj ämne">
             <button data-mtab="rundor" aria-pressed="true">Rundor</button>
             <button data-mtab="egen" aria-pressed="false">Egen tur</button>
+            <button data-mtab="mtb" aria-pressed="false">Mountainbike</button>
             <button data-mtab="lopp" aria-pressed="false">Motionslopp</button>
             <button data-mtab="hyr" aria-pressed="false">Hyra cykel</button>
             <button data-mtab="resa" aria-pressed="false">Resa dit</button>
@@ -2444,6 +2445,1462 @@ for (const s of SKI) {
     p.photoCredit = cr.concat(s.ph.map(x => ({ by: x[1], lic: x[2], url: _CW + "File:" + encodeURIComponent(x[0].replace(/ /g, "_")) })));
   }
 }
+/* ---------- Mountainbike: bikeparker med lift, MTB-områden, långa leder och tävlingar (oktober 2026) ---------- */
+const MTB = {
+"intro": "Pyrenéerna är ett av Europas bästa områden för mountainbike, men ändå förvånansvärt glest befolkat på stigarna. Här finns allt från gamla mulåsnestigar mellan övergivna byar i Sobrarbe till märkta spårnätverk med hundratals kilometer i Ariège, Cerdanya och Andorra – och världscuptävlingar i Loudenvielle och Pal Arinsal. De flesta områden är gratis att cykla i och skyltade med färgade svårighetsgrader. Lågland och förberg går att cykla vår och höst, medan de höga passen och topparna passar bäst från slutet av juni till september.",
+"areas": [
+{
+"id": "pierre-saint-martin-bikepark",
+"type": "bikepark",
+"name": "Bike Park La Pierre Saint-Martin",
+"cc": "FR",
+"area": "Vallée de Barétous (Arette), Pyrénées-Atlantiques",
+"lat": 42.978,
+"lon": -0.7455,
+"trails": "5 enduroleder: 2 blå, 2 röda, 1 svart, plus en nybörjarzon vid rullbandet Oursons",
+"lifts": "stolliften Arlas (och rullbandet Oursons för nybörjarzonen)",
+"disciplines": "enduro, e-MTB, nybörjarzon",
+"season": "juli–augusti, kl. 10–13 och 14–18 (exakta datum för 2026 anges inte, stolliften öppnar i början av juli)",
+"pass": "dagkort vuxen 20 € (17 € med No Souci-kortet)",
+"level": "alla nivåer",
+"text": "En liten och lugn bikepark på karstplatån högst upp i Barétous, alldeles vid gränsen mot Navarra. Leden är naturliga enduroleder snarare än byggda hopplinjer. Landskapet med kalkstensblock, tallar och betande får gör åkningen speciell. Bra för den som vill prova liftburen enduro utan trängsel.",
+"highlights": [
+"Kalkstenslandskap vid spanska gränsen",
+"Stolliften Arlas tar dig upp",
+"Nybörjarzon för barn och ovana"
+],
+"rent": "uthyrning av MTB, e-MTB och el-sparkcyklar i stationen (pris ej angivet)",
+"getting": "Pau (PUF) ca 1 h 30 min, Biarritz (BIQ) ca 2 h, Pamplona ca 2 h via Isaba. Tåg till Oloron-Sainte-Marie (ca 40 km).",
+"stay": "Stationsbyn (résidences och lägenheter), Arette eller Oloron-Sainte-Marie.",
+"tips": "Hjälm är obligatorisk. Visa hänsyn mot betande djur och stäng grindar. Det finns en reparationsstation men ingen stor cykelbutik, så ta med reservdelar.",
+"web": [
+{
+"t": "Officiell webbplats (N'PY)",
+"u": "https://n-py.com/en/pierre-saint-martin/bike-park"
+},
+{
+"t": "Turistbyrån Béarn Pyrénées",
+"u": "https://www.tourisme64.com/activites/la-pierre-saint-martin/ASCAQU064V5BDQ2N-bike-park-de-la-pierre-saint-martin/"
+}
+]
+},
+{
+"id": "gourette-bikepark",
+"type": "bikepark",
+"name": "Gourette Bike Park",
+"cc": "FR",
+"area": "Vallée d'Ossau (Eaux-Bonnes), Pyrénées-Atlantiques",
+"lat": 42.957,
+"lon": -0.3321,
+"trails": "9 leder plus Kids Park: 1 grön, 4 blå, 2 röda, 2 svarta (ca 17 km)",
+"lifts": "kabinbanan Bézou",
+"disciplines": "downhill, flow, enduro, e-MTB, barnpark, terrängsparkcykel",
+"season": "dagligen 4 juli–30 augusti 2026",
+"pass": "dagkort vuxen 20 €, barn 4–18 år 16 € (2026)",
+"level": "alla nivåer",
+"text": "Gourette ligger i en dramatisk dalgång under Pic du Ger och nära Col d'Aubisque. Alla leder startar vid toppen av kabinbanan Bézou och ger ca 300 höjdmeter per åk. Här finns en tydlig nivåtrappa från grönt till svart och en egen park för barn. Två långa turer går också hela vägen från Aubisque ned till Laruns och Louvie-Soubiron.",
+"highlights": [
+"Kids Park för de minsta",
+"Långa nedfarter från Col d'Aubisque till Laruns",
+"Social rides varje helg i juli–augusti"
+],
+"rent": "Intersport i Gourette hyr ut MTB (pris ej angivet)",
+"getting": "Pau (PUF) ca 1 h 05 min, Lourdes-Tarbes (LDE) ca 1 h 20 min. Tåg till Pau, sedan buss via Laruns.",
+"stay": "Gourette, Eaux-Bonnes eller Laruns.",
+"tips": "Det finns en reparationsstation vid toppen av Bézou och vatten vid Le Cairn. Kombinera gärna med en tur över Aubisque.",
+"web": [
+{
+"t": "Officiell webbplats",
+"u": "https://www.gourette.com/en/the-resort-in-summer/mountain-bike-park/"
+},
+{
+"t": "Sommarpriser",
+"u": "https://www.gourette.com/en/summer-rates/"
+}
+]
+},
+{
+"id": "cauterets-bikepark",
+"type": "bikepark",
+"name": "Bike Park Cauterets (Cirque du Lys)",
+"cc": "FR",
+"area": "Vallée de Cauterets, Hautes-Pyrénées",
+"lat": 42.8892,
+"lon": -0.1141,
+"trails": "blå och röda leder från Crêtes du Lys ned till Lys och vidare till byn (exakt antal anges inte)",
+"lifts": "kabinbanan du Lys och stolliften Grand Barbat",
+"alt": [
+900,
+2400
+],
+"disciplines": "downhill, freeride, enduro",
+"season": "dagligen 4 juli–30 augusti 2026",
+"pass": "dagkort och halvdagskort säljs i kassan och på n-py.com (pris ej angivet)",
+"level": "medel och avancerade",
+"text": "Cauterets erbjuder en av Pyrenéernas längsta nedfarter: från krönet ovanför Cirque du Lys på ca 2 400 m ned till byn på ca 900 m. Det blir ca 1 500 höjdmeter och mer än 45 minuters åkning. Leden har doserade kurvor, step-ups och road gaps. Utsikten över cirkusdalen och mot Vignemale-massivet är storslagen.",
+"highlights": [
+"Ca 1 500 höjdmeter ned till byn",
+"Kabinbana direkt från Cauterets",
+"Enduroled 108V och FFC-led nr 3 tillbaka till byn"
+],
+"rent": "uthyrning av cyklar, skydd och hjälm hos partnerbutiker i byn, inte vid bikeparken",
+"getting": "Lourdes-Tarbes (LDE) ca 50 min, Pau (PUF) ca 1 h 20 min. Tåg till Lourdes och buss till Cauterets.",
+"stay": "Byn Cauterets är bästa basen; även Argelès-Gazost.",
+"tips": "Hyr utrustning innan du tar kabinbanan. Hjälm är obligatorisk och fullt skydd rekommenderas. Parkera vid den gamla järnvägsstationen.",
+"web": [
+{
+"t": "Officiell webbplats",
+"u": "https://www.cauterets.com/?p=17245"
+},
+{
+"t": "Ledbeskrivning (Geotrek)",
+"u": "https://geotrek65admin.openig.org/api/fr/treks/25446/bike-park-cauterets.pdf"
+}
+]
+},
+{
+"id": "grand-tourmalet-bikepark",
+"type": "bikepark",
+"name": "Grand Tourmalet Barèges Bike Park",
+"cc": "FR",
+"area": "Barèges, Pays Toy, Hautes-Pyrénées",
+"lat": 42.91,
+"lon": 0.1792,
+"trails": "gröna, blå, röda och svarta leder, bl.a. D1 Marmotte, D3 Isard, E2 Coq och E5 Cerf (antal anges inte)",
+"lifts": "stolliften Tournaboup (ersätts av en kabinbana till 2027)",
+"disciplines": "downhill, enduro, XC, panoramaturer",
+"season": "STÄNGD sommaren 2026 p.g.a. bygget av ny kabinbana; öppnar igen sommaren 2027",
+"level": "alla nivåer",
+"text": "Bikeparken ligger på Barèges-sidan av Col du Tourmalet, med start från Tournaboup. Leden går över Plateau de la Laquette med vid utsikt mot Pic du Midi. Sommaren 2026 är parken stängd medan stolliften byts mot en kabinbana. Från 2027 blir det enklare att nå platån.",
+"highlights": [
+"Under Col du Tourmalet och Pic du Midi",
+"Ny kabinbana till 2027",
+"Leder i alla svårighetsgrader"
+],
+"rent": "partnerbutiker: Lokae i La Mongie, Bike & Py i Lourdes, Aneto Sports i Baudéan, Pyrénées Vélo Évolution i Bagnères-de-Bigorre",
+"getting": "Lourdes-Tarbes (LDE) ca 1 h. Tåg till Lourdes, buss vidare.",
+"stay": "Barèges, Luz-Saint-Sauveur eller La Mongie.",
+"tips": "Planera in parken först 2027. Den som vill cykla här 2026 kan välja naturliga leder runt Barèges och Luz.",
+"web": [
+{
+"t": "Officiell webbplats (N'PY)",
+"u": "https://www.n-py.com/en/grand-tourmalet/bike-park"
+}
+]
+},
+{
+"id": "piau-engaly-bike",
+"type": "bikepark",
+"name": "Piau Bike (Piau-Engaly)",
+"cc": "FR",
+"area": "Haute vallée d'Aure (Aragnouet), Hautes-Pyrénées",
+"lat": 42.7839,
+"lon": 0.1584,
+"trails": "ca 17 km leder i Piau plus ca 15 km vidare ned mot Fabian Bike Center",
+"lifts": "stolliften Campbielh (sommartrafik söndag–torsdag)",
+"alt": [
+1325,
+2350
+],
+"disciplines": "enduro, flow, nedförsåkning, terrängsparkcykel, dévalkart",
+"season": "stolliften Campbielh 5 juli–28 augusti 2026, söndag–torsdag kl. 9–12 och 13.30–15.30",
+"pass": "liftkort från 7 € till fots; dagkort för terrängsparkcykel 14,50 € (cykelpris anges inte)",
+"level": "alla nivåer",
+"text": "Piau-Engaly är Pyrenéernas högst belägna franska skidort och ligger strax under Bielsatunneln. Från toppen av stolliften Campbielh på ca 2 350 m går leder ned genom ett kargt högfjällslandskap. Den långa leden fortsätter hela vägen ned mot Fabian och Pont du Moudang, med skytteltrafik tillbaka. Lugnare och mindre än de stora bikeparkerna.",
+"highlights": [
+"Start på ca 2 350 m",
+"Lång nedfart mot Fabian Bike Center",
+"Skyttelbuss tillbaka från Pont du Moudang"
+],
+"getting": "Lourdes-Tarbes (LDE) ca 1 h 30 min, Toulouse (TLS) ca 2 h 15 min. Tåg till Lannemezan, sedan buss.",
+"stay": "Piau-Engaly, Saint-Lary-Soulan eller Vielle-Aure.",
+"tips": "Stolliften går inte fredag och lördag. Kontrollera med turistbyrån (05 62 39 61 69) vilka cykelkort som gäller innan du åker.",
+"web": [
+{
+"t": "Turistbyrån Piau-Engaly",
+"u": "https://piau-engaly.com/pass-telesiegeete/"
+},
+{
+"t": "Piau Bike Center (Geotrek)",
+"u": "https://geotrek65admin.openig.org/api/fr/touristiccontents/65/piau-bike-center.pdf"
+}
+]
+},
+{
+"id": "saint-lary-bikepark",
+"type": "bikepark",
+"name": "Saint-Lary Bike Park (Pla d'Adet)",
+"cc": "FR",
+"area": "Vallée d'Aure, Hautes-Pyrénées",
+"lat": 42.8177,
+"lon": 0.3238,
+"trails": "10 leder plus nybörjarzon, från grönt till svart, bl.a. Family Rider, Easy Rider, Woodstock (4,4 km), K-Bourre och Razorback (över 40 km markerade leder enligt stationen)",
+"lifts": "stolliften Bouleaux (med cykelhållare); linbanan från byn ingår i dyrare kort",
+"alt": [
+1700,
+2215
+],
+"disciplines": "downhill, freeride, enduro, nybörjarzon",
+"season": "dagligen 4 juli–30 augusti 2026 kl. 10–16 (sista lift 15.50), även 27–28 juni",
+"pass": "dagkort 22,50 € (26 € med linbanan från byn), säsongskort 231 € (2026)",
+"level": "alla nivåer",
+"text": "Saint-Lary är en av de mest etablerade bikeparkerna i franska Pyrenéerna. Lederna ligger ovanför Pla d'Adet mellan 1 700 och 2 215 m, med utsikt över Vallée d'Aure och mot Néouvielle. Utbudet sträcker sig från familjeleden Family Rider till tekniska K-Bourre och Razorback. Linbanan från byn gör att man kan bo nere i Saint-Lary och åka upp.",
+"highlights": [
+"Linbana direkt från byn",
+"Woodstock, 4,4 km lång",
+"Nybörjarzon och familjeled"
+],
+"rent": "uthyrning i Saint-Lary by (butiker och priser anges inte av Altiservice)",
+"getting": "Lourdes-Tarbes (LDE) ca 1 h 15 min, Toulouse (TLS) ca 1 h 45 min. Tåg till Lannemezan, buss till Saint-Lary.",
+"stay": "Saint-Lary-Soulan, Vielle-Aure eller Pla d'Adet.",
+"tips": "Freeride- eller DH-cykel, hjälm, handskar och knäskydd är obligatoriskt. Barn under 12 år måste åka med en vuxen.",
+"web": [
+{
+"t": "Officiell webbplats (Altiservice)",
+"u": "https://saint-lary.altiservice.com/en/activities/bike-park"
+},
+{
+"t": "Liftkort",
+"u": "https://saint-lary.altiservice.com/en/ski-passes/bikepark/"
+}
+]
+},
+{
+"id": "peyragudes-bikepark",
+"type": "bikepark",
+"name": "Bike Park Peyragudes – Loudenvielle",
+"cc": "FR",
+"area": "Vallée du Louron, Hautes-Pyrénées/Haute-Garonne",
+"lat": 42.7963,
+"lon": 0.4078,
+"trails": "downhill-, enduro- och flowleder på sektorerna Loudenvielle, Peyresourde, Altiport och Agudes; 2026 tillkom 6 nya leder, bl.a. AP4 Airline (svart), Blue Wave Agudes (blå, 3,5 km) och en dual slalom-bana; 13 km lång FlowTrail (totalt antal anges inte)",
+"lifts": "kabinbanan Skyvall från Loudenvielle, stolliften Privilège och Téléluge du Lac (Agudes)",
+"alt": [
+970,
+2400
+],
+"disciplines": "downhill, enduro, flow, jump line, dual slalom, e-MTB",
+"season": "Skyvall dagligen 4 juli–30 augusti 2026 samt helger maj, juni, september och oktober",
+"pass": "cykeldagkort 28 € (kabinbana eller släplift) eller 31 € (båda), vuxen 15–69 år; rabatt för 5–7 år och 70+ (2026)",
+"level": "alla nivåer",
+"text": "Loudenvielle och Peyragudes är Pyrenéernas stora gravity-centrum. Kabinbanan Skyvall tar dig från dalbotten upp till stationen på under tio minuter. Här kördes världscupen i downhill i maj 2026 under Pyrénées Bike Festival. Med 13 km FlowTrail, nya hopplinjer och långa enduroleder finns något för alla.",
+"highlights": [
+"Världscup i downhill (UCI) 28–31 maj 2026",
+"13 km FlowTrail, en av Pyrenéernas längsta",
+"Ny dual slalom vid Skyvall"
+],
+"rent": "flera butiker i Loudenvielle och vid Skyvall (priser anges inte)",
+"getting": "Lourdes-Tarbes (LDE) ca 1 h 15 min, Toulouse (TLS) ca 1 h 50 min. Tåg till Lannemezan eller Luchon, sedan buss.",
+"stay": "Loudenvielle (med Balnéa-spa), Peyresourde, Les Agudes eller Luchon.",
+"tips": "Boka kortet på nätet och hämta det i automaten vid Skyvall. Skytteltrafik för enduro (Loudenvielle, Col d'Azet, Val Louron) bokas via Trailow.com dagen innan, 35 €/dag.",
+"web": [
+{
+"t": "Officiell webbplats",
+"u": "https://www.peyragudes.com"
+},
+{
+"t": "Haute-Garonne turism",
+"u": "https://pyrenees31.com/en/plan/stations/peyragudes-summer"
+}
+]
+},
+{
+"id": "luchon-superbagneres-bike",
+"type": "bikepark",
+"name": "Luchon-Superbagnères VTT",
+"cc": "FR",
+"area": "Luchonnais, Haute-Garonne",
+"lat": 42.7684,
+"lon": 0.5771,
+"trails": "3 befintliga leder plus 2 nya 2026 (fördelning anges inte)",
+"lifts": "kabinbanan Crémaillère Express från Luchon",
+"disciplines": "enduro, nedförsåkning, e-MTB",
+"season": "dagligen 3 juli–30 augusti 2026 kl. 9–17, samt alla helger i juni och de tre första helgerna i september",
+"pass": "heldag 22 €, enkel tur 9 €, tur och retur 12 €, säsongskort 190 € (2026)",
+"level": "medel och avancerade",
+"text": "Den nya kabinbanan Crémaillère Express går direkt från kurorten Luchon upp till platån Superbagnères. Därifrån går leder ned mot dalen med utsikt mot Maladeta och Aneto. Utbudet är ännu litet men växer, med två nya leder 2026. Finalen i Enduro Series (Coupe de France) körs här 19–20 september 2026.",
+"highlights": [
+"Kabinbana direkt från Luchon",
+"Final i Enduro Series 19–20 september 2026",
+"Utsikt mot Aneto"
+],
+"rent": "uthyrning i Bagnères-de-Luchon (butiker och priser anges inte)",
+"getting": "Toulouse (TLS) ca 1 h 45 min. Tåg Toulouse–Luchon (ca 2 h) och gratisbussen Vali till kabinbanan.",
+"stay": "Bagnères-de-Luchon med termalbad; Peyragudes ca 15 km bort.",
+"tips": "Kom med tåg och cykla direkt från stationen till kabinbanan. FFC-licensierade får rabatt.",
+"web": [
+{
+"t": "Haute-Garonne Montagne, pressmaterial 2026",
+"u": "https://www.haute-garonne-montagne.com/dossier-de-presse-ete-2026/"
+},
+{
+"t": "Superbagnères sommar",
+"u": "https://www.pyrenees31.com/en/plan/stations/luchon-superbagneres-in-summer"
+}
+]
+},
+{
+"id": "le-mourtis-bike",
+"type": "bikepark",
+"name": "Le Mourtis VTT",
+"cc": "FR",
+"area": "Boutx, Haut-Comminges, Haute-Garonne",
+"lat": 42.9123,
+"lon": 0.7685,
+"trails": "nybörjar- och övningsleder vid släpliften Bambins (antal anges inte)",
+"lifts": "släpliften Bambins",
+"disciplines": "nybörjarleder, MTB-skola, dévalkart",
+"season": "11 juli–16 augusti 2026 kl. 10–12.30 och 13.30–16",
+"pass": "1 timme 5 €, 2 timmar 8 € (2026)",
+"level": "nybörjare och familjer",
+"text": "Le Mourtis är en liten skogsstation ovanför Col de Menté. Sommaren 2026 tar släpliften Bambins upp cyklister till enkla övningsleder. Det passar barn och nybörjare som vill lära sig nedförsåkning i lugn miljö. Stationens nya bergsskola har MTB-lektioner.",
+"highlights": [
+"Enduro du Mourtis 18–19 juli 2026",
+"Ny MTB-skola",
+"Lugn skogsmiljö"
+],
+"getting": "Toulouse (TLS) ca 1 h 35 min. Tåg till Marignac-Saint-Béat.",
+"stay": "Stationen, Saint-Béat eller Luchon.",
+"tips": "Boka lektioner per telefon eller mejl. Kombinera med dévalkarten för barnen.",
+"web": [
+{
+"t": "Haute-Garonne Montagne, pressmaterial 2026",
+"u": "https://www.haute-garonne-montagne.com/dossier-de-presse-ete-2026/"
+}
+]
+},
+{
+"id": "guzet-bikepark",
+"type": "bikepark",
+"name": "Guzet Express Bike Park",
+"cc": "FR",
+"area": "Ustou, Couserans, Ariège",
+"lat": 42.7787,
+"lon": 1.301,
+"trails": "6 downhill-leder från grönt till dubbelsvart plus ett northshore-område",
+"lifts": "stolliften Picou",
+"disciplines": "downhill, northshore",
+"season": "sommar, juli–augusti (exakta datum för 2025/2026 anges inte)",
+"pass": "dagkort vuxen 16 €, barn 13 €; halvdag 12 €/10 €; säsong 110 €/70 € (år anges inte)",
+"level": "alla nivåer",
+"text": "Guzet ligger insprängd i bokskog högt över Ustou i Couserans. Bikeparken är liten och avspänd, med sex nedfarter och ett område med träbroar. Det är en av de billigaste liftburna parkerna i Pyrenéerna. Grannorten Aulus-les-Bains har termalbad för vila efter åkningen.",
+"highlights": [
+"Skogsleder i bokskog",
+"Northshore-område",
+"Låga priser"
+],
+"getting": "Toulouse (TLS) ca 2 h 15 min. Bil krävs.",
+"stay": "Guzet, Aulus-les-Bains, Seix eller Oust.",
+"tips": "Kontrollera öppettider innan du åker, eftersom säsongen är kort och väderberoende.",
+"web": [
+{
+"t": "Turistbyrån Couserans",
+"u": "https://www.tourisme-couserans-pyrenees.com/en/passion-outdoor/le-velo-et-vtt/le-vtt/vtt-descente-guzet-mountain-bike-park/"
+},
+{
+"t": "Occitanie turism",
+"u": "https://www.tourisme-occitanie.com/fr/fiche/equipement/bike-park-vtt-descente-guzet-express-ustou_TFOSITRA2_LOI_6536784/"
+}
+]
+},
+{
+"id": "ax-3-domaines-bikepark",
+"type": "bikepark",
+"name": "Bike Park Ax 3 Domaines",
+"cc": "FR",
+"area": "Ax-les-Thermes, Haute-Ariège, Ariège",
+"lat": 42.6995,
+"lon": 1.8129,
+"trails": "6 downhill-leder från Saquet ned till Ax-les-Thermes (ca 1 400 höjdmeter), plus gratis nybörjarzon",
+"lifts": "kabinbanan du Baou (Ax–Bonascre) och stolliften Lièvre Blanc",
+"disciplines": "downhill, enduro, e-MTB, nybörjarzon",
+"season": "6 juli–31 augusti och 5–8 september 2026",
+"pass": "dagkort 21–24 € (lägre pris för 5–17 år), en tur från 9 €, säsong 168–193 € (2026)",
+"level": "alla nivåer",
+"text": "Ax 3 Domaines har en av Pyrenéernas största fallhöjder för cykel: ca 1 400 höjdmeter från Saquet ned till kurorten Ax-les-Thermes. Kabinbanan du Baou går direkt från orten, som också har tågstation. Efter åkningen väntar termalbaden i Ax. Vid Bonascre finns e-MTB-leder och en gratis övningszon.",
+"highlights": [
+"Ca 1 400 höjdmeter ned till Ax-les-Thermes",
+"Kabinbana och tåg direkt i orten",
+"Gratis nybörjarzon"
+],
+"rent": "Atout Glisse i Bonascre och Ax Sports i Ax-les-Thermes hyr ut MTB och e-MTB",
+"getting": "Toulouse (TLS) ca 1 h 45 min, Carcassonne (CCF) ca 1 h 50 min. Tåg Toulouse–Ax-les-Thermes (ca 1 h 45 min).",
+"stay": "Ax-les-Thermes eller Bonascre.",
+"tips": "Den som slutar före 13.45 får 3,50 € tillbaka på dagkortet. Det finns cykeltvätt vid kabinbanan och i Bonascre.",
+"web": [
+{
+"t": "Ariège turism",
+"u": "https://www.ariegepyrenees.com/loisir-sportif/bike-park-vtt-et-vttae-a-ax-3-domaines/"
+}
+]
+},
+{
+"id": "font-romeu-bikepark",
+"type": "bikepark",
+"name": "Font-Romeu Pyrénées 2000 VTT",
+"cc": "FR",
+"area": "Cerdagne, Pyrénées-Orientales",
+"lat": 42.5209,
+"lon": 2.0331,
+"trails": "singletrack, panoramaleder och XC-slingor samt XCO-stadion (antal anges inte)",
+"lifts": "kabinbanan Airelles Express samt stolliftarna Roc de la Calme, Airelles och Belvédère",
+"disciplines": "enduro, flow, XC, XCO",
+"season": "dagligen 4 juli–30 augusti 2026",
+"pass": "dagkort 20 €, säsongskort 160 € (2026)",
+"level": "alla nivåer",
+"text": "Font-Romeu är en solig höghöjdsort på Cerdagneplatån, känd som träningsort för elitidrottare. Fyra liftar tar cyklar upp mot Roc de la Calme på över 2 200 m. Terrängen är mjuk och böljande med tallskog, vilket passar flow och enduro mer än brant downhill. Här finns också en XCO-stadion som är öppen året runt.",
+"highlights": [
+"Fyra liftar med cykel på ett kort",
+"Roc de la Calme över 2 200 m",
+"XCO-stadion"
+],
+"getting": "Perpignan (PGF) ca 1 h 40 min, Barcelona (BCN) ca 2 h 15 min. Train jaune till Font-Romeu-Odeillo-Via.",
+"stay": "Font-Romeu, Pyrénées 2000 eller Bolquère.",
+"tips": "Kabinbanan tar högst två cyklar per kabin. Liftarna har lunchstängt 13.15–13.45.",
+"web": [
+{
+"t": "Officiell webbplats (Altiservice)",
+"u": "https://font-romeu-pyrenees-2000.altiservice.com/en/activities/mountain-bike/"
+}
+]
+},
+{
+"id": "les-angles-bikepark",
+"type": "bikepark",
+"name": "Bike Park Les Angles",
+"cc": "FR",
+"area": "Capcir, Pyrénées-Orientales",
+"lat": 42.5753,
+"lon": 2.0688,
+"trails": "9 downhill-leder i 5 svårighetsnivåer, varav 3 hopplinjer från mycket lätt blå till dubbelsvart",
+"lifts": "kabinbanan Les Pèlerins",
+"disciplines": "downhill, freeride, jump line, pumptrack",
+"season": "öppnar 27 juni 2026, troligen till 30 augusti (slutdatum ej bekräftat)",
+"pass": "dagkort 28,50–34,50 €, halvdag 19,50–23,50 €, 6 dagar 98–114 € (år anges inte)",
+"level": "medel och avancerade",
+"text": "Les Angles är Pyrénées-Orientales största bikepark och ligger mitt i Capcir med utsikt över sjön Matemale. Kabinbanan Les Pèlerins tar dig upp till nio leder med fokus på downhill och hopp. Ungefär hälften av lederna är för medelgoda åkare. I byn finns även pumptrack och cykelskola.",
+"highlights": [
+"Tre hopplinjer, från lätt till dubbelsvart",
+"Pumptrack i byn",
+"Utsikt över Capcir"
+],
+"getting": "Perpignan (PGF) ca 1 h 35 min, Carcassonne (CCF) ca 2 h. Train jaune till Mont-Louis.",
+"stay": "Les Angles, Matemale eller Formiguères.",
+"tips": "Bikeparken passar inte för personer med funktionsnedsättning. Gratis parkeringsgarage finns i byn.",
+"web": [
+{
+"t": "Officiell webbplats",
+"u": "https://lesangles.com/en/evenement/opening-of-bike-park-les-angles/"
+},
+{
+"t": "Pyrénées-Orientales turism",
+"u": "https://www.tourisme-pyreneesorientales.com/bike-park-les-angles/les-angles/loilar066fs000c0"
+}
+]
+},
+{
+"id": "cambre-d-aze-bikepark",
+"type": "bikepark",
+"name": "Cambre d'Aze Enduro Park",
+"cc": "FR",
+"area": "Eyne och Saint-Pierre-dels-Forcats, Cerdagne, Pyrénées-Orientales",
+"lat": 42.4847,
+"lon": 2.1186,
+"trails": "ca 10 leder 2026 (6 året innan), bl.a. långa gröna Tommie Pittie, blå Bluebird och två nya svarta",
+"lifts": "stolliften El Mouli",
+"alt": [
+1600,
+2000
+],
+"disciplines": "enduro, flow",
+"season": "till 30 augusti 2026, kl. 9.30–18",
+"pass": "dagkort vuxen 25 €, reducerat 21,50 €, en tur 13,50 €, säsong 170 € (2026)",
+"level": "alla nivåer",
+"text": "Cambre d'Aze satsar på enduro och har snabbt vuxit till en populär park i Cerdagne. Alla leder utgår från stolliften El Mouli och går genom tallskog mellan ca 1 600 och 2 000 m. Utbudet ökade kraftigt 2026 med nya leder i alla nivåer. Stämningen är familjär, med social ride och tävlingen Catalan-Duro.",
+"highlights": [
+"Catalan-Duro 29–30 augusti 2026",
+"Pack Endugrill med kort och lunch, 35 €",
+"Snabbt växande ledutbud"
+],
+"rent": "Mondraker-cyklar från 45 €",
+"getting": "Perpignan (PGF) ca 1 h 30 min, Barcelona (BCN) ca 2 h 15 min. Train jaune till Mont-Louis-La Cabanasse.",
+"stay": "Saint-Pierre-dels-Forcats, Eyne, Mont-Louis eller Font-Romeu.",
+"tips": "Uppgifterna om antal leder varierar mellan 8 och 10. Kolla Trio-Pyrénées webbplats för aktuellt läge.",
+"web": [
+{
+"t": "Nevasport om säsongen 2026",
+"u": "https://www.nevasport.com/esquiaryviajar/art/71080/cambre-daze-acelera-su-crecimiento-como-destino-de-enduro/"
+}
+]
+},
+{
+"id": "pal-arinsal-bikepark",
+"type": "bikepark",
+"name": "Bike Park Pal Arinsal (Vallnord, La Massana)",
+"cc": "AD",
+"area": "La Massana, Andorra",
+"lat": 42.5447,
+"lon": 1.5145,
+"trails": "över 60 km leder för downhill, enduro, XC och nybörjare; bl.a. Commencal, Old School, Best World DHI 2019 och Wet Tube; nya 2026: Blavet (blå) och Green Gravity Descent",
+"lifts": "kabinbanan från La Massana samt de öppna liftarna i bikepark-sektorn",
+"disciplines": "downhill, enduro, freeride, XC, e-MTB, familjezon (Bike World)",
+"season": "dagligen 20 juni–13 september 2026 kl. 9.30–18, sedan helger till 12 oktober; 7–12 juli bara nedre delen (världscup)",
+"pass": "dagkort vuxen 37,50 €, barn/junior/senior 25 €; eftermiddag 27 €/18 €; försäkring 12 € extra (2026)",
+"level": "alla nivåer",
+"text": "Pal Arinsal, tidigare Vallnord Bike Park, är en av Europas mest kända bikeparker och värd för världscupen i MTB nästan varje år. Kabinbanan går direkt från La Massana, och lederna når ända ned till byn. Med över 60 km leder finns allt från flowleder för familjer till världscupbanan i downhill. Commencal har sin bas här, och stämningen är internationell.",
+"highlights": [
+"UCI-världscup i MTB 9–12 juli 2026",
+"Världscupbanan Best World DHI 2019",
+"Över 60 km leder från La Massana"
+],
+"rent": "ingen egen uthyrning; lokala butiker i La Massana och Arinsal hyr ut DH-cyklar och skydd",
+"getting": "Andorra–La Seu d'Urgell (LEU) ca 35 min, Barcelona (BCN) ca 2 h 45 min, Toulouse (TLS) ca 3 h. Buss från Barcelona till Andorra.",
+"stay": "La Massana, Arinsal, Erts eller Andorra la Vella.",
+"tips": "Köp kort i förväg på nätet eller i kassan vid kabinbanan. Dagkort i automaterna säljs till 14.30. Försäkring ingår inte.",
+"web": [
+{
+"t": "Officiell webbplats",
+"u": "https://www.palarinsal.com/en/summer-pass/bike-park"
+},
+{
+"t": "Priser",
+"u": "https://palarinsal.com/en/ski-pass/bike-park-pass"
+}
+]
+},
+{
+"id": "la-molina-bikepark",
+"type": "bikepark",
+"name": "Bike Park La Molina",
+"cc": "ES",
+"area": "Cerdanya (Alp), Girona, Katalonien",
+"lat": 42.3365,
+"lon": 1.941,
+"trails": "13 slingor: 7–8 downhill-leder (bl.a. Guineu 6,1 km, Catalunya, Comella DH), XC-slinga 11 km och Bike Park Kids",
+"lifts": "kabinbanan Cadí-Moixeró och stolliften Cap de Comella",
+"disciplines": "downhill, enduro, flow, XC, e-MTB, barnpark",
+"season": "dagligen 20 juni–6 september 2026, sedan helger i september och 2–4 oktober; kl. 10–18",
+"pass": "dagkort vuxen 31 €, barn upp till 11 år 26 €, eftermiddag 28 €, en tur 21 €",
+"level": "alla nivåer",
+"text": "La Molina är Spaniens äldsta skidort och en av de största bikeparkerna i Pyrenéerna. Lederna startar på upp till 2 340 m och bjuder på lång fallhöjd, som Guineu med nästan 680 höjdmeter. Här körs regelbundet stora tävlingar, bland annat EM i downhill 2025. Parken har tåg ända fram från Barcelona.",
+"highlights": [
+"Guineu, 6,1 km och ca 680 höjdmeter",
+"EM i downhill 2025",
+"Tåg från Barcelona"
+],
+"rent": "ingen uthyrning omnämnd av stationen; anpassade cyklar finns via Adapted Sports Center",
+"getting": "Barcelona (BCN) ca 2 h, Girona (GRO) ca 2 h. Tåg R3 till La Molina station, sedan buss.",
+"stay": "La Molina, Alp, Puigcerdà eller Bellver de Cerdanya.",
+"tips": "Köp säsongskort före 30 juni för lägre pris. Sista lift går 17.45.",
+"web": [
+{
+"t": "Officiell webbplats",
+"u": "https://www.lamolina.cat/en/summer/news/news/la-molina-summer-season-bike-park"
+},
+{
+"t": "Ledinfo (Pirineu365)",
+"u": "https://pirineu365.cat/en/summer/lamolina/experiences/bike-park/"
+}
+]
+},
+{
+"id": "baqueira-bike",
+"type": "bikepark",
+"name": "Baqueira Beret BTT",
+"cc": "ES",
+"area": "Val d'Aran (Naut Aran), Lleida, Katalonien",
+"lat": 42.6987,
+"lon": 0.9344,
+"trails": "11 BTT-leder från familjeslingor till tekniska nedfarter, plus dirt jump",
+"lifts": "stolliftarna Bosque och Clòt der Os",
+"disciplines": "enduro, nedförsåkning, e-MTB, dirt jump",
+"season": "från 1 juli 2026; Bosque till 6 september, Clòt der Os till 30 augusti, kl. 10–18",
+"pass": "cykelkort vuxen 30 €, barn 20 €; 2 dagar vuxen 56 € (2026)",
+"level": "alla nivåer",
+"text": "Baqueira är Spaniens mest kända skidort och sommartid en lugn bas för enduro i Val d'Aran. Två stolliftar tar cyklar upp till leder genom skog och alpängar. Lederna kopplar till markerade enduroleder i dalen. Det är ingen renodlad bikepark, men ett fint mål för den som vill kombinera lift och natur.",
+"highlights": [
+"Två stolliftar med cykel",
+"11 leder i alla nivåer",
+"Val d'Arans gröna dalar"
+],
+"getting": "Toulouse (TLS) ca 2 h 15 min, Lleida (ILD) ca 2 h 15 min. Bil rekommenderas.",
+"stay": "Baqueira, Salardú, Arties eller Vielha.",
+"tips": "Flerdagskort upp till fem dagar ger lägre dagspris. Sommarboende i Baqueira är ofta billigare än på vintern.",
+"web": [
+{
+"t": "Nevasport om sommaren 2026",
+"u": "https://www.nevasport.com/noticias/art/70917/que-se-puede-hacer-en-baqueira-durante-los-meses-de-verano/"
+},
+{
+"t": "Officiell webbplats",
+"u": "https://www.baqueira.es"
+}
+]
+},
+{
+"id": "cerler-bike",
+"type": "bikepark",
+"name": "Cerler BTT",
+"cc": "ES",
+"area": "Valle de Benasque, Huesca, Aragonien",
+"lat": 42.5869,
+"lon": 0.5402,
+"trails": "markerade BTT-leder från stolliften och en downhill-bana (antal anges inte)",
+"lifts": "stolliften El Molino",
+"disciplines": "downhill, enduro",
+"season": "4 juli–30 augusti 2026",
+"level": "medel och avancerade",
+"text": "Cerler är Aragoniens högsta skidort och ligger ovanför Benasque, nära Aneto. På sommaren går stolliften El Molino, och från toppen nås markerade BTT-leder. I juli 2026 kördes III DH Rincón del Cielo, finalen i Copa de España i downhill, på en ny bana. Utbudet är mindre utbyggt än i de stora parkerna.",
+"highlights": [
+"DH Rincón del Cielo, final i Copa de España 2026",
+"Nära Aneto och Benasquedalen"
+],
+"getting": "Lleida (ILD) ca 2 h 15 min, Zaragoza (ZAZ) ca 2 h 45 min, Toulouse (TLS) ca 3 h. Bil krävs.",
+"stay": "Cerler, Benasque, Anciles eller Eriste.",
+"tips": "Den som bokar via Viajes Aramón åker gratis med stolliften El Molino. Kontrollera om lederna är öppna innan du åker.",
+"web": [
+{
+"t": "Nevasport om sommaren 2026",
+"u": "https://www.nevasport.com/noticias/art/70913/cerler-y-panticosa-pasan-del-esqui-a-concentrar-el-verano-de-aramon/"
+},
+{
+"t": "Aramón",
+"u": "https://www.aramon.com"
+}
+]
+},
+{
+"id": "zona-zero",
+"type": "omrade",
+"name": "Zona Zero Sobrarbe-Pirineo",
+"cc": "ES",
+"area": "Sobrarbe, Huesca (Aragonien)",
+"lat": 42.4183,
+"lon": 0.1386,
+"trails": "över 1 000 km naturliga stigar fördelade på åtta sektorer med skyltade leder och GPS-spår",
+"disciplines": "enduro, all mountain, XC, e-MTB, shuttle",
+"season": "året runt i de lägre delarna; bäst vår och höst, högre upp sommar",
+"pass": "gratis spår",
+"level": "medel och avancerade",
+"text": "Zona Zero är Spaniens mest kända endurområde och har sitt nav i den medeltida byn Aínsa. Stigarna är gamla förbindelseleder mellan byar, många av dem i dag övergivna, och lokala eldsjälar har röjt och skyltat dem sedan början av 2000-talet. Terrängen är torr, stenig och lekfull med utsikt mot Monte Perdido. 2015 blev Aínsa första spanska deltävling i Enduro World Series, med en prolog genom stadens gränder.",
+"highlights": [
+"EWS-deltävling 2015 med prolog i Aínsas gamla stad",
+"Stigar mellan övergivna byar",
+"Cykelbart nästan året runt"
+],
+"rent": "flera cykelbutiker och guider i Aínsa och Boltaña hyr ut enduro- och e-MTB och kör shuttle; pris okänt",
+"getting": "Zaragoza flygplats ca 2 h 15 min med bil, Barcelona ca 3 h 30 min, Lourdes/Tarbes ca 3 h via Bielsatunneln.",
+"stay": "Aínsa, Boltaña, L'Ainsa-campingarna, Labuerda",
+"tips": "Använd appen Ztrails för spårstatus och tillfälliga avstängningar (t.ex. jakt). Shuttle går att boka för rena nedfarter, men de flesta slingor går att trampa.",
+"web": [
+{
+"t": "Zona Zero",
+"u": "https://zonazeropirineos.com"
+},
+{
+"t": "Aragón Bike (Turismo de Aragón)",
+"u": "https://aragonbike.turismodearagon.com"
+},
+{
+"t": "Ztrails-appen",
+"u": "https://ztrails.com"
+}
+]
+},
+{
+"id": "puro-pirineo-benasque",
+"type": "omrade",
+"name": "BTT Puro Pirineo (Benasque)",
+"cc": "ES",
+"area": "Valle de Benasque, Ribagorza (Aragonien)",
+"lat": 42.605,
+"lon": 0.5236,
+"trails": "30 officiella leder, över 700 km",
+"disciplines": "XC, all mountain, enduro, e-MTB",
+"season": "ca juni–oktober högt upp; lägre leder från våren",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Puro Pirineo är spårnätverket i Benasquedalen, mitt bland Pyrenéernas högsta toppar med Aneto och Maladeta. Lederna går på skogsvägar, gamla herdestigar och fina singletracks mellan byar som Benasque, Cerler och Sahún. Långa klättringar belönas med alpina nedfarter och storslagen utsikt. Området har även haft egna endurotävlingar (Puro Pirineo Enduro).",
+"highlights": [
+"Utsikt mot Aneto och Maladeta",
+"Långa alpina nedfarter",
+"Benasque som trivsam bas"
+],
+"getting": "Zaragoza ca 2 h 45 min med bil, Toulouse ca 3 h, Barcelona ca 4 h.",
+"stay": "Benasque, Cerler, Castejón de Sos",
+"tips": "Dalens övre del ligger nära Posets-Maladeta naturpark – håll dig till märkta leder. Starta tidigt sommartid för att slippa eftermiddagsåska.",
+"web": [
+{
+"t": "BTT Puro Pirineo",
+"u": "https://www.bttpuropirineo.com"
+},
+{
+"t": "Trailforks – Benasque",
+"u": "https://www.trailforks.com/region/benasque/"
+}
+]
+},
+{
+"id": "alto-gallego",
+"type": "omrade",
+"name": "Espacio BTT Pirineos Alto Gállego",
+"cc": "ES",
+"area": "Alto Gállego och Valle de Tena, Huesca (Aragonien)",
+"lat": 42.6264,
+"lon": -0.3196,
+"trails": "över 500 km skyltade leder, bl.a. nedfartsleder (DH1, DH2, DH14)",
+"disciplines": "enduro, all mountain, XC, e-MTB",
+"season": "ca maj–oktober; högre leder juli–september",
+"pass": "gratis spår",
+"level": "medel och avancerade",
+"text": "Kring Biescas och Sabiñánigo finns ett stort skyltat nät med leder i Gállegodalen och Valle de Tena. Från Piedrafita-sjön går en legendarisk nedfart på uppemot 2 500 höjdmeter totalt för den som orkar. Lokala guider kör shuttle och tar med på tur mellan byarna. Närheten till Panticosa och Formigal gör att man kan kombinera med liftburen cykling.",
+"highlights": [
+"Lång nedfart från Piedrafita i Valle de Tena",
+"Biescas som bas",
+"Nära Panticosa och Formigal"
+],
+"getting": "Zaragoza ca 2 h med bil, Pau ca 1 h 45 min över Col du Pourtalet.",
+"stay": "Biescas, Sabiñánigo, Panticosa, Sallent de Gállego",
+"tips": "Alla stigar finns inte på den officiella kartan – en lokal guide hittar de bästa. Valle de Tena gränsar mot högfjäll med snabba väderomslag.",
+"web": [
+{
+"t": "BTT Pirineos Alto Gállego",
+"u": "https://www.bttpirineosaltogallego.com"
+},
+{
+"t": "Aragón Bike",
+"u": "https://aragonbike.turismodearagon.com"
+}
+]
+},
+{
+"id": "centre-btt-val-daran",
+"type": "omrade",
+"name": "Centre BTT Val d'Aran",
+"cc": "ES",
+"area": "Val d'Aran, Lleida (Katalonien)",
+"lat": 42.704,
+"lon": 0.807,
+"trails": "29 leder, ca 531 km; därtill endurozonen Enduromies",
+"disciplines": "XC, all mountain, enduro, e-MTB",
+"season": "ca juni–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Val d'Aran är en grön, atlantiskt präglad dal på Pyrenéernas norrsida, med eget språk (aranesiska) och stenbyar med romanska kyrkor. Centre BTT-nätet utgår från Betren intill Vielha och har leder för alla nivåer, från dalbottnens skogsvägar till tekniska stigar högt upp. Endurozonen Enduromies erbjuder mer gravitationsinriktade spår.",
+"highlights": [
+"Grönt och svalt även mitt i sommaren",
+"Endurozonen Enduromies",
+"Romanska byar längs lederna"
+],
+"rent": "cykelcenter i Betren (Copos Bike) med uthyrning; pris okänt",
+"getting": "Toulouse ca 2 h med bil, Barcelona ca 3 h 45 min via Vielhatunneln.",
+"stay": "Vielha, Betren, Arties, Salardú",
+"tips": "Kombinera gärna med liftburen cykling i Baqueira Beret om den har sommaröppet. Regn är vanligare här än söder om huvudkammen.",
+"web": [
+{
+"t": "Centre BTT Val d'Aran (Copos Bike)",
+"u": "https://www.coposbike.com"
+},
+{
+"t": "Visit Val d'Aran",
+"u": "https://www.visitvaldaran.com"
+}
+]
+},
+{
+"id": "centre-btt-valls-daneu",
+"type": "omrade",
+"name": "Centre BTT Valls d'Àneu",
+"cc": "ES",
+"area": "Pallars Sobirà, Lleida (Katalonien)",
+"lat": 42.629,
+"lon": 1.124,
+"trails": "30 leder, ca 1 205 km: ca 21 km mycket lätta, 193 km medel, 178 km svåra, 815 km mycket svåra",
+"disciplines": "XC, all mountain, maraton, e-MTB",
+"season": "ca juni–oktober",
+"pass": "gratis spår",
+"level": "medel och avancerade",
+"text": "Valls d'Àneu har ett av de största skyltade nätverken i katalanska Pyrenéerna, med Esterri d'Àneu som bas. Dalarna gränsar mot Alt Pirineu naturpark och Aigüestortes nationalpark, och lederna går på gamla vägar mellan små stenbyar. Majoriteten av kilometrarna är långa och fysiskt krävande turer.",
+"highlights": [
+"Över 1 200 km leder",
+"Gränsar till Aigüestortes nationalpark",
+"Romanska kyrkor och stenbyar"
+],
+"getting": "Toulouse ca 2 h 45 min via Val d'Aran, Barcelona ca 3 h 30 min.",
+"stay": "Esterri d'Àneu, València d'Àneu, Sort",
+"tips": "Cykling är inte tillåten på stigarna i Aigüestortes nationalpark – följ de märkta lederna. Mycket svåra leder är ofta långa snarare än tekniska; räkna med heldagar.",
+"web": [
+{
+"t": "Valls d'Àneu turisme",
+"u": "https://www.vallsdaneu.org"
+},
+{
+"t": "Visit Pirineus – cykel",
+"u": "https://www.visitpirineus.com"
+}
+]
+},
+{
+"id": "centre-btt-la-seu",
+"type": "omrade",
+"name": "Centre BTT La Seu d'Urgell",
+"cc": "ES",
+"area": "Alt Urgell, Lleida (Katalonien)",
+"lat": 42.358,
+"lon": 1.456,
+"trails": "14 leder, ca 298 km",
+"disciplines": "XC, all mountain, e-MTB",
+"season": "ca april–november",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "La Seu d'Urgell ligger i Segredalen strax söder om Andorra och har ett soligt, torrt klimat som förlänger säsongen. Centret utgår från Parc Olímpic del Segre, där paddlingstävlingarna vid OS 1992 hölls. Lederna går ut i bergsbyar och vingårdslandskap och passar bra att kombinera med Andorra eller Cerdanya.",
+"highlights": [
+"Långsäsong tack vare torrt klimat",
+"Nära Andorra och Cerdanya",
+"Startpunkt för Trinxat BTT-slingan i närheten"
+],
+"getting": "Barcelona ca 2 h 15 min, Toulouse ca 3 h. Andorra–La Seu d'Urgell flygplats ligger strax söder om staden (begränsad trafik).",
+"stay": "La Seu d'Urgell, Castellciutat, Alàs",
+"tips": "Bra vår- och höstalternativ när de höga dalarna är snötäckta.",
+"web": [
+{
+"t": "Parc Olímpic del Segre",
+"u": "https://www.parcolimpic.cat"
+}
+]
+},
+{
+"id": "centre-btt-bergueda",
+"type": "omrade",
+"name": "Centre BTT El Berguedà",
+"cc": "ES",
+"area": "Berguedà, Barcelona (Katalonien)",
+"lat": 42.1035,
+"lon": 1.8456,
+"trails": "36 leder, ca 689 km: ca 119 km mycket lätta, 161 km medel, 118 km svåra, 292 km mycket svåra",
+"disciplines": "XC, all mountain, enduro, e-MTB",
+"season": "nästan året runt i de lägre delarna; högre upp maj–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Berguedà är förbergen mellan Barcelona och Cadí-Moixeró, med den ikoniska klippan Pedraforca som blickfång. Centrets 36 leder utgår från Berga och sträcker sig från lätta familjeturer till långa, tekniska dagsturer. Här startar också flerdagslederna Pedals de Ferro och Cavalls del Vent.",
+"highlights": [
+"Utsikt mot Pedraforca",
+"Nära Barcelona",
+"Inkörsport till Cavalls del Vent och Pedals de Ferro"
+],
+"getting": "Barcelona flygplats ca 1 h 15 min med bil.",
+"stay": "Berga, Bagà, Guardiola de Berguedà",
+"tips": "Ett av de bästa områdena för vår och höst. Sommartid kan det vara mycket varmt i de låga delarna.",
+"web": [
+{
+"t": "El Berguedà turisme",
+"u": "https://www.elbergueda.cat"
+}
+]
+},
+{
+"id": "centre-btt-ripolles",
+"type": "omrade",
+"name": "Centre BTT El Ripollès",
+"cc": "ES",
+"area": "Ripollès, Girona (Katalonien)",
+"lat": 42.2347,
+"lon": 2.2856,
+"trails": "20 leder, ca 477 km",
+"disciplines": "XC, all mountain, e-MTB",
+"season": "april–november; höga leder juni–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Ripollès-centret ligger i Sant Joan de les Abadesses, vid den gamla järnvägen Ruta del Ferro som i dag är grusad cykelväg. Härifrån når man både lugna dalar, klosterbyar och högre leder mot Vall de Camprodon och Vall de Núria. Pirinexus-slingan passerar genom orten.",
+"highlights": [
+"Ruta del Ferro (gammal järnväg)",
+"Medeltida kloster och broar",
+"Nära Pirinexus och Camprodon"
+],
+"getting": "Girona ca 1 h 15 min, Barcelona ca 1 h 45 min med bil.",
+"stay": "Sant Joan de les Abadesses, Ripoll, Camprodon",
+"tips": "Infopunkten ligger i vandrarhemmet La Ruta del Ferro (Alberg rural), som också passar som cykelbas.",
+"web": [
+{
+"t": "Ruta del Ferro",
+"u": "https://www.rutadelferro.com"
+}
+]
+},
+{
+"id": "cerdanya",
+"type": "omrade",
+"name": "BTT Cerdanya",
+"cc": "ES",
+"area": "Cerdanya, Girona/Lleida (Katalonien) – gränsar till franska Cerdagne",
+"lat": 42.4317,
+"lon": 1.9278,
+"trails": "ca 1 400 km märkta leder och 90 rundor i guiden MTB limitless (Cerdanya, Capcir och Pyrénées-Catalanes); 25 rundor presenteras på cerdanya.org",
+"disciplines": "XC, all mountain, singletrack, e-MTB",
+"season": "ca maj–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Cerdanya är en bred, solig högplatå på ca 1 100–1 200 m med berg runt om – Europas största östvästliga dal i Pyrenéerna. Rundorna utgår från Puigcerdà, Llívia, Bellver, Alp och La Molina och korsar fritt gränsen till franska Cerdagne. Mängden sol och de mjuka lutningarna gör området bra för familjer, men det finns också långa singletracks för mer erfarna.",
+"highlights": [
+"Gränsöverskridande nätverk med Frankrike",
+"Solig högplatå",
+"Kombineras med La Molina eller Les Angles"
+],
+"rent": "flera cykelbutiker i Puigcerdà, Bellver och Alp; pris okänt",
+"getting": "Barcelona ca 2 h med bil, Girona ca 1 h 45 min, Toulouse ca 2 h 30 min. Tåg R3 Barcelona–Puigcerdà.",
+"stay": "Puigcerdà, Llívia, Bellver de Cerdanya, Alp",
+"tips": "Rundorna är skyltade på båda sidor gränsen men med olika system – ta med GPS-spår.",
+"web": [
+{
+"t": "Cerdanya – BTT",
+"u": "https://cerdanya.org/en/what-to-do/routes/bike-routes/btt/"
+}
+]
+},
+{
+"id": "espace-vtt-pyrenees-catalanes",
+"type": "omrade",
+"name": "Espace VTT-FFC Pyrénées Catalanes",
+"cc": "FR",
+"area": "Capcir, Haut-Conflent och Haute-Cerdagne, Pyrénées-Orientales",
+"lat": 42.527,
+"lon": 2.107,
+"trails": "42 rundor, ca 653 km: 6 gröna, 14 blå, 17 röda, 3 svarta; plus 7 endurospår (ca 62 km, 2 blå, 5 röda) och en 127 km lång byrunda",
+"disciplines": "XC, enduro, all mountain, e-MTB",
+"season": "markerat öppet året runt; i praktiken snöfritt ca juni–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Ett av de största FFC-märkta områdena i Pyrenéerna, på högplatån kring Col de la Quillane, Les Angles, Formiguères och Font-Romeu. Skogarna av bergtall och de många sjöarna ger lättcyklad men vacker terräng, och sju endurospår gör området intressant även för den som vill ha fart. Platån är känd för många soltimmar.",
+"highlights": [
+"653 km FFC-märkta rundor",
+"7 endurospår",
+"Grand Tour des villages, 127 km"
+],
+"rent": "uthyrning i Les Angles, Font-Romeu och Formiguères; pris okänt",
+"getting": "Perpignan ca 1 h 30 min med bil. Le Train Jaune till Mont-Louis/La Cabanasse.",
+"stay": "Les Angles, Formiguères, Font-Romeu, Mont-Louis",
+"tips": "Kombinera med Les Angles bikepark för liftburna nedfarter. Ta jacka – platån ligger på 1 500–2 000 m.",
+"web": [
+{
+"t": "Espace VTT-FFC Pyrénées Catalanes",
+"u": "https://www.tourisme-pyreneesorientales.com/activites/espace-vtt-ffc-pyrenees-catalanes-la-llagonne-fr-5777204/"
+},
+{
+"t": "Pyrénées Catalanes",
+"u": "https://www.pyrenees-catalanes.net"
+}
+]
+},
+{
+"id": "espace-vtt-pyrenees-ariegeoises",
+"type": "omrade",
+"name": "Espace VTT-FFC des Pyrénées Ariégeoises",
+"cc": "FR",
+"area": "Haute-Ariège (Ax-les-Thermes), Ariège",
+"lat": 42.7202,
+"lon": 1.838,
+"trails": "21 rundor, ca 231 km: 3 gröna, 10 blå, 5 röda, 3 svarta; plus 4 freeridespår i bikeparken Ax 3 Domaines",
+"disciplines": "XC, all mountain, singletrack, e-MTB",
+"season": "ca maj–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Kurorten Ax-les-Thermes, med sina varma källor, är bas för detta FFC-område i övre Ariègedalen. Rundorna går från dalbottnen upp mot byar och fäbodar och bjuder både på klättringar och fina singletracks, t.ex. 21 km runt Rocher de Miglos. Här startar också Grande Traversée VTT Ariège Pyrénées.",
+"highlights": [
+"Varma bad i Ax-les-Thermes efter turen",
+"Start för Grande Traversée VTT",
+"Nära bikeparken Ax 3 Domaines"
+],
+"getting": "Toulouse ca 1 h 45 min med bil, TER-tåg Toulouse–Ax-les-Thermes.",
+"stay": "Ax-les-Thermes, Tarascon-sur-Ariège",
+"tips": "Badet i Bains du Couloubret är ett perfekt avslut. Turistbyrån i Ax säljer kartor.",
+"web": [
+{
+"t": "FFC – Haute-Ariège",
+"u": "https://sitesvtt.ffc.fr/sites/haute-ariege/"
+},
+{
+"t": "Pyrénées Ariégeoises turistbyrå",
+"u": "https://www.pyrenees-ariegeoises.com"
+}
+]
+},
+{
+"id": "espace-vtt-couserans",
+"type": "omrade",
+"name": "Espace VTT-FFC Couserans Pyrénées",
+"cc": "FR",
+"area": "Couserans (Saint-Girons), Ariège",
+"lat": 42.9849,
+"lon": 1.1465,
+"trails": "24 rundor, över 475 km: 4 gröna, 7 blå, 7 röda, 5 svarta; plus 4 endurospår, 2 e-MTB-rundor och en 117 km Tour des portes du Couserans",
+"disciplines": "XC, enduro, e-MTB, flerdagars",
+"season": "ca april–november; höga delar juni–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Couserans är Ariège västra del – ett grönt, glest befolkat landskap med 18 dalar, bokskogar och små byar. FFC-området utgår från Saint-Girons och har ovanligt många svarta rundor och egna endurospår, t.ex. Enduro du Sourroque. En längre runda på 117 km går att göra på två–tre dagar.",
+"highlights": [
+"Enduro du Sourroque",
+"Tour des portes du Couserans (117 km)",
+"Saint-Lizier – mål för Grande Traversée VTT"
+],
+"getting": "Toulouse ca 1 h 30 min med bil.",
+"stay": "Saint-Girons, Saint-Lizier, Seix, Massat",
+"tips": "Lördagsmarknaden i Saint-Girons är en av Pyrenéernas bästa. Stigarna kan vara leriga efter regn.",
+"web": [
+{
+"t": "FFC – Couserans Pyrénées",
+"u": "https://sitesvtt.ffc.fr/sites/couserans-pyrenees-6/"
+},
+{
+"t": "Ariège Pyrénées – Espaces VTT-FFC",
+"u": "https://www.ariegepyrenees.com/preparer/faire-du-velo/vtt/espaces-vtt-ffc/"
+}
+]
+},
+{
+"id": "espace-vtt-pyrenees-cathares",
+"type": "omrade",
+"name": "Espace VTT-FFC Pyrénées Cathares",
+"cc": "FR",
+"area": "Pays d'Olmes (Lavelanet, Montségur), Ariège",
+"lat": 42.931,
+"lon": 1.848,
+"disciplines": "XC, all mountain, e-MTB",
+"season": "ca april–november",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Området kring Lavelanet ligger vid foten av katarborgen Montségur och kombinerar cykling med historia. Rundorna går genom skog och kuperade förberg med utsikt mot borgen och Plantaurel. Grande Traversée VTT passerar Montségur, så området passar som mellanstopp på en längre tur.",
+"highlights": [
+"Utsikt mot katarborgen Montségur",
+"Del av Grande Traversée VTT",
+"Lugna, kuperade förberg"
+],
+"getting": "Toulouse ca 1 h 30 min, Carcassonne ca 1 h 15 min med bil.",
+"stay": "Lavelanet, Montségur, Mirepoix",
+"tips": "Kombinera en tur med besök på Montségur – planera att gå sista biten upp till borgen.",
+"web": [
+{
+"t": "Ariège Pyrénées – Espace VTT-FFC Pyrénées Cathares",
+"u": "https://www.ariegepyrenees.com/loisir-sportif/espace-vtt-ffc-pyrenees-cathares/"
+}
+]
+},
+{
+"id": "espace-vtt-aude-en-pyrenees",
+"type": "omrade",
+"name": "Espace VTT-FFC Aude en Pyrénées",
+"cc": "FR",
+"area": "Pyrénées Audoises (Quillan), Aude",
+"lat": 42.875,
+"lon": 2.182,
+"trails": "40 rundor, ca 890 km (uppgift 2019); kopplat till grannområden blir det nästan 2 000 km",
+"disciplines": "XC, all mountain, enduro, e-MTB",
+"season": "ca mars–november; högre delar maj–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Kring Quillan och Aude-dalens kanjoner finns ett av Pyrenéernas största märkta MTB-nätverk. Landskapet växlar mellan bokskogar, kalkplatåer och raviner som Gorges de Saint-Georges, och flera katarborgar ligger inom räckhåll. Medelhavsklimatet gör att säsongen börjar tidigt och slutar sent.",
+"highlights": [
+"Ett av de största FFC-nätverken i Pyrenéerna",
+"Kanjoner och katarborgar",
+"Lång säsong"
+],
+"getting": "Carcassonne ca 1 h, Perpignan ca 1 h 15 min, Toulouse ca 2 h med bil.",
+"stay": "Quillan, Axat, Espéraza, Puivert",
+"tips": "Siffrorna är från 2019 – kontrollera aktuell karta hos turistbyrån i Quillan.",
+"web": [
+{
+"t": "Aude Tourisme – VTT",
+"u": "https://www.audetourisme.com"
+}
+]
+},
+{
+"id": "val-dazun",
+"type": "omrade",
+"name": "VTT Val d'Azun",
+"cc": "FR",
+"area": "Val d'Azun (Arrens-Marsous), Hautes-Pyrénées",
+"lat": 42.959,
+"lon": -0.21,
+"trails": "minst 14 numrerade VTT-rundor (t.ex. nr 14 Soulor–Couraduque, 13,5 km, lätt); totalsiffra okänd",
+"disciplines": "XC, all mountain, e-MTB",
+"season": "ca juni–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "Val d'Azun är en grön betesdal mellan Argelès-Gazost och Col du Soulor, vid porten till Parc National des Pyrénées. De numrerade rundorna går genom skogar, ängar och förbi sjöar som Lac de Soum, och flera startar från Col du Soulor och Col de Couraduque. Här är det lugnt, betesdjur och utsikt i fokus snarare än fart.",
+"highlights": [
+"Col du Soulor och Couraduque",
+"Lac de Soum",
+"Lugn dal vid nationalparken"
+],
+"getting": "Tarbes-Lourdes flygplats ca 45 min, Pau ca 1 h 15 min med bil.",
+"stay": "Arrens-Marsous, Aucun, Argelès-Gazost",
+"tips": "Cykling är förbjuden på stigarna i nationalparkens kärnzon, som börjar längre in i dalen. Fråga turistbyrån/Maison du Parc i Arrens-Marsous om aktuella rundor.",
+"web": [
+{
+"t": "Vallées de Gavarnie – Val d'Azun",
+"u": "https://www.valleesdegavarnie.com/ete/ma-destination/val-d-azun"
+}
+]
+},
+{
+"id": "site-vtt-pyrenees-bearnaises",
+"type": "omrade",
+"name": "Site VTT-FFC des Pyrénées Béarnaises",
+"cc": "FR",
+"area": "Haut-Béarn (Oloron-Sainte-Marie), Pyrénées-Atlantiques",
+"lat": 43.194,
+"lon": -0.607,
+"disciplines": "XC, all mountain",
+"season": "nästan året runt i förbergen; högre upp juni–oktober",
+"pass": "gratis spår",
+"level": "alla nivåer",
+"text": "FFC-området kring Oloron-Sainte-Marie täcker förbergen vid mynningen av Aspe- och Ossaudalen. Rundorna går genom kuperade bondelandskap, längs forsar och genom skog – t.ex. Bords du Gave, 34 km med fin singletrack längs Gave d'Ossau. Grande Traversée VTT des Pyrénées fortsätter härifrån mot Soule i Baskien.",
+"highlights": [
+"Bords du Gave (34 km, röd)",
+"Porten till Aspe- och Ossaudalen",
+"Kopplad till Grande Traversée VTT mot Baskien"
+],
+"getting": "Pau-Pyrénées flygplats ca 40 min, Biarritz ca 1 h 30 min. TER-tåg Pau–Oloron.",
+"stay": "Oloron-Sainte-Marie, Lurbe-Saint-Christau, Arudy",
+"tips": "Lerigt efter regn – detta är Pyrenéernas blötaste del. Antal rundor och kilometer har vi inte kunnat bekräfta.",
+"web": [
+{
+"t": "Tourisme 64 – VTT",
+"u": "https://www.tourisme64.com/itineraire/a-vtt/"
+}
+]
+},
+{
+"id": "andorra-mtb-leder",
+"type": "omrade",
+"name": "Andorras MTB-leder",
+"cc": "AD",
+"area": "Andorras sju parròquies",
+"lat": 42.5063,
+"lon": 1.5218,
+"trails": "över 600 km leder och nedfarter, dussintals skyltade rundor; dessutom över 100 km e-MTB-rundor i Grandvalira och teknikbanan vid Engolasters",
+"disciplines": "XC, enduro, all mountain, e-MTB, trial/teknik",
+"season": "ca juni–oktober",
+"pass": "gratis spår (allmänna rundor)",
+"level": "alla nivåer",
+"text": "Utöver bikeparkerna i Pal Arinsal och Grandvalira har Andorra ett stort nät av allmänna, skyltade rundor i alla sju parròquies, från barnvänliga turer till leder märkta ”endast experter”. Det branta landskapet passar enduro, och många rundor bjuder på hundratals höjdmeter singletrack ner mot dalarna. Vid Engolasters i Escaldes-Engordany finns en teknikbana med doserade kurvor och träbroar.",
+"highlights": [
+"Över 600 km leder",
+"Teknikbana vid Engolasters",
+"Kombinera med Pal Arinsal och Grandvalira"
+],
+"rent": "uthyrning i flera orter; guidade turer via t.ex. MTB Adventures, Andorra Bike Tracks och VSL Sports",
+"getting": "Barcelona ca 2 h 45 min, Toulouse ca 3 h med bil; direktbussar från båda flygplatserna.",
+"stay": "La Massana, Ordino, Andorra la Vella, Canillo",
+"tips": "Vissa naturparker (t.ex. Sorteny och Madriu-Perafita-Claror) kan ha begränsningar – håll dig till skyltade MTB-rundor.",
+"web": [
+{
+"t": "Visit Andorra – MTB",
+"u": "https://visitandorra.com/en/nature/mtb-in-andorra/"
+},
+{
+"t": "Visit Andorra – leder",
+"u": "https://visitandorra.com/en/nature--sports/itineraries"
+}
+]
+}
+],
+"routes": [
+{
+"id": "transpyr-coast-to-coast",
+"name": "Transpyr Coast to Coast",
+"route": "Roses → Irun",
+"km": "ca 900 km",
+"hm": "ca 17 000 hm",
+"days": "7 dagar (tävlingsformat); på egen hand ofta 10–14 dagar",
+"text": "Transpyr är den klassiska MTB-korsningen av hela Pyrenéerna på spanska sidan, från Medelhavet vid Roses till Atlanten vid Irun. Rutten följer skogsvägar, grusvägar och stigar över otaliga pass och genom Katalonien, Andorras gränstrakter, Aragonien och Navarra. Den körs som etapplopp i början av juni med max 300 deltagare och separata spår för MTB, e-MTB, landsväg och grus.",
+"tips": "Att cykla med arrangören ger bagagetransport, mat och mekaniker. Kör du själv: planera boende i förväg och räkna med långa dagar utan service.",
+"lat": 42.262,
+"lon": 3.176,
+"web": [
+{
+"t": "Transpyr",
+"u": "https://transpyr.com/en"
+}
+]
+},
+{
+"id": "grande-traversee-vtt-ariege",
+"name": "Grande Traversée VTT Ariège Pyrénées",
+"route": "Ax-les-Thermes → Saint-Lizier",
+"km": "ca 205–215 km",
+"hm": "ca 4 200 hm",
+"days": "4–5 dagar",
+"text": "En FFC-märkt (rödmarkerad) flerdagstur genom Ariège förbi Montségur, Mirepoix, Pamiers och grottan vid Le Mas-d'Azil till medeltidsbyn Saint-Lizier. Den finns i en mjuk variant på fem dagar (ca 40 km/dag) och en sportig på fyra dagar (ca 60 km/dag). Rutten är kuperad snarare än alpin och passerar flera katarminnen. Svårighet 3 av 5, för vana cyklister.",
+"tips": "Bäst juni–september; i april–maj kan snö göra de första etapperna svåra. Mobiltäckningen är svag på flera avsnitt. Tillbaka till start via grönleden Saint-Girons–Foix (ca 40 km) och tåg till Ax.",
+"lat": 42.7202,
+"lon": 1.838,
+"web": [
+{
+"t": "Ariège Pyrénées – Grande Traversée VTT",
+"u": "https://www.ariegepyrenees.com/preparer/faire-du-velo/vtt/grande-traversee-vtt/"
+}
+]
+},
+{
+"id": "cavalls-del-vent-btt",
+"name": "Cavalls del Vent BTT",
+"route": "Rundtur i Cadí-Moixeró, t.ex. Bagà → Bagà",
+"km": "ca 225–230 km",
+"hm": "ca 7 300 hm",
+"days": "3–4 dagar",
+"text": "MTB-versionen av den berömda refugi-leden Cavalls del Vent går runt naturparken Cadí-Moixeró mellan Berguedà, Cerdanya och Alt Urgell. Turen bjuder på långa klättringar och utsikt mot Pedraforca och Cerdanya-platån. Med 7 300 höjdmeter är det en riktigt krävande tur.",
+"tips": "Säsong maj–oktober. Boka refugis/boende i förväg och ta med regnkläder.",
+"lat": 42.253,
+"lon": 1.861,
+"web": [
+{
+"t": "Visit Pirineus – cykelkatalog",
+"u": "https://www.visitpirineus.com/sites/default/files/fulleto/fitxer/the-catalan-pyrenees-by-bike.pdf"
+}
+]
+},
+{
+"id": "trinxat-btt",
+"name": "Trinxat BTT",
+"route": "Rundtur Alt Urgell – Cerdanya (bokning i Alàs)",
+"km": "ca 298 km",
+"hm": "ca 7 600 hm",
+"days": "5 dagar (2–3 i extremvarianten)",
+"text": "Trinxat BTT är en rundtur som binder ihop Alt Urgell och Cerdanya och passerar nära Pallars Sobirà och Andorra. Många avsnitt går på grusvägar kring 2 000 m med vid utsikt över Segredalen. Namnet kommer från Cerdanyas klassiska rätt trinxat (kål, potatis och fläsk).",
+"tips": "Säsong maj–oktober beroende på snö. Paket med boende och bagagetransport bokas via arrangören.",
+"lat": 42.353,
+"lon": 1.504,
+"web": [
+{
+"t": "Trinxat BTT",
+"u": "https://www.trinxatbtt.com"
+},
+{
+"t": "Visit Pirineus – Trinxat BTT",
+"u": "https://visitpirineus.com/en/node/191"
+}
+]
+},
+{
+"id": "pirinexus",
+"name": "Pirinexus (grus/cykelturism)",
+"route": "Rundtur Girona – Olot – Céret – L'Escala – Girona",
+"km": "ca 353 km",
+"days": "4–6 dagar",
+"text": "Pirinexus är en gränsöverskridande slinga mellan Katalonien och Roussillon som till stor del följer gamla järnvägsbankar (vías verdes), småvägar och grusvägar. Den högsta punkten är Col d'Ares på ca 1 500 m, och slingan passerar Girona, vulkanlandskapet kring Olot, Prats-de-Mollo, Céret och Costa Brava. Den passar grus-, tur- eller hybridcykel bättre än heldämpad MTB.",
+"tips": "Medsols är vanligast. Mellan Prats-de-Mollo och Arles-sur-Tech delar man väg med biltrafik.",
+"lat": 41.9794,
+"lon": 2.8214,
+"web": [
+{
+"t": "Vies Verdes de Girona",
+"u": "https://www.viesverdes.cat"
+}
+]
+},
+{
+"id": "camino-frances-mtb",
+"name": "Camino de Santiago (Camino Francés) på MTB",
+"route": "Saint-Jean-Pied-de-Port/Roncesvalles → Santiago de Compostela",
+"km": "ca 750–780 km",
+"days": "ca 13–15 dagar",
+"text": "Pilgrimsleden Camino Francés startar i Pyrenéerna och går att cykla på MTB eller trekkingcykel. Första etappen över passet till Roncesvalles och vidare till Pamplona är den mest bergiga, och originalleden är krävande och delas med många vandrare. Den som cyklar minst de sista 200 km och stämplar sitt pilgrimspass två gånger per dag får Compostela-diplomet.",
+"tips": "Visa hänsyn mot vandrare och välj landsvägsalternativ (t.ex. N-135 Roncesvalles–Pamplona) där leden är smal. Ta med extra vatten på Mesetan.",
+"lat": 43.163,
+"lon": -1.238,
+"web": [
+{
+"t": "Viaje Camino de Santiago – Camino på cykel",
+"u": "https://viajecaminodesantiago.com/guia-camino-bicicleta/itinerarios-preparativos/"
+}
+]
+}
+],
+"events": [
+{
+"id": "pyrenees-bike-festival",
+"name": "Pyrénées Bike Festival – UCI Enduro och Downhill World Cup",
+"place": "Loudenvielle-Peyragudes (Vallée du Louron)",
+"cc": "FR",
+"lat": 42.796,
+"lon": 0.408,
+"date": "2026: 28–31 maj (världscup 30–31 maj); 2027 ej publicerat",
+"text": "En festival kring världscupen i enduro och downhill, där DH-banan går från Peyragudes ner mot sjön i Loudenvielle. Utöver eliten finns barnlopp, ett motionslopp och en mässa med ca 80 utställare. Gratis att titta; anmälan till motionsloppet görs via festivalens webbplats.",
+"web": [
+{
+"t": "Webbplats",
+"u": "https://www.ucimtbworldseries.com/news/loudenvielle-peyragudes-when-is-it-who-is-riding-how-and-where-to-watch"
+}
+]
+},
+{
+"id": "world-cup-pal-arinsal",
+"name": "WHOOP UCI Mountain Bike World Cup Pal Arinsal",
+"place": "Pal Arinsal, La Massana",
+"cc": "AD",
+"lat": 42.548,
+"lon": 1.487,
+"date": "2026: 9–12 juli; 2027 ej publicerat",
+"text": "Andorras världscuphelg i cross-country (XCO), short track (XCC) och downhill, som 2026 arrangerades för elfte gången. Ett av de bästa tillfällena att se världseliten på nära håll. Biljetter säljs via arrangörens webbplats; tävlingen är för licensierade elitåkare.",
+"web": [
+{
+"t": "Webbplats",
+"u": "https://events.palarinsal.com/en/world-cup-mtb"
+}
+]
+},
+{
+"id": "transpyr-event",
+"name": "Transpyr Coast to Coast",
+"place": "Roses → Irun",
+"cc": "ES",
+"lat": 42.262,
+"lon": 3.176,
+"date": "2027: 30 maj–5 juni (2026: 31 maj–6 juni)",
+"text": "Sju etapper och drygt 900 km tvärs över Pyrenéerna, med klasser för MTB, e-MTB, landsväg och grus. Passar vältränade motionärer som vill ha ett äventyr med full service. Max 300 deltagare; anmälan med early bird-pris är öppen på transpyr.com.",
+"web": [
+{
+"t": "Webbplats",
+"u": "https://transpyr.com/en"
+}
+]
+},
+{
+"id": "andorra-epic",
+"name": "Andorra Epic Pyrénées",
+"place": "La Massana",
+"cc": "AD",
+"lat": 42.545,
+"lon": 1.515,
+"date": "2026: början av juli (fyra etapper, avslutning 5 juli); 2027 ej publicerat",
+"text": "Ett etapplopp för tvåmannalag i Epic Series-familjen (som Cape Epic), 2026 med 520 åkare från 50 länder. Fyra etapper, totalt ca 204 km och 6 500 hm, med start vid Pal Arinsal och mål i La Massana. Anmälan görs i par via epic-series.com.",
+"web": [
+{
+"t": "Webbplats",
+"u": "https://www.epic-series.com/andorra-event-route"
+}
+]
+},
+{
+"id": "enduro-le-mourtis",
+"name": "Enduro VTT Le Mourtis",
+"place": "Le Mourtis (Boutx), Haute-Garonne",
+"cc": "FR",
+"lat": 42.916,
+"lon": 0.76,
+"date": "2026: 18–19 juli",
+"text": "En tvådagars endurotävling med tekniska specialsträckor i skog och berg, arrangerad av föreningen Wood's Riders. Det finns klasser för både barn och vuxna, så den passar klubbåkare och ambitiösa motionärer. Anmälan via arrangören; se Haute-Garonnes turistbyrå för kontakt.",
+"web": [
+{
+"t": "Webbplats",
+"u": "https://pyrenees31.com/presse/CP-Ete-Sportif-2026.pdf"
+}
+]
+},
+{
+"id": "outdoor-series-ariege",
+"name": "Outdoor Series Pyrénées Ariégeoises (bikepacking)",
+"place": "Foix, Ariège",
+"cc": "FR",
+"lat": 42.9653,
+"lon": 1.6075,
+"date": "2026: 5–7 september",
+"text": "Ett självförsörjande bikepacking-event med en slinga på 350 km och en grusslinga på 150 km genom Ariège. MTB är tillåten men inte elcykel. Passar den som vill testa ultradistans utan tidtagningspress; anmälan via outdoorseries.fr.",
+"web": [
+{
+"t": "Webbplats",
+"u": "https://outdoorseries.fr/pyrenees-ariegeoises/"
+}
+]
+}
+],
+"tips": [
+{
+"h": "Säsong och väder",
+"t": "I förbergen (Aude, Berguedà, Sobrarbe, Béarn) är vår och höst bäst – sommaren kan bli het. Högt upp är lederna snöfria från slutet av juni till oktober. Sommareftermiddagar ger ofta åska: starta tidigt och var nere från fjällen före kl. 14–15."
+},
+{
+"h": "Nationalparker och regler",
+"t": "I kärnzonen av Parc National des Pyrénées är MTB förbjuden, utom på vägar öppna för biltrafik och på märkta spår vid Brousset (Ossau) och Somport (Aspe) (arrêté 29 augusti 2013). I Ordesa y Monte Perdido är cykling förbjuden på stigar som inte är upplåtna. Även i Aigüestortes (Katalonien) och i Andorras naturparker gäller begränsningar – håll dig till skyltade MTB-leder och kontrollera lokala regler."
+},
+{
+"h": "Skyltning och svårighetsgrader",
+"t": "Franska Espaces/Sites VTT-FFC har färgade rundor: grön (lätt), blå (medel), röd (svår) och svart (mycket svår). Katalanska Centres BTT använder samma färgskala (mycket lätt, medel, svår, mycket svår) och har infopunkter med kartor. Svart betyder ofta långt och fysiskt, inte bara tekniskt."
+},
+{
+"h": "E-MTB och laddning",
+"t": "E-MTB är tillåten på de flesta märkta rundor, och många områden har egna e-MTB-slingor. Uthyrare, turistbyråer och allt fler boenden har laddning. Planera turen efter batteriets räckvidd – långa klättringar på 1 500 hm äter batteri, särskilt i kyla."
+},
+{
+"h": "Egen cykel på flyg och tåg",
+"t": "De flesta flygbolag tar cykel i box eller väska mot avgift – boka i förväg. På franska TER-tåg kan cykel oftast tas med, medan TGV och Intercités kräver bokning eller nedpackad cykel. I Spanien är reglerna olika för olika tåg och bussar."
+},
+{
+"h": "Säkerhet och utrustning",
+"t": "Hjälm är ett måste – i bikepark och på downhill fullfacehjälm och skydd. Ta med minst 1,5–2 liter vatten, reparationskit, regnjacka och karta/GPS; mobiltäckningen är dålig i många dalar. Larmnummer 112 gäller i Frankrike, Spanien och Andorra."
+},
+{
+"h": "Guider och skolor",
+"t": "I Frankrike är MCF-moniteurerna (Moniteurs Cyclistes Français) statligt certifierade MTB-guider med skolor i de flesta dalar. I Spanien och Andorra finns lokala guideföretag, ofta med shuttle. En guide visar de bästa stigarna och känner till tillfälliga avstängningar."
+},
+{
+"h": "Betesdjur och grindar",
+"t": "Får, kor och hästar betar fritt på sommaren. Sakta in, passera lugnt och stäng alltid grindar efter dig. Håll avstånd till vallhundar (patous) som vaktar fårhjordar – stanna, gå av cykeln och led den förbi i lugn takt."
+}
+],
+"links": [
+{
+"t": "FFC – Sites VTT-FFC",
+"u": "https://sitesvtt.ffc.fr/"
+},
+{
+"t": "Ariège Pyrénées – Espaces VTT-FFC",
+"u": "https://www.ariegepyrenees.com/preparer/faire-du-velo/vtt/espaces-vtt-ffc/"
+},
+{
+"t": "Visit Pirineus – Katalanska Pyrenéerna på cykel",
+"u": "https://www.visitpirineus.com/sites/default/files/fulleto/fitxer/the-catalan-pyrenees-by-bike.pdf"
+},
+{
+"t": "Aragón Bike",
+"u": "https://aragonbike.turismodearagon.com"
+},
+{
+"t": "Zona Zero",
+"u": "https://zonazeropirineos.com"
+},
+{
+"t": "Visit Andorra – MTB",
+"u": "https://visitandorra.com/en/nature/mtb-in-andorra/"
+},
+{
+"t": "Tourisme Pyrénées-Orientales",
+"u": "https://www.tourisme-pyreneesorientales.com"
+},
+{
+"t": "Tourisme 64 – VTT",
+"u": "https://www.tourisme64.com/itineraire/a-vtt/"
+},
+{
+"t": "Transpyr",
+"u": "https://transpyr.com/en"
+},
+{
+"t": "UCI Mountain Bike World Series",
+"u": "https://www.ucimtbworldseries.com"
+},
+{
+"t": "Parc National des Pyrénées",
+"u": "https://www.pyrenees-parcnational.fr"
+},
+{
+"t": "Moniteurs Cyclistes Français (MCF)",
+"u": "https://www.moniteurcycliste.com"
+}
+]
+};
 
 const ROUTES = [
   { id: "kung", name: "Den omvända kungsetappen", sub: "Pau → Saint-Girons över fem pass", km: 330, color: "tdf",
@@ -2525,7 +3982,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=19"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=20"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -2534,13 +3991,13 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   var D = window.I18N;
   var tr = function (s) { if (typeof s !== "string") return s; var k = s.trim(); return D[k] != null ? s.replace(k, D[k]) : s; };
   var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips|comp|kat|start|season|km|time|hist)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
-    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/, TRAILS: /^(name|text|tips|km|days|top|route)$/, TRAIL_GROUPS: /^(pyr|katar|camino)$/, KATAR: /^(intro|tro|arv|t|txt|y)$/, PEAKS: /^(name|massif|country|first|story|days|season|start|hut|gain|time|steps|warn|alt2)$/, CLIMB: /^(intro|h|t|gear|grades|name)$/, SKI: /^(name|area|snow|park|nordic|season|pass|level|text|highlights|air|rail|bus|car|stay|stayNear|tips|classic|skate|loops|other|t)$/, SKI_INFO: /^(intro|h|t)$/ };
+    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/, TRAILS: /^(name|text|tips|km|days|top|route)$/, TRAIL_GROUPS: /^(pyr|katar|camino)$/, KATAR: /^(intro|tro|arv|t|txt|y)$/, PEAKS: /^(name|massif|country|first|story|days|season|start|hut|gain|time|steps|warn|alt2)$/, CLIMB: /^(intro|h|t|gear|grades|name)$/, SKI: /^(name|area|snow|park|nordic|season|pass|level|text|highlights|air|rail|bus|car|stay|stayNear|tips|classic|skate|loops|other|t)$/, SKI_INFO: /^(intro|h|t)$/, MTB: /^(name|area|trails|lifts|disciplines|season|pass|level|text|highlights|rent|getting|stay|tips|t|h|intro|route|km|hm|days|place|date)$/ };
   function walk(o, re, key) {
     if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) { if (typeof o[i] === "string") { if (key && re.test(key)) o[i] = tr(o[i]); } else walk(o[i], re, key); } return; }
     if (!o || typeof o !== "object") return;
     for (var k in o) { if (typeof o[k] === "string") { if (re.test(k)) o[k] = tr(o[k]); } else if (k !== "waypoints" && k !== "links" && k !== "photoLinks" && k !== "sources") walk(o[k], re, k); }
   }
-  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS, TRAILS: TRAILS, TRAIL_GROUPS: TRAIL_GROUPS, KATAR: KATAR, PEAKS: PEAKS, CLIMB: CLIMB, SKI: SKI, SKI_INFO: SKI_INFO };
+  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS, TRAILS: TRAILS, TRAIL_GROUPS: TRAIL_GROUPS, KATAR: KATAR, PEAKS: PEAKS, CLIMB: CLIMB, SKI: SKI, SKI_INFO: SKI_INFO, MTB: MTB };
   [TDF, VUELTA, OCC].forEach(function (x) { walk(x, ALLOW.RACE); });
   [TDF27, VUELTA27, OCC27].forEach(function (x) { walk(x, ALLOW.NEXT); });
   for (var g in G) walk(G[g], ALLOW[g]);
@@ -3194,7 +4651,7 @@ function tdfHistory(p) {
 const DIFF = { "lätt": [_t("Lätt"), "#2e7d32"], "medel": [_t("Medel"), "#1565c0"], "svår": [_t("Svår"), "#c62828"], "mycket svår": [_t("Mycket svår"), "var(--ink)"] };
 const AREA = { "väst": _t("Väst – Béarn och Baskien"), "mitt": _t("Mitt – Hautes-Pyrénées och Comminges"), "ariège": _t("Ariège"), "öst": _t("Öst – Cerdagne"), "andorra": _t("Andorra"), "spanien": _t("Spanien") };
 const ETYPE = { granfondo: _t("Gran fondo"), cyclosportive: _t("Cyclosportive"), brevet: _t("Brevet / raid"), etapplopp: _t("Etapplopp") };
-const mState = { mode: store.get("cyMode", "proffs") === "motion" ? "motion" : "proffs", tab: ["rundor", "egen", "lopp", "hyr", "resa"].includes(store.get("mTab", "rundor")) ? store.get("mTab", "rundor") : "rundor", area: "alla" };
+const mState = { mode: store.get("cyMode", "proffs") === "motion" ? "motion" : "proffs", tab: ["rundor", "egen", "mtb", "lopp", "hyr", "resa"].includes(store.get("mTab", "rundor")) ? store.get("mTab", "rundor") : "rundor", area: "alla" };
 const fmtLong = d => new Date(d + "T12:00:00").toLocaleDateString(LOC, { weekday: "short", day: "numeric", month: "long", year: "numeric" });
 const linkA = (u, t) => u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t || u.replace(/^https?:\/\/(www\.)?/, "").split("/")[0])}</a>` : "";
 const pathKm = pts => { let t = 0; for (let i = 1; i < pts.length; i++) t += km({ lat: pts[i - 1][0], lon: pts[i - 1][1] }, { lat: pts[i][0], lon: pts[i][1] }); return t; };
@@ -3278,7 +4735,7 @@ function renderResa() {
 }
 function renderMotion() {
   document.querySelectorAll("[data-mtab]").forEach(b => b.setAttribute("aria-pressed", b.dataset.mtab === mState.tab));
-  $("#motionBody").innerHTML = mState.tab === "rundor" ? renderRundor() : mState.tab === "egen" ? renderEgen() : mState.tab === "lopp" ? renderLopp() : mState.tab === "hyr" ? renderHyr() : renderResa();
+  $("#motionBody").innerHTML = mState.tab === "rundor" ? renderRundor() : mState.tab === "egen" ? renderEgen() : mState.tab === "mtb" ? renderMtb() : mState.tab === "lopp" ? renderLopp() : mState.tab === "hyr" ? renderHyr() : renderResa();
 }
 function renderCycling() {
   document.querySelectorAll("[data-cymode]").forEach(b => b.setAttribute("aria-pressed", b.dataset.cymode === mState.mode));
@@ -3294,8 +4751,48 @@ document.addEventListener("click", e => {
   const l = e.target.closest("[data-layers]"); if (l) { const p = $("#layerPanel"); p.hidden = !p.hidden; if (!p.hidden) renderLayerPanel(); return; }
 });
 
+/* ---------- Cykla själv: mountainbike ---------- */
+const MTBCOL = "#a0522d";
+const mtbState = { type: ["alla", "bikepark", "omrade"].includes(store.get("mtbType")) ? store.get("mtbType") : "alla" };
+const MTB_BY = Object.fromEntries(MTB.areas.map(a => [a.id, a]));
+function mtbCard(a) {
+  const bp = a.type === "bikepark";
+  const rows = [[_t("Spår"), esc(a.trails)], [_t("Liftar"), esc(a.lifts)], [_t("Grenar"), esc(a.disciplines)], [_t("Säsong"), esc(a.season)], [bp ? _t("Liftkort") : _t("Kostnad"), esc(a.pass)], [_t("Uthyrning"), esc(a.rent)]];
+  return `<article class="stage" id="mtb-${a.id}"><div class="st-bd">
+    <div><div class="eyebrow">${esc(a.area)} · ${CC[a.cc]}</div><h4>${esc(a.name)}</h4></div>
+    <div class="tags"><span class="tag" style="--c:${MTBCOL}">${bp ? _t("Bikepark med lift") : _t("Stigar och leder")}</span>${a.alt && a.alt[0] ? `<span class="tag" style="--c:var(--ink)">${fmtN(a.alt[0])}–${fmtN(a.alt[1])} m</span>` : ""}${a.level ? `<span class="tag" style="--c:var(--muted)">${esc(a.level)}</span>` : ""}</div>
+    <p class="st-sum">${esc(a.text)}</p>
+    ${a.highlights ? `<ul class="checks skhl">${a.highlights.map(h => `<li><span>${esc(h)}</span></li>`).join("")}</ul>` : ""}
+    <div class="tdfbox" style="border-color:${MTBCOL}"><span class="eyebrow" style="color:${MTBCOL}">${_t(`Spåren`)}</span>${gisTable(rows)}</div>
+    ${a.getting || a.stay ? `<details class="skd"><summary>${_t(`Resa och boende`)}</summary>${gisTable([[_t("Så tar du dig dit"), esc(a.getting)], [_t("Boende"), esc(a.stay)]])}</details>` : ""}
+    ${a.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(a.tips)}</div></div>` : ""}
+    <div class="st-foot"><button class="btn" data-ov-show="mtb:${a.id}">${ICON.map}${_t(`Karta`)}</button>${a.web.map(w => `<a class="btn" href="${esc(w.u)}" target="_blank" rel="noopener">${esc(w.t)}</a>`).join("")}<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
+  </div></article>`;
+}
+function mtbGroup(list) { return ["FR", "AD", "ES"].map(c => { const l = list.filter(a => a.cc === c).sort((x, y) => x.lon - y.lon); return l.length ? `<h4 class="mh">${CC[c]} · ${l.length}</h4><div class="stages">${l.map(mtbCard).join("")}</div>` : ""; }).join(""); }
+function renderMtb() {
+  const t = mtbState.type, bp = MTB.areas.filter(a => a.type === "bikepark"), om = MTB.areas.filter(a => a.type !== "bikepark");
+  const ch = [["alla", _t("Allt")], ["bikepark", _t("Bikeparker med lift")], ["omrade", _t("Stigar och MTB-områden")]];
+  return `<p class="outlook">${esc(MTB.intro)}</p>
+    <div class="actions">${selBtn("mtb", _t("Visa alla MTB-platser på kartan"))}</div>
+    <div class="sp-chips">${ch.map(([k, l]) => `<button class="chip" data-mtb-type="${k}" aria-pressed="${t === k}">${l}</button>`).join("")}</div>
+    ${t !== "omrade" ? `<h4 class="mh">${_t(`Bikeparker med lift ·`)} ${bp.length}</h4><p class="ty-note" style="color:var(--muted);margin:-6px 0 4px">${_t(`Skidorterna öppnar liftarna för cyklar på sommaren – med nedfarter för downhill, enduro och flow.`)}</p>${mtbGroup(bp)}` : ""}
+    ${t !== "bikepark" ? `<h4 class="mh">${_t(`Stigar och MTB-områden ·`)} ${om.length}</h4><p class="ty-note" style="color:var(--muted);margin:-6px 0 4px">${_t(`Markerade spårnätverk utan lift: franska Espaces VTT-FFC, katalanska Centres BTT och endurozoner som Zona Zero.`)}</p>${mtbGroup(om)}` : ""}
+    ${t === "alla" ? `<h4 class="mh">${_t(`Långa leder och flerdagarsturer`)}</h4>
+    <div class="stages">${MTB.routes.map(r => `<article class="stage"><div class="st-bd"><div><div class="eyebrow">${esc(r.route)}</div><h4>${esc(r.name)}</h4></div>
+      <div class="tags">${r.km ? `<span class="tag" style="--c:${MTBCOL}">${esc(r.km)}</span>` : ""}${r.hm ? `<span class="tag" style="--c:var(--ink)">${esc(r.hm)}</span>` : ""}${r.days ? `<span class="tag" style="--c:var(--muted)">${esc(r.days)}</span>` : ""}</div>
+      <p class="st-sum">${esc(r.text)}</p>${r.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(r.tips)}</div></div>` : ""}
+      <div class="st-foot">${r.web.map(w => `<a class="btn" href="${esc(w.u)}" target="_blank" rel="noopener">${esc(w.t)}</a>`).join("")}</div></div></article>`).join("")}</div>
+    <h4 class="mh">${_t(`Tävlingar och festivaler`)}</h4>
+    <div class="rumours">${MTB.events.map(e => `<article class="rumour" style="--rc:${MTBCOL}"><span class="rel">${esc(e.date)}</span><h5>${esc(e.name)}</h5><small>${esc(e.place)} · ${CC[e.cc]}</small><p>${esc(e.text)}</p>${e.web ? `<small>${e.web.map(w => linkA(w.u, w.t)).join(" · ")}</small>` : ""}</article>`).join("")}</div>
+    <h4 class="mh">${_t(`Bra att veta`)}</h4>
+    <div class="grades">${MTB.tips.map(s => `<div class="grade"><b>${esc(s.h)}</b><p>${esc(s.t)}</p></div>`).join("")}</div>
+    <div><div class="eyebrow">${_t(`Bra länkar`)}</div><ul class="links">${MTB.links.map(l => `<li><a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t)}</a></li>`).join("")}</ul></div>` : ""}
+    <p class="tour-src">${_t(`Säsonger, priser och antal spår enligt bikeparkernas och turistbyråernas webbplatser, FFC, Centres BTT de Catalunya och Zona Zero, oktober 2026 (sommaren 2026). Kontrollera öppettider och liftkort innan du åker – de ändras varje sommar.`)}</p>`;
+}
+document.addEventListener("click", e => { const b = e.target.closest("[data-mtb-type]"); if (b) { mtbState.type = b.dataset.mtbType; store.set("mtbType", mtbState.type); renderMotion(); } });
 /* ---------- kartlager ---------- */
-OV = Object.assign({ rundor: false, etapper: false, hyr: false, lopp: false, flyg: false }, store.get("layers", {}), { hl: null });
+OV = Object.assign({ rundor: false, etapper: false, hyr: false, lopp: false, flyg: false, mtb: false }, store.get("layers", {}), { hl: null });
 const YCOL = ["#c4242c", "#1565c0", "#2e7d32", "#8e44ad", "#d35400", "#00838f", "#6d4c41", "#ad1457", "#455a64", "#7cb342", "#f9a825", "#5e35b1", "#e64a19", "#0277bd", "#558b2f", "#b71c1c", "#283593"];
 function stagePath(s) {
   const pts = [], seen = [];
@@ -3315,6 +4812,7 @@ function ovPoints() {
   const P = [];
   if (OV.hyr) HYR.shops.forEach((s, i) => P.push({ key: "hyr:" + i, lat: s.lat, lon: s.lon, color: "#2277b8", label: s.name, sym: "H" }));
   if (OV.lopp) MOTION.events.forEach(e => e.lat && P.push({ key: "lopp:" + e.id, lat: e.lat, lon: e.lon, color: "#6b5579", label: e.name, sym: "M" }));
+  if (OV.mtb) MTB.areas.forEach(a => (!OV.only || OV.only.has("mtb:" + a.id)) && P.push({ key: "mtb:" + a.id, lat: a.lat, lon: a.lon, color: MTBCOL, label: a.name, sym: a.type === "bikepark" ? "B" : "S" }));
   if (OV.flyg) RESA.airports.forEach((a, i) => P.push({ key: "flyg:" + i, lat: a.lat, lon: a.lon, color: "#18262b", label: a.code, sym: "✈" }));
   if (OV.rykten) (RACES[tdfState.race].next.rumours || []).forEach((r, i) => r.lat != null && P.push({ key: "rykte:" + i, lat: r.lat, lon: r.lon, color: { stark: "#3f7a35", medel: "#94642a", svag: "#56666b" }[r.reliability] || "#56666b", label: r.place, sym: "?" }));
   return P;
@@ -3344,6 +4842,7 @@ function renderLayerPanel() {
       <div class="lyears">${YEARS[tdfState.race].map(y => `<button class="ychip mini ${R.data.find(d => d.year === y).stages.length ? "" : "none"}" data-lyear="${y}" aria-pressed="${curYears().has(y)}">${y}</button>`).join("")}</div>
       ${OV.etapper && ys.length ? `<div class="legend">${ys.map(y => `<span><i style="background:${YCOL[YEARS[tdfState.race].indexOf(y) % YCOL.length]}"></i>${y}</span>`).join("")}</div>` : ""}</div>
     ${row("hyr", _t("Cykeluthyrning (") + HYR.shops.length + ")", "background:#2277b8;border-radius:50%")}
+    ${row("mtb", _t("Mountainbike (") + MTB.areas.length + ")", "background:" + MTBCOL + _t(";border-radius:50%"))}
     ${row("lopp", _t("Motionslopp (") + MOTION.events.filter(e => e.lat).length + ")", "background:#6b5579;border-radius:50%")}
     ${row("flyg", _t("Flygplatser (") + RESA.airports.length + ")", "background:#18262b;border-radius:50%")}
     <label class="lrow"><input type="checkbox" data-legends ${map.legOn ? "checked" : ""}><span class="lsw" style="background:${HIKECOL}"></span>${_t(`Legendariska vandringsleder (`)}${TRAILS.length})</label>
@@ -3369,6 +4868,7 @@ function ovItem(key) {
   if (k === "hyr") { const s = HYR.shops[+id]; return s && { pts: [[s.lat, s.lon]], shop: s }; }
   if (k === "lopp") { const e = MOTION.events.find(x => x.id === id); return e && { pts: [[e.lat, e.lon]], ev: e }; }
   if (k === "flyg") { const a = RESA.airports[+id]; return a && { pts: [[a.lat, a.lon]], ap: a }; }
+  if (k === "mtb") { const a = MTB_BY[id]; return a && { pts: [[a.lat, a.lon]], mtb: a }; }
   if (k === "rykte") { const r = (RACES[tdfState.race].next.rumours || [])[+id]; return r && { pts: [[r.lat, r.lon]], rum: r }; }
 }
 function showOverlay(key) {
@@ -3405,6 +4905,8 @@ function openOverlay(key) {
     html = `<div class="d-pad"><div class="d-head"><div class="tags"><span class="tag" style="--c:var(--c-bad)">${_t(`Cykeluthyrning`)}</span></div><h2 id="sheetTitle">${esc(s.name)}</h2><div class="sub">${esc(s.town)}</div></div>
       <div class="prose"><p>${esc(s.bikes_sv)}</p></div>${gisTable([[_t("Pris"), s.price_sv ? esc(s.price_sv) : null], [_t("Service"), s.service_sv ? esc(s.service_sv) : null], [_t("Nära"), (s.near || []).join(", ") || null], [_t("Läge"), coord([s.lat, s.lon]) + " (ortens centrum)"]])}
       <div class="actions">${s.url ? `<a class="btn primary" href="${esc(s.url)}" target="_blank" rel="noopener">${_t(`Webbplats`)}</a>` : ""}<a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + " " + s.town)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Hitta i Google Maps`)}</a></div></div>`;
+  } else if (it.mtb) {
+    html = `<div style="padding:16px">${mtbCard(it.mtb)}</div>`;
   } else if (it.ev) {
     html = `<div style="padding:16px">${eventCard(it.ev)}</div>`;
   } else if (it.ap) {
@@ -3460,13 +4962,14 @@ function selection(kind) {
   }
   if (kind === "rundor") { const l = RUNDOR.routes.filter(r => mState.area === "alla" || r.area === mState.area); return { keys: l.map(r => "runda:" + r.id), label: `${_t(`Cykelrundor`)}${mState.area === "alla" ? "" : " · " + AREA[mState.area]} · ${l.length}` }; }
   if (kind === "lopp") { const l = MOTION.events.filter(e => e.lat); return { keys: l.map(e => "lopp:" + e.id), label: `${_t(`Motionslopp ·`)} ${l.length}` }; }
+  if (kind === "mtb") { const l = MTB.areas.filter(a => mtbState.type === "alla" || (mtbState.type === "bikepark") === (a.type === "bikepark")); return { keys: l.map(a => "mtb:" + a.id), label: `${_t(`Mountainbike ·`)} ${l.length}` }; }
   if (kind === "hyr") return { keys: HYR.shops.map((s, i) => "hyr:" + i), label: `${_t(`Cykeluthyrning ·`)} ${HYR.shops.length}` };
   if (kind === "flyg") return { keys: RESA.airports.map((a, i) => "flyg:" + i), label: `${_t(`Flygplatser ·`)} ${RESA.airports.length}` };
   if (kind === "rykten") { const l = (R.next.rumours || []).map((r, i) => r.lat != null ? "rykte:" + i : null).filter(Boolean); return { keys: l, label: `${_t(`Rykten`)} ${R.short} ${R.next.edition_year || 2027} · ${l.length}` }; }
 }
 function showSelection(kind) {
   const sel = selection(kind); if (!sel || !sel.keys.length) return;
-  ["rundor", "etapper", "hyr", "lopp", "flyg", "rykten"].forEach(k => OV[k] = k === kind);
+  ["rundor", "etapper", "hyr", "lopp", "flyg", "rykten", "mtb"].forEach(k => OV[k] = k === kind);
   OV.only = new Set(sel.keys); OV.sel = kind; OV.hl = null; saveOV();
   closeSheet(); state.route = null; map.setFocus(false); show("karta");
   $("#routeName").textContent = sel.label; $("#routePill").hidden = false; $("#routeDl").hidden = true;
