@@ -10231,7 +10231,8 @@ if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = _t("Spa
 const AFF = {
   tpDrive: true,                 // Travelpayouts Drive är installerat i <head>: länkarna konverteras automatiskt och märks som annonslänkar
   tp: { marker: "790578", trs: "586120", p: { discovercars: "", omio: "", gyg: "", aviasales: "", bikesbooking: "" } },
-  booking: { aid: "" },          // Booking.com Affiliate Partner (direkt) – används före Stay22 om båda finns
+  booking: { aid: "" },          // Booking.com med gammalt aid-nummer (används inte längre när programmet går via CJ)
+  bookingCJ: { pid: "101905306", aid: "", host: "www.dpbolvw.net" }, // Booking via CJ: pid = webbplatsens id i CJ, aid = Bookings länk-id (från en länk i Content Hub)
   stay22: { aid: "", script: "" }, // Stay22: ditt aid och adressen till skriptet de ger dig
   discovercars: { a_aid: "" },   // Discover Cars direkt (om du inte går via Travelpayouts)
   gyg: { partner_id: "" },       // GetYourGuide direkt (om du inte går via Travelpayouts)
@@ -10241,6 +10242,7 @@ if (AFF.stay22.aid && AFF.stay22.script) { try { window.Stay22 = Object.assign(w
 const addQ = (url, k, v) => { try { const x = new URL(url); x.searchParams.set(k, v); return x.href; } catch (e) { return url; } };
 const tpOn = k => !!(AFF.tp.marker && AFF.tp.p[k]);
 function affUrl(partner, url) {
+  if (partner === "booking" && AFF.bookingCJ.pid && AFF.bookingCJ.aid) return { href: `https://${AFF.bookingCJ.host}/click-${AFF.bookingCJ.pid}-${AFF.bookingCJ.aid}?url=${encodeURIComponent(url)}`, ad: true };
   if (partner === "booking") return AFF.booking.aid ? { href: addQ(url, "aid", AFF.booking.aid), ad: true } : { href: url, ad: !!AFF.stay22.aid };
   if (partner === "hotelscom" || partner === "vrbo") return { href: url, ad: !!AFF.stay22.aid };
   if (AFF.tpDrive && ["discovercars", "omio", "gyg", "aviasales", "bikesbooking"].includes(partner) && !tpOn(partner)) return { href: url, ad: true };
