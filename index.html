@@ -674,6 +674,8 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .pk-steps{margin:8px 0 0;padding-left:20px;display:grid;gap:6px;font-size:14.5px;line-height:1.5}
 .pk-first,.pk-alt{margin:0;font-size:14px;color:var(--muted)}
 .pk-alt{margin-top:8px}
+.sp-fn{font-size:12.5px;color:var(--muted)}
+.sp-fish .tags{margin:2px 0}
 .grades{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px 20px}
 .grade{display:grid;gap:4px;align-content:start}
 .grade .tag{justify-self:start}
@@ -849,6 +851,24 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
           <button data-stab="tips" aria-pressed="false">Liftkort, säsong och säkerhet</button>
         </div>
         <div id="skiBody" style="display:grid;gap:22px"></div>
+      </div>
+    </section>
+
+    <section class="view" id="v-sport" hidden aria-label="Övrig sport i Pyrenéerna">
+      <div class="page">
+        <div class="page-head">
+          <span class="eyebrow">Trail · Pêche · Rafting · Parapente · Equitación</span>
+          <h2>Övrig sport</h2>
+          <p>Allt det andra du kan göra i Pyrenéerna: maraton, fjällmaraton och ultratrail, fiske i fjällsjöar, floder och hav – på Medelhavs- och Atlantsidan – med vilka fiskar som finns var. Dessutom kanot, kajak, forsränning och kanjoning, skärmflyg, hängflyg, segelflyg, fallskärmshopp och ballong, och till sist ridning, åsnevandring, via ferrata, klättring, golf och baskisk pelota.</p>
+        </div>
+        <div class="seg sub" role="group" aria-label="Välj sport">
+          <button data-otab="lopning" aria-pressed="true">Löpning</button>
+          <button data-otab="fiske" aria-pressed="false">Fiske</button>
+          <button data-otab="vatten" aria-pressed="false">Paddling och forsränning</button>
+          <button data-otab="flyg" aria-pressed="false">Flygsporter</button>
+          <button data-otab="mer" aria-pressed="false">Ridning med mera</button>
+        </div>
+        <div id="sportBody" style="display:grid;gap:22px"></div>
       </div>
     </section>
 
@@ -3913,6 +3933,8 @@ const MTB = {
 ]
 };
 
+/* ---------- Övrig sport: data ---------- */
+const SPORT = /*SPORTDATA*/{}/*/SPORTDATA*/;
 const ROUTES = [
   { id: "kung", name: "Den omvända kungsetappen", sub: "Pau → Saint-Girons över fem pass", km: 330, color: "tdf",
     text: "Från 2014-guiden: sväng av vid Pau och kör Tour de France-land över alla bergspass, en så kallad omvänd kungsetapp – Col d'Aubisque, Col du Tourmalet, Col d'Aspin, Col de Peyresourde och, om man vill, Col de Portet d'Aspet. Räkna med en hel dag med fotostopp. Passen kan vara stängda vid snö utanför sommarsäsongen.",
@@ -4002,13 +4024,13 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   var D = window.I18N;
   var tr = function (s) { if (typeof s !== "string") return s; var k = s.trim(); return D[k] != null ? s.replace(k, D[k]) : s; };
   var ALLOW = { CATS: /^(label|short)$/, PLACES: /^(name|sub|t14|text|tdf|photoCaption|tLang|tips|comp|kat|start|season|km|time|hist)$/, ROUTES: /^(name|sub|text)$/, RACE: /_sv$/, NEXT: /(_sv|^stage_hint)$/,
-    RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/, TRAILS: /^(name|text|tips|km|days|top|route)$/, TRAIL_GROUPS: /^(pyr|katar|camino)$/, KATAR: /^(intro|tro|arv|t|txt|y)$/, PEAKS: /^(name|massif|country|first|story|days|season|start|hut|gain|time|steps|warn|alt2)$/, CLIMB: /^(intro|h|t|gear|grades|name)$/, SKI: /^(name|area|snow|park|nordic|season|pass|level|text|highlights|air|rail|bus|car|stay|stayNear|tips|classic|skate|loops|other|t)$/, SKI_INFO: /^(intro|h|t)$/, MTB: /^(name|area|trails|lifts|disciplines|season|pass|level|text|highlights|rent|getting|stay|tips|t|h|intro|route|km|hm|days|place|date)$/ };
+    SPORT: /^(intro|sub|area|when|text|highlights|tips|getting|facts|t|h|name)$/, RUNDOR: /(_sv|^note|^name)$/, MOTION: /(_sv|^town|^name|^cols)$/, HYR: /(_sv|^area|^type|^town|^name)$/, RESA: /(_sv|^time|^name)$/, GUIDE: /^(intro|vagval)$/, WHS: /^(name|desc|visit|year)$/, TRAILS: /^(name|text|tips|km|days|top|route)$/, TRAIL_GROUPS: /^(pyr|katar|camino)$/, KATAR: /^(intro|tro|arv|t|txt|y)$/, PEAKS: /^(name|massif|country|first|story|days|season|start|hut|gain|time|steps|warn|alt2)$/, CLIMB: /^(intro|h|t|gear|grades|name)$/, SKI: /^(name|area|snow|park|nordic|season|pass|level|text|highlights|air|rail|bus|car|stay|stayNear|tips|classic|skate|loops|other|t)$/, SKI_INFO: /^(intro|h|t)$/, MTB: /^(name|area|trails|lifts|disciplines|season|pass|level|text|highlights|rent|getting|stay|tips|t|h|intro|route|km|hm|days|place|date)$/ };
   function walk(o, re, key) {
     if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) { if (typeof o[i] === "string") { if (key && re.test(key)) o[i] = tr(o[i]); } else walk(o[i], re, key); } return; }
     if (!o || typeof o !== "object") return;
     for (var k in o) { if (typeof o[k] === "string") { if (re.test(k)) o[k] = tr(o[k]); } else if (k !== "waypoints" && k !== "links" && k !== "photoLinks" && k !== "sources") walk(o[k], re, k); }
   }
-  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS, TRAILS: TRAILS, TRAIL_GROUPS: TRAIL_GROUPS, KATAR: KATAR, PEAKS: PEAKS, CLIMB: CLIMB, SKI: SKI, SKI_INFO: SKI_INFO, MTB: MTB };
+  var G = { CATS: CATS, PLACES: PLACES, ROUTES: ROUTES, RUNDOR: RUNDOR, MOTION: MOTION, HYR: HYR, RESA: RESA, GUIDE: GUIDE, WHS: WHS, TRAILS: TRAILS, TRAIL_GROUPS: TRAIL_GROUPS, KATAR: KATAR, PEAKS: PEAKS, CLIMB: CLIMB, SKI: SKI, SKI_INFO: SKI_INFO, MTB: MTB, SPORT: SPORT };
   [TDF, VUELTA, OCC].forEach(function (x) { walk(x, ALLOW.RACE); });
   [TDF27, VUELTA27, OCC27].forEach(function (x) { walk(x, ALLOW.NEXT); });
   for (var g in G) walk(G[g], ALLOW[g]);
@@ -4096,12 +4118,13 @@ const ICON = {
   whs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c-4 4.5-4 13.5 0 18M12 3c4 4.5 4 13.5 0 18M3.5 9h17M3.5 15h17"/></svg>',
   walk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.8"/><path d="m9 21 2.5-6 2.5 2.5V21M8 12l2-4.5 3 1.5 2 3 2.5 1M10 7.5 7.5 10l-.5 3"/><path d="M18 11v10"/></svg>',
   ski: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="15.5" cy="4.5" r="1.8"/><path d="M3 15.5 20.5 21M7.5 12.5l3.5-4.5 3.5 2.5-2 3.5 3 2.5-1 3M11 8l-3.5 1.5"/></svg>',
+  sport: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="15" r="6"/><path d="m8.5 3 3.5 6 3.5-6M12 12.5l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3z"/></svg>',
   print: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg>',
 };
 const RIDGE = '<svg class="ridgeart" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 L0 42 L22 26 L34 34 L58 10 L76 28 L92 18 L118 40 L140 14 L160 30 L178 22 L200 36 L200 60Z" fill="#fff"/></svg>';
 
 /* ---------- vyer ---------- */
-const VIEWS = [["karta", _t("Karta"), "map"], ["resmal", _t("Resmål"), "list"], ["rutter", _t("Rutter"), "route"], ["touren", _t("Cykling"), "bike"], ["vandring", _t("Vandring"), "walk"], ["skidor", _t("Skidor"), "ski"], ["minresa", _t("Min resa"), "bag"], ["om", _t("Om guiden"), "info"]];
+const VIEWS = [["karta", _t("Karta"), "map"], ["resmal", _t("Resmål"), "list"], ["rutter", _t("Rutter"), "route"], ["touren", _t("Cykling"), "bike"], ["vandring", _t("Vandring"), "walk"], ["skidor", _t("Skidor"), "ski"], ["sport", _t("Sport"), "sport"], ["minresa", _t("Min resa"), "bag"], ["om", _t("Om guiden"), "info"]];
 function navHTML() { return VIEWS.map(([id, label, ic]) => `<button data-view="${id}">${ICON[ic]}<span>${label}</span>${id === "minresa" ? '<span class="count"></span>' : ""}</button>`).join(""); }
 $("#nav").innerHTML = navHTML();
 $("#bottomnav").innerHTML = navHTML();
@@ -4117,6 +4140,7 @@ function show(view, opts = {}) {
   if (view === "touren") renderCycling();
   if (view === "vandring") renderHiking();
   if (view === "skidor") renderSki();
+  if (view === "sport") renderSport();
   if (view === "minresa") renderMinResa();
   if (!opts.noHash) { try { history.replaceState(null, "", "#" + view); } catch (e) {} }
   store.set("view", view);
@@ -4801,9 +4825,61 @@ function renderMtb() {
     <div><div class="eyebrow">${_t(`Bra länkar`)}</div><ul class="links">${MTB.links.map(l => `<li><a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t)}</a></li>`).join("")}</ul></div>` : ""}
     <p class="tour-src">${_t(`Säsonger, priser och antal spår enligt bikeparkernas och turistbyråernas webbplatser, FFC, Centres BTT de Catalunya och Zona Zero, oktober 2026 (sommaren 2026). Kontrollera öppettider och liftkort innan du åker – de ändras varje sommar.`)}</p>`;
 }
+/* ---------- Övrig sport: löpning, fiske, paddling, flygsporter, ridning m.m. (oktober 2026) ---------- */
+const SP_SECS = [["lopning", _t("Löpning"), "#c2185b", "L"], ["fiske", _t("Fiske"), "#00796b", "F"], ["vatten", _t("Paddling och forsränning"), "#0277bd", "P"], ["flyg", _t("Flygsporter"), "#7b1fa2", "S"], ["mer", _t("Ridning med mera"), "#8d6e63", "R"]];
+const SP_COL = Object.fromEntries(SP_SECS.map(s => [s[0], s[2]])), SP_SYM = Object.fromEntries(SP_SECS.map(s => [s[0], s[3]])), SP_NAME = Object.fromEntries(SP_SECS.map(s => [s[0], s[1]]));
+const SP_ITEMS = [];
+for (const k of Object.keys(SPORT)) (SPORT[k].items || []).forEach(it => { it.sec = k; SP_ITEMS.push(it); });
+const SP_BY = Object.fromEntries(SP_ITEMS.map(a => [a.id, a]));
+const SP_WHERE = [["fjall", _t("Fjällsjöar")], ["flod", _t("Floder")], ["sjo", _t("Sjöar och dammar")], ["med", _t("Medelhavet")], ["atl", _t("Atlanten")]];
+const spState = { tab: SPORT[store.get("spTab")] ? store.get("spTab") : "lopning", sub: "alla", fish: "alla" };
+function spSubs(sec) { const s = []; (SPORT[sec].items || []).forEach(i => { if (!s.includes(i.sub)) s.push(i.sub); }); return s; }
+function spList() { return (SPORT[spState.tab].items || []).filter(i => spState.sub === "alla" || i.sub === spState.sub); }
+function sportCard(a) {
+  const col = SP_COL[a.sec];
+  return `<article class="stage" id="sp-${a.id}"><div class="st-bd">
+    <div><div class="eyebrow">${esc(a.area)} · ${CC[a.cc] || ""}</div><h4>${esc(a.name)}</h4></div>
+    <div class="tags"><span class="tag" style="--c:${col}">${esc(a.sub)}</span>${a.when ? `<span class="tag" style="--c:var(--ink)">${esc(a.when)}</span>` : ""}</div>
+    <p class="st-sum">${esc(a.text)}</p>
+    ${a.highlights && a.highlights.length ? `<ul class="checks skhl">${a.highlights.map(h => `<li><span>${esc(h)}</span></li>`).join("")}</ul>` : ""}
+    ${a.facts && a.facts.length ? `<div class="tdfbox" style="border-color:${col}"><span class="eyebrow" style="color:${col}">${_t(`Fakta`)}</span>${gisTable(a.facts.map(f => [esc(f[0]), esc(f[1])]))}</div>` : ""}
+    ${a.getting ? `<details class="skd"><summary>${_t(`Så tar du dig dit`)}</summary><p style="margin:6px 0 0">${esc(a.getting)}</p></details>` : ""}
+    ${a.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(a.tips)}</div></div>` : ""}
+    <div class="st-foot"><button class="btn" data-ov-show="sport:${a.id}">${ICON.map}${_t(`Karta`)}</button>${(a.web || []).map(w => `<a class="btn" href="${esc(w.u)}" target="_blank" rel="noopener">${esc(w.t)}</a>`).join("")}<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
+  </div></article>`;
+}
+function spFish() {
+  const S = SPORT.fiske.species || []; if (!S.length) return "";
+  const l = S.filter(f => spState.fish === "alla" || (f.where || []).includes(spState.fish));
+  const lbl = Object.fromEntries(SP_WHERE);
+  return `<h4 class="mh">${_t(`Fiskarterna`)}</h4>
+    <p class="ty-note" style="color:var(--muted);margin:-6px 0 4px">${_t(`Vilka fiskar finns var – i fjällsjöarna, floderna, sjöarna och i havet på Medelhavs- och Atlantsidan. Franska och spanska namn hjälper när du köper fiskekort, bete eller frågar en guide.`)}</p>
+    <div class="sp-chips">${[["alla", _t("Alla arter")], ...SP_WHERE].map(([k, t]) => `<button class="chip" data-sp-fish="${k}" aria-pressed="${spState.fish === k}">${t}</button>`).join("")}</div>
+    <div class="grades sp-fish">${l.map(f => `<div class="grade"><b>${esc(f.name)}</b><small class="sp-fn"><i>${esc(f.latin || "")}</i> · FR ${esc(f.fr || "–")} · ES ${esc(f.es || "–")}</small><div class="tags">${(f.where || []).map(w => `<span class="tag" style="--c:${SP_COL.fiske}">${lbl[w] || w}</span>`).join("")}</div><p>${esc(f.text)}</p></div>`).join("")}</div>`;
+}
+function renderSport() {
+  document.querySelectorAll("[data-otab]").forEach(b => b.setAttribute("aria-pressed", b.dataset.otab === spState.tab));
+  const S = SPORT[spState.tab], subs = spSubs(spState.tab); if (!subs.includes(spState.sub)) spState.sub = "alla";
+  const list = spList(), col = SP_COL[spState.tab];
+  const groups = subs.filter(s => spState.sub === "alla" || s === spState.sub).map(s => { const l = list.filter(i => i.sub === s).sort((x, y) => x.lon - y.lon); return l.length ? `<h4 class="mh">${esc(s)} · ${l.length}</h4><div class="stages">${l.map(sportCard).join("")}</div>` : ""; }).join("");
+  $("#sportBody").innerHTML = `<p class="outlook">${esc(S.intro || "")}</p>
+    <div class="actions">${selBtn("sport", _t("Visa på kartan") + ` (${list.length})`)}</div>
+    ${subs.length > 1 ? `<div class="sp-chips">${[["alla", _t("Allt")], ...subs.map(s => [s, s])].map(([k, t]) => `<button class="chip" data-sp-sub="${esc(k)}" aria-pressed="${spState.sub === k}">${esc(t)}</button>`).join("")}</div>` : ""}
+    ${groups}
+    ${spState.tab === "fiske" ? spFish() : ""}
+    ${(S.tips || []).length ? `<h4 class="mh">${_t(`Bra att veta`)}</h4><div class="grades">${S.tips.map(s => `<div class="grade"><b>${esc(s.h)}</b><p>${esc(s.t)}</p></div>`).join("")}</div>` : ""}
+    ${(S.links || []).length ? `<div><div class="eyebrow">${_t(`Bra länkar`)}</div><ul class="links">${S.links.map(l => `<li><a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t)}</a></li>`).join("")}</ul></div>` : ""}
+    <p class="tour-src">${_t(`Datum, priser och regler enligt arrangörernas, turistbyråernas och myndigheternas webbplatser, oktober 2026. Kontrollera alltid aktuella uppgifter innan du åker – de ändras från år till år.`)}</p>`;
+  $("#sportBody").style.setProperty("--spc", col);
+}
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-otab]"); if (t) { spState.tab = t.dataset.otab; spState.sub = "alla"; store.set("spTab", spState.tab); renderSport(); return; }
+  const s = e.target.closest("[data-sp-sub]"); if (s) { spState.sub = s.dataset.spSub; renderSport(); return; }
+  const f = e.target.closest("[data-sp-fish]"); if (f) { spState.fish = f.dataset.spFish; renderSport(); }
+});
 document.addEventListener("click", e => { const b = e.target.closest("[data-mtb-type]"); if (b) { mtbState.type = b.dataset.mtbType; store.set("mtbType", mtbState.type); renderMotion(); } });
 /* ---------- kartlager ---------- */
-OV = Object.assign({ rundor: false, etapper: false, hyr: false, lopp: false, flyg: false, mtb: false }, store.get("layers", {}), { hl: null });
+OV = Object.assign({ rundor: false, etapper: false, hyr: false, lopp: false, flyg: false, mtb: false, sport: false }, store.get("layers", {}), { hl: null });
 const YCOL = ["#c4242c", "#1565c0", "#2e7d32", "#8e44ad", "#d35400", "#00838f", "#6d4c41", "#ad1457", "#455a64", "#7cb342", "#f9a825", "#5e35b1", "#e64a19", "#0277bd", "#558b2f", "#b71c1c", "#283593"];
 function stagePath(s) {
   const pts = [], seen = [];
@@ -4824,6 +4900,7 @@ function ovPoints() {
   if (OV.hyr) HYR.shops.forEach((s, i) => P.push({ key: "hyr:" + i, lat: s.lat, lon: s.lon, color: "#2277b8", label: s.name, sym: "H" }));
   if (OV.lopp) MOTION.events.forEach(e => e.lat && P.push({ key: "lopp:" + e.id, lat: e.lat, lon: e.lon, color: "#6b5579", label: e.name, sym: "M" }));
   if (OV.mtb) MTB.areas.forEach(a => (!OV.only || OV.only.has("mtb:" + a.id)) && P.push({ key: "mtb:" + a.id, lat: a.lat, lon: a.lon, color: MTBCOL, label: a.name, sym: a.type === "bikepark" ? "B" : "S" }));
+  if (OV.sport) SP_ITEMS.forEach(a => (!OV.only || OV.only.has("sport:" + a.id)) && P.push({ key: "sport:" + a.id, lat: a.lat, lon: a.lon, color: SP_COL[a.sec], label: a.name, sym: SP_SYM[a.sec] }));
   if (OV.flyg) RESA.airports.forEach((a, i) => P.push({ key: "flyg:" + i, lat: a.lat, lon: a.lon, color: "#18262b", label: a.code, sym: "✈" }));
   if (OV.rykten) (RACES[tdfState.race].next.rumours || []).forEach((r, i) => r.lat != null && P.push({ key: "rykte:" + i, lat: r.lat, lon: r.lon, color: { stark: "#3f7a35", medel: "#94642a", svag: "#56666b" }[r.reliability] || "#56666b", label: r.place, sym: "?" }));
   return P;
@@ -4854,6 +4931,7 @@ function renderLayerPanel() {
       ${OV.etapper && ys.length ? `<div class="legend">${ys.map(y => `<span><i style="background:${YCOL[YEARS[tdfState.race].indexOf(y) % YCOL.length]}"></i>${y}</span>`).join("")}</div>` : ""}</div>
     ${row("hyr", _t("Cykeluthyrning (") + HYR.shops.length + ")", "background:#2277b8;border-radius:50%")}
     ${row("mtb", _t("Mountainbike (") + MTB.areas.length + ")", "background:" + MTBCOL + _t(";border-radius:50%"))}
+    ${row("sport", _t("Övrig sport (") + SP_ITEMS.length + ")", "background:" + SP_COL.lopning + ";border-radius:50%")}
     ${row("lopp", _t("Motionslopp (") + MOTION.events.filter(e => e.lat).length + ")", "background:#6b5579;border-radius:50%")}
     ${row("flyg", _t("Flygplatser (") + RESA.airports.length + ")", "background:#18262b;border-radius:50%")}
     <label class="lrow"><input type="checkbox" data-legends ${map.legOn ? "checked" : ""}><span class="lsw" style="background:${HIKECOL}"></span>${_t(`Legendariska vandringsleder (`)}${TRAILS.length})</label>
@@ -4880,6 +4958,7 @@ function ovItem(key) {
   if (k === "lopp") { const e = MOTION.events.find(x => x.id === id); return e && { pts: [[e.lat, e.lon]], ev: e }; }
   if (k === "flyg") { const a = RESA.airports[+id]; return a && { pts: [[a.lat, a.lon]], ap: a }; }
   if (k === "mtb") { const a = MTB_BY[id]; return a && { pts: [[a.lat, a.lon]], mtb: a }; }
+  if (k === "sport") { const a = SP_BY[id]; return a && { pts: [[a.lat, a.lon]], sp: a }; }
   if (k === "rykte") { const r = (RACES[tdfState.race].next.rumours || [])[+id]; return r && { pts: [[r.lat, r.lon]], rum: r }; }
 }
 function showOverlay(key) {
@@ -4916,6 +4995,8 @@ function openOverlay(key) {
     html = `<div class="d-pad"><div class="d-head"><div class="tags"><span class="tag" style="--c:var(--c-bad)">${_t(`Cykeluthyrning`)}</span></div><h2 id="sheetTitle">${esc(s.name)}</h2><div class="sub">${esc(s.town)}</div></div>
       <div class="prose"><p>${esc(s.bikes_sv)}</p></div>${gisTable([[_t("Pris"), s.price_sv ? esc(s.price_sv) : null], [_t("Service"), s.service_sv ? esc(s.service_sv) : null], [_t("Nära"), (s.near || []).join(", ") || null], [_t("Läge"), coord([s.lat, s.lon]) + " (ortens centrum)"]])}
       <div class="actions">${s.url ? `<a class="btn primary" href="${esc(s.url)}" target="_blank" rel="noopener">${_t(`Webbplats`)}</a>` : ""}<a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + " " + s.town)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Hitta i Google Maps`)}</a></div></div>`;
+  } else if (it.sp) {
+    html = `<div style="padding:16px">${sportCard(it.sp)}</div>`;
   } else if (it.mtb) {
     html = `<div style="padding:16px">${mtbCard(it.mtb)}</div>`;
   } else if (it.ev) {
@@ -4974,13 +5055,14 @@ function selection(kind) {
   if (kind === "rundor") { const l = RUNDOR.routes.filter(r => mState.area === "alla" || r.area === mState.area); return { keys: l.map(r => "runda:" + r.id), label: `${_t(`Cykelrundor`)}${mState.area === "alla" ? "" : " · " + AREA[mState.area]} · ${l.length}` }; }
   if (kind === "lopp") { const l = MOTION.events.filter(e => e.lat); return { keys: l.map(e => "lopp:" + e.id), label: `${_t(`Motionslopp ·`)} ${l.length}` }; }
   if (kind === "mtb") { const l = MTB.areas.filter(a => mtbState.type === "alla" || (mtbState.type === "bikepark") === (a.type === "bikepark")); return { keys: l.map(a => "mtb:" + a.id), label: `${_t(`Mountainbike ·`)} ${l.length}` }; }
+  if (kind === "sport") { const l = spList(); return { keys: l.map(a => "sport:" + a.id), label: `${SP_NAME[spState.tab]}${spState.sub !== "alla" ? " · " + spState.sub : ""} · ${l.length}` }; }
   if (kind === "hyr") return { keys: HYR.shops.map((s, i) => "hyr:" + i), label: `${_t(`Cykeluthyrning ·`)} ${HYR.shops.length}` };
   if (kind === "flyg") return { keys: RESA.airports.map((a, i) => "flyg:" + i), label: `${_t(`Flygplatser ·`)} ${RESA.airports.length}` };
   if (kind === "rykten") { const l = (R.next.rumours || []).map((r, i) => r.lat != null ? "rykte:" + i : null).filter(Boolean); return { keys: l, label: `${_t(`Rykten`)} ${R.short} ${R.next.edition_year || 2027} · ${l.length}` }; }
 }
 function showSelection(kind) {
   const sel = selection(kind); if (!sel || !sel.keys.length) return;
-  ["rundor", "etapper", "hyr", "lopp", "flyg", "rykten", "mtb"].forEach(k => OV[k] = k === kind);
+  ["rundor", "etapper", "hyr", "lopp", "flyg", "rykten", "mtb", "sport"].forEach(k => OV[k] = k === kind);
   OV.only = new Set(sel.keys); OV.sel = kind; OV.hl = null; saveOV();
   closeSheet(); state.route = null; map.setFocus(false); show("karta");
   $("#routeName").textContent = sel.label; $("#routePill").hidden = false; $("#routeDl").hidden = true;
