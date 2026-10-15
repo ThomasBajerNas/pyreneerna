@@ -6,10 +6,11 @@ export async function onRequestPost({ request, env }) {
   let o; try { o = await request.json(); } catch (e) { return json({ error: "Fel i beställningen." }, 400); }
   let L; try { L = lineItems(o); } catch (e) { return json({ error: e.message }, 400); }
   const origin = new URL(request.url).origin;
+  const lang = /^(sv|no|da|en|de|fr|es|it|pt)$/.test(o.lang) ? o.lang : "";
   const f = {
     mode: "payment",
-    success_url: `${origin}/?kop={CHECKOUT_SESSION_ID}#minresa`,
-    cancel_url: `${origin}/#minresa`,
+    success_url: `${origin}/?kop={CHECKOUT_SESSION_ID}${lang ? "&lang=" + lang : ""}#minresa`,
+    cancel_url: `${origin}/${lang ? "?lang=" + lang : ""}#minresa`,
     locale: STRIPE_LOCALE[o.lang] || "auto",
     "metadata[kind]": o.kind, "metadata[ready]": o.ready || "", "metadata[gpx]": o.gpx ? "1" : "0",
     "metadata[title]": String(o.title || "").slice(0, 200), "metadata[lang]": String(o.lang || "").slice(0, 5),

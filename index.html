@@ -12270,7 +12270,7 @@ function deliveredOrder(v, pend) {
   try { const u = new URL(location.href); u.searchParams.delete("kop"); history.replaceState(null, "", u.pathname + u.search + u.hash); } catch (e) {}
   const pend = store.get("pendingOrder", null);
   let v = null; try { const r = await fetch("/api/verify?session_id=" + encodeURIComponent(sid), { cache: "no-store" }); v = await r.json(); } catch (e) {}
-  const link = location.origin + "/?kop=" + encodeURIComponent(sid) + "#minresa";
+  const link = location.origin + "/?kop=" + encodeURIComponent(sid) + "&lang=" + LANG + "#minresa";
   const o = v && v.ok ? deliveredOrder(v, pend) : null;
   _order = o;
   $("#sheetBody").innerHTML = `<div class="shop d-pad">${v && v.ok
