@@ -9826,7 +9826,7 @@ function renderHyr() {
   HYR.shops.forEach(s => (groups[s.area] = groups[s.area] || []).push(s));
   const order = Object.keys(groups).sort((a, b) => groups[a][0].lon - groups[b][0].lon);
   return `<p class="outlook">${esc(HYR.tips_sv)}</p><div class="actions">${selBtn("hyr", _t("Visa alla uthyrare på kartan"))}<button class="btn" data-goto-bike>${ICON.bag}${_t(`Planera cykelhyra i Min resa`)}</button>${AFF.links.bikesbooking ? affBtn("bikesbooking", ICON.bike + _t("Boka cykel online"), AFF.links.bikesbooking) : ""}</div>
-    <div class="stages">${order.map(a => `<article class="stage"><div class="st-bd"><h4>${esc(a)}</h4>${groups[a].map(s => `<div class="shop"><b>${esc(s.name)}</b> <small>${esc(s.town)}</small>
+    <div class="stages">${order.map(a => `<article class="stage"><div class="st-bd"><h4>${esc(a)}</h4>${groups[a].map(s => `<div class="shop d-pad"><b>${esc(s.name)}</b> <small>${esc(s.town)}</small>
       <p>${esc(s.bikes_sv)}</p>${s.price_sv ? `<p><b>${_t(`Pris:`)}</b> ${esc(s.price_sv)}</p>` : ""}${s.service_sv ? `<p>${esc(s.service_sv)}</p>` : ""}
       <div class="st-foot">${s.url ? `<a class="btn" href="${esc(s.url)}" target="_blank" rel="noopener">${_t(`Webbplats`)}</a>` : ""}<button class="btn" data-ov-show="hyr:${HYR.shops.indexOf(s)}">${ICON.map}${_t(`Karta`)}</button><button class="btn" data-pick-bike="${HYR.shops.indexOf(s)}">${ICON.bag}${_t(`Räkna in i Min resa`)}</button></div></div>`).join("")}</div></article>`).join("")}</div>
     <h4 class="mh">${_t(`Utkörning, guidade turer och nätverk`)}</h4>
@@ -11274,7 +11274,7 @@ function segPractical(p, tipsIn) {
   if (!tipsIn && s && s.race === "tdf") tips.push(`${_t(`Under Tour de France stängs vägarna över passen redan tidigt på tävlingsdagen. Vill ni cykla delen samma vecka som Touren passerar – kolla datumen under Cykling.`)}`);
   return `<div><div class="eyebrow">${_t(`Praktiskt`)}</div><ul class="segtips">${tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>
     <div><div class="eyebrow">${_t(`Bo nära starten`)}</div><div class="near">${towns.map(({ t, d }) => `<button class="row" data-open="${t.id}">${badge(t)}<div><b>${esc(t.name)}</b><small>${esc(t.sub)}</small></div><span class="alt">${Math.round(d)} km</span></button>`).join("")}</div></div>
-    <div><div class="eyebrow">${_t(`Hyr cykel nära starten`)}</div><div class="segshops">${shops.map(({ x, i, d }) => `<div class="shop"><b>${esc(x.name)}</b> <small>${esc(x.town)} · ${Math.round(d)} ${_t(`km från starten`)}</small><p>${esc(x.bikes_sv)}</p>${x.price_sv ? `<p><b>${_t(`Pris:`)}</b> ${esc(x.price_sv)}</p>` : ""}<div class="st-foot">${x.url ? `<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">${_t(`Webbplats`)}</a>` : ""}<button class="btn" data-pick-bike="${i}">${ICON.bag}${_t(`Räkna in i Min resa`)}</button></div></div>`).join("")}</div></div>`;
+    <div><div class="eyebrow">${_t(`Hyr cykel nära starten`)}</div><div class="segshops">${shops.map(({ x, i, d }) => `<div class="shop d-pad"><b>${esc(x.name)}</b> <small>${esc(x.town)} · ${Math.round(d)} ${_t(`km från starten`)}</small><p>${esc(x.bikes_sv)}</p>${x.price_sv ? `<p><b>${_t(`Pris:`)}</b> ${esc(x.price_sv)}</p>` : ""}<div class="st-foot">${x.url ? `<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">${_t(`Webbplats`)}</a>` : ""}<button class="btn" data-pick-bike="${i}">${ICON.bag}${_t(`Räkna in i Min resa`)}</button></div></div>`).join("")}</div></div>`;
 }
 function openSeg(id) {
   const p = BY[id]; if (!p || !p.seg) return;
@@ -12068,7 +12068,7 @@ function saveFile(filename, data, mime) {
   a.download = filename; document.body.appendChild(a); a.click();
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500); return Promise.resolve(true);
 }
-const fileSafe = s => String(s).replace(/[^\wåäöÅÄÖéèüñçÉ\- ]+/g, "").trim().replace(/\s+/g, "-") || "Pyreneerna";
+const fileSafe = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\- ]+/g, "").trim().replace(/\s+/g, "-") || "Pyreneerna";
 
 /* ----- köp (gemensamt för guider och GPX) ----- */
 let _order = null;
@@ -12076,13 +12076,13 @@ function shopCheckout(order) {
   _order = order;
   const total = order.lines.reduce((s, l) => s + l[1], 0);
   const test = shopTest();
-  $("#sheetBody").innerHTML = `<div class="shop">
+  $("#sheetBody").innerHTML = `<div class="shop d-pad">
     <span class="eyebrow">${order.kind === "gpx" ? _t("GPX-fil") : _t("Reseguide")}</span>
     <h2 class="shop-h">${esc(order.title)}</h2>
     ${order.sub ? `<p class="shop-sub">${esc(order.sub)}</p>` : ""}
     <table class="shop-lines">${order.lines.map(([l, p]) => `<tr><td>${esc(l)}</td><td>${fmtCur(p)}</td></tr>`).join("")}<tr class="tot"><td>${_t("Att betala")}</td><td>${fmtCur(total)}</td></tr></table>
     <ul class="shop-what">${order.what.map(w => `<li>${esc(w)}</li>`).join("")}</ul>
-    ${SHOP.pay ? `<button class="btn primary shop-buy" data-shop-pay>${_t("Betala och ladda ner")}</button>`
+    ${SHOP.pay ? `<button class="btn primary shop-buy" data-shop-pay>${_t("Betala och ladda ner")}</button>${SHOP.payTest ? `<p class="shop-sub"><b>${_t("Testläge")}</b> – ${_t("Stripes testkort 4242 4242 4242 4242 fungerar, inga pengar dras.")}</p>` : ""}`
       : `<div class="shop-soon"><b>${_t("Betalningen öppnar snart.")}</b> ${_t("Guiden och GPX-filerna går att köpa här så fort betalningen är på plats. Fram till dess kan du bygga och förhandsgranska din guide – inställningarna sparas i webbläsaren.")}</div>
          <button class="btn primary shop-buy" disabled>${_t("Betala och ladda ner")}</button>`}
     ${test ? `<div class="shop-test"><b>${_t("Testläge")}</b> – ${_t("ingen betalning görs. Används för att prova nedladdningen.")}<br><button class="btn" data-shop-test>${_t("Ladda ner (test)")}</button></div>` : ""}
@@ -12100,7 +12100,7 @@ document.addEventListener("click", async e => {
   const t = e.target.closest("[data-shop-test]"); if (t) { if (shopTest()) shopDeliver(t); return; }
   const p = e.target.closest("[data-shop-pay]"); if (p && SHOP.pay && _order) {
     p.disabled = true;
-    try { if (await SHOP.pay(_order)) await shopDeliver(p); } catch (err) { $("#shopSt").textContent = _t("Betalningen gick inte igenom."); }
+    try { $("#shopSt").textContent = _t("Går till betalningen …"); if (await SHOP.pay(_order)) await shopDeliver(p); } catch (err) { $("#shopSt").textContent = _t("Betalningen kunde inte startas. Försök igen om en stund."); }
     finally { p.disabled = false; }
   }
 });
@@ -12109,7 +12109,7 @@ function gpxXml(name, tracks) {
     tracks.map(t => `<trk><name>${esc(t.name)}</name>${t.segs.map(s => `<trkseg>${s.map(p => `<trkpt lat="${p[0]}" lon="${p[1]}">${p[2] != null ? `<ele>${p[2]}</ele>` : ""}</trkpt>`).join("")}</trkseg>`).join("")}</trk>`).join("") + `</gpx>`;
 }
 function gpxCheckout(name, getTracks) {
-  shopCheckout({ kind: "gpx", title: name, lines: [[_t("GPX-fil"), shopPrice("gpx")]],
+  shopCheckout({ kind: "gpx", title: name, spec: { kind: "gpx", title: name }, getTracks, lines: [[_t("GPX-fil"), shopPrice("gpx")]],
     what: [_t("Spåret som GPX-fil för cykeldator, GPS-klocka eller kartappar (Garmin, Wahoo, Komoot m.fl.)."), _t("Eller bygg en egen guide under Min resa → Min guide – där ingår alla spår i guiden som ett GPX-paket.")],
     deliver: async () => { const tr = await getTracks(); return saveFile(fileSafe(name) + ".gpx", gpxXml(name, tr), "application/gpx+xml"); } });
 }
@@ -12140,7 +12140,8 @@ const READY = [
   { id: "skidor", price: "ready", title: _t("Skidåkning i Pyrenéerna"), sub: _t("Alpina orter och längdområden i Frankrike, Andorra och Spanien – och hur du tar dig dit."), cfg: { src: "tema", cats: ["skidor", "langd"], regs: G_REG, ch: { photos: true, skidinfo: true }, gpx: false } },
 ];
 const READY_BY = Object.fromEntries(READY.map(r => [r.id, r]));
-const effCfg = () => gcfg.ready && READY_BY[gcfg.ready] ? Object.assign({ only14: false, title: READY_BY[gcfg.ready].title }, READY_BY[gcfg.ready].cfg, { ch: Object.assign({}, READY_BY[gcfg.ready].cfg.ch) }) : gcfg;
+const readyCfg = id => Object.assign({ only14: false, title: READY_BY[id].title }, READY_BY[id].cfg, { ch: Object.assign({}, READY_BY[id].cfg.ch) });
+const effCfg = () => gcfg.ready && READY_BY[gcfg.ready] ? readyCfg(gcfg.ready) : gcfg;
 
 /* ----- innehåll ----- */
 const absUrl = u => { try { return new URL(u, location.href).href; } catch (e) { return u; } };
@@ -12149,7 +12150,7 @@ function guideModel(c) {
   const chapters = [], tracks = [];
   const addPlaces = (title, intro, items) => { if (items.length) chapters.push({ title, intro, entries: items.map(p => ({ p, name: p.name })) }); };
   if (c.src === "trip") {
-    const items = state.trip.map(id => BY[id]).filter(Boolean);
+    const items = (c.trip || state.trip).map(id => BY[id]).filter(Boolean);
     if (c.ch.plan && !computePlan().empty) chapters.push({ title: _t("Resplan dag för dag"), entries: [{ name: _t("Dagsplan och kalkyl"), plan: true }] });
     addPlaces(_t("Resmål och cykeldagar"), "", items);
   } else {
@@ -12221,7 +12222,8 @@ function guideOrder(c, M, readyId) {
   const title = guideTitle(c), r = readyId && READY_BY[readyId];
   const lines = r ? [[r.title, shopPrice(r.price)]] : [[_t("Egen guide"), shopPrice("guide")]].concat(c.gpx && M.nTracks ? [[_t("GPX-paket") + ` (${M.nTracks} ${_t("spår")})`, shopPrice("gpxAdd")]] : []);
   const withGpx = r ? !!(c.gpx && M.nTracks) : !!(c.gpx && M.nTracks);
-  return { kind: "guide", title, sub: `${M.places} ${_t("resmål")} · ${M.chapters.length} ${_t("kapitel")}`, lines,
+  const spec = { kind: "guide", title, ready: r ? readyId : null, gpx: withGpx, cfg: r ? null : JSON.stringify(Object.assign({}, c, { trip: c.src === "trip" ? (c.trip || state.trip).slice() : undefined, ready: null })) };
+  return { kind: "guide", title, spec, sub: `${M.places} ${_t("resmål")} · ${M.chapters.length} ${_t("kapitel")}`, lines,
     what: [_t("Guiden som en fil som du öppnar i webbläsaren och skriver ut eller sparar som PDF – i mobilen, surfplattan eller datorn."), _t("Med innehållsförteckning, bilder, fakta, länkar och vägbeskrivning till varje resmål.")].concat(withGpx ? [_t("GPX-paket med alla spår i guiden, för cykeldator, GPS-klocka eller kartapp.")] : []),
     deliver: async () => {
       await saveFile(fileSafe(title) + ".html", guideDocument(c, M), "text/html");
@@ -12232,6 +12234,57 @@ function guideOrder(c, M, readyId) {
       }
     } };
 }
+
+
+/* ----- Stripe: betalning via serverfunktionerna i /functions (Cloudflare Pages) -----
+   Guiden frågar /api/health när sidan laddas. Finns ingen server (t.ex. på GitHub Pages) eller ingen Stripe-nyckel
+   står det "Betalningen öppnar snart". Med nyckel: /api/checkout skapar betalningen och /api/verify kontrollerar den. */
+async function stripePay(order) {
+  const pend = { spec: order.spec, at: Date.now() };
+  if (order.kind === "gpx" && order.getTracks) pend.tracks = await order.getTracks();
+  store.set("pendingOrder", pend);
+  const r = await fetch("/api/checkout", { method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify({ kind: order.spec.kind, ready: order.spec.ready || null, gpx: !!order.spec.gpx, title: order.spec.title, cfg: order.spec.cfg || null, cur: SHOP.cur, lang: LANG }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || !j.url) throw new Error(j.error || "checkout");
+  location.href = j.url; return false;
+}
+fetch("/api/health", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => { if (j && j.stripe) { SHOP.provider = "stripe"; SHOP.pay = stripePay; SHOP.payTest = !!j.test; } }).catch(() => {});
+function deliveredOrder(v, pend) {
+  if (v.kind === "gpx") {
+    if (!pend || !pend.tracks || !pend.spec || pend.spec.kind !== "gpx") return null;
+    return { kind: "gpx", title: pend.spec.title, deliver: () => saveFile(fileSafe(pend.spec.title) + ".gpx", gpxXml(pend.spec.title, pend.tracks), "application/gpx+xml") };
+  }
+  let c = null;
+  if (v.ready && READY_BY[v.ready]) c = readyCfg(v.ready);
+  else { try { c = JSON.parse(v.cfg || (pend && pend.spec && pend.spec.cfg) || "null"); } catch (e) {} }
+  if (!c) return null;
+  c.ch = Object.assign({}, c.ch || {});
+  const M = guideModel(c), o = guideOrder(c, M, v.ready && READY_BY[v.ready] ? v.ready : null);
+  if (!v.gpx) o.deliver = async () => saveFile(fileSafe(o.title) + ".html", guideDocument(c, M), "text/html");
+  return o;
+}
+(async () => {
+  let sid = null; try { sid = new URLSearchParams(location.search).get("kop"); } catch (e) {}
+  if (!sid) return;
+  try { const u = new URL(location.href); u.searchParams.delete("kop"); history.replaceState(null, "", u.pathname + u.search + u.hash); } catch (e) {}
+  const pend = store.get("pendingOrder", null);
+  let v = null; try { const r = await fetch("/api/verify?session_id=" + encodeURIComponent(sid), { cache: "no-store" }); v = await r.json(); } catch (e) {}
+  const link = location.origin + "/?kop=" + encodeURIComponent(sid) + "#minresa";
+  const o = v && v.ok ? deliveredOrder(v, pend) : null;
+  _order = o;
+  $("#sheetBody").innerHTML = `<div class="shop d-pad">${v && v.ok
+    ? `<span class="eyebrow">${_t("Tack för ditt köp!")}</span><h2 class="shop-h">${esc((o && o.title) || v.title || _t("Din guide"))}</h2>
+       ${o ? `<p class="shop-sub">${_t("Betalningen är klar. Ladda ner filen nu – du kan också ladda ner den igen senare.")}</p><button class="btn primary shop-buy" data-shop-dl>${ICON.dl}${_t("Ladda ner")}</button>`
+           : `<p class="shop-sub">${_t("Betalningen är klar, men GPX-filen kan bara laddas ner på enheten där du köpte den. Öppna länken nedan där.")}</p>`}
+       <div class="shop-soon"><b>${_t("Spara den här länken")}</b> – ${_t("med den kan du ladda ner igen i 30 dagar:")}<br><a href="${esc(link)}">${esc(link)}</a></div>
+       ${v.email ? `<p class="shop-sub">${_t("Kvittot skickas till")} ${esc(v.email)}.</p>` : ""}`
+    : `<span class="eyebrow">${_t("Köp")}</span><h2 class="shop-h">${_t("Köpet kunde inte bekräftas")}</h2><p class="shop-sub">${esc((v && v.error) || _t("Försök igen om en stund, eller kontakta oss med kvittot."))}</p>`}
+    <p class="shop-st" id="shopSt" role="status"></p></div>`;
+  $("#scrim").hidden = false; $("#sheet").hidden = false;
+  if (v && v.ok && o) { const list = store.get("purchases", []); list.unshift({ sid, title: o.title, at: Date.now() }); store.set("purchases", list.slice(0, 50)); store.set("pendingOrder", null); }
+})();
+document.addEventListener("click", e => { const d = e.target.closest("[data-shop-dl]"); if (d && _order) shopDeliver(d); });
 
 /* ----- konfiguratorn i sidan ----- */
 const lockSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>`;

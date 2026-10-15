@@ -23,3 +23,12 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - Cykeluthyrare med eget avtal: lägg namnet i `AFF.shops` så visas de först med märket Partner.
 - Bokningsknappar finns i Boka & kalkyl (flyg, boende, hyrbil, tåg/buss, cykel, upplevelser), i varje resmål (Boende nära, Upplevelser), på etapperna (Bo i målorten), ryktena om nästa Tour (Säkra boende nu), motionsloppen (Boende kvällen före loppet), skidorterna (Boende i orten) och under Övrig sport (Boka aktivitet, Boende).
 - Aktiva partnerlänkar märks med "Annonslänk" och `rel="sponsored"`.
+
+## Betalning med Stripe (Cloudflare Pages)
+Serverdelen ligger i `functions/` och körs av Cloudflare Pages (på GitHub Pages finns den inte, och då visar köpdialogen "Betalningen öppnar snart").
+- `functions/_shop.js` – priser och produkter. **Servern räknar alltid priset härifrån.** Ändra samtidigt `SHOP.price` i `index.html` så att guiden visar samma pris.
+- `functions/api/health.js` – guiden frågar om betalning finns (Stripe-nyckel inlagd).
+- `functions/api/checkout.js` – skapar en Stripe Checkout-session (kort, Klarna, Apple Pay/Google Pay, Swish – det som är påslaget i Stripe).
+- `functions/api/verify.js` – kontrollerar att köpet är betalt. Köplänken (`?kop=…`) fungerar i 30 dagar.
+- Hemliga nycklar läggs **bara** i Cloudflare (Settings → Variables and Secrets): `STRIPE_SECRET_KEY` = `sk_test_…` för test, senare `sk_live_…`.
+- Testkort i testläge: 4242 4242 4242 4242, valfritt framtida datum och CVC.
