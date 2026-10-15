@@ -10229,7 +10229,8 @@ if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = _t("Spa
    Travelpayouts-panelen under "Tools → Links" – jämför med en länk du skapar där. trs = ditt projekt-id (valfritt).
    Stay22: när aid och script finns laddas Stay22-skriptet, och då blir Booking-, Hotels.com- och Vrbo-länkarna partnerlänkar. */
 const AFF = {
-  links: { autoeurope: "https://autoeurope.tpk.lu/Yz7lDbLV", bikesbooking: "https://bikesbooking.tpk.lu/oRkkNugZ", localrent: "https://localrent.tpk.lu/3ZSj5X5q", klook: "https://klook.tpk.lu/i7hJSmxJ" }, // färdiga partnerlänkar från Travelpayouts (Create link) – används som de är
+  links: { autoeurope: "https://autoeurope.tpk.lu/Yz7lDbLV", bikesbooking: "https://bikesbooking.tpk.lu/oRkkNugZ", localrent: "https://localrent.tpk.lu/3ZSj5X5q", klook: "https://klook.tpk.lu/i7hJSmxJ" },
+  homeLinks: { aviasales: "https://aviasales.tpk.lu/ITbLR8b1" }, // reservlänkar till startsidan (flygsökningen använder ifyllda länkar som Drive gör om), // färdiga partnerlänkar från Travelpayouts (Create link) – används som de är
   tpDrive: true,                 // Travelpayouts Drive är installerat i <head>: länkarna konverteras automatiskt och märks som annonslänkar
   tp: { marker: "790578", trs: "586120", p: { discovercars: "", omio: "", gyg: "", aviasales: "", bikesbooking: "" } },
   booking: { aid: "" },          // Booking.com med gammalt aid-nummer (används inte längre när programmet går via CJ)
@@ -10647,7 +10648,7 @@ function flightHTML(P, T) {
     if (!open) {
       const sky = `https://www.skyscanner.se/transport/flights/${o.toLowerCase()}/${a.code.toLowerCase()}/${yymmdd(plan.d1)}/${yymmdd(plan.d2)}/?adultsv2=${T.adults}${T.ages.length ? "&childrenv2=" + T.ages.join("%7C") : ""}&cabinclass=economy&rtn=1`;
       const kp = `${o}-${a.code}/${plan.d1}/${plan.d2}/${T.adults}adults${kidsK}?sort=price_a`;
-      links = [...(tpOn("aviasales") ? [LKA("aviasales", _t("Aviasales"), `https://www.aviasales.com/search/${o}${plan.d1.slice(8, 10)}${plan.d1.slice(5, 7)}${a.code}${plan.d2.slice(8, 10)}${plan.d2.slice(5, 7)}${T.adults}`, _t("Billiga kombinationer"), true)] : []), LK(_t("Google Flights"), `https://www.google.com/travel/flights?hl=${GF_HL}&curr=${GF_CUR}&q=${enc(`Flights from ${o} to ${a.code} on ${plan.d1} through ${plan.d2}`)}`, _t("Prisgraf och flexibla datum"), true),
+      links = [...(tpOn("aviasales") || AFF.tpDrive ? [LKA("aviasales", _t("Aviasales"), `https://www.aviasales.com/search/${o}${plan.d1.slice(8, 10)}${plan.d1.slice(5, 7)}${a.code}${plan.d2.slice(8, 10)}${plan.d2.slice(5, 7)}${T.adults}`, _t("Billiga kombinationer"), true)] : []), LK(_t("Google Flights"), `https://www.google.com/travel/flights?hl=${GF_HL}&curr=${GF_CUR}&q=${enc(`Flights from ${o} to ${a.code} on ${plan.d1} through ${plan.d2}`)}`, _t("Prisgraf och flexibla datum"), true),
         LK(_t("Skyscanner"), sky, _t("Billigast först"), true), LK(_t("Kayak"), "https://www.kayak.se/flights/" + kp, _t("Sorterat på pris"), true), LK(_t("Momondo"), "https://www.momondo.se/flight-search/" + kp, _t("Hittar ofta billiga kombinationer"), true)];
     } else {
       const kp = `${o}-${a.code}/${plan.d1}/${b.code}-${o}/${plan.d2}/${T.adults}adults${kidsK}?sort=price_a`;
