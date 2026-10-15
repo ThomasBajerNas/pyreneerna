@@ -2,7 +2,7 @@
 
 Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutter, cykling (Tour de France, Vuelta, Route d'Occitanie, motionscykling), mountainbike, vandring, skidåkning (alpina skidorter och längdåkningsområden i Frankrike, Andorra och Spanien) och Min resa.
 
-- Webbplats: https://pyreneestrip.com/ (även mypyrenees.se, som vidarebefordras). Egen domän via filen `CNAME`; DNS hos Loopia: fyra A-poster till GitHub Pages och CNAME www → thomasbajernas.github.io.
+- Webbplats: https://pyreneestrip.com/ (även mypyrenees.se, som vidarebefordras). Sajten körs på Cloudflare Pages (projekt "pyreneerna", publiceras automatiskt vid push till main). DNS för pyreneestrip.com ligger hos Cloudflare; domänen är registrerad hos Loopia. GitHub Pages-adressen skickar vidare till pyreneestrip.com.
 - Karta: Leaflet med CyclOSM, OpenTopoMap, OpenStreetMap och Esri som bakgrund. Kartdata © OpenStreetMap-bidragsgivare. Skidpister och längdspår som kartlager från OpenSnowMap (CC BY-SA).
 - Vägföljande linjer och höjdprofiler är beräknade i förväg med BRouter (brouter.de) och ligger i `index.html` som kodade polylinjer.
 - Egen cykeltur (ritverktyget): vägen räknas ut direkt i webbläsaren med BRouters öppna tjänst (brouter.de), och ortssökningen använder OpenStreetMaps Nominatim. Sparade turer ligger i besökarens webbläsare (localStorage) och kan delas som länk (`#tur=…`).
