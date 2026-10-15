@@ -537,6 +537,10 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
   .day .dk b{display:inline;margin-right:6px}
 }
 @media print{.bottomnav,.top{display:none}}
+/* Partnerlänkar */
+.adtag{display:inline-block;margin-left:6px;padding:0 5px;border-radius:4px;font:600 10px/16px var(--f-ui,Arial);letter-spacing:.02em;color:var(--muted);border:1px solid var(--line);vertical-align:middle;text-transform:none}
+.book-row{margin-top:-4px}.book-hint{display:grid;gap:4px;margin-top:8px}.book-hint small{color:var(--muted)}
+.btn svg+.adtag{margin-left:6px}
 /* Min guide */
 .gd-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
 @media (max-width:900px){.gd-grid{grid-template-columns:minmax(0,1fr)}.gd-buy{position:static}}
@@ -9070,7 +9074,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=23"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=24"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -9438,6 +9442,7 @@ function openPlace(id, keepView) {
       <button class="btn" data-showmap="${p.id}">${ICON.pin}${_t(`Visa på kartan`)}</button>
       <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a>
     </div>
+    <div class="actions book-row">${stayBtn(p.name, _t("Boende nära"))}${p.cat.some(c => ["stad", "borg", "varldsarv", "natur", "grotta", "vatten", "spa", "bad"].includes(c)) ? gygBtn(p.name, _t("Upplevelser")) : ""}</div>
     <div><div class="eyebrow">${_t(`Länkar`)}</div><ul class="links">${(p.photoLinks || []).concat(p.links || []).map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
     <div><div class="eyebrow">${_t(`I närheten`)}</div><div class="near">${near.map(([q, d]) => `<button class="row" data-open="${q.id}">${badge(q)}<div><b>${esc(q.name)}</b><small>${esc(q.sub)}</small></div><span class="alt">${Math.round(d)} km</span></button>`).join("")}</div></div>
     <div class="coords">${p.lat.toFixed(4)}° N, ${Math.abs(p.lon).toFixed(4)}° ${p.lon < 0 ? _t("V") : _t("Ö")} ${_t(`· fågelvägen`)}</div>
@@ -9617,6 +9622,7 @@ function stageCard(s) {
         <button class="btn" data-stage-map="${s.key}">${ICON.map}${_t(`Visa på kartan`)}</button>
         ${ROUTED["stage:" + s.key] ? `<button class="btn primary" data-seg-pick="${s.key}">${ICON.bike}${_t(`Cykla en del själv`)}</button><button class="btn" data-tour-from="stage:${s.key}">${ICON.edit}${_t(`Ändra vägen`)}</button>` : ""}
         ${s.finishId ? `<button class="btn" data-open="${s.finishId}">${ICON.pin}${esc(nm(s.finishId))} ${_t(`i guiden`)}</button>` : ""}
+        ${stayBtn(shortTown(s.finish), _t("Bo i målorten"), s.date)}
       </div>
       ${(s.sources || []).length ? `<details class="st-src"><summary>${_t(`Källor`)}</summary><ul>${s.sources.map(u => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\/(www\.)?/, "").split("/")[0])}</a></li>`).join("")}</ul></details>` : ""}
     </div></article>`;
@@ -9675,7 +9681,7 @@ function renderNext() {
   const REL = { stark: [_t("Starkt rykte"), "var(--c-natur)"], medel: [_t("Troligt"), "var(--c-borg)"], svag: [_t("Osäkert"), "var(--muted)"] };
   const rumour = r => { const id = placeFor(r.place); const rel = REL[r.reliability] || REL.svag;
     return `<article class="rumour" style="--rc:${rel[1]}"><span class="rel">${rel[0]}</span><h5>${esc(r.place)}</h5><small>${esc(r.stage_hint || "")}</small><p>${esc(r.what_sv)}</p>
-      ${r.source ? `<small>${_t(`Källa:`)} <a href="${esc(r.source)}" target="_blank" rel="noopener">${esc(r.source_name || r.source)}</a></small>` : ""}${id ? `<button class="btn" data-open="${id}">${ICON.pin}${esc(nm(id))} ${_t(`i guiden`)}</button>` : ""}</article>`; };
+      ${r.source ? `<small>${_t(`Källa:`)} <a href="${esc(r.source)}" target="_blank" rel="noopener">${esc(r.source_name || r.source)}</a></small>` : ""}${id ? `<button class="btn" data-open="${id}">${ICON.pin}${esc(nm(id))} ${_t(`i guiden`)}</button>` : ""}${pyr(r) ? `<div class="book-hint">${stayBtn(shortTown(r.place), _t("Säkra boende nu"))}<small>${_t("Hotellen nära Touren blir fullbokade tidigt – välj ett med fri avbokning.")}</small></div>` : ""}</article>`; };
   const order = { stark: 0, medel: 1, svag: 2 };
   const rs = (T.rumours || []).slice().sort((a, b) => (order[a.reliability] ?? 3) - (order[b.reliability] ?? 3));
   const yr = T.edition_year || 2027;
@@ -9794,7 +9800,7 @@ function eventCard(e) {
     <p class="st-sum">${esc(e.highlight_sv)}</p>
     ${(e.distances || []).length ? `<table class="dist"><thead><tr><th>${_t(`Bana`)}</th><th>km</th><th>hm</th></tr></thead><tbody>${e.distances.map(x => `<tr><td>${esc(x.name)}${(x.cols || []).length ? `<small>${esc(x.cols.join(" · "))}</small>` : ""}</td><td>${x.km ?? "–"}</td><td>${x.hm ? x.hm.toLocaleString(LOC) : "–"}</td></tr>`).join("")}</tbody></table>` : ""}
     <div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Anmälan`)}</span><div>${esc(e.registration_sv)}</div></div>
-    <div class="st-foot">${e.url ? `<a class="btn primary" href="${esc(e.url)}" target="_blank" rel="noopener">${_t(`Officiell webbplats`)}</a>` : ""}${e.lat ? `<button class="btn" data-ov-show="lopp:${e.id}">${ICON.map}${_t(`Visa på kartan`)}</button>` : ""}</div>
+    <div class="st-foot">${e.url ? `<a class="btn primary" href="${esc(e.url)}" target="_blank" rel="noopener">${_t(`Officiell webbplats`)}</a>` : ""}${stayBtn(shortTown(e.town), futureIso(e.date_2027 || e.date_2026) ? _t("Boende kvällen före loppet") : _t("Boende i startorten"), e.date_2027 || e.date_2026)}${e.lat ? `<button class="btn" data-ov-show="lopp:${e.id}">${ICON.map}${_t(`Visa på kartan`)}</button>` : ""}</div>
     ${(e.sources || []).length ? `<details class="st-src"><summary>${_t(`Källor`)}</summary><ul>${e.sources.map(u => `<li>${linkA(u)}</li>`).join("")}</ul></details>` : ""}
   </div></article>`;
 }
@@ -9908,7 +9914,7 @@ function sportCard(a) {
     ${a.facts && a.facts.length ? `<div class="tdfbox" style="border-color:${col}"><span class="eyebrow" style="color:${col}">${_t(`Fakta`)}</span>${gisTable(a.facts.map(f => [esc(f[0]), esc(f[1])]))}</div>` : ""}
     ${a.getting ? `<details class="skd"><summary>${_t(`Så tar du dig dit`)}</summary><p style="margin:6px 0 0">${esc(a.getting)}</p></details>` : ""}
     ${a.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(a.tips)}</div></div>` : ""}
-    <div class="st-foot"><button class="btn" data-ov-show="sport:${a.id}">${ICON.map}${_t(`Karta`)}</button>${(a.web || []).map(w => `<a class="btn" href="${esc(w.u)}" target="_blank" rel="noopener">${esc(w.t)}</a>`).join("")}<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
+    <div class="st-foot">${a.sec === "vatten" || a.sec === "flyg" || a.sec === "mer" ? gygBtn(`${a.sub} ${shortTown(a.area)}`, _t("Boka aktivitet"), "btn primary") : ""}${stayBtn(shortTown(a.area), _t("Boende"), a.sec === "lopning" ? a.date : null)}<button class="btn" data-ov-show="sport:${a.id}">${ICON.map}${_t(`Karta`)}</button>${(a.web || []).map(w => `<a class="btn" href="${esc(w.u)}" target="_blank" rel="noopener">${esc(w.t)}</a>`).join("")}<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
   </div></article>`;
 }
 function spFish() {
@@ -10208,6 +10214,44 @@ if (window.claude && window.claude.use) {
 }
 
 if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = _t("Spara resmål och cykeldagar, ändra ordning och skriv egna anteckningar. En cykeldag är en del av en proffsetapp som du väljer under Cykling. Under Ruttförslag räknas en dagsplan fram med förslag på flygplatser och upplägg, och under Boka &amp; kalkyl finns färdiga sökningar för flyg, boende, hyrbil och cykelhyra med en löpande kalkyl. Allt sparas i den här webbläsaren."); }
+/* ---------- Partnerlänkar (affiliate) ----------
+   Fyll i dina ID:n när du har gått med i programmen. Tomt = vanlig länk utan provision och utan märkning.
+   Travelpayouts: marker (ditt partner-id) och p = programmets id för varje partner. Båda står i
+   Travelpayouts-panelen under "Tools → Links" – jämför med en länk du skapar där. trs = ditt projekt-id (valfritt).
+   Stay22: när aid och script finns laddas Stay22-skriptet, och då blir Booking-, Hotels.com- och Vrbo-länkarna partnerlänkar. */
+const AFF = {
+  tp: { marker: "", trs: "", p: { discovercars: "", omio: "", gyg: "", aviasales: "", bikesbooking: "" } },
+  booking: { aid: "" },          // Booking.com Affiliate Partner (direkt) – används före Stay22 om båda finns
+  stay22: { aid: "", script: "" }, // Stay22: ditt aid och adressen till skriptet de ger dig
+  discovercars: { a_aid: "" },   // Discover Cars direkt (om du inte går via Travelpayouts)
+  gyg: { partner_id: "" },       // GetYourGuide direkt (om du inte går via Travelpayouts)
+  shops: [],                     // cykeluthyrare med eget avtal, t.ex. ["Lokki"] – visas först med märket Partner
+};
+if (AFF.stay22.aid && AFF.stay22.script) { try { window.Stay22 = Object.assign(window.Stay22 || {}, { aid: AFF.stay22.aid }); const sc = document.createElement("script"); sc.src = AFF.stay22.script; sc.async = true; document.head.appendChild(sc); } catch (e) {} }
+const addQ = (url, k, v) => { try { const x = new URL(url); x.searchParams.set(k, v); return x.href; } catch (e) { return url; } };
+const tpOn = k => !!(AFF.tp.marker && AFF.tp.p[k]);
+function affUrl(partner, url) {
+  if (partner === "booking") return AFF.booking.aid ? { href: addQ(url, "aid", AFF.booking.aid), ad: true } : { href: url, ad: !!AFF.stay22.aid };
+  if (partner === "hotelscom" || partner === "vrbo") return { href: url, ad: !!AFF.stay22.aid };
+  if (tpOn(partner)) return { href: `https://tp.media/r?marker=${encodeURIComponent(AFF.tp.marker)}${AFF.tp.trs ? "&trs=" + encodeURIComponent(AFF.tp.trs) : ""}&p=${encodeURIComponent(AFF.tp.p[partner])}&u=${encodeURIComponent(url)}`, ad: true };
+  if (partner === "discovercars" && AFF.discovercars.a_aid) return { href: addQ(url, "a_aid", AFF.discovercars.a_aid), ad: true };
+  if (partner === "gyg" && AFF.gyg.partner_id) return { href: addQ(url, "partner_id", AFF.gyg.partner_id), ad: true };
+  return { href: url, ad: false };
+}
+const adTag = () => `<span class="adtag">${_t("Annonslänk")}</span>`;
+function LKA(partner, name, url, sub, pre) { const a = affUrl(partner, url); return LK(name, a.href, sub, pre).replace("</b>", "</b>" + (a.ad ? adTag() : "")).replace('rel="noopener"', a.ad ? 'rel="noopener sponsored"' : 'rel="noopener"'); }
+function affBtn(partner, label, url, cls) { const a = affUrl(partner, url); return `<a class="${cls || "btn"}" href="${esc(a.href)}" target="_blank" rel="noopener${a.ad ? " sponsored" : ""}">${label}${a.ad ? adTag() : ""}</a>`; }
+const BK_LANG = { sv: "sv", no: "no", da: "da", en: "en-gb", de: "de", fr: "fr", es: "es", it: "it", pt: "pt-pt" }[LANG] || "en-gb";
+const BK_CUR = { sv: "SEK", no: "NOK", da: "DKK", en: "GBP" }[LANG] || "EUR";
+function bookingUrl(q, ci, co, o) { o = o || {}; return `https://www.booking.com/searchresults.${BK_LANG}.html?ss=${encodeURIComponent(q)}${ci && co ? `&checkin=${ci}&checkout=${co}` : ""}&group_adults=${o.adults || 2}&group_children=${(o.ages || []).length}${(o.ages || []).map(a => "&age=" + a).join("")}&no_rooms=${o.rooms || 1}${o.cheap ? "&order=price" : ""}&selected_currency=${BK_CUR}`; }
+const gygUrl = q => `https://www.getyourguide.com/s/?q=${encodeURIComponent(q)}`;
+const ICON_BED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18V7m0 7h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="2"/></svg>';
+const ICON_TICKET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8a2 2 0 0 0 0 4v4h16v-4a2 2 0 0 1 0-4V4H4zM14 4v12"/></svg>';
+const futureIso = d => { const t = new Date().toISOString().slice(0, 10); return d && /^\d{4}-\d\d-\d\d$/.test(d) && d > t ? d : null; };
+function stayBtn(q, label, date, cls) { const d = futureIso(date); return affBtn("booking", ICON_BED + label, bookingUrl(q, d ? addDays(d, -1) : null, d ? addDays(d, 1) : null), cls); }
+const gygBtn = (q, label, cls) => affBtn("gyg", ICON_TICKET + label, gygUrl(q), cls);
+const shortTown = t => String(t || "").split(/[,(/]| – /)[0].trim();
+
 /* ---------- Min resa: reseplanerare (ruttförslag, resealternativ, bokning och kalkyl) ---------- */
 const AP = RESA.airports;
 const APC = Object.fromEntries(AP.map(a => [a.code, a]));
@@ -10588,7 +10632,7 @@ function flightHTML(P, T) {
     if (!open) {
       const sky = `https://www.skyscanner.se/transport/flights/${o.toLowerCase()}/${a.code.toLowerCase()}/${yymmdd(plan.d1)}/${yymmdd(plan.d2)}/?adultsv2=${T.adults}${T.ages.length ? "&childrenv2=" + T.ages.join("%7C") : ""}&cabinclass=economy&rtn=1`;
       const kp = `${o}-${a.code}/${plan.d1}/${plan.d2}/${T.adults}adults${kidsK}?sort=price_a`;
-      links = [LK(_t("Google Flights"), `https://www.google.com/travel/flights?hl=${GF_HL}&curr=${GF_CUR}&q=${enc(`Flights from ${o} to ${a.code} on ${plan.d1} through ${plan.d2}`)}`, _t("Prisgraf och flexibla datum"), true),
+      links = [...(tpOn("aviasales") ? [LKA("aviasales", _t("Aviasales"), `https://www.aviasales.com/search/${o}${plan.d1.slice(8, 10)}${plan.d1.slice(5, 7)}${a.code}${plan.d2.slice(8, 10)}${plan.d2.slice(5, 7)}${T.adults}`, _t("Billiga kombinationer"), true)] : []), LK(_t("Google Flights"), `https://www.google.com/travel/flights?hl=${GF_HL}&curr=${GF_CUR}&q=${enc(`Flights from ${o} to ${a.code} on ${plan.d1} through ${plan.d2}`)}`, _t("Prisgraf och flexibla datum"), true),
         LK(_t("Skyscanner"), sky, _t("Billigast först"), true), LK(_t("Kayak"), "https://www.kayak.se/flights/" + kp, _t("Sorterat på pris"), true), LK(_t("Momondo"), "https://www.momondo.se/flight-search/" + kp, _t("Hittar ofta billiga kombinationer"), true)];
     } else {
       const kp = `${o}-${a.code}/${plan.d1}/${b.code}-${o}/${plan.d2}/${T.adults}adults${kidsK}?sort=price_a`;
@@ -10611,12 +10655,13 @@ function stayHTML(P, T) {
   const rows = B.map(b => {
     const q = enc(short(b.town)), ci = b.d1, co = b.d2;
     const links = plan.stay === "hotel"
-      ? [LK(_t("Booking.com"), `https://www.booking.com/searchresults.sv.html?ss=${q}&checkin=${ci}&checkout=${co}&group_adults=${T.adults}&group_children=${T.ages.length}${ages}&no_rooms=${T.rooms}&order=price&selected_currency=SEK`, _t("Billigast först"), true),
-         LK(_t("Hotels.com"), `https://se.hotels.com/Hotel-Search?destination=${q}&startDate=${ci}&endDate=${co}&adults=${T.adults}&sort=PRICE_LOW_TO_HIGH`, _t("Bonusnätter"), true),
+      ? [LKA("booking", _t("Booking.com"), bookingUrl(short(b.town), ci, co, { adults: T.adults, ages: T.ages, rooms: T.rooms, cheap: true }), _t("Billigast först"), true),
+         LKA("hotelscom", _t("Hotels.com"), `https://se.hotels.com/Hotel-Search?destination=${q}&startDate=${ci}&endDate=${co}&adults=${T.adults}&sort=PRICE_LOW_TO_HIGH`, _t("Bonusnätter"), true),
          LK(_t("Google Hotels"), `https://www.google.com/travel/search?hl=sv&q=${enc("hotell " + short(b.town))}`, _t("Jämför sajter"), false)]
       : [LK(_t("Airbnb"), `https://www.airbnb.se/s/${q}/homes?checkin=${ci}&checkout=${co}&adults=${T.adults}&children=${T.ages.length}&currency=SEK`, _t("Hus och lägenheter"), true),
-         LK(_t("Vrbo"), `https://www.vrbo.com/sv-se/search?destination=${q}&startDate=${ci}&endDate=${co}&adults=${T.adults}`, _t("Hela hus"), true),
+         LKA("vrbo", _t("Vrbo"), `https://www.vrbo.com/sv-se/search?destination=${q}&startDate=${ci}&endDate=${co}&adults=${T.adults}`, _t("Hela hus"), true),
          LK(_t("Gîtes de France"), "https://www.gites-de-france.com/en", _t("Franska stugor, sök själv"), false)];
+    links.push(LKA("gyg", _t("Upplevelser i närheten"), gygUrl(short(b.town)), _t("Guidade turer, rafting, biljetter"), true));
     if (plan.bike.on) links.push(LK(_t("Accueil Vélo-boenden"), "https://www.francevelotourisme.com/accueil-velo", _t("Låst cykelförvaring"), false));
     return `<div class="pl-group"><div class="pl-gh"><span class="pl-tag">${b.nights} ${b.nights === 1 ? _t("natt") : _t("nätter")}</span>${esc(short(b.town))} <small style="color:var(--muted);font-weight:500">${esc(dayName(b.d1))} – ${esc(dayName(b.d2))}</small></div><div class="pl-links">${links.join("")}</div></div>`;
   }).join("");
@@ -10630,9 +10675,9 @@ function transportHTML(P, T) {
   const wp = seq.slice(1, -1), n = Math.min(8, wp.length), pick = []; for (let i = 0; i < n; i++) pick.push(wp[Math.round((i + 0.5) * wp.length / n - 0.5)]);
   const gm = `https://www.google.com/maps/dir/?api=1&origin=${a.lat},${a.lon}&destination=${b.lat},${b.lon}${pick.length ? "&waypoints=" + enc(pick.map(p => p.lat + "," + p.lon).join("|")) : ""}&travelmode=driving`;
   let links;
-  if (plan.tr === "car") links = [LK(_t("Kayak hyrbil"), `https://www.kayak.se/cars/${a.code}${open ? "/" + b.code : ""}/${plan.d1}/${plan.d2}?sort=price_a`, open ? `${_t(`Hämta`)} ${a.code}${_t(`, lämna`)} ${b.code}` : `${_t(`Hämta och lämna på`)} ${a.code}`, true),
-    LK(_t("Discover Cars"), "https://www.discovercars.com/sv", _t("Bra självriskskydd"), false), LK(_t("Rentalcars.com"), "https://www.rentalcars.com/sv/", _t("Stort utbud"), false), LK(_t("Auto Europe"), "https://www.autoeurope.se/", _t("Ofta fri avbokning"), false), LK(_t("Google Maps – hela rutten"), gm, _t("Bilväg med resmålen"), true)];
-  else links = [LK(_t("Rome2Rio"), `https://www.rome2rio.com/s/${enc(a.name + " Airport")}/${enc(P.bases[0] ? short(P.bases[0].town) : _t("Toulouse"))}`, _t("Alla sätt att ta sig dit"), true), LK(_t("liO-tågen (Occitanie)"), "https://lio.laregion.fr/", _t("Toulouse–Luchon, Foix, Ax"), false),
+  if (plan.tr === "car") links = [LKA("discovercars", _t("Discover Cars"), "https://www.discovercars.com/", _t("Rekommenderas · bra självriskskydd"), false), LK(_t("Kayak hyrbil"), `https://www.kayak.se/cars/${a.code}${open ? "/" + b.code : ""}/${plan.d1}/${plan.d2}?sort=price_a`, open ? `${_t(`Hämta`)} ${a.code}${_t(`, lämna`)} ${b.code}` : `${_t(`Hämta och lämna på`)} ${a.code}`, true),
+    LK(_t("Rentalcars.com"), "https://www.rentalcars.com/sv/", _t("Stort utbud"), false), LK(_t("Auto Europe"), "https://www.autoeurope.se/", _t("Ofta fri avbokning"), false), LK(_t("Google Maps – hela rutten"), gm, _t("Bilväg med resmålen"), true)];
+  else links = [LKA("omio", _t("Omio"), "https://www.omio.com/", _t("Tåg och buss i en sökning"), false), LK(_t("Rome2Rio"), `https://www.rome2rio.com/s/${enc(a.name + " Airport")}/${enc(P.bases[0] ? short(P.bases[0].town) : _t("Toulouse"))}`, _t("Alla sätt att ta sig dit"), true), LK(_t("liO-tågen (Occitanie)"), "https://lio.laregion.fr/", _t("Toulouse–Luchon, Foix, Ax"), false),
     LK(_t("SNCF Connect"), "https://www.sncf-connect.com/", _t("Franska tåg"), false), LK(_t("Renfe"), "https://www.renfe.com/es/en", _t("Spanska tåg"), false), LK(_t("Trainline"), "https://www.thetrainline.com/sv", _t("Europeiska tåg"), false),
     ...(plan.tr === "bus" ? [LK(_t("FlixBus"), "https://www.flixbus.se/", _t("Långfärdsbussar"), false), LK(_t("BlaBlaCar Bus"), "https://www.blablacar.fr/bus", _t("Bussar i Frankrike"), false)] : []), LK(_t("Google Maps – kollektivt"), gm.replace("driving", "transit"), _t("Tidtabeller och byten"), true)];
   const fuelEur = P.totalKm * 0.065 * 1.9;
@@ -10647,10 +10692,10 @@ function transportHTML(P, T) {
 function bikeHTML(P, T) {
   const B = plan.bike, sgs = segsInTrip(), refs = (P.bases.length ? P.bases.map(b => b.town) : P.stops || []).concat(sgs);
   const shops = HYR.shops.map((s, i) => ({ s, i, d: refs.length ? Math.min(...refs.map(t => km(s, t))) : null, ref: refs.length ? refs.reduce((m, t) => km(s, t) < km(s, m) ? t : m) : null }))
-    .sort((x, y) => (x.d ?? 9e9) - (y.d ?? 9e9));
+    .sort((x, y) => (AFF.shops.includes(y.s.name) - AFF.shops.includes(x.s.name)) || (x.d ?? 9e9) - (y.d ?? 9e9));
   const near = shops.filter(x => x.d != null && x.d <= 45).slice(0, 6), list = plan.showAllShops || !near.length ? shops : near;
   const sel = B.shop != null ? HYR.shops[B.shop] : null;
-  const shopCard = ({ s, i, d, ref }) => `<div class="pl-shop${B.shop === i ? " on" : ""}"><div><b>${esc(s.name)}</b> <small>${esc(s.town)}${d != null ? ` · ${Math.round(d)} ${_t(`km från`)} ${esc(short(ref))}` : ""}</small></div>
+  const shopCard = ({ s, i, d, ref }) => `<div class="pl-shop${B.shop === i ? " on" : ""}"><div><b>${esc(s.name)}</b>${AFF.shops.includes(s.name) ? ` <span class="tag" style="--c:var(--accent)">${_t("Partner")}</span>` : ""} <small>${esc(s.town)}${d != null ? ` · ${Math.round(d)} ${_t(`km från`)} ${esc(short(ref))}` : ""}</small></div>
     <p>${esc(s.bikes_sv)}</p>${s.price_sv ? `<p><b>${_t(`Pris:`)}</b> ${esc(s.price_sv)}</p>` : ""}
     <div class="st-foot">${s.url ? `<a class="btn" href="${esc(s.url)}" target="_blank" rel="noopener">${_t(`Boka hos uthyraren`)}</a>` : ""}<button class="btn" data-ov-show="hyr:${i}">${ICON.map}</button><button class="btn ${B.shop === i ? "on" : "primary"}" data-pshop="${i}">${B.shop === i ? _t("Vald ✓") : _t("Välj")}</button></div></div>`;
   return stepHead(4, _t("Hyra cykel"), B.on ? (sel ? esc(sel.name) : _t("välj uthyrare nedan")) : "valfritt") +
@@ -10667,14 +10712,15 @@ function bikeHTML(P, T) {
       <p class="outlook" style="font-size:15px;margin:0">${esc(HYR.tips_sv)}</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between"><h4 class="eyebrow" style="margin:0">${list === near ? `De ${near.length} ${_t(`närmaste uthyrarna, inom 45 km från era boenden`)}` : `${_t(`Alla`)} ${shops.length} ${_t(`uthyrare`)}${refs.length ? _t(", närmast först") : ""}`}</h4>
         ${near.length && near.length < shops.length ? `<button class="linkish" data-pallshops>${plan.showAllShops ? _t("Visa bara de närmaste") : `${_t(`Visa alla`)} ${shops.length}`}</button>` : ""}</div>
-      <div class="pl-shops">${list.map(shopCard).join("")}</div>
+      <div class="pl-shops">${list.map(shopCard).join("")}</div>${tpOn("bikesbooking") ? `<div class="pl-links">${LKA("bikesbooking", _t("BikesBooking"), "https://bikesbooking.com/", _t("Fler uthyrare att boka online"), false)}</div>` : ""}
       <details class="st-src"><summary>${_t(`Utkörning till boendet, guidade turer och nätverk`)}</summary><div class="rumours" style="margin-top:10px">${HYR.delivery_and_tours.concat(HYR.networks).map(d => `<article class="rumour" style="--rc:var(--accent)"><span class="rel">${esc(d.type || _t("Nätverk"))}</span><h5>${esc(d.name)}</h5>${d.area ? `<small>${esc(d.area)}</small>` : ""}<p>${esc(d.info_sv)}</p><small>${linkA(d.url, _t("Webbplats"))}</small></article>`).join("")}</div></details>`
     : `<div class="pl-price"><label>${_t(`Antal cyklar`)}<input type="number" min="1" max="12" data-pbike="n" value="${esc(B.n)}"></label><label>${_t(`Cykelavgift per flygsträcka och cykel (€)`)}<input type="number" min="0" step="1" data-pbike="fee" value="${esc(B.fee)}"></label><p class="pl-calc" id="calcBike"></p></div>
       <p class="outlook" style="font-size:15px;margin:0">${esc(RESA.bike_transport_sv)}</p>`) +
     `<p class="tour-src" style="margin:0">${_t(`Uppgifterna kontrollerades`)} ${esc(fmtDay(HYR.checked))}${_t(`. Priser och öppettider ändras – boka direkt hos uthyraren.`)}</p>`);
 }
-function otherHTML() {
-  return stepHead(5, _t("Mat och övrigt"), "") + `<div class="pl-price">${priceIn("food", _t("Mat per person och dag (kr)"), 25)}${priceIn("other", _t("Aktiviteter, försäkring, spa m.m. (kr)"))}
+function otherHTML(P) {
+  const towns = P && P.bases ? [...new Set(P.bases.map(b => short(b.town)))] : [];
+  return stepHead(5, _t("Mat och övrigt"), "") + (towns.length ? `<div class="pl-group"><div class="pl-gh">${_t("Upplevelser att boka")}</div><div class="pl-links">${towns.map(t => LKA("gyg", t, gygUrl(t), _t("Turer, aktiviteter och biljetter"), true)).join("")}</div></div>` : "") + `<div class="pl-price">${priceIn("food", _t("Mat per person och dag (kr)"), 25)}${priceIn("other", _t("Aktiviteter, försäkring, spa m.m. (kr)"))}
     <label>${_t(`Eurokurs (kr per €)`)}<input type="number" min="5" max="20" step="0.05" data-peur value="${esc(plan.eur)}"></label></div>`;
 }
 function costs() {
@@ -10742,7 +10788,7 @@ function renderBoka() {
   $("#pl-bo").innerHTML = stayHTML(P, T);
   $("#pl-tr").innerHTML = transportHTML(P, T);
   $("#pl-bike").innerHTML = bikeHTML(P, T);
-  $("#pl-ovr").innerHTML = otherHTML();
+  $("#pl-ovr").innerHTML = otherHTML(P);
   renderTicket();
 }
 $("#plForm").addEventListener("submit", e => e.preventDefault());
@@ -11885,9 +11931,9 @@ function skiCard(s) {
     ${s.highlights ? `<ul class="checks skhl">${s.highlights.map(h => `<li><span>${esc(h)}</span></li>`).join("")}</ul>` : ""}
     <div class="tdfbox" style="border-color:${col}"><span class="eyebrow" style="color:${col}">${alp ? _t("Backarna") : _t("Spåren")}</span>${gisTable(facts)}</div>
     <details class="skd"><summary>${_t(`Så tar du dig dit`)}</summary>${gisTable(go)}</details>
-    <details class="skd"><summary>${_t(`Boende`)}</summary>${gisTable(bo)}</details>
+    <details class="skd"><summary>${_t(`Boende`)}</summary>${gisTable(bo)}<div class="actions" style="margin-top:8px">${stayBtn(s.name, _t("Boende i orten"))}</div></details>
     ${s.tips ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(s.tips)}</div></div>` : ""}
-    <div class="st-foot"><button class="btn primary" data-open="${s.p}">${_t(`Fakta och bilder`)}</button><button class="btn" data-showmap="${s.p}">${ICON.map}${_t(`Karta`)}</button><button class="btn ${inTrip ? "on" : ""}" data-toggle-trip="${s.p}">${ICON.bag}${inTrip ? _t("Sparad i Min resa") : _t("Spara i Min resa")}</button>${s.web.map(w => `<a class="btn" href="${esc(w.u)}" target="_blank" rel="noopener">${esc(w.t)}</a>`).join("")}<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
+    <div class="st-foot"><button class="btn primary" data-open="${s.p}">${_t(`Fakta och bilder`)}</button>${stayBtn(s.name, _t("Boende"))}<button class="btn" data-showmap="${s.p}">${ICON.map}${_t(`Karta`)}</button><button class="btn ${inTrip ? "on" : ""}" data-toggle-trip="${s.p}">${ICON.bag}${inTrip ? _t("Sparad i Min resa") : _t("Spara i Min resa")}</button>${s.web.map(w => `<a class="btn" href="${esc(w.u)}" target="_blank" rel="noopener">${esc(w.t)}</a>`).join("")}<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank" rel="noopener">${ICON.nav}${_t(`Vägbeskrivning`)}</a></div>
   </div></article>`;
 }
 function skiList(kind) {

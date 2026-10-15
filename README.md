@@ -15,3 +15,11 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - Betalning är inte inkopplad: köpknappen visar "Betalningen öppnar snart". När den kopplas in fylls `SHOP.pay` i.
 - Testläge: `?provkop=1` i adressen ger köpdialogen en testknapp som laddar ner utan betalning (`?provkop=0` stänger av). Sätt `SHOP.testParam = ""` före lansering.
 - Webbsidorna går inte att skriva ut – utskrift visar bara en hänvisning till Min guide.
+
+## Partnerlänkar (affiliate)
+- Alla ID:n fylls i på ett ställe: `const AFF` i `index.html` (sök på "Partnerlänkar"). Tomma fält = vanliga länkar utan provision och utan märkning.
+- Travelpayouts (`AFF.tp`): `marker` + program-id `p` för Discover Cars, Omio, GetYourGuide, Aviasales och BikesBooking. Länkarna går via `tp.media/r` – jämför med en länk du skapar i Travelpayouts-panelen.
+- Boende: Booking.com direkt (`AFF.booking.aid`) eller Stay22 (`AFF.stay22.aid` + `script`), som också gör Hotels.com- och Vrbo-länkarna till partnerlänkar.
+- Cykeluthyrare med eget avtal: lägg namnet i `AFF.shops` så visas de först med märket Partner.
+- Bokningsknappar finns i Boka & kalkyl (flyg, boende, hyrbil, tåg/buss, cykel, upplevelser), i varje resmål (Boende nära, Upplevelser), på etapperna (Bo i målorten), ryktena om nästa Tour (Säkra boende nu), motionsloppen (Boende kvällen före loppet), skidorterna (Boende i orten) och under Övrig sport (Boka aktivitet, Boende).
+- Aktiva partnerlänkar märks med "Annonslänk" och `rel="sponsored"`.
