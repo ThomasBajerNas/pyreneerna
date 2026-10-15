@@ -9825,7 +9825,7 @@ function renderHyr() {
   const groups = {};
   HYR.shops.forEach(s => (groups[s.area] = groups[s.area] || []).push(s));
   const order = Object.keys(groups).sort((a, b) => groups[a][0].lon - groups[b][0].lon);
-  return `<p class="outlook">${esc(HYR.tips_sv)}</p><div class="actions">${selBtn("hyr", _t("Visa alla uthyrare på kartan"))}<button class="btn" data-goto-bike>${ICON.bag}${_t(`Planera cykelhyra i Min resa`)}</button></div>
+  return `<p class="outlook">${esc(HYR.tips_sv)}</p><div class="actions">${selBtn("hyr", _t("Visa alla uthyrare på kartan"))}<button class="btn" data-goto-bike>${ICON.bag}${_t(`Planera cykelhyra i Min resa`)}</button>${AFF.links.bikesbooking ? affBtn("bikesbooking", ICON.bike + _t("Boka cykel online"), AFF.links.bikesbooking) : ""}</div>
     <div class="stages">${order.map(a => `<article class="stage"><div class="st-bd"><h4>${esc(a)}</h4>${groups[a].map(s => `<div class="shop"><b>${esc(s.name)}</b> <small>${esc(s.town)}</small>
       <p>${esc(s.bikes_sv)}</p>${s.price_sv ? `<p><b>${_t(`Pris:`)}</b> ${esc(s.price_sv)}</p>` : ""}${s.service_sv ? `<p>${esc(s.service_sv)}</p>` : ""}
       <div class="st-foot">${s.url ? `<a class="btn" href="${esc(s.url)}" target="_blank" rel="noopener">${_t(`Webbplats`)}</a>` : ""}<button class="btn" data-ov-show="hyr:${HYR.shops.indexOf(s)}">${ICON.map}${_t(`Karta`)}</button><button class="btn" data-pick-bike="${HYR.shops.indexOf(s)}">${ICON.bag}${_t(`Räkna in i Min resa`)}</button></div></div>`).join("")}</div></article>`).join("")}</div>
@@ -10229,7 +10229,7 @@ if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = _t("Spa
    Travelpayouts-panelen under "Tools → Links" – jämför med en länk du skapar där. trs = ditt projekt-id (valfritt).
    Stay22: när aid och script finns laddas Stay22-skriptet, och då blir Booking-, Hotels.com- och Vrbo-länkarna partnerlänkar. */
 const AFF = {
-  links: { autoeurope: "https://autoeurope.tpk.lu/Yz7lDbLV" }, // färdiga partnerlänkar från Travelpayouts (Create link) – används som de är
+  links: { autoeurope: "https://autoeurope.tpk.lu/Yz7lDbLV", bikesbooking: "https://bikesbooking.tpk.lu/oRkkNugZ" }, // färdiga partnerlänkar från Travelpayouts (Create link) – används som de är
   tpDrive: true,                 // Travelpayouts Drive är installerat i <head>: länkarna konverteras automatiskt och märks som annonslänkar
   tp: { marker: "790578", trs: "586120", p: { discovercars: "", omio: "", gyg: "", aviasales: "", bikesbooking: "" } },
   booking: { aid: "" },          // Booking.com med gammalt aid-nummer (används inte längre när programmet går via CJ)
@@ -10727,7 +10727,7 @@ function bikeHTML(P, T) {
       <p class="outlook" style="font-size:15px;margin:0">${esc(HYR.tips_sv)}</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between"><h4 class="eyebrow" style="margin:0">${list === near ? `De ${near.length} ${_t(`närmaste uthyrarna, inom 45 km från era boenden`)}` : `${_t(`Alla`)} ${shops.length} ${_t(`uthyrare`)}${refs.length ? _t(", närmast först") : ""}`}</h4>
         ${near.length && near.length < shops.length ? `<button class="linkish" data-pallshops>${plan.showAllShops ? _t("Visa bara de närmaste") : `${_t(`Visa alla`)} ${shops.length}`}</button>` : ""}</div>
-      <div class="pl-shops">${list.map(shopCard).join("")}</div>${tpOn("bikesbooking") ? `<div class="pl-links">${LKA("bikesbooking", _t("BikesBooking"), "https://bikesbooking.com/", _t("Fler uthyrare att boka online"), false)}</div>` : ""}
+      <div class="pl-shops">${list.map(shopCard).join("")}</div>${tpOn("bikesbooking") || AFF.links.bikesbooking ? `<div class="pl-links">${LKA("bikesbooking", _t("BikesBooking"), "https://bikesbooking.com/", _t("Fler uthyrare att boka online"), false)}</div>` : ""}
       <details class="st-src"><summary>${_t(`Utkörning till boendet, guidade turer och nätverk`)}</summary><div class="rumours" style="margin-top:10px">${HYR.delivery_and_tours.concat(HYR.networks).map(d => `<article class="rumour" style="--rc:var(--accent)"><span class="rel">${esc(d.type || _t("Nätverk"))}</span><h5>${esc(d.name)}</h5>${d.area ? `<small>${esc(d.area)}</small>` : ""}<p>${esc(d.info_sv)}</p><small>${linkA(d.url, _t("Webbplats"))}</small></article>`).join("")}</div></details>`
     : `<div class="pl-price"><label>${_t(`Antal cyklar`)}<input type="number" min="1" max="12" data-pbike="n" value="${esc(B.n)}"></label><label>${_t(`Cykelavgift per flygsträcka och cykel (€)`)}<input type="number" min="0" step="1" data-pbike="fee" value="${esc(B.fee)}"></label><p class="pl-calc" id="calcBike"></p></div>
       <p class="outlook" style="font-size:15px;margin:0">${esc(RESA.bike_transport_sv)}</p>`) +
