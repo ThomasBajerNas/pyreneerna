@@ -537,6 +537,33 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
   .day .dk b{display:inline;margin-right:6px}
 }
 @media print{.bottomnav,.top{display:none}}
+/* Min guide */
+.gd-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+@media (max-width:900px){.gd-grid{grid-template-columns:minmax(0,1fr)}.gd-buy{position:static}}
+.gd-buy{position:sticky;top:76px;display:grid;gap:12px}
+.gd-ready{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.gd-card{display:grid;gap:4px;text-align:left;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface-2);color:var(--ink);cursor:pointer;font:inherit}
+.gd-card span{font-size:13px;color:var(--muted)}.gd-card em{font-style:normal;font-weight:700;color:var(--accent)}
+.gd-card[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.gd-f{display:grid;gap:4px;margin:12px 0}.gd-f input{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface-2);color:var(--ink);max-width:420px}
+.gd-chks{display:grid;gap:6px}.gd-chk{display:flex;gap:8px;align-items:center;font-size:14px}.gd-chk small{color:var(--muted)}
+.gd-prev{position:relative;overflow:hidden;-webkit-user-select:none;user-select:none}
+.gd-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font:800 64px/1 var(--f-ui,Arial);color:var(--accent);opacity:.07;transform:rotate(-24deg);letter-spacing:.06em;z-index:1;white-space:nowrap}
+.gd-pt{margin:2px 0 4px}.gd-doc{font-family:Georgia,serif;max-height:720px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:6px 16px;background:var(--surface)}
+.gd-doc h4{font:600 18px/1.2 var(--f-ui,Arial);text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:3px;margin:16px 0 6px}
+.gd-doc section{border-bottom:1px solid var(--line);padding:10px 0}.gd-doc .h{display:flex;gap:10px;align-items:baseline}.gd-doc .n{font:700 20px var(--f-ui,Arial);color:var(--accent);min-width:24px}
+.gd-doc h3{margin:0;font-size:18px}.gd-doc .sub{margin:2px 0 0;color:var(--muted);font-style:italic}.gd-doc .t14{background:rgba(255,215,0,.15);padding:6px 10px;border-radius:3px}.gd-doc .box{background:var(--surface-2);padding:6px 10px;border-radius:3px}
+.gd-doc figure{margin:8px 0}.gd-doc figure img{width:100%;max-height:260px;object-fit:cover;border-radius:4px}.gd-doc figcaption,.gd-doc .meta{font-size:11px;color:var(--muted)}
+.gd-doc table.plan{width:100%;border-collapse:collapse;font-size:13px}.gd-doc table.plan td{border-bottom:1px solid var(--line);padding:4px 6px}
+.gp-lock{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);color:var(--muted)}.gp-lock>div{flex:1;display:grid;gap:5px}.gp-lock b{color:var(--ink);font-family:var(--f-ui,Arial)}
+.gp-lock .n{font:700 16px var(--f-ui,Arial);min-width:24px}.gp-lock .bar{height:7px;border-radius:4px;background:var(--line);width:92%}.gp-lock .bar.s{width:64%}.gp-lock svg{width:18px;height:18px;flex:none}
+.gd-buy .btn svg,.shop svg{width:16px;height:16px}
+.shop{display:grid;gap:10px}.shop-h{margin:0}.shop-sub{margin:0;color:var(--muted)}.shop-lines{width:100%;border-collapse:collapse;font-size:14px}.shop-lines td{padding:6px 0;border-bottom:1px solid var(--line)}.shop-lines td:last-child{text-align:right;white-space:nowrap}.shop-lines .tot td{font-weight:700;border-bottom:0}
+.shop-what{margin:0;padding-left:18px;font-size:14px;color:var(--muted)}.shop-soon{background:var(--surface-2);border-left:3px solid var(--accent);padding:10px 12px;border-radius:6px;font-size:14px}
+.shop-test{border:1px dashed var(--muted);padding:10px 12px;border-radius:6px;font-size:13px;display:grid;gap:8px;justify-items:start}.shop-st{margin:0;font-size:13px;color:var(--muted)}
+.print-note{display:none}
+@media print{body>*:not(.print-note){display:none!important}.print-note{display:block!important;font:16px/1.5 Georgia,serif;padding:40px}}
+
 .pl-ticket .est,.pl-price .est{display:inline-block;font-size:11px;font-weight:700;color:#8a5a00;background:#fff3d6;border-radius:4px;padding:0 5px;vertical-align:1px}
 .pl-hint{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
 .linkish{border:0;background:none;padding:0;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
@@ -897,6 +924,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
           <button data-ptab="resmal" aria-pressed="true">1 · Resmål</button>
           <button data-ptab="rutt" aria-pressed="false">2 · Ruttförslag</button>
           <button data-ptab="boka" aria-pressed="false">3 · Boka &amp; kalkyl</button>
+          <button data-ptab="guide" aria-pressed="false">4 · Min guide</button>
         </div>
 
         <!-- 1 RESMÅL -->
@@ -907,11 +935,8 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
             <div id="tripStats"></div>
             <button class="btn primary" data-ptab="rutt">Se ruttförslag</button>
             <button class="btn" id="tripMap">Visa resan på kartan</button>
-            <button class="btn needs-dl" id="dlTrip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Ladda ner min resplan</button>
-            <button class="btn needs-dl" id="dlGuide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Ladda ner hela guiden (PDF)</button>
-            <button class="btn only-standalone" id="printTrip">Skriv ut min resplan</button>
-            <button class="btn only-standalone" id="printGuide">Öppna guiden som PDF</button>
-            <p>Resplanen innehåller dina resmål och anteckningar, dagsplanen från ruttförslaget och kalkylen. Öppna den och skriv ut, eller spara som PDF.</p>
+            <button class="btn" data-ptab="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Gör din egen guide</button>
+            <p>Under Min guide sätter du ihop en egen reseguide av dina resmål, dagsplanen och kalkylen – att skriva ut eller spara som PDF, med GPX-spår till cykeldatorn.</p>
             <div class="status" id="dlStatus" role="status"></div>
             <button class="btn" id="tripClear">Töm listan</button>
           </aside>
@@ -948,6 +973,8 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
             <aside class="panel pl-ticket" aria-label="Kostnadskalkyl" id="plTicket"></aside>
           </div>
         </div>
+        <!-- 4 MIN GUIDE -->
+        <div id="pt-guide" hidden></div>
       </div>
     </section>
 
@@ -989,6 +1016,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
   <nav class="bottomnav" id="bottomnav" aria-label="Huvudmeny"></nav>
 </div>
 
+<div class="print-note"><h1>Reseguide Pyrenéerna</h1><p>Sidorna i webbguiden går inte att skriva ut. Under Min resa → Min guide kan du sätta ihop en egen guide som är gjord för utskrift och PDF, eller välja en av Thomas färdiga guider.</p></div>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
   <div class="sheet-bar"><span class="grab" aria-hidden="true"></span><button class="icon-btn" id="sheetClose" aria-label="Stäng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
@@ -9042,7 +9070,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=22"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=23"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -10175,13 +10203,9 @@ async function save(btn, filename, getData) {
   catch (err) { st.textContent = err && err.code === "declined" ? _t("Nedladdningen avbröts.") : err && err.code === "rate_limited" ? _t("Vänta en stund och försök igen.") : _t("Det gick inte att spara filen just nu."); }
   finally { btn.disabled = false; }
 }
-$("#dlTrip").onclick = e => { if (!state.trip.length) { $("#dlStatus").textContent = _t("Lägg till minst ett resmål först."); return; } save(e.currentTarget, "Min-resa-Pyreneerna.html", () => tripDocument()); };
-$("#dlGuide").onclick = e => save(e.currentTarget, "Reseguide-Pyreneerna.pdf", async () => { const r = await fetch("Reseguide-Pyreneerna.pdf"); if (!r.ok) throw new Error("fetch"); return await r.blob(); });
-$("#printTrip").onclick = () => { const w = window.open("", "_blank"); if (w) { w.document.write(tripDocument()); w.document.close(); } };
-$("#printGuide").onclick = () => window.open("Reseguide-Pyreneerna.pdf", "_blank");
 if (window.claude && window.claude.use) {
-  window.claude.use("downloads").then(d => { downloads = d; if (!d) { document.querySelectorAll(".needs-dl").forEach(b => b.hidden = true); if (framed) $("#dlStatus").textContent = _t("Nedladdning är inte tillgänglig i den här vyn."); } });
-} else document.querySelectorAll(".needs-dl").forEach(b => b.hidden = true);
+  window.claude.use("downloads").then(d => { downloads = d; });
+}
 
 if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = _t("Spara resmål och cykeldagar, ändra ordning och skriv egna anteckningar. En cykeldag är en del av en proffsetapp som du väljer under Cykling. Under Ruttförslag räknas en dagsplan fram med förslag på flygplatser och upplägg, och under Boka &amp; kalkyl finns färdiga sökningar för flyg, boende, hyrbil och cykelhyra med en löpande kalkyl. Allt sparas i den här webbläsaren."); }
 /* ---------- Min resa: reseplanerare (ruttförslag, resealternativ, bokning och kalkyl) ---------- */
@@ -10259,7 +10283,7 @@ plan.bike = Object.assign({ on: false, how: "hyr", n: 2, days: 0, type: "road", 
 plan.p = plan.p || {};
 plan.origins = [...new Set((plan.origins || []).filter(c => HOME_AP[c]))];
 if (!plan.origins.length) plan.origins = [ORIGIN_COUNTRIES[HOME_CC].ap[0][0]];
-if (!["resmal", "rutt", "boka"].includes(plan.tab)) plan.tab = "resmal";
+if (!["resmal", "rutt", "boka", "guide"].includes(plan.tab)) plan.tab = "resmal";
 const savePlan = () => store.set("plan", plan);
 
 /* ----- geometri ----- */
@@ -10424,8 +10448,8 @@ function computePlanRaw() {
 function setPlanTab(t) {
   plan.tab = t; savePlan();
   document.querySelectorAll("[data-ptab]").forEach(b => { if (b.closest(".seg")) b.setAttribute("aria-pressed", b.dataset.ptab === t); });
-  $("#pt-resmal").hidden = t !== "resmal"; $("#pt-rutt").hidden = t !== "rutt"; $("#pt-boka").hidden = t !== "boka";
-  if (t === "resmal") renderTrip(); else if (t === "rutt") renderRutt(); else renderBoka();
+  $("#pt-resmal").hidden = t !== "resmal"; $("#pt-rutt").hidden = t !== "rutt"; $("#pt-boka").hidden = t !== "boka"; $("#pt-guide").hidden = t !== "guide";
+  if (t === "resmal") renderTrip(); else if (t === "rutt") renderRutt(); else if (t === "guide") renderGuide(); else renderBoka();
 }
 function renderMinResa() { setPlanTab(plan.tab); }
 document.addEventListener("click", e => {
@@ -10685,7 +10709,7 @@ function renderTicket() {
       <p class="pl-hint">${_t(`Fyller i grova, typiska prisnivåer utifrån säsong, flygplatser, antal resenärer, nätter och körsträcka. Inga live-priser – kontrollera alltid via länkarna och skriv in de riktiga priserna.`)}</p>
       ${(plan.est || []).length ? `<p class="pl-hint"><span class="est">${_t(`uppskattat`)}</span> ${_t(`= grov nivå som inte ändrats ännu`)}</p>` : ""}
       <button class="btn" data-psave>${_t(`Spara resan`)}</button>
-      <button class="btn only-standalone" data-pprint>${ICON.print}${_t(`Skriv ut resplan`)}</button>
+      <button class="btn" data-ptab="guide">${ICON.print}${_t(`Gör en guide av resan`)}</button>
       <div class="status" id="plStatus" role="status"></div>
       <div class="pl-saved" id="plSaved"></div>
     </div>`;
@@ -10755,7 +10779,6 @@ document.addEventListener("click", e => {
   if (e.target.closest("[data-pauto]")) { plan.inAp = "auto"; plan.outAp = "auto"; plan.mode = "auto"; savePlan(); renderBoka(); return; }
   const f = e.target.closest("[data-pfuel]"); if (f) { plan.p.fuel = f.dataset.pfuel; savePlan(); renderBoka(); return; }
   if (e.target.closest("[data-goto-hyr]")) { mState.mode = "motion"; mState.tab = "hyr"; store.set("cyMode", "motion"); store.set("mTab", "hyr"); show("touren"); return; }
-  if (e.target.closest("[data-pprint]")) { const w = window.open("", "_blank"); if (w) { w.document.write(tripDocument()); w.document.close(); } return; }
   if (e.target.closest("[data-psave]")) {
     const C = costs(), list = store.get("plans", []);
     const label = `${C.P.bases.map(b => short(b.town)).slice(0, 3).join(", ") || _t("Resa")} · ${plan.d1} · ${fmtKr(C.total)}`;
@@ -11145,10 +11168,7 @@ document.addEventListener("input", e => {
   if (e.target.id === "spName") sp.named = !!e.target.value.trim();
 });
 function gpxDownload(name, pts) {
-  const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Reseguide Pyrenéerna" xmlns="http://www.topografix.com/GPX/1/1"><trk><name>${esc(name)}</name><trkseg>${pts.map(p => `<trkpt lat="${p[0]}" lon="${p[1]}"><ele>${p[2]}</ele></trkpt>`).join("")}</trkseg></trk></gpx>`;
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([gpx], { type: "application/gpx+xml" }));
-  a.download = name.replace(/[^\wåäöÅÄÖéèü\- ]+/g, "").trim().replace(/\s+/g, "-") + ".gpx"; document.body.appendChild(a); a.click();
-  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  gpxCheckout(name, () => [{ name, segs: [pts] }]);
 }
 document.addEventListener("click", e => {
   const pk = e.target.closest("[data-seg-pick]"); if (pk) { openSegPicker(pk.dataset.segPick, { climb: pk.dataset.segClimb || null }); return; }
@@ -11679,11 +11699,7 @@ function showTrail(id, btn) {
 }
 function trailGpx(id, btn) {
   const t = TRAILS.find(x => x.id === id); if (!t) return;
-  trailGeo(t).then(g => {
-    const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Reseguide Pyrenéerna (data © OpenStreetMap)" xmlns="http://www.topografix.com/GPX/1/1"><trk><name>${esc(t.ref + " " + t.route)}</name>${g.segs.map(s => `<trkseg>${s.map(p => `<trkpt lat="${p[0]}" lon="${p[1]}"/>`).join("")}</trkseg>`).join("")}</trk></gpx>`;
-    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([gpx], { type: "application/gpx+xml" }));
-    a.download = t.ref.replace(/[^\w\-]+/g, "-") + ".gpx"; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
-  }).catch(() => { if (btn) btn.insertAdjacentHTML("afterend", `<span class="pl-note warn" style="margin-left:8px">${_t(`Leden kunde inte hämtas just nu.`)}</span>`); });
+  gpxCheckout(t.ref + " " + t.route, () => trailGeo(t).then(g => [{ name: t.ref + " " + t.route, segs: g.segs }]));
 }
 function trailCard(t) {
   const pl = (t.places || []).filter(id => BY[id]);
@@ -11960,6 +11976,249 @@ document.addEventListener("click", e => {
     show("karta"); map.setPistes(true); refresh(); requestAnimationFrame(() => map.fitMatches()); return;
   }
 });
+/* ---------- Min guide: konfigurator, förhandsvisning och köp ----------
+   Besökaren sätter ihop en egen guide (eller väljer en av Thomas färdiga) och ser en låst förhandsvisning.
+   Allt som går att ladda ner – guiden och alla GPX-filer på sajten – går via shopCheckout().
+   BETALNING ÄR INTE INKOPPLAD: köpknappen visar "Betalningen öppnar snart". När den kopplas in fylls
+   SHOP.pay() i (t.ex. Stripe, Swish eller App Store/Google Play i appen) – resten av flödet är klart.
+   Testläge för Thomas: lägg till ?provkop=1 i adressen (stängs av med ?provkop=0). Sätt SHOP.testParam = "" vid lansering. */
+const SHOP = {
+  provider: "none",
+  testParam: "provkop",
+  cur: { sv: "SEK", no: "NOK", da: "DKK" }[LANG] || "EUR",
+  price: {
+    guide:  { SEK: 49,  NOK: 49,  DKK: 35,  EUR: 4.9 },   // egen guide
+    gpxAdd: { SEK: 19,  NOK: 19,  DKK: 15,  EUR: 1.9 },   // GPX-paket till guiden
+    gpx:    { SEK: 15,  NOK: 15,  DKK: 12,  EUR: 1.5 },   // en GPX-fil på sajten
+    ready:  { SEK: 69,  NOK: 69,  DKK: 49,  EUR: 6.9 },   // Thomas färdiga guider
+    full:   { SEK: 149, NOK: 149, DKK: 109, EUR: 14.9 },  // hela guiden
+  },
+  pay: null, // async order => true när betalningen är klar. null = ingen betalning ännu.
+};
+(() => { try { const q = new URLSearchParams(location.search).get(SHOP.testParam); if (SHOP.testParam && q != null) store.set("provkop", q === "1" ? 1 : 0); } catch (e) {} })();
+const shopTest = () => !!SHOP.testParam && store.get("provkop", 0) === 1;
+const shopPrice = k => SHOP.price[k][SHOP.cur];
+const fmtCur = n => new Intl.NumberFormat(LOC, { style: "currency", currency: SHOP.cur, minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }).format(n);
+
+function saveFile(filename, data, mime) {
+  if (downloads) return downloads.save({ filename, data: typeof data === "string" ? data : data }).then(() => true);
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([data], { type: mime }));
+  a.download = filename; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500); return Promise.resolve(true);
+}
+const fileSafe = s => String(s).replace(/[^\wåäöÅÄÖéèüñçÉ\- ]+/g, "").trim().replace(/\s+/g, "-") || "Pyreneerna";
+
+/* ----- köp (gemensamt för guider och GPX) ----- */
+let _order = null;
+function shopCheckout(order) {
+  _order = order;
+  const total = order.lines.reduce((s, l) => s + l[1], 0);
+  const test = shopTest();
+  $("#sheetBody").innerHTML = `<div class="shop">
+    <span class="eyebrow">${order.kind === "gpx" ? _t("GPX-fil") : _t("Reseguide")}</span>
+    <h2 class="shop-h">${esc(order.title)}</h2>
+    ${order.sub ? `<p class="shop-sub">${esc(order.sub)}</p>` : ""}
+    <table class="shop-lines">${order.lines.map(([l, p]) => `<tr><td>${esc(l)}</td><td>${fmtCur(p)}</td></tr>`).join("")}<tr class="tot"><td>${_t("Att betala")}</td><td>${fmtCur(total)}</td></tr></table>
+    <ul class="shop-what">${order.what.map(w => `<li>${esc(w)}</li>`).join("")}</ul>
+    ${SHOP.pay ? `<button class="btn primary shop-buy" data-shop-pay>${_t("Betala och ladda ner")}</button>`
+      : `<div class="shop-soon"><b>${_t("Betalningen öppnar snart.")}</b> ${_t("Guiden och GPX-filerna går att köpa här så fort betalningen är på plats. Fram till dess kan du bygga och förhandsgranska din guide – inställningarna sparas i webbläsaren.")}</div>
+         <button class="btn primary shop-buy" disabled>${_t("Betala och ladda ner")}</button>`}
+    ${test ? `<div class="shop-test"><b>${_t("Testläge")}</b> – ${_t("ingen betalning görs. Används för att prova nedladdningen.")}<br><button class="btn" data-shop-test>${_t("Ladda ner (test)")}</button></div>` : ""}
+    <p class="shop-st" id="shopSt" role="status"></p></div>`;
+  $("#scrim").hidden = false; $("#sheet").hidden = false; $("#sheetBody").scrollTop = 0; $("#sheetClose").focus({ preventScroll: true });
+}
+async function shopDeliver(btn) {
+  const st = $("#shopSt"), o = _order; if (!o) return;
+  btn.disabled = true; st.textContent = _t("Förbereder …");
+  try { await o.deliver(); st.textContent = _t("Klart – filen är sparad."); }
+  catch (err) { st.textContent = err && err.code === "declined" ? _t("Nedladdningen avbröts.") : _t("Det gick inte att spara filen just nu."); }
+  finally { btn.disabled = false; }
+}
+document.addEventListener("click", async e => {
+  const t = e.target.closest("[data-shop-test]"); if (t) { if (shopTest()) shopDeliver(t); return; }
+  const p = e.target.closest("[data-shop-pay]"); if (p && SHOP.pay && _order) {
+    p.disabled = true;
+    try { if (await SHOP.pay(_order)) await shopDeliver(p); } catch (err) { $("#shopSt").textContent = _t("Betalningen gick inte igenom."); }
+    finally { p.disabled = false; }
+  }
+});
+function gpxXml(name, tracks) {
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Reseguide Pyrenéerna – Thomas Bajer" xmlns="http://www.topografix.com/GPX/1/1"><metadata><name>${esc(name)}</name></metadata>` +
+    tracks.map(t => `<trk><name>${esc(t.name)}</name>${t.segs.map(s => `<trkseg>${s.map(p => `<trkpt lat="${p[0]}" lon="${p[1]}">${p[2] != null ? `<ele>${p[2]}</ele>` : ""}</trkpt>`).join("")}</trkseg>`).join("")}</trk>`).join("") + `</gpx>`;
+}
+function gpxCheckout(name, getTracks) {
+  shopCheckout({ kind: "gpx", title: name, lines: [[_t("GPX-fil"), shopPrice("gpx")]],
+    what: [_t("Spåret som GPX-fil för cykeldator, GPS-klocka eller kartappar (Garmin, Wahoo, Komoot m.fl.)."), _t("Eller bygg en egen guide under Min resa → Min guide – där ingår alla spår i guiden som ett GPX-paket.")],
+    deliver: async () => { const tr = await getTracks(); return saveFile(fileSafe(name) + ".gpx", gpxXml(name, tr), "application/gpx+xml"); } });
+}
+
+/* ----- inställningar ----- */
+const G_REG = ["vast", "mitt", "ost", "norr", "provence"];
+const G_CH = {
+  plan: _t("Dagsplan, resväg och kalkyl"),
+  notes: _t("Mina anteckningar"),
+  photos: _t("Bilder"),
+  leder: _t("De långa vandringslederna"),
+  toppar: _t("Bestigning av de höga topparna"),
+  katar: _t("Katarerna – historia och tidslinje"),
+  skidinfo: _t("Skidresan: flyg, boende, liftkort och säkerhet"),
+};
+const gcfg = Object.assign({ src: "trip", cats: ["stad", "tdf", "borg", "spa"], regs: G_REG.slice(), only14: false, ch: { plan: true, notes: true, photos: true }, gpx: true, title: "", ready: null }, store.get("guideCfg", {}));
+gcfg.ch = Object.assign({ plan: true, notes: true, photos: true }, gcfg.ch || {});
+const saveG = () => store.set("guideCfg", gcfg);
+const ALLCATS = Object.keys(CATS);
+const READY = [
+  { id: "hela", price: "full", title: _t("Hela Pyrenéerna – kompletta guiden"), sub: _t("Alla resmål från Atlanten till Medelhavet, alla kapitel och alla GPX-spår."), cfg: { src: "tema", cats: ALLCATS, regs: G_REG, only14: false, ch: { photos: true, leder: true, toppar: true, katar: true, skidinfo: true }, gpx: true } },
+  { id: "2014", price: "ready", title: _t("Favoriterna från 2014"), sub: _t("Thomas originalguide från 2014 – resmålen och tipsen, uppdaterade 2026."), cfg: { src: "tema", cats: ALLCATS, regs: G_REG, only14: true, ch: { photos: true }, gpx: false } },
+  { id: "tdf", price: "ready", title: _t("Tour de France-passen"), sub: _t("Bergspassen med höjd, längd och snittlutning – och historierna från Touren."), cfg: { src: "tema", cats: ["tdf"], regs: G_REG, ch: { photos: true }, gpx: false } },
+  { id: "katar", price: "ready", title: _t("Katarernas land"), sub: _t("Borgarna, världsarvet och katarernas historia med tidslinje."), cfg: { src: "tema", cats: ["borg"], regs: G_REG, ch: { photos: true, katar: true }, gpx: false } },
+  { id: "spa", price: "ready", title: _t("Varma källor och spa"), sub: _t("Termalbaden på båda sidor om gränsen."), cfg: { src: "tema", cats: ["spa"], regs: G_REG, ch: { photos: true }, gpx: false } },
+  { id: "unesco", price: "ready", title: _t("Världsarven i södra Frankrike"), sub: _t("Från Carcassonne till Pont du Gard – vad som gör dem till världsarv och hur du besöker dem."), cfg: { src: "tema", cats: ["varldsarv"], regs: G_REG, ch: { photos: true }, gpx: false } },
+  { id: "vandra", price: "ready", title: _t("Vandra i Pyrenéerna"), sub: _t("Dagsturer, de långa lederna och de höga topparna – med GPX-spår."), cfg: { src: "tema", cats: ["vandring", "topp"], regs: G_REG, ch: { photos: true, leder: true, toppar: true }, gpx: true } },
+  { id: "skidor", price: "ready", title: _t("Skidåkning i Pyrenéerna"), sub: _t("Alpina orter och längdområden i Frankrike, Andorra och Spanien – och hur du tar dig dit."), cfg: { src: "tema", cats: ["skidor", "langd"], regs: G_REG, ch: { photos: true, skidinfo: true }, gpx: false } },
+];
+const READY_BY = Object.fromEntries(READY.map(r => [r.id, r]));
+const effCfg = () => gcfg.ready && READY_BY[gcfg.ready] ? Object.assign({ only14: false, title: READY_BY[gcfg.ready].title }, READY_BY[gcfg.ready].cfg, { ch: Object.assign({}, READY_BY[gcfg.ready].cfg.ch) }) : gcfg;
+
+/* ----- innehåll ----- */
+const absUrl = u => { try { return new URL(u, location.href).href; } catch (e) { return u; } };
+const lonSort = (a, b) => a.lon - b.lon;
+function guideModel(c) {
+  const chapters = [], tracks = [];
+  const addPlaces = (title, intro, items) => { if (items.length) chapters.push({ title, intro, entries: items.map(p => ({ p, name: p.name })) }); };
+  if (c.src === "trip") {
+    const items = state.trip.map(id => BY[id]).filter(Boolean);
+    if (c.ch.plan && !computePlan().empty) chapters.push({ title: _t("Resplan dag för dag"), entries: [{ name: _t("Dagsplan och kalkyl"), plan: true }] });
+    addPlaces(_t("Resmål och cykeldagar"), "", items);
+  } else {
+    const pool = PLACES.filter(p => p.cat.some(k => c.cats.includes(k)) && c.regs.includes(region(p)) && (!c.only14 || p.no));
+    G_REG.filter(r => c.regs.includes(r)).forEach(r => addPlaces(REGIONS[r][0] + " – " + REGIONS[r][1], "", pool.filter(p => region(p) === r).sort(lonSort)));
+  }
+  if (c.ch.toppar) chapters.push({ title: G_CH.toppar, entries: PEAKS.filter(k => BY[k.id]).map(k => ({ peak: k, name: BY[k.id].name })) });
+  if (c.ch.leder) chapters.push({ title: G_CH.leder, entries: TRAILS.map(t => ({ trail: t, name: t.name })) });
+  if (c.ch.katar) chapters.push({ title: G_CH.katar, entries: [{ katar: true, name: _t("Katarerna") }] });
+  if (c.ch.skidinfo) chapters.push({ title: G_CH.skidinfo, entries: [{ skiinfo: true, name: _t("Skidresan") }] });
+  const ents = chapters.flatMap(ch => ch.entries);
+  ents.forEach(e => {
+    const p = e.p; if (!p) return;
+    if (p.st && p.st.pts) tracks.push({ name: p.name, segs: [p.st.pts.map(q => [+(+q[0]).toFixed(6), +(+q[1]).toFixed(6), Math.round(q[2])])] });
+    else if (HIKE_PATHS[p.id]) { const pts = hikePath(p.id); if (pts) tracks.push({ name: p.name, segs: [pts] }); }
+  });
+  const trails = c.ch.leder ? TRAILS.slice() : [];
+  return { chapters, tracks, trails, places: ents.filter(e => e.p).length, nTracks: tracks.length + trails.length };
+}
+
+/* ----- dokumentet ----- */
+const gp = (k, v) => v ? `<p><b>${k}</b> ${esc(v)}</p>` : "";
+function placeDoc(p, c, n) {
+  if (p.seg) return p.tour ? tourDocument(p, n - 1) : segDocument(p, n - 1);
+  const ph = c.ch.photos && p.photos && p.photos[0] ? `<figure><img src="${esc(absUrl(img(p.photos[0])))}" alt="${esc(p.name)}" loading="lazy">${(p.photoCaption && p.photoCaption[0]) || (p.photoCredit && p.photoCredit[0]) ? `<figcaption>${p.photoCaption && p.photoCaption[0] ? esc(p.photoCaption[0]) + " " : ""}${p.photoCredit && p.photoCredit[0] ? `${_t("Foto:")} ${esc(p.photoCredit[0].by)} · ${esc(p.photoCredit[0].lic)}` : ""}</figcaption>` : ""}</figure>` : "";
+  const whs = (p.whs || []).map(w => WHS[w.ref] ? `<p class="box"><b>${_t("Världsarv:")}</b> ${esc(WHS[w.ref].name)}${w.comp ? ` (${esc(w.comp)})` : ""}. ${esc(WHS[w.ref].desc)}</p>` : "").join("");
+  const hk = p.hike ? `<table class="plan"><tr><td>${_t("Vandring")}</td><td>${esc(p.hike.start || "")}</td></tr><tr><td>${_t("Längd och höjd")}</td><td>${esc([p.hike.km, p.hike.hm, p.hike.time].filter(Boolean).join(" · "))}</td></tr><tr><td>${_t("Säsong")}</td><td>${esc(p.hike.season || "")}</td></tr></table>${p.hike.text ? `<p>${esc(p.hike.text)}</p>` : ""}` : "";
+  const sk = (p.ski || []).map(id => SKI_BY[id]).filter(Boolean).map(s => `<table class="plan"><tr><td>${s.kind === "alp" ? _t("Utförsåkning") : _t("Längdåkning")}</td><td>${s.alt ? s.alt.join("–") + " m" : ""}${s.km ? " · " + s.km + " km" : ""}</td></tr><tr><td>${_t("Säsong")}</td><td>${esc(s.season || "")}</td></tr><tr><td>${s.kind === "alp" ? _t("Liftkort") : _t("Spårkort")}</td><td>${esc(s.pass || "")}</td></tr><tr><td>${_t("Boende")}</td><td>${esc(s.stayNear || s.stay || "")}</td></tr></table>`).join("");
+  const col = p.col ? `<p class="sub">${p.col.alt} m ö.h.${p.col.from ? ` · ${_t("från")} ${esc(p.col.from)}` : ""}${p.col.len ? ` ${String(p.col.len).replace(".", ",")} km` : ""}${p.col.grad ? ` · ${String(p.col.grad).replace(".", ",")} %` : ""}</p>` : "";
+  return `<section><div class="h"><span class="n">${n}</span><div><h3>${esc(p.name)}</h3><p class="sub">${esc(p.sub || "")} · ${CC[p.cc] || ""}</p>${col}</div></div>${ph}
+    ${c.ch.notes && state.notes[p.id] ? `<p class="mine"><b>${_t("Min anteckning:")}</b> ${esc(state.notes[p.id])}</p>` : ""}
+    ${p.t14 ? `<p class="t14"><b>${_t("Guiden 2014:")}</b> ${esc(p.t14)}</p>` : ""}${p.tLang ? `<p class="t14"><b>${_t("Languedoc-guiden:")}</b> ${esc(p.tLang)}</p>` : ""}
+    ${p.text ? `<p>${esc(p.text)}</p>` : ""}${p.tdf ? `<p><b>${_t("Tour de France:")}</b> ${esc(p.tdf)}</p>` : ""}${p.kat ? `<p><b>${_t("Katarerna:")}</b> ${esc(p.kat)}</p>` : ""}
+    ${p.hist ? `<ul class="hist">${p.hist.map(h => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}${whs}${hk}${sk}${p.tips ? `<p class="box"><b>${_t("Tips:")}</b> ${esc(p.tips)}</p>` : ""}
+    <p class="meta">${_t("GPS")} ${p.lat.toFixed(4)}, ${p.lon.toFixed(4)} · <a href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}">${_t("Vägbeskrivning")}</a>${(p.links || []).map(([t, u]) => ` · <a href="${esc(u)}">${esc(t)}</a>`).join("")}</p></section>`;
+}
+function entryDoc(e, c, n) {
+  if (e.plan) return planDocument();
+  if (e.p) return placeDoc(e.p, c, n);
+  if (e.peak) { const k = e.peak; return `<section><div class="h"><span class="n">${n}</span><div><h3>${esc(BY[k.id].name)} · ${k.alt} m</h3><p class="sub">${esc(k.massif)} · ${esc(k.country)} · ${esc(k.grade || "")}</p></div></div>
+    <table class="plan"><tr><td>${_t("Start")}</td><td>${esc(k.start)}</td></tr>${k.hut ? `<tr><td>${_t("Hydda")}</td><td>${esc(k.hut)}</td></tr>` : ""}<tr><td>${_t("Höjdmeter och tid")}</td><td>${esc([k.gain, k.time].filter(Boolean).join(" · "))}</td></tr><tr><td>${_t("Säsong")}</td><td>${esc(k.season)}</td></tr></table>
+    ${k.story ? `<p>${esc(k.story)}</p>` : ""}${k.steps ? `<ol>${k.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : ""}${k.warn ? `<p class="box"><b>${_t("Viktigt:")}</b> ${esc(k.warn)}</p>` : ""}${gp(_t("Förstabestigning:"), k.first)}</section>`; }
+  if (e.trail) { const t = e.trail; return `<section><div class="h"><span class="n">${n}</span><div><h3>${esc(t.name)}</h3><p class="sub">${esc(t.route)} · ${esc(t.km)} · ${esc(t.days)}</p></div></div><p>${esc(t.text)}</p>${t.tips ? `<p class="box"><b>${_t("Tips:")}</b> ${esc(t.tips)}</p>` : ""}${gp(_t("Högsta punkt:"), t.top)}</section>`; }
+  if (e.katar) return `<section><p>${esc(KATAR.intro)}</p><p>${esc(KATAR.tro)}</p><p>${esc(KATAR.arv)}</p><table class="plan">${(KATAR.timeline || []).map(x => `<tr><td><b>${esc(x.y)}</b></td><td><b>${esc(x.t)}</b><br>${esc(x.txt)}</td></tr>`).join("")}</table></section>`;
+  if (e.skiinfo) { const I = SKI_INFO, sec = (h, a) => a && a.length ? `<h3>${h}</h3>${a.map(s => `<p><b>${esc(s.h)}</b> ${esc(s.t)}</p>`).join("")}` : "";
+    return `<section><p>${esc(I.intro || "")}</p><h3>${_t("Flygplatser")}</h3><table class="plan">${(I.air || []).map(a => `<tr><td><b>${esc(a.name)}</b> (${esc(a.code)})</td><td>${esc(a.t)}</td></tr>`).join("")}</table>${sec(_t("Tåg, buss och bil"), I.travel)}${sec(_t("Boende"), I.stay)}${sec(_t("Hyra utrustning och skidskolor"), I.rental)}${sec(_t("Säsong och snö"), I.season)}${sec(_t("Liftkort och kombikort"), I.passes)}${sec(_t("Säkerhet, laviner och försäkring"), I.safety)}</section>`; }
+  return "";
+}
+function guideTitle(c) { return (c.title || "").trim() || (c.src === "trip" ? _t("Min resa i Pyrenéerna") : _t("Min guide till Pyrenéerna")); }
+function guideDocument(c, M) {
+  const d = new Date().toLocaleDateString(LOC); let n = 0;
+  const toc = M.chapters.map((ch, i) => `<li><a href="#k${i}">${esc(ch.title)}</a> <small>(${ch.entries.length})</small></li>`).join("");
+  const body = M.chapters.map((ch, i) => `<div class="chap" id="k${i}"><h2>${esc(ch.title)}</h2>${ch.entries.map(e => entryDoc(e, c, e.p || e.peak || e.trail ? ++n : n)).join("")}</div>`).join("");
+  return `<!doctype html><html lang="${LANG === "no" ? "nb" : LANG}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(guideTitle(c))}</title>
+<style>body{font:15px/1.55 Georgia,serif;color:#16232a;max-width:780px;margin:0 auto;padding:28px 20px}h1{font:600 40px/1.05 "Arial Narrow",Arial,sans-serif;text-transform:uppercase;margin:0}
+.cover{border-bottom:3px solid #16232a;padding:40px 0 18px;margin-bottom:22px}.cover p{margin:6px 0 0;color:#56666b;font-family:Arial,sans-serif;font-size:13px}.toc{font-family:Arial,sans-serif;font-size:14px;columns:2;gap:24px}
+.chap{break-before:page;padding-top:6px}.chap>h2{font:600 26px/1.1 "Arial Narrow",Arial,sans-serif;text-transform:uppercase;border-bottom:2px solid #0d6b6e;color:#0d6b6e;padding-bottom:4px}
+section{border-bottom:1px solid #ccd5d2;padding:12px 0;break-inside:avoid-page}.h{display:flex;gap:12px;align-items:baseline}.n{font:700 24px Arial,sans-serif;color:#0d6b6e;min-width:28px}
+h2{font:600 22px/1.15 "Arial Narrow",Arial,sans-serif;margin:0}h3{font:600 20px/1.15 "Arial Narrow",Arial,sans-serif;margin:0}.sub{margin:2px 0 0;color:#56666b;font-style:italic}.t14{background:#fff7d6;padding:6px 10px;border-radius:3px}.mine{border-left:3px solid #0d6b6e;padding-left:10px}
+.box{background:#eef4f3;padding:6px 10px;border-radius:3px}.hist{font-size:14px}figure{margin:10px 0}figure img{width:100%;max-height:340px;object-fit:cover;border-radius:4px}figcaption{font:11px Arial,sans-serif;color:#56666b}
+.meta{font:12px Arial,sans-serif;color:#56666b}a{color:#0d6b6e}button{font:600 14px Arial,sans-serif;padding:8px 14px;border-radius:6px;border:1px solid #0d6b6e;background:#0d6b6e;color:#fff;cursor:pointer}
+table.plan{width:100%;border-collapse:collapse;font:14px Arial,sans-serif;margin:6px 0}table.plan td{border-bottom:1px solid #ccd5d2;padding:5px 6px;vertical-align:top}table.plan small{color:#56666b}
+.foot{font:11px Arial,sans-serif;color:#56666b;margin-top:28px}@media print{button{display:none}body{padding:0}a{color:inherit;text-decoration:none}}</style></head><body>
+<div class="cover"><h1>${esc(guideTitle(c))}</h1><p>${M.places} ${_t("resmål")} · ${M.chapters.length} ${_t("kapitel")} · ${d}</p><p>${_t("Ur Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026)")}</p><p><button onclick="window.print()">${_t("Skriv ut eller spara som PDF")}</button></p></div>
+<h2>${_t("Innehåll")}</h2><ol class="toc">${toc}</ol>${body}
+<p class="foot">${_t("Personlig kopia – får inte spridas vidare. Uppgifter om priser, öppettider och vägar ändras – kontrollera alltid på plats.")} © Thomas Bajer</p></body></html>`;
+}
+function guideOrder(c, M, readyId) {
+  const title = guideTitle(c), r = readyId && READY_BY[readyId];
+  const lines = r ? [[r.title, shopPrice(r.price)]] : [[_t("Egen guide"), shopPrice("guide")]].concat(c.gpx && M.nTracks ? [[_t("GPX-paket") + ` (${M.nTracks} ${_t("spår")})`, shopPrice("gpxAdd")]] : []);
+  const withGpx = r ? !!(c.gpx && M.nTracks) : !!(c.gpx && M.nTracks);
+  return { kind: "guide", title, sub: `${M.places} ${_t("resmål")} · ${M.chapters.length} ${_t("kapitel")}`, lines,
+    what: [_t("Guiden som en fil som du öppnar i webbläsaren och skriver ut eller sparar som PDF – i mobilen, surfplattan eller datorn."), _t("Med innehållsförteckning, bilder, fakta, länkar och vägbeskrivning till varje resmål.")].concat(withGpx ? [_t("GPX-paket med alla spår i guiden, för cykeldator, GPS-klocka eller kartapp.")] : []),
+    deliver: async () => {
+      await saveFile(fileSafe(title) + ".html", guideDocument(c, M), "text/html");
+      if (withGpx) {
+        const tr = M.tracks.slice();
+        for (const t of M.trails) { try { const g = await trailGeo(t); tr.push({ name: t.ref + " " + t.route, segs: g.segs }); } catch (e) {} }
+        await saveFile(fileSafe(title) + ".gpx", gpxXml(title, tr), "application/gpx+xml");
+      }
+    } };
+}
+
+/* ----- konfiguratorn i sidan ----- */
+const lockSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>`;
+function renderGuide() {
+  const box = $("#pt-guide"); if (!box) return;
+  const c = effCfg(), M = guideModel(c), r = gcfg.ready && READY_BY[gcfg.ready];
+  const chip = (attr, val, on, label, col) => `<button type="button" class="chip" ${attr}="${val}" aria-pressed="${on}"${col ? ` style="--c:${col}"` : ' style="--c:var(--accent)"'}>${esc(label)}</button>`;
+  const cnt = k => PLACES.filter(p => p.cat.includes(k) && c.regs.includes(region(p)) && (!c.only14 || p.no)).length;
+  const order = guideOrder(c, M, gcfg.ready), total = order.lines.reduce((s, l) => s + l[1], 0);
+  // förhandsvisning: två provsidor, resten låst (texten finns inte i förhandsvisningen)
+  const first = M.chapters.flatMap(ch => ch.entries).filter(e => e.p && !e.p.seg).slice(0, 2);
+  let n = 0;
+  const prev = M.chapters.map(ch => `<div class="gp-ch"><h4>${esc(ch.title)}</h4>${ch.entries.map(e => { const no = e.p || e.peak || e.trail ? ++n : ""; return first.includes(e) ? `<div class="gp-open">${placeDoc(e.p, c, no)}</div>` : `<div class="gp-lock">${no ? `<span class="n">${no}</span>` : ""}<div><b>${esc(e.name)}</b><span class="bar"></span><span class="bar s"></span></div>${lockSvg}</div>`; }).join("")}</div>`).join("");
+  box.innerHTML = `<div class="gd-grid"><div class="pl-stack">
+    <section class="panel"><h3>${_t("Thomas färdiga guider")}</h3><p class="pl-note">${_t("Färdiga urval att ladda ner – eller bygg din egen nedan.")}</p>
+      <div class="gd-ready">${READY.map(x => `<button type="button" class="gd-card" data-gready="${x.id}" aria-pressed="${gcfg.ready === x.id}"><b>${esc(x.title)}</b><span>${esc(x.sub)}</span><em>${fmtCur(shopPrice(x.price))}</em></button>`).join("")}</div></section>
+    <section class="panel"${r ? ' style="opacity:.6"' : ""}><h3>${_t("Bygg din egen guide")}</h3>${r ? `<p class="pl-note">${_t("Du har valt en färdig guide.")} <button class="linkish" data-gready="">${_t("Bygg en egen i stället")}</button></p>` : ""}
+      <div class="gd-f"><span class="pl-lbl">${_t("Namn på guiden")}</span><input id="gdTitle" maxlength="60" placeholder="${esc(guideTitle(Object.assign({}, gcfg, { title: "" })))}" value="${esc(gcfg.title || "")}"${r ? " disabled" : ""}></div>
+      <div class="gd-f"><span class="pl-lbl">${_t("Utgå från")}</span><div class="filters">${chip("data-gsrc", "trip", c.src === "trip", _t("Min resa") + ` (${state.trip.length})`)}${chip("data-gsrc", "tema", c.src === "tema", _t("Teman och områden"))}</div></div>
+      ${c.src === "tema" ? `<div class="gd-f"><span class="pl-lbl">${_t("Teman")}</span><div class="filters">${ALLCATS.map(k => chip("data-gcat", k, c.cats.includes(k), CATS[k].label + ` (${cnt(k)})`, catColor(k))).join("")}</div></div>
+        <div class="gd-f"><span class="pl-lbl">${_t("Områden")}</span><div class="filters">${G_REG.map(k => chip("data-greg", k, c.regs.includes(k), REGIONS[k][0])).join("")}</div></div>
+        <label class="gd-chk"><input type="checkbox" data-gopt="only14"${c.only14 ? " checked" : ""}> ${_t("Bara resmålen från guiden 2014")}</label>`
+      : `<p class="pl-note">${state.trip.length ? _t("Guiden byggs av resmålen och cykeldagarna i Min resa, i den ordning du har dem.") : _t("Min resa är tom – lägg till resmål först, eller välj Teman och områden.")} <button class="linkish" data-ptab="resmal">${_t("Ändra i Min resa")}</button></p>`}
+      <div class="gd-f"><span class="pl-lbl">${_t("Kapitel och innehåll")}</span><div class="gd-chks">${Object.entries(G_CH).filter(([k]) => c.src === "trip" || (k !== "plan" && k !== "notes")).map(([k, l]) => `<label class="gd-chk"><input type="checkbox" data-gch="${k}"${c.ch[k] ? " checked" : ""}> ${esc(l)}</label>`).join("")}</div></div>
+      <label class="gd-chk"><input type="checkbox" data-gopt="gpx"${c.gpx ? " checked" : ""}> ${_t("GPX-paket med alla spår i guiden")} <small>(${M.nTracks} ${_t("spår")})</small></label>
+    </section>
+    <section class="panel gd-prev" aria-label="${esc(_t("Förhandsvisning"))}"><div class="gd-wm" aria-hidden="true">${_t("FÖRHANDSVISNING")}</div>
+      <span class="eyebrow">${_t("Förhandsvisning")}</span><h2 class="gd-pt">${esc(guideTitle(c))}</h2><p class="pl-note">${M.places} ${_t("resmål")} · ${M.chapters.length} ${_t("kapitel")}${c.gpx && M.nTracks ? ` · ${M.nTracks} ${_t("GPX-spår")}` : ""}. ${_t("Två provsidor visas – resten låses upp när du köper guiden.")}</p>
+      ${M.chapters.length ? `<div class="gd-doc">${prev}</div>` : `<div class="empty">${_t("Välj minst ett tema och ett område för att se guiden.")}</div>`}</section>
+  </div>
+  <aside class="panel gd-buy"><h3>${_t("Ladda ner guiden")}</h3>
+    <table class="shop-lines">${order.lines.map(([l, p]) => `<tr><td>${esc(l)}</td><td>${fmtCur(p)}</td></tr>`).join("")}<tr class="tot"><td>${_t("Totalt")}</td><td>${fmtCur(total)}</td></tr></table>
+    <button class="btn primary" data-gbuy${M.chapters.length ? "" : " disabled"}>${lockSvg}${_t("Köp och ladda ner")}</button>
+    <p class="pl-note">${_t("Du får guiden som en fil att skriva ut eller spara som PDF, på det språk du läser guiden på nu.")}</p></aside></div>`;
+}
+document.addEventListener("click", e => {
+  const rd = e.target.closest("[data-gready]"); if (rd) { const id = rd.dataset.gready; gcfg.ready = !id || gcfg.ready === id ? null : id; saveG(); renderGuide(); return; }
+  if (gcfg.ready && e.target.closest("#pt-guide [data-gsrc],#pt-guide [data-gcat],#pt-guide [data-greg]")) { gcfg.ready = null; }
+  const s = e.target.closest("[data-gsrc]"); if (s) { gcfg.src = s.dataset.gsrc; saveG(); renderGuide(); return; }
+  const k = e.target.closest("[data-gcat]"); if (k) { const v = k.dataset.gcat; gcfg.cats = gcfg.cats.includes(v) ? gcfg.cats.filter(x => x !== v) : [...gcfg.cats, v]; saveG(); renderGuide(); return; }
+  const g = e.target.closest("[data-greg]"); if (g) { const v = g.dataset.greg; gcfg.regs = gcfg.regs.includes(v) ? gcfg.regs.filter(x => x !== v) : [...gcfg.regs, v]; saveG(); renderGuide(); return; }
+  if (e.target.closest("[data-gbuy]")) { const c = effCfg(), M = guideModel(c); if (M.chapters.length) shopCheckout(guideOrder(c, M, gcfg.ready)); return; }
+});
+document.addEventListener("change", e => {
+  const ch = e.target.closest("[data-gch]"); if (ch) { gcfg.ready = null; gcfg.ch[ch.dataset.gch] = ch.checked; saveG(); renderGuide(); return; }
+  const o = e.target.closest("[data-gopt]"); if (o) { gcfg.ready = null; gcfg[o.dataset.gopt] = o.checked; saveG(); renderGuide(); return; }
+  if (e.target.id === "gdTitle") { gcfg.title = e.target.value; saveG(); renderGuide(); }
+});
+
 /* ---------- Om ---------- */
 $("#aboutIntro").textContent = GUIDE.intro;
 $("#aboutVagval").textContent = GUIDE.vagval;
