@@ -417,7 +417,18 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .ychip.mini{font-size:13px;padding:1px 6px;border-radius:5px}
 .legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:var(--muted)}
 .legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:4px;vertical-align:middle}
-@media (max-width:820px){.layer-panel{left:12px;right:12px;width:auto;top:58px;max-height:60%}.wps{columns:1}}
+.lp-head{display:flex;align-items:center;justify-content:space-between;gap:8px;position:sticky;top:-12px;margin:-12px -14px 0;padding:8px 8px 6px 14px;background:var(--surface);z-index:1}
+.lp-x{width:40px;height:40px;flex:none}
+@media (max-width:820px){
+  .wps{columns:1}
+  /* Kartknapparna under kategoriraden, så de inte hamnar i hörnet under statusfält/notch */
+  .mobile-chips{padding-right:12px}
+  .map-ctl{top:62px;right:10px;gap:8px}
+  .map-ctl button{width:44px;height:44px}
+  /* Lagerpanelen lämnar knappkolumnen fri till höger – lagerknappen och stängknappen går alltid att nå */
+  .layer-panel{left:10px;right:64px;width:auto;top:62px;max-height:calc(100% - 80px)}
+  .route-pill{top:62px;left:10px;max-width:calc(100% - 84px)}
+}
 .t27-cols{align-items:start}
 /* ---------- Min resa: reseplanerare ---------- */
 .pl-lbl{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
@@ -4835,7 +4846,7 @@ function overlaySVG(toS, s) {
 function renderLayerPanel() {
   const R = RACES[tdfState.race], ys = [...curYears()].sort((a, b) => b - a);
   const row = (k, label, sw) => `<label class="lrow"><input type="checkbox" data-layer="${k}" ${OV[k] ? "checked" : ""}><span class="lsw" style="${sw}"></span>${label}</label>`;
-  $("#layerPanel").innerHTML = `<div class="eyebrow">${_t(`Bakgrundskarta`)}</div><div class="lbase">${Object.entries(map.BASES).map(([k, b]) => `<label class="lrow"><input type="radio" name="lbase" data-base value="${k}" ${k === map.baseKey ? "checked" : ""}>${b[0]}</label>`).join("")}</div>${/^g(map|terrain)$/.test(map.baseKey) ? `<label class="lrow"><input type="checkbox" data-groads ${map.roads ? "checked" : ""}><span class="lsw" style="background:#9aa3a6"></span>${_t(`Visa vägar`)}</label>` : ""}<div class="eyebrow">${_t(`Visa på kartan`)}</div>
+  $("#layerPanel").innerHTML = `<div class="lp-head"><div class="eyebrow">${_t(`Bakgrundskarta`)}</div><button class="icon-btn lp-x" data-layers aria-label="${_t(`Stäng`)}" title="${_t(`Stäng`)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="lbase">${Object.entries(map.BASES).map(([k, b]) => `<label class="lrow"><input type="radio" name="lbase" data-base value="${k}" ${k === map.baseKey ? "checked" : ""}>${b[0]}</label>`).join("")}</div>${/^g(map|terrain)$/.test(map.baseKey) ? `<label class="lrow"><input type="checkbox" data-groads ${map.roads ? "checked" : ""}><span class="lsw" style="background:#9aa3a6"></span>${_t(`Visa vägar`)}</label>` : ""}<div class="eyebrow">${_t(`Visa på kartan`)}</div>
     ${row("rundor", _t("Cykelrundor (") + RUNDOR.routes.length + ")", "background:#2e7d32")}
     ${row("etapper", _t("Proffsetapper"), "background:#c4242c")}
     <div class="lsub"><select id="layerRace" aria-label="${_t(`Lopp`)}">${RKEYS.map(r => `<option value="${r}" ${r === tdfState.race ? "selected" : ""}>${esc(RACES[r].name)}</option>`).join("")}</select>
