@@ -9941,7 +9941,7 @@ function renderSport() {
   const list = spList(), col = SP_COL[spState.tab];
   const groups = subs.filter(s => spState.sub === "alla" || s === spState.sub).map(s => { const l = list.filter(i => i.sub === s).sort((x, y) => x.lon - y.lon); return l.length ? `<h4 class="mh">${esc(s)} · ${l.length}</h4><div class="stages">${l.map(sportCard).join("")}</div>` : ""; }).join("");
   $("#sportBody").innerHTML = `<p class="outlook">${esc(S.intro || "")}</p>
-    <div class="actions">${selBtn("sport", _t("Visa på kartan") + ` (${list.length})`)}</div>
+    <div class="actions">${selBtn("sport", _t("Visa på kartan") + ` (${list.length})`)}${spState.tab === "vatten" || spState.tab === "flyg" || spState.tab === "mer" ? affBtn("klook", ICON_TICKET + _t("Fler aktiviteter på Klook"), "https://www.klook.com/") : ""}</div>
     ${subs.length > 1 ? `<div class="sp-chips">${[["alla", _t("Allt")], ...subs.map(s => [s, s])].map(([k, t]) => `<button class="chip" data-sp-sub="${esc(k)}" aria-pressed="${spState.sub === k}">${esc(t)}</button>`).join("")}</div>` : ""}
     ${groups}
     ${spState.tab === "fiske" ? spFish() : ""}
@@ -10229,7 +10229,7 @@ if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = _t("Spa
    Travelpayouts-panelen under "Tools → Links" – jämför med en länk du skapar där. trs = ditt projekt-id (valfritt).
    Stay22: när aid och script finns laddas Stay22-skriptet, och då blir Booking-, Hotels.com- och Vrbo-länkarna partnerlänkar. */
 const AFF = {
-  links: { autoeurope: "https://autoeurope.tpk.lu/Yz7lDbLV", bikesbooking: "https://bikesbooking.tpk.lu/oRkkNugZ", localrent: "https://localrent.tpk.lu/3ZSj5X5q" }, // färdiga partnerlänkar från Travelpayouts (Create link) – används som de är
+  links: { autoeurope: "https://autoeurope.tpk.lu/Yz7lDbLV", bikesbooking: "https://bikesbooking.tpk.lu/oRkkNugZ", localrent: "https://localrent.tpk.lu/3ZSj5X5q", klook: "https://klook.tpk.lu/i7hJSmxJ" }, // färdiga partnerlänkar från Travelpayouts (Create link) – används som de är
   tpDrive: true,                 // Travelpayouts Drive är installerat i <head>: länkarna konverteras automatiskt och märks som annonslänkar
   tp: { marker: "790578", trs: "586120", p: { discovercars: "", omio: "", gyg: "", aviasales: "", bikesbooking: "" } },
   booking: { aid: "" },          // Booking.com med gammalt aid-nummer (används inte längre när programmet går via CJ)
@@ -10735,7 +10735,7 @@ function bikeHTML(P, T) {
 }
 function otherHTML(P) {
   const towns = P && P.bases ? [...new Set(P.bases.map(b => short(b.town)))] : [];
-  return stepHead(5, _t("Mat och övrigt"), "") + (towns.length ? `<div class="pl-group"><div class="pl-gh">${_t("Upplevelser att boka")}</div><div class="pl-links">${towns.map(t => LKA("gyg", t, gygUrl(t), _t("Turer, aktiviteter och biljetter"), true)).join("")}</div></div>` : "") + `<div class="pl-price">${priceIn("food", _t("Mat per person och dag (kr)"), 25)}${priceIn("other", _t("Aktiviteter, försäkring, spa m.m. (kr)"))}
+  return stepHead(5, _t("Mat och övrigt"), "") + (towns.length ? `<div class="pl-group"><div class="pl-gh">${_t("Upplevelser att boka")}</div><div class="pl-links">${towns.map(t => LKA("gyg", t, gygUrl(t), _t("Turer, aktiviteter och biljetter"), true)).join("")}${LKA("klook", _t("Klook"), "https://www.klook.com/", _t("Fler aktiviteter och biljetter"), false)}</div></div>` : "") + `<div class="pl-price">${priceIn("food", _t("Mat per person och dag (kr)"), 25)}${priceIn("other", _t("Aktiviteter, försäkring, spa m.m. (kr)"))}
     <label>${_t(`Eurokurs (kr per €)`)}<input type="number" min="5" max="20" step="0.05" data-peur value="${esc(plan.eur)}"></label></div>`;
 }
 function costs() {
