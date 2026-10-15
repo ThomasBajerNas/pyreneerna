@@ -10245,7 +10245,7 @@ function affUrl(partner, url) {
   if (partner === "booking" && AFF.bookingCJ.pid && AFF.bookingCJ.aid) return { href: `https://${AFF.bookingCJ.host}/click-${AFF.bookingCJ.pid}-${AFF.bookingCJ.aid}?url=${encodeURIComponent(url)}`, ad: true };
   if (partner === "booking") return AFF.booking.aid ? { href: addQ(url, "aid", AFF.booking.aid), ad: true } : { href: url, ad: !!AFF.stay22.aid };
   if (partner === "hotelscom" || partner === "vrbo") return { href: url, ad: !!AFF.stay22.aid };
-  if (AFF.tpDrive && ["discovercars", "omio", "gyg", "aviasales", "bikesbooking"].includes(partner) && !tpOn(partner)) return { href: url, ad: true };
+  if (AFF.tpDrive && ["discovercars", "autoeurope", "omio", "gyg", "aviasales", "bikesbooking"].includes(partner) && !tpOn(partner)) return { href: url, ad: true };
   if (tpOn(partner)) return { href: `https://tp.media/r?marker=${encodeURIComponent(AFF.tp.marker)}${AFF.tp.trs ? "&trs=" + encodeURIComponent(AFF.tp.trs) : ""}&p=${encodeURIComponent(AFF.tp.p[partner])}&u=${encodeURIComponent(url)}`, ad: true };
   if (partner === "discovercars" && AFF.discovercars.a_aid) return { href: addQ(url, "a_aid", AFF.discovercars.a_aid), ad: true };
   if (partner === "gyg" && AFF.gyg.partner_id) return { href: addQ(url, "partner_id", AFF.gyg.partner_id), ad: true };
@@ -10689,7 +10689,7 @@ function transportHTML(P, T) {
   const gm = `https://www.google.com/maps/dir/?api=1&origin=${a.lat},${a.lon}&destination=${b.lat},${b.lon}${pick.length ? "&waypoints=" + enc(pick.map(p => p.lat + "," + p.lon).join("|")) : ""}&travelmode=driving`;
   let links;
   if (plan.tr === "car") links = [LKA("discovercars", _t("Discover Cars"), "https://www.discovercars.com/", _t("Rekommenderas · bra självriskskydd"), false), LK(_t("Kayak hyrbil"), `https://www.kayak.se/cars/${a.code}${open ? "/" + b.code : ""}/${plan.d1}/${plan.d2}?sort=price_a`, open ? `${_t(`Hämta`)} ${a.code}${_t(`, lämna`)} ${b.code}` : `${_t(`Hämta och lämna på`)} ${a.code}`, true),
-    LK(_t("Rentalcars.com"), "https://www.rentalcars.com/sv/", _t("Stort utbud"), false), LK(_t("Auto Europe"), "https://www.autoeurope.se/", _t("Ofta fri avbokning"), false), LK(_t("Google Maps – hela rutten"), gm, _t("Bilväg med resmålen"), true)];
+    LK(_t("Rentalcars.com"), "https://www.rentalcars.com/sv/", _t("Stort utbud"), false), LKA("autoeurope", _t("Auto Europe"), "https://www.autoeurope.se/", _t("Ofta fri avbokning"), false), LK(_t("Google Maps – hela rutten"), gm, _t("Bilväg med resmålen"), true)];
   else links = [LKA("omio", _t("Omio"), "https://www.omio.com/", _t("Tåg och buss i en sökning"), false), LK(_t("Rome2Rio"), `https://www.rome2rio.com/s/${enc(a.name + " Airport")}/${enc(P.bases[0] ? short(P.bases[0].town) : _t("Toulouse"))}`, _t("Alla sätt att ta sig dit"), true), LK(_t("liO-tågen (Occitanie)"), "https://lio.laregion.fr/", _t("Toulouse–Luchon, Foix, Ax"), false),
     LK(_t("SNCF Connect"), "https://www.sncf-connect.com/", _t("Franska tåg"), false), LK(_t("Renfe"), "https://www.renfe.com/es/en", _t("Spanska tåg"), false), LK(_t("Trainline"), "https://www.thetrainline.com/sv", _t("Europeiska tåg"), false),
     ...(plan.tr === "bus" ? [LK(_t("FlixBus"), "https://www.flixbus.se/", _t("Långfärdsbussar"), false), LK(_t("BlaBlaCar Bus"), "https://www.blablacar.fr/bus", _t("Bussar i Frankrike"), false)] : []), LK(_t("Google Maps – kollektivt"), gm.replace("driving", "transit"), _t("Tidtabeller och byten"), true)];
