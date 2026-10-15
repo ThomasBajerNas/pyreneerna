@@ -1,4 +1,13 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Reseguide Pyrenéerna</title>
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><!-- Travelpayouts Drive: gör länkar till partnerprogrammen till partnerlänkar automatiskt -->
+<script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1" data-cmp-ab="2">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.setAttribute("data-cmp-ab","2");
+      script.src = 'https://emrldtp.cc/NTg2MTIw.js?t=586120';
+      document.head.appendChild(script);
+  })();
+</script><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Reseguide Pyrenéerna</title>
 <title>Reseguide Pyrenéerna</title>
 <meta name="description" content="Thomas Bajers reseguide över Pyrenéerna – resmål, Tour de France-pass, varma källor och rutter.">
 <meta name="theme-color" content="#0d6b6e">
@@ -10220,6 +10229,7 @@ if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = _t("Spa
    Travelpayouts-panelen under "Tools → Links" – jämför med en länk du skapar där. trs = ditt projekt-id (valfritt).
    Stay22: när aid och script finns laddas Stay22-skriptet, och då blir Booking-, Hotels.com- och Vrbo-länkarna partnerlänkar. */
 const AFF = {
+  tpDrive: true,                 // Travelpayouts Drive är installerat i <head>: länkarna konverteras automatiskt och märks som annonslänkar
   tp: { marker: "", trs: "", p: { discovercars: "", omio: "", gyg: "", aviasales: "", bikesbooking: "" } },
   booking: { aid: "" },          // Booking.com Affiliate Partner (direkt) – används före Stay22 om båda finns
   stay22: { aid: "", script: "" }, // Stay22: ditt aid och adressen till skriptet de ger dig
@@ -10233,6 +10243,7 @@ const tpOn = k => !!(AFF.tp.marker && AFF.tp.p[k]);
 function affUrl(partner, url) {
   if (partner === "booking") return AFF.booking.aid ? { href: addQ(url, "aid", AFF.booking.aid), ad: true } : { href: url, ad: !!AFF.stay22.aid };
   if (partner === "hotelscom" || partner === "vrbo") return { href: url, ad: !!AFF.stay22.aid };
+  if (AFF.tpDrive && ["discovercars", "omio", "gyg", "aviasales", "bikesbooking"].includes(partner) && !tpOn(partner)) return { href: url, ad: true };
   if (tpOn(partner)) return { href: `https://tp.media/r?marker=${encodeURIComponent(AFF.tp.marker)}${AFF.tp.trs ? "&trs=" + encodeURIComponent(AFF.tp.trs) : ""}&p=${encodeURIComponent(AFF.tp.p[partner])}&u=${encodeURIComponent(url)}`, ad: true };
   if (partner === "discovercars" && AFF.discovercars.a_aid) return { href: addQ(url, "a_aid", AFF.discovercars.a_aid), ad: true };
   if (partner === "gyg" && AFF.gyg.partner_id) return { href: addQ(url, "partner_id", AFF.gyg.partner_id), ad: true };
