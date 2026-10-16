@@ -8,6 +8,8 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - Egen cykeltur (ritverktyget): vägen räknas ut direkt i webbläsaren med BRouters öppna tjänst (brouter.de), och ortssökningen använder OpenStreetMaps Nominatim. Sparade turer ligger i besökarens webbläsare (localStorage) och kan delas som länk (`#tur=…`).
 
 - Språk: svenska, norska, danska, engelska, tyska, franska, spanska, italienska och portugisiska. Översättningarna ligger i `i18n/<språk>.js` och laddas bara när det språket är valt (väljaren uppe till höger, eller `?lang=en` i adressen).
+- Språkval: `?lang=xx` i adressen går först, sedan besökarens eget val (sparas i webbläsaren), sedan webbläsarens språk. Språk som guiden inte har → engelska.
+- Sökmotorer: `functions/_middleware.js` skriver in titel, beskrivning, `lang`, `hreflang`-länkar, canonical och Open Graph på rätt språk för `/?lang=xx`. `/` utan lang är x-default (engelska). `sitemap.xml` listar alla språkversioner och `robots.txt` pekar på den. `_routes.json` gör att funktionerna bara körs för `/` och `/api/*`.
 
 ## Min guide och nedladdningar
 - Under Min resa → 4 · Min guide bygger besökaren en egen guide (av Min resa eller teman + områden, med valbara kapitel och GPX-paket) eller väljer en av Thomas färdiga guider. Förhandsvisningen visar två provsidor, resten är låst.
@@ -15,6 +17,10 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - Betalning med Stripe är inkopplad (live sedan oktober 2026) på Cloudflare Pages. Utan server (t.ex. GitHub Pages) visar köpknappen "Betalningen öppnar snart".
 - Testläge: avstängt (`SHOP.testParam = ""`). Sätt `SHOP.testParam = "provkop"` för att slå på det igen; då ger `?provkop=1` köpdialogen en testknapp som laddar ner utan betalning.
 - Webbsidorna går inte att skriva ut – utskrift visar bara en hänvisning till Min guide.
+
+## Köpvillkor och kontakt
+- `villkor/index.html` – köpvillkor, ångerrätt, återbetalning och kontakt (info@pyreneestrip.com) på alla nio språk. Länkas från köpdialogen och Om guiden.
+- I köpdialogen måste kunden kryssa i att nedladdningen startar direkt och att ångerrätten då upphör innan betalknappen går att trycka på.
 
 ## Partnerlänkar (affiliate)
 - Alla ID:n fylls i på ett ställe: `const AFF` i `index.html` (sök på "Partnerlänkar"). Tomma fält = vanliga länkar utan provision och utan märkning.

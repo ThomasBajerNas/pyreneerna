@@ -7,9 +7,9 @@
       script.src = 'https://emrldtp.cc/NTg2MTIw.js?t=586120';
       document.head.appendChild(script);
   })();
-</script><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Reseguide Pyrenéerna</title>
-<title>Reseguide Pyrenéerna</title>
-<meta name="description" content="Thomas Bajers reseguide över Pyrenéerna – resmål, Tour de France-pass, varma källor och rutter.">
+</script><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Reseguide Pyrenéerna – cykling, vandring, skidor och resmål</title>
+<meta name="description" content="Reseguide över Pyrenéerna och södra Frankrike: Tour de France-pass, cykelrundor, vandringsleder, skidorter, varma källor, världsarv och interaktiv karta.">
 <meta name="theme-color" content="#0d6b6e">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -573,7 +573,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .gd-buy .btn svg,.shop svg{width:16px;height:16px}
 .shop{display:grid;gap:10px}.shop-h{margin:0}.shop-sub{margin:0;color:var(--muted)}.shop-lines{width:100%;border-collapse:collapse;font-size:14px}.shop-lines td{padding:6px 0;border-bottom:1px solid var(--line)}.shop-lines td:last-child{text-align:right;white-space:nowrap}.shop-lines .tot td{font-weight:700;border-bottom:0}
 .shop-what{margin:0;padding-left:18px;font-size:14px;color:var(--muted)}.shop-soon{background:var(--surface-2);border-left:3px solid var(--accent);padding:10px 12px;border-radius:6px;font-size:14px}
-.shop-test{border:1px dashed var(--muted);padding:10px 12px;border-radius:6px;font-size:13px;display:grid;gap:8px;justify-items:start}.shop-st{margin:0;font-size:13px;color:var(--muted)}
+.shop-test{border:1px dashed var(--muted);padding:10px 12px;border-radius:6px;font-size:13px;display:grid;gap:8px;justify-items:start}.shop-st{margin:0;font-size:13px;color:var(--muted)}.shop-ok{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.4;cursor:pointer}.shop-ok input{width:20px;height:20px;margin:0;flex:none;accent-color:var(--accent)}.shop-buy:disabled{opacity:.5;cursor:not-allowed}.shop-terms{margin:0;font-size:12px;color:var(--muted)}.shop-terms a{color:var(--accent)}
 .print-note{display:none}
 @media print{body>*:not(.print-note){display:none!important}.print-note{display:block!important;font:16px/1.5 Georgia,serif;padding:40px}}
 
@@ -1011,6 +1011,10 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
             <h3>Använd guiden i mobilen</h3>
             <p>Guiden fungerar i mobilens webbläsare och i Claude-appen. Öppna länken i Safari eller Chrome och välj <b>Lägg till på hemskärmen</b> så får du en ikon som en app. Kartan hämtas från nätet medan du zoomar, så i bergen med dålig täckning – öppna guiden och zooma in på dagens område medan du har wifi.</p>
             <p class="signature">/ Thomas Bajer</p>
+            <h3>Kontakt och köpvillkor</h3>
+            <p>Frågor om guiden eller ett köp? Skriv till <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a>.</p>
+            <p>Säljare: Thomas Bajer (enskild firma), Sverige.</p>
+            <p><a href="villkor/">Köpvillkor och återbetalning</a></p>
           </div>
           <div style="display:grid;gap:22px;align-content:start">
           <figure>
@@ -9078,12 +9082,12 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
 <script>(function () {
   var L = ["sv", "no", "da", "en", "de", "fr", "es", "it", "pt"], s = null, q = (location.search.match(/[?&]lang=([a-z]{2})/) || [])[1];
   try { s = JSON.parse(localStorage.getItem("pyr:lang")); } catch (e) {}
-  var nav = (navigator.languages || [navigator.language || "sv"]).map(function (x) { x = String(x).toLowerCase(); return /^(nb|nn|no)/.test(x) ? "no" : x.slice(0, 2); }).filter(function (x) { return L.indexOf(x) >= 0; })[0];
-  var lang = L.indexOf(q) >= 0 ? q : L.indexOf(s) >= 0 ? s : nav || "sv";
+  var nav = (navigator.languages || [navigator.language || "en"]).map(function (x) { x = String(x).toLowerCase(); return /^(nb|nn|no)/.test(x) ? "no" : x.slice(0, 2); }).filter(function (x) { return L.indexOf(x) >= 0; })[0];
+  var lang = L.indexOf(q) >= 0 ? q : L.indexOf(s) >= 0 ? s : nav || "en"; // språk vi inte har → engelska
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=24"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=25"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -12082,11 +12086,13 @@ function shopCheckout(order) {
     ${order.sub ? `<p class="shop-sub">${esc(order.sub)}</p>` : ""}
     <table class="shop-lines">${order.lines.map(([l, p]) => `<tr><td>${esc(l)}</td><td>${fmtCur(p)}</td></tr>`).join("")}<tr class="tot"><td>${_t("Att betala")}</td><td>${fmtCur(total)}</td></tr></table>
     <ul class="shop-what">${order.what.map(w => `<li>${esc(w)}</li>`).join("")}</ul>
-    ${SHOP.pay ? `<button class="btn primary shop-buy" data-shop-pay>${_t("Betala och ladda ner")}</button>${SHOP.payTest ? `<p class="shop-sub"><b>${_t("Testläge")}</b> – ${_t("Stripes testkort 4242 4242 4242 4242 fungerar, inga pengar dras.")}</p>` : ""}`
+    ${SHOP.pay ? `<label class="shop-ok"><input type="checkbox" data-shop-ok> <span>${_t("Jag vill att nedladdningen startar direkt och förstår att ångerrätten då upphör.")}</span></label>
+      <button class="btn primary shop-buy" data-shop-pay disabled>${_t("Betala och ladda ner")}</button>${SHOP.payTest ? `<p class="shop-sub"><b>${_t("Testläge")}</b> – ${_t("Stripes testkort 4242 4242 4242 4242 fungerar, inga pengar dras.")}</p>` : ""}`
       : `<div class="shop-soon"><b>${_t("Betalningen öppnar snart.")}</b> ${_t("Guiden och GPX-filerna går att köpa här så fort betalningen är på plats. Fram till dess kan du bygga och förhandsgranska din guide – inställningarna sparas i webbläsaren.")}</div>
          <button class="btn primary shop-buy" disabled>${_t("Betala och ladda ner")}</button>`}
     ${test ? `<div class="shop-test"><b>${_t("Testläge")}</b> – ${_t("ingen betalning görs. Används för att prova nedladdningen.")}<br><button class="btn" data-shop-test>${_t("Ladda ner (test)")}</button></div>` : ""}
-    <p class="shop-st" id="shopSt" role="status"></p></div>`;
+    <p class="shop-st" id="shopSt" role="status"></p>
+    <p class="shop-terms"><a href="villkor/" target="_blank" rel="noopener">${_t("Köpvillkor och återbetalning")}</a> · ${_t("Säljare: Thomas Bajer (enskild firma), Sverige.")}</p></div>`;
   $("#scrim").hidden = false; $("#sheet").hidden = false; $("#sheetBody").scrollTop = 0; $("#sheetClose").focus({ preventScroll: true });
 }
 async function shopDeliver(btn) {
@@ -12096,12 +12102,13 @@ async function shopDeliver(btn) {
   catch (err) { st.textContent = err && err.code === "declined" ? _t("Nedladdningen avbröts.") : _t("Det gick inte att spara filen just nu."); }
   finally { btn.disabled = false; }
 }
+document.addEventListener("change", e => { const c = e.target.closest("[data-shop-ok]"); if (c) { const b = $("[data-shop-pay]"); if (b) b.disabled = !c.checked; } });
 document.addEventListener("click", async e => {
   const t = e.target.closest("[data-shop-test]"); if (t) { if (shopTest()) shopDeliver(t); return; }
-  const p = e.target.closest("[data-shop-pay]"); if (p && SHOP.pay && _order) {
+  const p = e.target.closest("[data-shop-pay]"); if (p && SHOP.pay && _order && $("[data-shop-ok]")?.checked) {
     p.disabled = true;
     try { $("#shopSt").textContent = _t("Går till betalningen …"); if (await SHOP.pay(_order)) await shopDeliver(p); } catch (err) { $("#shopSt").textContent = _t("Betalningen kunde inte startas. Försök igen om en stund."); }
-    finally { p.disabled = false; }
+    finally { p.disabled = !$("[data-shop-ok]")?.checked; }
   }
 });
 function gpxXml(name, tracks) {
@@ -12350,7 +12357,7 @@ $("#stat14").textContent = PLACES.filter(p => p.no).length;
     // flera rader i samma element (t.ex. stycken med <b>) – översätt hela innehållet om det finns som nyckel
     document.querySelectorAll("[data-i18n-html]").forEach(el => { const k = el.innerHTML.trim().replace(/\s+/g, " "); if (DICT[k] != null) el.innerHTML = DICT[k]; });
     if (DICT.__title) document.title = DICT.__title;
-  }
+  } else document.title = "Reseguide Pyrenéerna – cykling, vandring, skidor och resmål";
   const sel = $("#langSel");
   if (sel) {
     sel.innerHTML = LANGS.map(([k, n]) => `<option value="${k}"${k === LANG ? " selected" : ""}>${n}</option>`).join("");
