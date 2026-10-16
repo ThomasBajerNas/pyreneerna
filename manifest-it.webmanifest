@@ -1,0 +1,38 @@
+{
+  "id": "/",
+  "name": "Guida di viaggio dei Pirenei",
+  "short_name": "Pirenei",
+  "description": "Guida di viaggio dei Pirenei e del sud della Francia: salite del Tour de France, percorsi in bici, sentieri, stazioni sciistiche, sorgenti termali, siti Patrimonio dell'Umanità e mappa interattiva.",
+  "lang": "it",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#e9edeb",
+  "theme_color": "#0d6b6e",
+  "categories": [
+    "travel",
+    "sports",
+    "navigation"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

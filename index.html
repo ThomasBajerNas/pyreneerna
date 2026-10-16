@@ -11,6 +11,8 @@
 <title>Reseguide Pyrenéerna – cykling, vandring, skidor och resmål</title>
 <meta name="description" content="Reseguide över Pyrenéerna och södra Frankrike: Tour de France-pass, cykelrundor, vandringsleder, skidorter, varma källor, världsarv och interaktiv karta.">
 <meta name="theme-color" content="#0d6b6e">
+<link rel="manifest" id="mf" href="/manifest-en.webmanifest"><script>(function(){var L=["sv", "no", "da", "en", "de", "fr", "es", "it", "pt"],q=(location.search.match(/[?&]lang=([a-z]{2})/)||[])[1],s=null;try{s=JSON.parse(localStorage.getItem("pyr:lang"))}catch(e){}var n=(navigator.languages||[navigator.language||"en"]).map(function(x){x=String(x).toLowerCase();return/^(nb|nn|no)/.test(x)?"no":x.slice(0,2)}).filter(function(x){return L.indexOf(x)>=0})[0];document.getElementById("mf").href="/manifest-"+(L.indexOf(q)>=0?q:L.indexOf(s)>=0?s:n||"en")+".webmanifest"})()</script>
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Pyrenéerna">
@@ -1010,6 +1012,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
             <p>Länkarna från 2014 har setts över, men adresser och öppettider ändras. Kontrollera alltid på plats eller på anläggningens webbplats före besöket. Bergspassen kan vara stängda vid snö till långt in på försommaren.</p>
             <h3>Använd guiden i mobilen</h3>
             <p>Guiden fungerar i mobilens webbläsare och i Claude-appen. Öppna länken i Safari eller Chrome och välj <b>Lägg till på hemskärmen</b> så får du en ikon som en app. Kartan hämtas från nätet medan du zoomar, så i bergen med dålig täckning – öppna guiden och zooma in på dagens område medan du har wifi.</p>
+            <p><button class="btn primary" id="installBtn" type="button" hidden>Installera appen</button></p>
             <p class="signature">/ Thomas Bajer</p>
             <h3>Kontakt och köpvillkor</h3>
             <p>Frågor om guiden eller ett köp? Skriv till <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a>.</p>
@@ -9087,7 +9090,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=25"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=26"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -12363,6 +12366,17 @@ $("#stat14").textContent = PLACES.filter(p => p.no).length;
     sel.innerHTML = LANGS.map(([k, n]) => `<option value="${k}"${k === LANG ? " selected" : ""}>${n}</option>`).join("");
     sel.addEventListener("change", () => { store.set("lang", sel.value); const u = new URL(location.href); u.searchParams.delete("lang"); location.replace(u.pathname + u.search + location.hash); });
   }
+})();
+
+/* ---------- app: offline (service worker) och installation ---------- */
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
+}
+(function () {
+  let ask = null; const btn = $("#installBtn"); if (!btn) return;
+  window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); ask = e; btn.hidden = false; });
+  window.addEventListener("appinstalled", () => { ask = null; btn.hidden = true; });
+  btn.addEventListener("click", async () => { if (!ask) return; ask.prompt(); try { await ask.userChoice; } catch (e) {} ask = null; btn.hidden = true; });
 })();
 
 /* ---------- start ---------- */

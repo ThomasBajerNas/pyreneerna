@@ -22,6 +22,12 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - `villkor/index.html` – köpvillkor, ångerrätt, återbetalning och kontakt (info@pyreneestrip.com) på alla nio språk. Länkas från köpdialogen och Om guiden.
 - I köpdialogen måste kunden kryssa i att nedladdningen startar direkt och att ångerrätten då upphör innan betalknappen går att trycka på.
 
+## App (PWA)
+- Guiden går att installera som app på Android, iPhone och datorn: `manifest-<språk>.webmanifest` (namn på besökarens språk), ikoner i `icons/` och knappen "Installera appen" under Om guiden (visas när webbläsaren erbjuder installation; på iPhone: Dela → Lägg till på hemskärmen).
+- `sw.js` (service worker) gör att guiden startar snabbt och fungerar utan täckning: sidan hämtas från nätet först med sparad kopia som reserv, guidens egna filer och Leaflet/typsnitt sparas, och de kartrutor man tittat på i OpenStreetMap-baserade kartor sparas (högst 3000). Google- och Esri-kartor, /api, Stripe, BRouter och sökningen går alltid mot nätet.
+- Ändras språkfilerna: höj `?v=` i `index.html`. Ändras cachestrategin: höj `VERSION` i `sw.js`.
+- `_headers` gör att `sw.js` aldrig cachas av webbläsaren, så uppdateringar slår igenom.
+
 ## Partnerlänkar (affiliate)
 - Alla ID:n fylls i på ett ställe: `const AFF` i `index.html` (sök på "Partnerlänkar"). Tomma fält = vanliga länkar utan provision och utan märkning.
 - Travelpayouts Drive är installerat i `<head>` (skriptet från emrldtp.cc) och gör länkar till Discover Cars, GetYourGuide, Omio m.fl. till partnerlänkar automatiskt (`AFF.tpDrive`). Alternativt Travelpayouts (`AFF.tp`): `marker` + program-id `p` för Discover Cars, Omio, GetYourGuide, Aviasales och BikesBooking. Länkarna går via `tp.media/r` – jämför med en länk du skapar i Travelpayouts-panelen.

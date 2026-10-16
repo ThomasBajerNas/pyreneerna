@@ -1,0 +1,38 @@
+{
+  "id": "/",
+  "name": "Pyrenees Travel Guide",
+  "short_name": "Pyrenees",
+  "description": "Travel guide to the Pyrenees and southern France: Tour de France climbs, cycling routes, hiking trails, ski resorts, hot springs, World Heritage sites and an interactive map.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#e9edeb",
+  "theme_color": "#0d6b6e",
+  "categories": [
+    "travel",
+    "sports",
+    "navigation"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

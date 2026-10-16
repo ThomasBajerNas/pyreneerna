@@ -1,0 +1,38 @@
+{
+  "id": "/",
+  "name": "Guide de voyage des Pyrénées",
+  "short_name": "Pyrénées",
+  "description": "Guide de voyage des Pyrénées et du sud de la France : cols du Tour de France, itinéraires vélo, sentiers de randonnée, stations de ski, sources chaudes, sites du patrimoine mondial et carte interactive.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#e9edeb",
+  "theme_color": "#0d6b6e",
+  "categories": [
+    "travel",
+    "sports",
+    "navigation"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "/",
+  "name": "Reiseguide Pyreneene",
+  "short_name": "Pyreneene",
+  "description": "Reiseguide til Pyreneene og Sør-Frankrike: Tour de France-pass, sykkelruter, turstier, skisteder, varme kilder, verdensarv og interaktivt kart.",
+  "lang": "nb",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#e9edeb",
+  "theme_color": "#0d6b6e",
+  "categories": [
+    "travel",
+    "sports",
+    "navigation"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
