@@ -12046,7 +12046,7 @@ document.addEventListener("click", e => {
    Testläge för Thomas: lägg till ?provkop=1 i adressen (stängs av med ?provkop=0). Sätt SHOP.testParam = "" vid lansering. */
 const SHOP = {
   provider: "none",
-  testParam: "provkop",
+  testParam: "", // testläget (?provkop=1) är avstängt sedan lanseringen. Sätt "provkop" för att slå på det igen.
   cur: { sv: "SEK", no: "NOK", da: "DKK" }[LANG] || "EUR",
   price: {
     guide:  { SEK: 49,  NOK: 49,  DKK: 35,  EUR: 4.9 },   // egen guide
