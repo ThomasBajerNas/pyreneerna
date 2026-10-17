@@ -11,6 +11,12 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - Språkval: `?lang=xx` i adressen går först, sedan besökarens eget val (sparas i webbläsaren), sedan webbläsarens språk. Språk som guiden inte har → engelska.
 - Sökmotorer: `functions/_middleware.js` skriver in titel, beskrivning, `lang`, `hreflang`-länkar, canonical och Open Graph på rätt språk för `/?lang=xx`. `/` utan lang är x-default (engelska). `sitemap.xml` listar alla språkversioner och `robots.txt` pekar på den. `_routes.json` gör att funktionerna bara körs för `/` och `/api/*`.
 
+## Egna sidor för sökmotorer
+- Varje resmål, vandringsled, cykelrunda, bilrutt och mountainbikeområde har en egen statisk sida på alla nio språk, t.ex. `/sv/place/tourmalet/`, `/en/trail/gr10/`, `/de/ride/arudy-marie-blanque/`. Översiktssidan per språk är `/sv/`, `/en/` osv.
+- Sidorna byggs av samma data som appen (`index.html` + `i18n/`) med `node tools/build-pages.mjs`. **Kör skriptet efter varje ändring i guidens innehåll** och checka in mapparna `sv/ … pt/`, `sidor.css` och `sitemap.xml` – annars visar sidorna gammal text.
+- Skriptet skriver också om `sitemap.xml` (startsidan, villkor och alla sidor med hreflang-länkar).
+- Sidorna länkar in i appen (`/?lang=xx#p-<id>`), och appen länkar ut till dem (Om guiden och "Länk till sidan" i varje resmål).
+
 ## Min guide och nedladdningar
 - Under Min resa → 4 · Min guide bygger besökaren en egen guide (av Min resa eller teman + områden, med valbara kapitel och GPX-paket) eller väljer en av Thomas färdiga guider. Förhandsvisningen visar två provsidor, resten är låst.
 - Allt som laddas ner – guiden och alla GPX-filer på sajten – går via köpdialogen (`shopCheckout`). Priser och färdiga guider ställs in i `SHOP` och `READY` i `index.html`.

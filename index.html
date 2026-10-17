@@ -1010,6 +1010,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
             <p>Guiden innehåller nu <b id="statPlaces"></b> resmål, varav <b id="stat14"></b> från 2014. Nytt är bergspassen från Tour de France med höjd, längd och snittlutning, ett femtontal varma källor och spa på båda sidor om gränsen, fler katarborgar, vattenfall och raviner, hela Côte Vermeille från Argelès till Cerbère, Béziers med Canal du Midi, och tipsen från Languedoc-guiden: Collioure, Canigou, Fonserannes slussar, Nîmes och Pont du Gard.</p>
             <p>Nytt i oktober 2026 är fliken <b>Cykling</b>: alla Pyrenéetapper i Tour de France, Vuelta a España och Route d'Occitanie 2010–2026 med pall och ledare, ryktena om 2027, och för den som vill cykla själv klassiska rundor, motionslopp med anmälan, cykeluthyrning och resvägar. På kartan finns nu lager med rundor, etapper, uthyrare, motionslopp och flygplatser – tryck på en linje eller punkt för fakta.</p>
             <p>Länkarna från 2014 har setts över, men adresser och öppettider ändras. Kontrollera alltid på plats eller på anläggningens webbplats före besöket. Bergspassen kan vara stängda vid snö till långt in på försommaren.</p>
+            <p><a href="/sv/" id="allPages">Alla resmål, leder och rundor som egna sidor</a></p>
             <h3>Använd guiden i mobilen</h3>
             <p>Guiden fungerar i mobilens webbläsare och i Claude-appen. Öppna länken i Safari eller Chrome och välj <b>Lägg till på hemskärmen</b> så får du en ikon som en app. Kartan hämtas från nätet medan du zoomar, så i bergen med dålig täckning – öppna guiden och zooma in på dagens område medan du har wifi.</p>
             <p><button class="btn primary" id="installBtn" type="button" hidden>Installera appen</button></p>
@@ -9090,7 +9091,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=26"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=27"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -9461,7 +9462,7 @@ function openPlace(id, keepView) {
     <div class="actions book-row">${stayBtn(p.name, _t("Boende nära"))}${p.cat.some(c => ["stad", "borg", "varldsarv", "natur", "grotta", "vatten", "spa", "bad"].includes(c)) ? gygBtn(p.name, _t("Upplevelser")) : ""}</div>
     <div><div class="eyebrow">${_t(`Länkar`)}</div><ul class="links">${(p.photoLinks || []).concat(p.links || []).map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
     <div><div class="eyebrow">${_t(`I närheten`)}</div><div class="near">${near.map(([q, d]) => `<button class="row" data-open="${q.id}">${badge(q)}<div><b>${esc(q.name)}</b><small>${esc(q.sub)}</small></div><span class="alt">${Math.round(d)} km</span></button>`).join("")}</div></div>
-    <div class="coords">${p.lat.toFixed(4)}° N, ${Math.abs(p.lon).toFixed(4)}° ${p.lon < 0 ? _t("V") : _t("Ö")} ${_t(`· fågelvägen`)}</div>
+    <div class="coords">${p.lat.toFixed(4)}° N, ${Math.abs(p.lon).toFixed(4)}° ${p.lon < 0 ? _t("V") : _t("Ö")} ${_t(`· fågelvägen`)} · <a href="/${LANG}/place/${p.id}/">${_t(`Länk till sidan`)}</a></div>
   </div>`;
   $("#scrim").hidden = false; $("#sheet").hidden = false;
   $("#sheetBody").scrollTop = 0;
@@ -12380,6 +12381,7 @@ if ("serviceWorker" in navigator && (location.protocol === "https:" || location.
 })();
 
 /* ---------- start ---------- */
+{ const a = $("#allPages"); if (a) a.href = "/" + LANG + "/"; }
 renderChips(); renderSideList(); updateCounts();
 const h = (location.hash || "").slice(1);
 if (h.startsWith("tur=")) { const L0 = wpsFromLink(h.slice(4)); show("karta", { noHash: true }); requestAnimationFrame(() => openTourEditor({ wps: L0.wps, prof: L0.prof })); }
