@@ -50,3 +50,8 @@ Serverdelen ligger i `functions/` och körs av Cloudflare Pages (på GitHub Page
 - `functions/api/verify.js` – kontrollerar att köpet är betalt. Köplänken (`?kop=…`) fungerar i 30 dagar.
 - Hemliga nycklar läggs **bara** i Cloudflare (Settings → Variables and Secrets): `STRIPE_SECRET_KEY` = `sk_test_…` för test, senare `sk_live_…`.
 - Testkort i testläge: 4242 4242 4242 4242, valfritt framtida datum och CVC.
+
+## Statistik (bara för Thomas)
+- `statistik/index.html` + `functions/api/stats.js`: lösenordsskyddad sida på https://pyreneestrip.com/statistik/ med besök (Cloudflare Web Analytics), Google-sökningar (Search Console) och försäljning (Stripe). Hämtar nya siffror var femte minut.
+- Hemligheter i Cloudflare (Settings → Variables and Secrets): `STATS_PASSWORD`, `CF_ACCOUNT_ID`, `CF_API_TOKEN` (Account Analytics: Read), `GSC_SA_JSON` (JSON-nyckel för ett Google-tjänstekonto som är tillagt som användare i Search Console). Valfritt `GSC_SITE` (standard `sc-domain:pyreneestrip.com`).
+- Sidan är `noindex` och spärrad i `robots.txt`.

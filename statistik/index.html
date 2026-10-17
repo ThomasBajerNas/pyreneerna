@@ -1,0 +1,194 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Statistik – pyreneestrip.com</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0d6b6e">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#e9edeb;--surface:#fbfcfb;--ink:#18262b;--muted:#56666b;--faint:#8a9a9e;--line:#cdd6d3;--grid:#e3e8e6;--accent:#0d6b6e;--s1:#1f6fd1;--s2:#d9670b;--bad:#b3261e;
+--f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--f-ui:"Barlow","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0f1719;--surface:#162226;--ink:#e4ecea;--muted:#9aaba9;--faint:#6f8285;--line:#2c3d41;--grid:#22323600;--accent:#4fc2c1;--s1:#3d86e0;--s2:#c9702a;--bad:#f2867d}}
+:root[data-theme="dark"]{--bg:#0f1719;--surface:#162226;--ink:#e4ecea;--muted:#9aaba9;--faint:#6f8285;--line:#2c3d41;--accent:#4fc2c1;--s1:#3d86e0;--s2:#c9702a;--bad:#f2867d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-ui);-webkit-text-size-adjust:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:16px 16px 48px}
+header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-bottom:14px}
+h1{font:700 30px/1 var(--f-display);margin:0}
+h1 span{color:var(--accent)}
+h2{font:600 21px/1.2 var(--f-display);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+h3{font:600 13px/1.3 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.ctrl{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--surface)}
+.seg button{font:600 14px var(--f-ui);border:0;background:none;color:var(--ink);padding:8px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+.btn{font:600 14px var(--f-ui);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:7px;cursor:pointer}
+.upd{font-size:13px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi small{display:block;font:600 12px/1.3 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kpi b{display:block;font:700 34px/1.1 var(--f-display);margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.src{font:600 11px/1 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:3px 6px}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:200px;overflow:visible}
+.legend{display:flex;gap:14px;font-size:13px;color:var(--muted);margin:0 0 4px}
+.legend i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:5px;border-radius:2px}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--surface);font-size:13px;line-height:1.4;padding:6px 9px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-110%);display:none;z-index:2}
+.tip b{font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font:600 12px var(--f-ui);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 6px;border-bottom:1px solid var(--line)}
+td{padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.k{word-break:break-word}
+td.k a{color:var(--ink);text-decoration:none}td.k a:hover{text-decoration:underline}
+.bar{height:4px;border-radius:2px;background:var(--s1);margin-top:3px;opacity:.85}
+.msg{border:1px solid var(--line);border-left:4px solid var(--s2);border-radius:0 8px 8px 0;padding:10px 12px;background:var(--surface);margin:0 0 10px;font-size:14px}
+.msg.err{border-left-color:var(--bad)}
+.empty{color:var(--muted);font-size:14px;padding:10px 0}
+#login{max-width:360px;margin:12vh auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px}
+#login input{width:100%;font:16px var(--f-ui);padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);margin:10px 0}
+#login button{width:100%;background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.span2{grid-column:1/-1}
+</style></head><body>
+<form id="login" hidden>
+  <h1>Pyrenees<span>trip</span> statistik</h1>
+  <p class="upd">Ange lösenordet (STATS_PASSWORD i Cloudflare).</p>
+  <input type="password" id="pw" autocomplete="current-password" aria-label="Lösenord" required>
+  <button class="btn" type="submit">Logga in</button>
+  <p class="msg err" id="loginErr" hidden></p>
+</form>
+<div class="wrap" id="app" hidden>
+  <header>
+    <h1>Pyrenees<span>trip</span> · statistik</h1>
+    <div class="ctrl">
+      <div class="seg" role="group" aria-label="Period"><button data-d="1">I dag</button><button data-d="7">7 dagar</button><button data-d="30">30 dagar</button></div>
+      <button class="btn" id="reload" type="button">Uppdatera</button>
+      <span class="upd" id="upd"></span>
+    </div>
+  </header>
+  <div id="notes"></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="grid">
+    <section class="card"><h2>Besök per dag <span class="src">Cloudflare</span></h2><div class="legend"><span><i style="background:var(--s1)"></i>Besök</span><span><i style="background:var(--s2)"></i>Sidvisningar</span></div><div class="chart" id="chCf"></div></section>
+    <section class="card"><h2>Klick från Google per dag <span class="src">Search Console</span></h2><div class="legend"><span><i style="background:var(--s1)"></i>Klick</span></div><div class="chart" id="chGc"></div><h3>Visningar i Google per dag</h3><div class="chart" id="chGi"></div></section>
+    <section class="card"><h2>Mest lästa sidor <span class="src">Cloudflare</span></h2><div id="tPages"></div></section>
+    <section class="card"><h2>Sökord i Google <span class="src">Search Console</span></h2><div id="tQueries"></div></section>
+    <section class="card"><h2>Varifrån besökarna kommer <span class="src">Cloudflare</span></h2><div id="tRefs"></div><h3>Enheter</h3><div id="tDev"></div></section>
+    <section class="card"><h2>Länder <span class="src">Cloudflare</span></h2><div id="tCountries"></div></section>
+    <section class="card"><h2>Sidor som syns i Google <span class="src">Search Console</span></h2><div id="tGPages"></div></section>
+    <section class="card"><h2>Försäljning <span class="src">Stripe</span></h2><div id="tSales"></div></section>
+  </div>
+  <p class="upd" style="margin-top:18px">Cloudflare räknar riktiga besökare (inga robotar) och uppdateras inom några minuter. Google Search Console ligger 2–3 dagar efter. Sidan hämtar nya siffror var femte minut medan den är öppen.</p>
+</div>
+<script>
+(function () {
+  var KEY = "pyr:stats-key", DKEY = "pyr:stats-days";
+  var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  var set = function (k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  var pw = get(KEY), days = +(get(DKEY) || 7), timer = null, mem = pw;
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var nf = function (n, d) { return n == null ? "–" : Number(n).toLocaleString("sv-SE", { maximumFractionDigits: d || 0, minimumFractionDigits: d || 0 }); };
+  var pct = function (x) { return nf(x * 100, 1) + " %"; };
+  var dshort = function (s) { var p = s.split("-"); return +p[2] + "/" + +p[1]; };
+
+  function showLogin(err) { $("#app").hidden = true; $("#login").hidden = false; $("#loginErr").hidden = !err; $("#loginErr").textContent = err || ""; $("#pw").focus(); }
+  $("#login").addEventListener("submit", function (e) { e.preventDefault(); mem = $("#pw").value; set(KEY, mem); load(); });
+  document.querySelectorAll(".seg button").forEach(function (b) { b.addEventListener("click", function () { days = +b.dataset.d; set(DKEY, String(days)); load(); }); });
+  $("#reload").addEventListener("click", function () { load(); });
+
+  function load() {
+    if (!mem) return showLogin();
+    document.querySelectorAll(".seg button").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.dataset.d === days)); });
+    $("#upd").textContent = "Hämtar …";
+    fetch("/api/stats?days=" + days, { headers: { "x-stats-key": mem } }).then(function (r) {
+      return r.json().then(function (o) { return { ok: r.ok, status: r.status, o: o }; });
+    }).then(function (x) {
+      if (x.status === 401) { set(KEY, null); mem = null; return showLogin("Fel lösenord."); }
+      if (!x.ok) { $("#login").hidden = true; $("#app").hidden = false; $("#notes").innerHTML = '<p class="msg err">' + esc(x.o.error || "Något gick fel.") + "</p>"; $("#upd").textContent = ""; return; }
+      $("#login").hidden = true; $("#app").hidden = false;
+      render(x.o);
+      $("#upd").textContent = "Uppdaterad " + new Date().toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" });
+    }).catch(function () { $("#upd").textContent = "Kunde inte hämta – försöker igen om fem minuter."; });
+    clearTimeout(timer); timer = setTimeout(load, 5 * 60 * 1000);
+  }
+
+  function render(o) {
+    var cf = o.cf || {}, g = o.gsc || {}, s = o.sales || {};
+    var notes = [];
+    [["Cloudflare", cf], ["Google Search Console", g], ["Stripe", s]].forEach(function (p) { if (p[1].error) notes.push('<p class="msg' + (p[1].setup ? "" : " err") + '"><b>' + p[0] + ":</b> " + esc(p[1].error) + (p[1].setup ? " Siffrorna härifrån visas när nyckeln är inlagd." : "") + "</p>"); });
+    $("#notes").innerHTML = notes.join("");
+    var per = days === 1 ? "senaste dygnet" : "senaste " + days + " dagarna";
+    var sales = s.byCur ? Object.keys(s.byCur).map(function (c) { return nf(s.byCur[c], 0) + " " + c; }).join(" + ") : null;
+    var k = [
+      ["Besök", cf.totals ? nf(cf.totals.visits) : "–", per],
+      ["Sidvisningar", cf.totals ? nf(cf.totals.views) : "–", cf.totals && cf.totals.visits ? nf(cf.totals.views / cf.totals.visits, 1) + " per besök" : per],
+      ["Klick från Google", g.totals ? nf(g.totals.clicks) : "–", g.from ? dshort(g.from) + "–" + dshort(g.to) : ""],
+      ["Visningar i Google", g.totals ? nf(g.totals.impressions) : "–", g.totals ? "klickfrekvens " + pct(g.totals.ctr) : ""],
+      ["Snittplacering", g.totals && g.totals.position ? nf(g.totals.position, 1) : "–", "i Googles sökresultat"],
+      ["Försäljning", s.count != null ? (s.count ? sales : "0") : "–", s.count != null ? s.count + " köp " + per + (s.test ? " (testläge)" : "") : ""],
+    ];
+    $("#kpis").innerHTML = k.map(function (x) { return '<div class="kpi"><small>' + x[0] + "</small><b>" + esc(x[1]) + "</b><span>" + esc(x[2]) + "</span></div>"; }).join("");
+
+    line($("#chCf"), (cf.daily || []).map(function (d) { return d.key; }), [{ name: "Besök", c: "var(--s1)", v: (cf.daily || []).map(function (d) { return d.visits; }) }, { name: "Sidvisningar", c: "var(--s2)", v: (cf.daily || []).map(function (d) { return d.views; }) }]);
+    line($("#chGc"), (g.daily || []).map(function (d) { return d.key; }), [{ name: "Klick", c: "var(--s1)", v: (g.daily || []).map(function (d) { return d.clicks; }) }]);
+    line($("#chGi"), (g.daily || []).map(function (d) { return d.key; }), [{ name: "Visningar", c: "var(--s1)", v: (g.daily || []).map(function (d) { return d.impressions; }) }], 120);
+
+    var link = function (p) { return '<a href="' + esc(p) + '" target="_blank" rel="noopener">' + esc(p) + "</a>"; };
+    table($("#tPages"), cf.pages, [["Sida", function (r) { return link(r.key || "/"); }, "k"], ["Visningar", function (r) { return nf(r.views); }, "n"]], "views");
+    table($("#tRefs"), (cf.refs || []).map(function (r) { if (!r.key) r.key = "Direkt / okänt"; return r; }), [["Källa", function (r) { return esc(r.key); }, "k"], ["Besök", function (r) { return nf(r.visits); }, "n"]], "visits");
+    table($("#tDev"), cf.devices, [["Enhet", function (r) { return esc({ desktop: "Dator", mobile: "Mobil", tablet: "Surfplatta" }[r.key] || r.key); }, "k"], ["Besök", function (r) { return nf(r.visits); }, "n"]], "visits");
+    table($("#tCountries"), cf.countries, [["Land", function (r) { return esc(r.key); }, "k"], ["Besök", function (r) { return nf(r.visits); }, "n"]], "visits");
+    var gcols = function (label, f) { return [[label, f, "k"], ["Klick", function (r) { return nf(r.clicks); }, "n"], ["Visn.", function (r) { return nf(r.impressions); }, "n"], ["Plac.", function (r) { return nf(r.position, 1); }, "n"]]; };
+    table($("#tQueries"), g.queries, gcols("Sökord", function (r) { return esc(r.key); }), "impressions");
+    table($("#tGPages"), (g.pages || []).map(function (r) { r.path = r.key.replace(/^https?:\/\/[^/]+/, ""); return r; }), gcols("Sida", function (r) { return link(r.path || "/"); }), "impressions");
+    table($("#tSales"), s.recent, [["Datum", function (r) { return esc(new Date(r.at).toLocaleString("sv-SE", { dateStyle: "short", timeStyle: "short" })); }], ["Vad", function (r) { return esc(r.title || r.kind || "–"); }, "k"], ["Belopp", function (r) { return nf(r.amount, 0) + " " + esc(r.cur); }, "n"]]);
+  }
+
+  function table(el, rows, cols, barKey) {
+    if (!rows || !rows.length) { el.innerHTML = '<p class="empty">Inga data för perioden än.</p>'; return; }
+    var max = barKey ? Math.max.apply(null, rows.map(function (r) { return r[barKey] || 0; })) : 0;
+    el.innerHTML = "<table><thead><tr>" + cols.map(function (c) { return '<th class="' + (c[2] || "") + '">' + c[0] + "</th>"; }).join("") + "</tr></thead><tbody>" +
+      rows.map(function (r) { return "<tr>" + cols.map(function (c, i) { return '<td class="' + (c[2] || "") + '">' + c[1](r) + (i === 0 && barKey && max ? '<div class="bar" style="width:' + Math.max(2, 100 * (r[barKey] || 0) / max).toFixed(1) + '%"></div>' : "") + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table>";
+  }
+
+  /* linjediagram med en y-axel, rutnät, etiketter och hovring */
+  function line(el, xs, series, h) {
+    h = h || 200;
+    if (!xs.length) { el.innerHTML = '<p class="empty">Inga data för perioden än.</p>'; return; }
+    var W = Math.max(280, el.clientWidth || 500), padL = 44, padR = 10, padT = 10, padB = 24, iw = W - padL - padR, ih = h - padT - padB;
+    var max = 0; series.forEach(function (s) { s.v.forEach(function (v) { if (v > max) max = v; }); });
+    var step = Math.max(1, nice(max / 4 || 1)), top = Math.max(step * 4, step);
+    var X = function (i) { return padL + (xs.length === 1 ? iw / 2 : i * iw / (xs.length - 1)); }, Y = function (v) { return padT + ih - v / top * ih; };
+    var g = "";
+    for (var t = 0; t <= top + 1e-9; t += step) g += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + Y(t) + '" y2="' + Y(t) + '" stroke="var(--line)" stroke-width="1" opacity=".6"/><text x="' + (padL - 6) + '" y="' + (Y(t) + 4) + '" text-anchor="end" font-size="11" fill="var(--muted)">' + nf(t) + "</text>";
+    var every = Math.ceil(xs.length / Math.max(2, Math.floor(iw / 48)));
+    xs.forEach(function (x, i) { if (i % every === 0 || i === xs.length - 1) g += '<text x="' + X(i) + '" y="' + (h - 6) + '" text-anchor="middle" font-size="11" fill="var(--muted)">' + esc(dshort(x)) + "</text>"; });
+    series.forEach(function (s) {
+      g += '<polyline fill="none" stroke="' + s.c + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="' + s.v.map(function (v, i) { return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" ") + '"/>';
+      if (xs.length <= 31) s.v.forEach(function (v, i) { g += '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(v).toFixed(1) + '" r="3" fill="' + s.c + '" stroke="var(--surface)" stroke-width="2"/>'; });
+    });
+    g += '<line class="cross" x1="0" x2="0" y1="' + padT + '" y2="' + (padT + ih) + '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3" visibility="hidden"/>';
+    el.innerHTML = '<svg viewBox="0 0 ' + W + " " + h + '" style="height:' + h + 'px" role="img" aria-label="' + esc(series.map(function (s) { return s.name; }).join(" och ")) + ' per dag">' + g + '<rect x="' + padL + '" y="0" width="' + iw + '" height="' + h + '" fill="transparent"/></svg><div class="tip"></div>';
+    var svg = el.querySelector("svg"), tip = el.querySelector(".tip"), cross = el.querySelector(".cross");
+    function move(ev) {
+      var r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) * W / r.width;
+      var i = Math.round((px - padL) / (iw / Math.max(1, xs.length - 1))); i = Math.max(0, Math.min(xs.length - 1, i));
+      cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.setAttribute("visibility", "visible");
+      tip.style.display = "block"; tip.style.left = (X(i) * r.width / W) + "px"; tip.style.top = (padT * r.height / h + 6) + "px";
+      tip.innerHTML = esc(xs[i]) + "<br>" + series.map(function (s) { return s.name + ": <b>" + nf(s.v[i]) + "</b>"; }).join("<br>");
+    }
+    svg.addEventListener("pointermove", move); svg.addEventListener("pointerdown", move);
+    svg.addEventListener("pointerleave", function () { tip.style.display = "none"; cross.setAttribute("visibility", "hidden"); });
+  }
+  function nice(x) { var p = Math.pow(10, Math.floor(Math.log10(x))), f = x / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; }
+  var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (window._last) render(window._last); }, 200); });
+  var _render = render; render = function (o) { window._last = o; _render(o); };
+  load();
+})();
+</script>
+</body></html>
