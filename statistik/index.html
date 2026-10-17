@@ -142,7 +142,8 @@ td.k a{color:var(--ink);text-decoration:none}td.k a:hover{text-decoration:underl
     table($("#tPages"), cf.pages, [["Sida", function (r) { return link(r.key || "/"); }, "k"], ["Visningar", function (r) { return nf(r.views); }, "n"]], "views");
     table($("#tRefs"), (cf.refs || []).map(function (r) { if (!r.key) r.key = "Direkt / okänt"; return r; }), [["Källa", function (r) { return esc(r.key); }, "k"], ["Besök", function (r) { return nf(r.visits); }, "n"]], "visits");
     table($("#tDev"), cf.devices, [["Enhet", function (r) { return esc({ desktop: "Dator", mobile: "Mobil", tablet: "Surfplatta" }[r.key] || r.key); }, "k"], ["Besök", function (r) { return nf(r.visits); }, "n"]], "visits");
-    table($("#tCountries"), cf.countries, [["Land", function (r) { return esc(r.key); }, "k"], ["Besök", function (r) { return nf(r.visits); }, "n"]], "visits");
+    var cn = function (c) { try { return new Intl.DisplayNames(["sv"], { type: "region" }).of(c) || c; } catch (e) { return c; } };
+    table($("#tCountries"), cf.countries, [["Land", function (r) { return esc(/^[A-Z]{2}$/.test(r.key) ? cn(r.key) : r.key); }, "k"], ["Besök", function (r) { return nf(r.visits); }, "n"]], "visits");
     var gcols = function (label, f) { return [[label, f, "k"], ["Klick", function (r) { return nf(r.clicks); }, "n"], ["Visn.", function (r) { return nf(r.impressions); }, "n"], ["Plac.", function (r) { return nf(r.position, 1); }, "n"]]; };
     table($("#tQueries"), g.queries, gcols("Sökord", function (r) { return esc(r.key); }), "impressions");
     table($("#tGPages"), (g.pages || []).map(function (r) { r.path = r.key.replace(/^https?:\/\/[^/]+/, ""); return r; }), gcols("Sida", function (r) { return link(r.path || "/"); }), "impressions");
