@@ -799,6 +799,18 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .rs-ph img{width:96px;height:72px;object-fit:cover;border-radius:6px;display:block}
 .rs-ph>div:nth-child(2){display:grid;gap:6px}
 .rs-save{position:sticky;bottom:0;background:var(--surface);padding:10px 0;border-top:1px solid var(--line)}
+
+/* ---------- Superanvändare ---------- */
+.super-pitch{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--c-varldsarv);background:color-mix(in srgb,var(--c-varldsarv) 10%,transparent);border-radius:8px;padding:10px 12px;font-size:14px;font-family:var(--f-ui)}
+.super-pitch>svg{width:20px;height:20px;flex:none;color:var(--c-varldsarv)}
+.super-sheet .eyebrow svg{width:15px;height:15px;vertical-align:-2px;margin-right:4px}
+[data-super-lbl] svg{width:18px;height:18px}
+.super-link{word-break:break-all}
+.super-login summary{cursor:pointer;font-weight:600;font-family:var(--f-ui)}
+.super-form{display:grid;gap:8px;margin-top:8px;font-family:var(--f-ui);font-size:14px}
+.super-form label{display:grid;gap:4px}
+.super-form input{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:6px;width:100%;box-sizing:border-box;background:var(--surface);color:var(--ink)}
+.super-form .btn{justify-self:start}
 </style>
 
 <div class="app">
@@ -1078,6 +1090,9 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
             <p>Guiden fungerar i mobilens webbläsare och i Claude-appen. Öppna länken i Safari eller Chrome och välj <b>Lägg till på hemskärmen</b> så får du en ikon som en app. Kartan hämtas från nätet medan du zoomar, så i bergen med dålig täckning – öppna guiden och zooma in på dagens område medan du har wifi.</p>
             <p><button class="btn primary" id="installBtn" type="button" hidden>Installera appen</button></p>
             <p class="signature">/ Thomas Bajer</p>
+            <h3>Superanvändare</h3>
+            <p>Som superanvändare laddar du ner alla guider, Thomas färdiga guider och alla GPX-filer fritt i ett år. Abonnemanget förnyas varje år och kan sägas upp när som helst.</p>
+            <p><button class="btn primary" type="button" data-super data-super-lbl>Bli superanvändare</button></p>
             <h3>Kontakt och köpvillkor</h3>
             <p>Frågor om guiden eller ett köp? Skriv till <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a>.</p>
             <p>Säljare: Thomas Bajer (enskild firma), Sverige.</p>
@@ -9157,7 +9172,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=28"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=29"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -12470,6 +12485,7 @@ const SHOP = {
     gpx:    { SEK: 15,  NOK: 15,  DKK: 12,  EUR: 1.5 },   // en GPX-fil på sajten
     ready:  { SEK: 69,  NOK: 69,  DKK: 49,  EUR: 6.9 },   // Thomas färdiga guider
     full:   { SEK: 149, NOK: 149, DKK: 109, EUR: 14.9 },  // hela guiden
+    super:  { SEK: 249, NOK: 249, DKK: 179, EUR: 24.9 },  // superanvändare per år – samma som PRICE.super i functions/_shop.js
   },
   pay: null, // async order => true när betalningen är klar. null = ingen betalning ännu.
 };
@@ -12490,6 +12506,15 @@ const fileSafe = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 let _order = null;
 function shopCheckout(order) {
   _order = order;
+  if (superOn()) { // superanvändare: allt ingår
+    $("#sheet").classList.remove("wide");
+    $("#sheetBody").innerHTML = `<div class="shop d-pad"><span class="eyebrow">${order.kind === "gpx" ? _t("GPX-fil") : _t("Reseguide")}</span><h2 class="shop-h">${esc(order.title)}</h2>${order.sub ? `<p class="shop-sub">${esc(order.sub)}</p>` : ""}
+      <div class="super-pitch">${SUPER_ICON}<div><b>${_t("Ingår för dig som superanvändare")}</b> – ${_t("gäller till")} ${esc(superDate())}.</div></div>
+      <ul class="shop-what">${order.what.map(w => `<li>${esc(w)}</li>`).join("")}</ul>
+      <button class="btn primary shop-buy" data-shop-dl>${ICON.dl}${_t("Ladda ner")}</button><p class="shop-st" id="shopSt" role="status"></p></div>`;
+    $("#scrim").hidden = false; $("#sheet").hidden = false; $("#sheetBody").scrollTop = 0; $("#sheetClose").focus({ preventScroll: true });
+    return;
+  }
   const total = order.lines.reduce((s, l) => s + l[1], 0);
   const test = shopTest();
   $("#sheetBody").innerHTML = `<div class="shop d-pad">
@@ -12498,6 +12523,7 @@ function shopCheckout(order) {
     ${order.sub ? `<p class="shop-sub">${esc(order.sub)}</p>` : ""}
     <table class="shop-lines">${order.lines.map(([l, p]) => `<tr><td>${esc(l)}</td><td>${fmtCur(p)}</td></tr>`).join("")}<tr class="tot"><td>${_t("Att betala")}</td><td>${fmtCur(total)}</td></tr></table>
     <ul class="shop-what">${order.what.map(w => `<li>${esc(w)}</li>`).join("")}</ul>
+    ${superPitch()}
     ${SHOP.pay ? `<label class="shop-ok"><input type="checkbox" data-shop-ok> <span>${_t("Jag vill att nedladdningen startar direkt och förstår att ångerrätten då upphör.")}</span></label>
       <button class="btn primary shop-buy" data-shop-pay disabled>${_t("Betala och ladda ner")}</button>${SHOP.payTest ? `<p class="shop-sub"><b>${_t("Testläge")}</b> – ${_t("Stripes testkort 4242 4242 4242 4242 fungerar, inga pengar dras.")}</p>` : ""}`
       : `<div class="shop-soon"><b>${_t("Betalningen öppnar snart.")}</b> ${_t("Guiden och GPX-filerna går att köpa här så fort betalningen är på plats. Fram till dess kan du bygga och förhandsgranska din guide – inställningarna sparas i webbläsaren.")}</div>
@@ -12704,6 +12730,106 @@ function deliveredOrder(v, pend) {
   if (v && v.ok && o) { const list = store.get("purchases", []); list.unshift({ sid, title: o.title, at: Date.now() }); store.set("purchases", list.slice(0, 50)); store.set("pendingOrder", null); }
 })();
 document.addEventListener("click", e => { const d = e.target.closest("[data-shop-dl]"); if (d && _order) shopDeliver(d); });
+/* ----- Superanvändare: årsabonnemang – alla nedladdningar ingår -----
+   Nyckeln (cus_….signatur) sparas i webbläsaren och kontrolleras mot /api/super/status. Se functions/api/super/. */
+const SUPER = { token: store.get("superKey", ""), until: +store.get("superUntil", 0) || 0, cancel: !!store.get("superCancel", false), mail: false };
+const superOn = () => !!SUPER.token && SUPER.until * 1000 > Date.now();
+const superLink = () => `${location.origin}/?medlem=${encodeURIComponent(SUPER.token)}&lang=${LANG}#om`;
+const superDate = () => SUPER.until ? new Date(SUPER.until * 1000).toLocaleDateString(LOC, { day: "numeric", month: "long", year: "numeric" }) : "";
+const SUPER_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z"/></svg>';
+function superSave(o) {
+  if (o.token) SUPER.token = o.token;
+  if (o.until) SUPER.until = o.until;
+  SUPER.cancel = !!o.cancel;
+  store.set("superKey", SUPER.token); store.set("superUntil", SUPER.until); store.set("superCancel", SUPER.cancel);
+  superUI();
+}
+function superClear() { SUPER.token = ""; SUPER.until = 0; SUPER.cancel = false; store.set("superKey", ""); store.set("superUntil", 0); store.set("superCancel", false); superUI(); }
+async function superCheck() {
+  if (!SUPER.token) return;
+  try {
+    const r = await fetch("/api/super/status", { cache: "no-store", headers: { "x-super": SUPER.token } }); const o = await r.json();
+    if (o.ok === true) superSave(o); else if (o.ok === false) superClear();
+  } catch (e) {}
+}
+function superUI() {
+  document.querySelectorAll("[data-super-lbl]").forEach(b => { b.innerHTML = SUPER_ICON + (superOn() ? _t("Du är superanvändare") : _t("Bli superanvändare")); });
+  document.documentElement.classList.toggle("is-super", superOn());
+  if (current === "minresa" && typeof renderGuide === "function" && $("#pt-guide") && !$("#pt-guide").hidden) renderGuide();
+}
+const superPitch = () => SHOP.pay && !superOn() ? `<div class="super-pitch">${SUPER_ICON}<div><b>${_t("Superanvändare")}</b> – ${_t("ladda ner alla guider och GPX-filer fritt i ett år för")} ${fmtCur(shopPrice("super"))}. <button class="linkish" type="button" data-super>${_t("Läs mer")}</button></div></div>` : "";
+const SUPER_WHAT = () => [_t("Ladda ner alla Thomas färdiga guider – även hela guiden."), _t("Bygg och ladda ner så många egna guider du vill, med GPX-paket."), _t("Alla GPX-filer på sajten: proffsetapper, cykelrundor, vandringsleder och egna turer."), _t("Det du har laddat ner får du behålla.")];
+function openSuper(msg) {
+  lastFocus = document.activeElement; $("#sheet").classList.remove("wide");
+  const on = superOn();
+  $("#sheetBody").innerHTML = `<div class="shop d-pad super-sheet">
+    <span class="eyebrow">${SUPER_ICON}${_t("Superanvändare")}</span>
+    ${msg ? `<div class="super-pitch super-msg">${SUPER_ICON}<div>${esc(msg)}</div></div>` : ""}
+    ${on ? `<h2 class="shop-h" id="sheetTitle">${_t("Du är superanvändare")}</h2>
+      <p class="shop-sub">${SUPER.cancel ? _t("Abonnemanget är uppsagt och gäller till") : _t("Abonnemanget förnyas automatiskt")} ${esc(superDate())}.</p>
+      <ul class="shop-what">${SUPER_WHAT().map(w => `<li>${esc(w)}</li>`).join("")}</ul>
+      <div class="shop-soon"><b>${_t("Din inloggningslänk")}</b> – ${_t("öppna den på dina andra enheter för att logga in där också. Dela den inte med andra.")}<br><a href="${esc(superLink())}" class="super-link">${esc(superLink())}</a><br><button class="btn" type="button" data-super-copy>${_t("Kopiera länken")}</button></div>
+      <div class="actions"><button class="btn primary" type="button" data-super-portal>${_t("Hantera abonnemang")}</button><button class="btn" type="button" data-super-logout>${_t("Logga ut på den här enheten")}</button></div>
+      <p class="shop-sub">${_t("Under Hantera abonnemang kan du säga upp, byta kort och se kvitton.")}</p>`
+    : `<h2 class="shop-h" id="sheetTitle">${_t("Ladda ner allt i guiden i ett år")}</h2>
+      <table class="shop-lines"><tr><td>${_t("Superanvändare, 1 år")}</td><td>${fmtCur(shopPrice("super"))}</td></tr></table>
+      <ul class="shop-what">${SUPER_WHAT().map(w => `<li>${esc(w)}</li>`).join("")}</ul>
+      <p class="shop-sub">${_t("Abonnemanget förnyas automatiskt varje år. Du kan säga upp det när som helst och behåller då tillgången året ut.")}</p>
+      ${SHOP.pay ? `<label class="shop-ok"><input type="checkbox" data-super-ok> <span>${_t("Jag vill att tillgången börjar direkt och förstår att ångerrätten då upphör.")}</span></label>
+        <button class="btn primary shop-buy" data-super-buy disabled>${SUPER_ICON}${_t("Bli superanvändare")}</button>${SHOP.payTest ? `<p class="shop-sub"><b>${_t("Testläge")}</b> – ${_t("Stripes testkort 4242 4242 4242 4242 fungerar, inga pengar dras.")}</p>` : ""}`
+        : `<div class="shop-soon"><b>${_t("Betalningen öppnar snart.")}</b></div>`}
+      <details class="super-login"${msg ? " open" : ""}><summary>${_t("Redan superanvändare? Logga in")}</summary>
+        ${SUPER.mail ? `<form id="superLogin" class="super-form"><label>${_t("E-postadressen du betalade med")}<input type="email" id="superEmail" autocomplete="email" required></label><button class="btn" type="submit">${_t("Skicka inloggningslänk")}</button></form>`
+          : `<p class="shop-sub">${_t("Öppna inloggningslänken du fick efter köpet på den här enheten. Har du tappat bort den? Skriv till")} <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a>.</p>`}
+      </details>`}
+    <p class="shop-st" id="superSt" role="status"></p>
+    <p class="shop-terms"><a href="villkor/" target="_blank" rel="noopener">${_t("Köpvillkor och återbetalning")}</a> · ${_t("Säljare: Thomas Bajer (enskild firma), Sverige.")}</p></div>`;
+  $("#scrim").hidden = false; $("#sheet").hidden = false; $("#sheetBody").scrollTop = 0; $("#sheetClose").focus({ preventScroll: true });
+}
+document.addEventListener("change", e => { const c = e.target.closest("[data-super-ok]"); if (c) { const b = $("[data-super-buy]"); if (b) b.disabled = !c.checked; } });
+document.addEventListener("submit", async e => {
+  if (e.target.id !== "superLogin") return; e.preventDefault();
+  const st = $("#superSt"); st.textContent = _t("Skickar …");
+  try { const r = await fetch("/api/super/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: $("#superEmail").value, lang: LANG }) }); const o = await r.json();
+    st.textContent = o.ok ? _t("Om adressen hör till ett aktivt abonnemang har vi skickat en inloggningslänk. Titta i inkorgen (och skräpposten).") : (o.error || _t("Det gick inte att skicka just nu."));
+  } catch (err) { st.textContent = _t("Det gick inte att skicka just nu."); }
+});
+document.addEventListener("click", async e => {
+  if (e.target.closest("[data-super]")) { e.preventDefault(); openSuper(); return; }
+  const b = e.target.closest("[data-super-buy]"); if (b && $("[data-super-ok]")?.checked) {
+    b.disabled = true; $("#superSt").textContent = _t("Går till betalningen …");
+    try { const r = await fetch("/api/super/checkout", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ cur: SHOP.cur, lang: LANG }) }); const j = await r.json();
+      if (!r.ok || !j.url) throw new Error(j.error || "checkout"); location.href = j.url;
+    } catch (err) { $("#superSt").textContent = _t("Betalningen kunde inte startas. Försök igen om en stund."); b.disabled = false; }
+    return;
+  }
+  const p = e.target.closest("[data-super-portal]"); if (p) {
+    p.disabled = true; $("#superSt").textContent = _t("Öppnar …");
+    try { const r = await fetch("/api/super/portal", { method: "POST", headers: { "content-type": "application/json", "x-super": SUPER.token }, body: JSON.stringify({ lang: LANG }) }); const j = await r.json();
+      if (!r.ok || !j.url) throw new Error(j.error || "portal"); location.href = j.url;
+    } catch (err) { $("#superSt").textContent = _t("Kundportalen kunde inte öppnas just nu. Skriv till info@pyreneestrip.com så hjälper vi dig."); p.disabled = false; }
+    return;
+  }
+  const c = e.target.closest("[data-super-copy]"); if (c) { try { await navigator.clipboard.writeText(superLink()); c.textContent = _t("Länken är kopierad"); } catch (err) {} return; }
+  if (e.target.closest("[data-super-logout]")) { superClear(); openSuper(_t("Du är utloggad på den här enheten.")); }
+});
+/* Tillbaka från betalningen (?super=cs_…) eller inloggningslänk (?medlem=…) */
+(async () => {
+  let q; try { q = new URLSearchParams(location.search); } catch (e) { return; }
+  const sid = q.get("super"), key = q.get("medlem");
+  if (!sid && !key) { superCheck(); return; }
+  try { const u = new URL(location.href); u.searchParams.delete("super"); u.searchParams.delete("medlem"); history.replaceState(null, "", u.pathname + u.search + u.hash); } catch (e) {}
+  if (key) {
+    SUPER.token = key; store.set("superKey", key); await superCheck();
+    requestAnimationFrame(() => openSuper(superOn() ? _t("Du är inloggad som superanvändare på den här enheten.") : _t("Länken gäller inte längre – abonnemanget är inte aktivt.")));
+    return;
+  }
+  let v = null; try { const r = await fetch(`/api/super/verify?session_id=${encodeURIComponent(sid)}&lang=${LANG}`, { cache: "no-store" }); v = await r.json(); } catch (e) {}
+  if (v && v.ok) superSave(v);
+  requestAnimationFrame(() => openSuper(v && v.ok ? `${_t("Tack! Du är superanvändare till")} ${superDate()}.${v.mailed && v.email ? " " + _t("Inloggningslänken har också skickats till") + " " + v.email + "." : ""}` : (v && v.error) || _t("Köpet kunde inte bekräftas. Försök igen om en stund, eller kontakta oss med kvittot.")));
+})();
+fetch("/api/health", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => { SUPER.mail = !!(j && j.mail); superUI(); }).catch(() => {});
+
 
 /* ----- konfiguratorn i sidan ----- */
 const lockSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>`;
@@ -12736,7 +12862,8 @@ function renderGuide() {
   </div>
   <aside class="panel gd-buy"><h3>${_t("Ladda ner guiden")}</h3>
     <table class="shop-lines">${order.lines.map(([l, p]) => `<tr><td>${esc(l)}</td><td>${fmtCur(p)}</td></tr>`).join("")}<tr class="tot"><td>${_t("Totalt")}</td><td>${fmtCur(total)}</td></tr></table>
-    <button class="btn primary" data-gbuy${M.chapters.length ? "" : " disabled"}>${lockSvg}${_t("Köp och ladda ner")}</button>
+    <button class="btn primary" data-gbuy${M.chapters.length ? "" : " disabled"}>${superOn() ? ICON.dl + _t("Ladda ner – ingår för superanvändare") : lockSvg + _t("Köp och ladda ner")}</button>
+    ${superPitch()}
     <p class="pl-note">${_t("Du får guiden som en fil att skriva ut eller spara som PDF, på det språk du läser guiden på nu.")}</p></aside></div>`;
 }
 document.addEventListener("click", e => {

@@ -36,6 +36,17 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - Testläge: avstängt (`SHOP.testParam = ""`). Sätt `SHOP.testParam = "provkop"` för att slå på det igen; då ger `?provkop=1` köpdialogen en testknapp som laddar ner utan betalning.
 - Webbsidorna går inte att skriva ut – utskrift visar bara en hänvisning till Min guide.
 
+## Superanvändare (årsabonnemang)
+- Superanvändare laddar ner allt fritt så länge abonnemanget gäller: egna guider, Thomas färdiga guider (även hela guiden) och alla GPX-filer. Köpdialogen (`shopCheckout`) visar då "Ingår för dig som superanvändare" i stället för betalning. Erbjudandet syns i köpdialogen, under Min guide och under Om guiden → Superanvändare.
+- Pris per år: `PRICE.super` i `functions/_shop.js` (servern räknar alltid härifrån) och samma värde i `SHOP.price.super` i `index.html`. Nu 249 SEK / 249 NOK / 179 DKK / 24,90 EUR. Förnyas automatiskt varje år. Rabattkoder från Stripe (Products → Coupons → Promotion codes) går att använda i kassan.
+- Serverdelen ligger i `functions/api/super/`: `checkout.js` (Stripe Checkout i abonnemangsläge), `verify.js` (efter betalningen – ger nyckeln och mejlar inloggningslänken), `status.js` (är abonnemanget aktivt?), `login.js` (skickar inloggningslänk till e-postadressen), `portal.js` (Stripes kundportal: säga upp, byta kort, kvitton).
+- Inloggning: nyckeln `cus_….<signatur>` sparas i webbläsaren. Länken `https://pyreneestrip.com/?medlem=<nyckel>` loggar in på en ny enhet. Den visas efter köpet och skickas med e-post.
+- **Engångsinställningar:**
+  1. Stripe → Settings → Billing → **Customer portal** → slå på (tillåt uppsägning, byte av betalsätt och fakturahistorik). Behövs för knappen Hantera abonnemang.
+  2. Stripe → Settings → Billing → Subscriptions and emails → slå gärna på påminnelse före förnyelse och mejl om misslyckade betalningar.
+  3. E-post för inloggningslänkar (rekommenderas): skapa konto på resend.com, lägg till domänen pyreneestrip.com (Resend kan lägga in DNS-posterna i Cloudflare automatiskt), skapa en API-nyckel och lägg den i Cloudflare Pages → Settings → Variables and Secrets som `RESEND_API_KEY`. Valfritt `MAIL_FROM` (standard `Pyreneestrip <info@pyreneestrip.com>`). Utan nyckel fungerar köpet, men inloggning på en ny enhet går bara med länken som visas efter köpet.
+- Villkoren för abonnemanget står i `villkor/index.html` (avsnittet Superanvändare) på alla nio språk.
+
 ## Köpvillkor och kontakt
 - `villkor/index.html` – köpvillkor, ångerrätt, återbetalning och kontakt (info@pyreneestrip.com) på alla nio språk. Länkas från köpdialogen och Om guiden.
 - I köpdialogen måste kunden kryssa i att nedladdningen startar direkt och att ångerrätten då upphör innan betalknappen går att trycka på.

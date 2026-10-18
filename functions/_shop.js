@@ -6,6 +6,7 @@ export const PRICE = {
   gpx:    { SEK: 15,  NOK: 15,  DKK: 12,  EUR: 1.5 },   // en GPX-fil
   ready:  { SEK: 69,  NOK: 69,  DKK: 49,  EUR: 6.9 },   // Thomas färdiga guider
   full:   { SEK: 149, NOK: 149, DKK: 109, EUR: 14.9 },  // hela guiden
+  super:  { SEK: 249, NOK: 249, DKK: 179, EUR: 24.9 },  // superanvändare, pris per år (förnyas automatiskt)
 };
 export const READY = { hela: "full", "2014": "ready", tdf: "ready", katar: "ready", spa: "ready", unesco: "ready", vandra: "ready", skidor: "ready" };
 export const CURRENCIES = ["SEK", "NOK", "DKK", "EUR"];
