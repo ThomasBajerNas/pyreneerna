@@ -134,6 +134,9 @@
     <loc>https://pyreneestrip.com/villkor/</loc>
   </url>
   <url>
+    <loc>https://pyreneestrip.com/integritet/</loc>
+  </url>
+  <url>
     <loc>https://pyreneestrip.com/sv/</loc>
     <xhtml:link rel="alternate" hreflang="sv" href="https://pyreneestrip.com/sv/"/>
     <xhtml:link rel="alternate" hreflang="nb" href="https://pyreneestrip.com/no/"/>

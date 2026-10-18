@@ -1096,7 +1096,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
             <h3>Kontakt och köpvillkor</h3>
             <p>Frågor om guiden eller ett köp? Skriv till <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a>.</p>
             <p>Säljare: Thomas Bajer (enskild firma), Sverige.</p>
-            <p><a href="villkor/">Köpvillkor och återbetalning</a></p>
+            <p><a href="villkor/">Köpvillkor och återbetalning</a> · <a href="integritet/">Integritetspolicy</a></p>
             <p class="rs-ownerlink"><button class="linkish" type="button" data-rs-login>Logga in som ägare</button></p>
           </div>
           <div style="display:grid;gap:22px;align-content:start">
@@ -9172,7 +9172,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=29"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=30"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -12530,7 +12530,7 @@ function shopCheckout(order) {
          <button class="btn primary shop-buy" disabled>${_t("Betala och ladda ner")}</button>`}
     ${test ? `<div class="shop-test"><b>${_t("Testläge")}</b> – ${_t("ingen betalning görs. Används för att prova nedladdningen.")}<br><button class="btn" data-shop-test>${_t("Ladda ner (test)")}</button></div>` : ""}
     <p class="shop-st" id="shopSt" role="status"></p>
-    <p class="shop-terms"><a href="villkor/" target="_blank" rel="noopener">${_t("Köpvillkor och återbetalning")}</a> · ${_t("Säljare: Thomas Bajer (enskild firma), Sverige.")}</p></div>`;
+    <p class="shop-terms"><a href="villkor/" target="_blank" rel="noopener">${_t("Köpvillkor och återbetalning")}</a> · <a href="integritet/" target="_blank" rel="noopener">${_t("Integritetspolicy")}</a> · ${_t("Säljare: Thomas Bajer (enskild firma), Sverige.")}</p></div>`;
   $("#scrim").hidden = false; $("#sheet").hidden = false; $("#sheetBody").scrollTop = 0; $("#sheetClose").focus({ preventScroll: true });
 }
 async function shopDeliver(btn) {
@@ -12783,7 +12783,7 @@ function openSuper(msg) {
           : `<p class="shop-sub">${_t("Öppna inloggningslänken du fick efter köpet på den här enheten. Har du tappat bort den? Skriv till")} <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a>.</p>`}
       </details>`}
     <p class="shop-st" id="superSt" role="status"></p>
-    <p class="shop-terms"><a href="villkor/" target="_blank" rel="noopener">${_t("Köpvillkor och återbetalning")}</a> · ${_t("Säljare: Thomas Bajer (enskild firma), Sverige.")}</p></div>`;
+    <p class="shop-terms"><a href="villkor/" target="_blank" rel="noopener">${_t("Köpvillkor och återbetalning")}</a> · <a href="integritet/" target="_blank" rel="noopener">${_t("Integritetspolicy")}</a> · ${_t("Säljare: Thomas Bajer (enskild firma), Sverige.")}</p></div>`;
   $("#scrim").hidden = false; $("#sheet").hidden = false; $("#sheetBody").scrollTop = 0; $("#sheetClose").focus({ preventScroll: true });
 }
 document.addEventListener("change", e => { const c = e.target.closest("[data-super-ok]"); if (c) { const b = $("[data-super-buy]"); if (b) b.disabled = !c.checked; } });

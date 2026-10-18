@@ -80,6 +80,7 @@ const MY = {
   more: { sv: "Mer information", no: "Mer informasjon", da: "Mere information", en: "More information", de: "Weitere Informationen", fr: "Plus d'informations", es: "Más información", it: "Maggiori informazioni", pt: "Mais informações" },
   trailsHere: { sv: "Vandringsleder som passerar", no: "Turstier som passerer", da: "Vandreruter forbi", en: "Trails passing here", de: "Wanderwege, die hier vorbeiführen", fr: "Sentiers qui passent ici", es: "Senderos que pasan por aquí", it: "Sentieri che passano di qui", pt: "Trilhos que passam aqui" },
   routesHere: { sv: "Bilrutter som passerar", no: "Bilruter som passerer", da: "Bilruter forbi", en: "Road trips passing here", de: "Autorouten, die hier vorbeiführen", fr: "Itinéraires en voiture passant ici", es: "Rutas en coche que pasan por aquí", it: "Itinerari in auto che passano di qui", pt: "Roteiros de carro que passam aqui" },
+  privacy: { sv: "Integritetspolicy", no: "Personvern", da: "Privatlivspolitik", en: "Privacy", de: "Datenschutz", fr: "Confidentialité", es: "Privacidad", it: "Privacy", pt: "Privacidade" },
   terms: { sv: "Köpvillkor och kontakt", no: "Kjøpsvilkår og kontakt", da: "Købsbetingelser og kontakt", en: "Terms and contact", de: "AGB und Kontakt", fr: "Conditions et contact", es: "Condiciones y contacto", it: "Condizioni e contatti", pt: "Condições e contacto" },
   by: { sv: "Av Thomas Bajer", no: "Av Thomas Bajer", da: "Af Thomas Bajer", en: "By Thomas Bajer", de: "Von Thomas Bajer", fr: "Par Thomas Bajer", es: "Por Thomas Bajer", it: "Di Thomas Bajer", pt: "Por Thomas Bajer" },
   language: { sv: "Språk", no: "Språk", da: "Sprog", en: "Language", de: "Sprache", fr: "Langue", es: "Idioma", it: "Lingua", pt: "Idioma" },
@@ -199,7 +200,7 @@ ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, "\
 <header class="top"><a class="brand" href="${app(lang)}">Pyrenees<span>trip</span></a><nav><a href="${hub(lang)}">${esc(T(lang, "Resmål"))}</a><a href="${app(lang, "karta")}">${esc(T(lang, "Karta"))}</a><a href="${app(lang)}">${esc(M(lang, "openGuide"))} →</a></nav></header>
 <main>${h1html || ""}${body}</main>
 <footer><nav class="langs" aria-label="${esc(M(lang, "language"))}">${langs}</nav>
-<p>${esc(M(lang, "site"))} · ${esc(M(lang, "by"))} · <a href="/villkor/?lang=${lang}">${esc(M(lang, "terms"))}</a> · <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a></p>
+<p>${esc(M(lang, "site"))} · ${esc(M(lang, "by"))} · <a href="/villkor/?lang=${lang}">${esc(M(lang, "terms"))}</a> · <a href="/integritet/?lang=${lang}">${esc(M(lang, "privacy"))}</a> · <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a></p>
 <p>${esc(M(lang, "mapdata"))} © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></p></footer>
 <script>document.querySelectorAll("[data-l]").forEach(function(a){a.addEventListener("click",function(){try{localStorage.setItem("pyr:lang",JSON.stringify(a.getAttribute("data-l")))}catch(e){}})});</script>
 </body></html>`;
@@ -425,7 +426,7 @@ const home = l => `/?lang=${l}`;
 const homeAlts = LANGS.map(l => `    <xhtml:link rel="alternate" hreflang="${HL[l]}" href="${SITE}/?lang=${l}"/>`).join("\n") + `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>`;
 let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
 for (const l of LANGS) xml += `  <url>\n    <loc>${SITE}${home(l)}</loc>\n${homeAlts}\n  </url>\n`;
-xml += `  <url>\n    <loc>${SITE}/</loc>\n${homeAlts}\n  </url>\n  <url>\n    <loc>${SITE}/villkor/</loc>\n  </url>\n`;
+xml += `  <url>\n    <loc>${SITE}/</loc>\n${homeAlts}\n  </url>\n  <url>\n    <loc>${SITE}/villkor/</loc>\n  </url>\n  <url>\n    <loc>${SITE}/integritet/</loc>\n  </url>\n`;
 for (const pf of sitemap) for (const l of LANGS) xml += `  <url>\n    <loc>${SITE}${pf(l)}</loc>\n${alts(pf)}\n  </url>\n`;
 xml += `</urlset>\n`;
 fs.writeFileSync(path.join(ROOT, "sitemap.xml"), xml);
