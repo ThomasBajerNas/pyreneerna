@@ -12,6 +12,7 @@ export async function onRequestPost({ request, env }) {
     cancel_url: `${origin}/${lang ? "?lang=" + lang : ""}#om`,
     locale: STRIPE_LOCALE[lang] || "auto",
     allow_promotion_codes: "true",
+    payment_method_collection: "if_required", // ingen kortuppgift när en kupong gör det gratis (t.ex. en gåva)
     "line_items[0][quantity]": "1",
     "line_items[0][price_data][currency]": cur.toLowerCase(),
     "line_items[0][price_data][unit_amount]": String(Math.round(PRICE.super[cur] * 100)),
