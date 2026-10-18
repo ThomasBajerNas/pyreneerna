@@ -17,6 +17,18 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - Skriptet skriver också om `sitemap.xml` (startsidan, villkor och alla sidor med hreflang-länkar).
 - Sidorna länkar in i appen (`/?lang=xx#p-<id>`), och appen länkar ut till dem (Om guiden och "Länk till sidan" i varje resmål).
 
+## Reseförslag
+- Under Resmål → **Reseförslag** finns färdiga resor: ett förslag per Pyrenéetapp i nästa Tour de France (boende i start- och målorten, sevärdheter i start, mål och längs banan, de bästa platserna att se loppet, dag för dag, resa dit) och Thomas egna förslag. Etappkorten under Cykling får knappen **Reseförslag** när det finns ett förslag för etappen. Djuplänk: `/?lang=xx#r-<id>`.
+- Guidens förslag ligger i `const RESOR = [...]` i `index.html` (i datablocket, direkt efter `TDF27`). Den schemalagda uppdateringen av proffsloppen lägger till ett förslag per Pyrenéetapp när Tourens bana är presenterad.
+- Fält per förslag: `id`, `kind` ("tdf" eller "egen"), `year`, `stage` (etappnyckel, t.ex. `tdf-2027-14`), `title`, `sub`, `days`, `date` (valfritt), `when`, `photos` (`"place:<resmål-id>"`, en bild i `img/`, `cw:<Wikimedia-fil>`, `/api/resor/img/<id>` eller `{src, cap, by}`), `intro`, `program` [{`t`, `x`}], `stay` [{`town`, `role` (start/mal/bas), `nights`, `from` (incheckning), `id` (resmål), `lat`, `lon`, `x`, `hotels` [{`n`, `x`, `url`}]}], `spots` [{`n`, `role` (start/bana/titta/mal), `id`, `lat`, `lon`, `km`, `x`}], `travel`, `airports` (flygplatskoder), `tips`, `author`.
+- Texterna skrivs på svenska och översätts med `_t()` – lägg in varje text som nyckel i `i18n/<språk>.js`.
+
+### Ägarläge (Thomas egna reseförslag)
+- Öppna `https://pyreneestrip.com/?agare` (eller Om guiden → Logga in som ägare) och logga in med samma lösenord som statistiksidan (`STATS_PASSWORD`, eller `OWNER_PASSWORD` om du vill ha ett eget).
+- Då kan du skapa nya reseförslag (titel, dagar, bilder, dag för dag, boende med hotell, sevärdheter, flygplatser, tips), spara som utkast, ladda upp egna foton (förminskas till 1800 px), ändra guidens förslag (din version ersätter guidens) och dölja förslag för besökarna.
+- Sparas i Cloudflare KV via `functions/api/resor/` (`index.js` = läsa/spara, `img/` = bilder). **Engångsinställning i Cloudflare:** Workers & Pages → KV → Create namespace (t.ex. `pyreneerna-resor`). Sedan Pages-projektet *pyreneerna* → Settings → Bindings → Add → KV namespace, variabelnamn `RESOR`, välj namnområdet, spara och gör en ny deploy (eller Retry deployment).
+- Egna förslag visas på svenska tills de är översatta. Den schemalagda uppdateringen hämtar `/api/resor` och lägger in översättningar för nya texter.
+
 ## Min guide och nedladdningar
 - Under Min resa → 4 · Min guide bygger besökaren en egen guide (av Min resa eller teman + områden, med valbara kapitel och GPX-paket) eller väljer en av Thomas färdiga guider. Förhandsvisningen visar två provsidor, resten är låst.
 - Allt som laddas ner – guiden och alla GPX-filer på sajten – går via köpdialogen (`shopCheckout`). Priser och färdiga guider ställs in i `SHOP` och `READY` i `index.html`.
