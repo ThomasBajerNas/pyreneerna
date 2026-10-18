@@ -15,7 +15,7 @@ const json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, header
 const day = d => d.toISOString().slice(0, 10);
 
 export async function onRequestGet({ request, env }) {
-  if (!env.STATS_PASSWORD) return json({ error: "STATS_PASSWORD saknas i Cloudflare." }, 503);
+  if (!env.STATS_PASSWORD) return json({ error: "STATS_PASSWORD saknas i Cloudflare." }, 424);
   const key = request.headers.get("x-stats-key") || "";
   if (!(await same(key, env.STATS_PASSWORD))) return json({ error: "Fel lösenord." }, 401);
   const days = Math.min(30, Math.max(1, parseInt(new URL(request.url).searchParams.get("days") || "7", 10) || 7));

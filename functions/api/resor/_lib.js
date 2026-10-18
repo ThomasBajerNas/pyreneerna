@@ -13,5 +13,5 @@ export async function isOwner(request, env) {
   const k = request.headers.get("x-owner-key") || ""; if (!k) return false;
   return same(k, pw);
 }
-export const noKV = () => json({ kv: false, trips: [], hidden: [], error: "KV-bindningen RESOR saknas i Cloudflare Pages (Settings → Bindings)." }, 503);
+export const noKV = () => json({ kv: false, trips: [], hidden: [], error: "KV-bindningen RESOR saknas i Cloudflare Pages (Settings → Bindings)." }, 424);
 export async function load(env) { return (await env.RESOR.get("data", "json")) || { trips: {}, hidden: [] }; }

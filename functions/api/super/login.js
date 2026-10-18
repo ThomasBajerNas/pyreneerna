@@ -2,7 +2,7 @@
    Svarar alltid likadant, så att ingen kan ta reda på vem som är kund. */
 import { json, stripe, makeToken, activeSub, sendLogin, loginLink, LANGS } from "./_lib.js";
 export async function onRequestPost({ request, env }) {
-  if (!env.STRIPE_SECRET_KEY) return json({ ok: false, error: "Betalning är inte påslagen." }, 503);
+  if (!env.STRIPE_SECRET_KEY) return json({ ok: false, error: "Betalning är inte påslagen." }, 424);
   if (!env.RESEND_API_KEY) return json({ ok: false, mail: false });
   let o; try { o = await request.json(); } catch (e) { o = {}; }
   const email = String(o.email || "").trim().toLowerCase(), lang = LANGS.includes(o.lang) ? o.lang : "";

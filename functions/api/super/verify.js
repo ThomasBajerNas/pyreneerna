@@ -2,7 +2,7 @@
    Skickar inloggningslänken med e-post första gången (om RESEND_API_KEY finns). */
 import { json, stripe, makeToken, subInfo, OK_STATUS, sendLogin, loginLink, LANGS } from "./_lib.js";
 export async function onRequestGet({ request, env }) {
-  if (!env.STRIPE_SECRET_KEY) return json({ ok: false, error: "Betalning är inte påslagen." }, 503);
+  if (!env.STRIPE_SECRET_KEY) return json({ ok: false, error: "Betalning är inte påslagen." }, 424);
   const u = new URL(request.url), id = u.searchParams.get("session_id") || "", lang = LANGS.includes(u.searchParams.get("lang")) ? u.searchParams.get("lang") : "";
   if (!/^cs_(test|live)_[A-Za-z0-9]+$/.test(id)) return json({ ok: false, error: "Ogiltigt köp." }, 400);
   try {
@@ -18,5 +18,5 @@ export async function onRequestGet({ request, env }) {
       await stripe(env, "customers/" + cus, { "metadata[super_welcome]": id }).catch(() => {});
     } else mailed = !!(c.metadata && c.metadata.super_welcome === id && env.RESEND_API_KEY);
     return json({ ok: true, token, email, mailed, ...subInfo(sub) });
-  } catch (e) { return json({ ok: false, error: e.message }, 502); }
+  } catch (e) { return json({ ok: false, error: e.message }, 424); }
 }

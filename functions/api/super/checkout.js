@@ -2,7 +2,7 @@
 import { json, stripe, PRICE, CURRENCIES, LANGS } from "./_lib.js";
 const STRIPE_LOCALE = { sv: "sv", no: "nb", da: "da", en: "en-GB", de: "de", fr: "fr", es: "es", it: "it", pt: "pt" };
 export async function onRequestPost({ request, env }) {
-  if (!env.STRIPE_SECRET_KEY) return json({ error: "Betalning är inte påslagen." }, 503);
+  if (!env.STRIPE_SECRET_KEY) return json({ error: "Betalning är inte påslagen." }, 424);
   let o; try { o = await request.json(); } catch (e) { o = {}; }
   const cur = CURRENCIES.includes(o.cur) ? o.cur : "EUR", lang = LANGS.includes(o.lang) ? o.lang : "";
   const origin = new URL(request.url).origin;
@@ -21,5 +21,5 @@ export async function onRequestPost({ request, env }) {
     "subscription_data[metadata][kind]": "super", "subscription_data[metadata][lang]": lang,
   };
   try { const s = await stripe(env, "checkout/sessions", f); return json({ url: s.url }); }
-  catch (e) { return json({ error: e.message }, 502); }
+  catch (e) { return json({ error: e.message }, 424); }
 }
