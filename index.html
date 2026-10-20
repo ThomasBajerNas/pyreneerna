@@ -9172,7 +9172,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=31"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=32"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -12781,12 +12781,34 @@ function openSuper(msg) {
       <details class="super-login"${msg ? " open" : ""}><summary>${_t("Redan superanvändare? Logga in")}</summary>
         ${SUPER.mail ? `<form id="superLogin" class="super-form"><label>${_t("E-postadressen du betalade med")}<input type="email" id="superEmail" autocomplete="email" required></label><button class="btn" type="submit">${_t("Skicka inloggningslänk")}</button></form>`
           : `<p class="shop-sub">${_t("Öppna inloggningslänken du fick efter köpet på den här enheten. Har du tappat bort den? Skriv till")} <a href="mailto:info@pyreneestrip.com">info@pyreneestrip.com</a>.</p>`}
+        <form id="superPaste" class="super-form"><label>${_t("Eller klistra in inloggningslänken här")}<input type="text" id="superKeyIn" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://pyreneestrip.com/?medlem=…" required></label><button class="btn" type="submit">${_t("Logga in")}</button></form>
+        <p class="shop-sub">${_t("Använder du guiden som app på iPhone? Länken i mejlet öppnas i Safari och loggar inte in appen. Håll fingret på länken, välj Kopiera och klistra in den här.")}</p>
       </details>`}
     <p class="shop-st" id="superSt" role="status"></p>
     <p class="shop-terms"><a href="villkor/" target="_blank" rel="noopener">${_t("Köpvillkor och återbetalning")}</a> · <a href="integritet/" target="_blank" rel="noopener">${_t("Integritetspolicy")}</a> · ${_t("Säljare: Thomas Bajer (enskild firma), Sverige.")}</p></div>`;
   $("#scrim").hidden = false; $("#sheet").hidden = false; $("#sheetBody").scrollTop = 0; $("#sheetClose").focus({ preventScroll: true });
 }
 document.addEventListener("change", e => { const c = e.target.closest("[data-super-ok]"); if (c) { const b = $("[data-super-buy]"); if (b) b.disabled = !c.checked; } });
+/* Inloggning genom att klistra in länken eller nyckeln – behövs i appen på iPhone, som inte delar lagring med Safari */
+function superKeyFrom(txt) {
+  let t = String(txt || "").trim();
+  try { const u = new URL(t); t = u.searchParams.get("medlem") || ""; } catch (e) { const m = /[?&]medlem=([^&#\s]+)/.exec(t); if (m) t = m[1]; }
+  try { t = decodeURIComponent(t); } catch (e) {}
+  t = t.trim();
+  return /^cus_[A-Za-z0-9]+\.[A-Za-z0-9_-]{32}$/.test(t) ? t : "";
+}
+document.addEventListener("submit", async e => {
+  if (e.target.id !== "superPaste") return; e.preventDefault();
+  const st = $("#superSt"), key = superKeyFrom($("#superKeyIn").value);
+  if (!key) { st.textContent = _t("Det där ser inte ut som en inloggningslänk. Kopiera hela länken från mejlet eller från sidan efter köpet."); return; }
+  st.textContent = _t("Loggar in …");
+  const prev = SUPER.token; SUPER.token = key;
+  try {
+    const r = await fetch("/api/super/status", { cache: "no-store", headers: { "x-super": key } }); const o = await r.json();
+    if (o.ok === true) { superSave(o); openSuper(_t("Du är inloggad som superanvändare på den här enheten.")); return; }
+    SUPER.token = prev; st.textContent = o.reason === "key" ? _t("Det där ser inte ut som en inloggningslänk. Kopiera hela länken från mejlet eller från sidan efter köpet.") : o.ok === false ? _t("Länken gäller inte längre – abonnemanget är inte aktivt.") : _t("Det gick inte att logga in just nu. Kontrollera att du är uppkopplad och försök igen.");
+  } catch (err) { SUPER.token = prev; st.textContent = _t("Det gick inte att logga in just nu. Kontrollera att du är uppkopplad och försök igen."); }
+});
 document.addEventListener("submit", async e => {
   if (e.target.id !== "superLogin") return; e.preventDefault();
   const st = $("#superSt"); st.textContent = _t("Skickar …");
