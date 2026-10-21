@@ -97,8 +97,8 @@ const CC = { FR: "Frankrike", ES: "Spanien", AD: "Andorra" };
 
 /* ---------- hjälpare ---------- */
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-// Booking.com via CJ (samma pid/länk-id som AFF.bookingCJ i index.html): norsk länk för no, svensk för övriga
-const bookingCJ = (lang, url) => `https://www.dpbolvw.net/click-101905306-${lang === "no" ? "13323638" : "13386174"}?url=${encodeURIComponent(url)}`;
+// Booking.com via CJ (samma pid/länk-id som AFF.bookingCJ i index.html): norsk länk för no, dansk för da, svensk för övriga
+const bookingCJ = (lang, url) => `https://www.dpbolvw.net/click-101905306-${({ no: "13323638", da: "13375717" })[lang] || "13386174"}?url=${encodeURIComponent(url)}`;
 const T = (lang, sv) => lang === "sv" ? sv : (I18N[lang][sv] != null ? I18N[lang][sv] : sv);  // guidens egna etiketter (svensk nyckel)
 const M = (lang, k) => MY[k][lang];
 const nf = (lang, n) => Number(n).toLocaleString(LOCALE[lang]);
