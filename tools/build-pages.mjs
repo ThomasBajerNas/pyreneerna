@@ -97,6 +97,8 @@ const CC = { FR: "Frankrike", ES: "Spanien", AD: "Andorra" };
 
 /* ---------- hjälpare ---------- */
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+// Booking.com via CJ (samma pid/länk-id som AFF.bookingCJ i index.html): norsk länk för no, svensk för övriga
+const bookingCJ = (lang, url) => `https://www.dpbolvw.net/click-101905306-${lang === "no" ? "13323638" : "13386174"}?url=${encodeURIComponent(url)}`;
 const T = (lang, sv) => lang === "sv" ? sv : (I18N[lang][sv] != null ? I18N[lang][sv] : sv);  // guidens egna etiketter (svensk nyckel)
 const M = (lang, k) => MY[k][lang];
 const nf = (lang, n) => Number(n).toLocaleString(LOCALE[lang]);
@@ -282,7 +284,7 @@ for (const lang of LANGS) {
     const trails = D.TRAILS.filter(t => (t.places || []).includes(p.id));
     const routes = D.ROUTES.filter(r => (r.stops || []).includes(p.id));
     b += `<div class="actions"><a class="btn primary" href="${app(lang, "p-" + p.id)}">${esc(M(lang, "openMap"))}</a><a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=${p.lat},${p.lon}" rel="noopener" target="_blank">${esc(T(lang, "Vägbeskrivning"))}</a>`
-      + `<a class="btn" href="https://www.booking.com/searchresults.html?ss=${encodeURIComponent(p.name)}" rel="noopener" target="_blank">${esc(T(lang, "Boende nära"))}</a>`
+      + `<a class="btn" href="${esc(bookingCJ(lang, `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(p.name)}`))}" rel="noopener sponsored" target="_blank">${esc(T(lang, "Boende nära"))} <span class="ad">${esc(T(lang, "Annonslänk"))}</span></a>`
       + `<a class="btn" href="https://www.getyourguide.com/s/?q=${encodeURIComponent(p.name)}" rel="noopener sponsored" target="_blank">${esc(T(lang, "Upplevelser"))} <span class="ad">${esc(T(lang, "Annonslänk"))}</span></a></div>`;
     b += `<div id="map" role="img" aria-label="${esc(p.name)}"></div><p class="coords">${p.lat.toFixed(4)}° N, ${Math.abs(p.lon).toFixed(4)}° ${p.lon < 0 ? "W" : "E"}</p>`;
     if (trails.length) b += sec(M(lang, "trailsHere"), `<ul class="list">${trails.map(t => listItem(url(lang, "trail", t.id), t.name, [t.km, t.days].filter(Boolean).join(" · "))).join("")}</ul>`);
