@@ -10343,7 +10343,7 @@ const AFF = {
   gyg: { partner_id: "" },       // GetYourGuide direkt (om du inte går via Travelpayouts)
   shops: [],                     // cykeluthyrare med eget avtal, t.ex. ["Lokki"] – visas först med märket Partner
 };
-if (AFF.stay22.lmaID && AFF.stay22.script && !(AFF.bookingCJ.langs || []).includes(LANG)) { // inte på CJ-språken: Stay22 skulle annars byta ut CJ-länkarna try { window.Stay22 = window.Stay22 || {}; window.Stay22.params = { lmaID: AFF.stay22.lmaID }; const sc = document.createElement("script"); sc.src = AFF.stay22.script; sc.async = true; document.head.appendChild(sc); } catch (e) {} }
+if (AFF.stay22.lmaID && AFF.stay22.script && !(AFF.bookingCJ.langs || []).includes(LANG)) { /* inte på CJ-språken: Stay22 skulle annars byta ut CJ-länkarna */ try { window.Stay22 = window.Stay22 || {}; window.Stay22.params = { lmaID: AFF.stay22.lmaID }; const sc = document.createElement("script"); sc.src = AFF.stay22.script; sc.async = true; document.head.appendChild(sc); } catch (e) {} }
 const addQ = (url, k, v) => { try { const x = new URL(url); x.searchParams.set(k, v); return x.href; } catch (e) { return url; } };
 const tpOn = k => !!(AFF.tp.marker && AFF.tp.p[k]);
 function affUrl(partner, url) {
