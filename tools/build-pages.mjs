@@ -97,8 +97,9 @@ const CC = { FR: "Frankrike", ES: "Spanien", AD: "Andorra" };
 
 /* ---------- hjälpare ---------- */
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-// Booking.com via CJ (samma pid/länk-id som AFF.bookingCJ i index.html): norsk länk för no, dansk för da, svensk för övriga
-const bookingCJ = (lang, url) => `https://www.dpbolvw.net/click-101905306-${({ no: "13323638", da: "13375717" })[lang] || "13386174"}?url=${encodeURIComponent(url)}`;
+// Booking.com: sv/no/da via CJ (samma pid/länk-id som AFF.bookingCJ i index.html), övriga språk vanlig länk som Stay22 (LinkSwap) gör om
+const CJ_AID = { sv: "13386174", no: "13323638", da: "13375717" };
+const bookingCJ = (lang, url) => CJ_AID[lang] ? `https://www.dpbolvw.net/click-101905306-${CJ_AID[lang]}?url=${encodeURIComponent(url)}` : url;
 const T = (lang, sv) => lang === "sv" ? sv : (I18N[lang][sv] != null ? I18N[lang][sv] : sv);  // guidens egna etiketter (svensk nyckel)
 const M = (lang, k) => MY[k][lang];
 const nf = (lang, n) => Number(n).toLocaleString(LOCALE[lang]);
@@ -180,7 +181,8 @@ footer a{color:var(--muted)}
 
 const CSS_V = (() => { let h = 0; for (const c of CSS) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h.toString(36); })();
 const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">`;
-const DRIVE = `<script data-cfasync="false">(function(){var s=document.createElement("script");s.async=1;s.setAttribute("data-cmp-ab","2");s.src="https://emrldtp.cc/NTg2MTIw.js?t=586120";document.head.appendChild(s)})();</script>`;
+const DRIVE = `<script data-cfasync="false">(function(){var s=document.createElement("script");s.async=1;s.setAttribute("data-cmp-ab","2");s.src="https://emrldtp.cc/NTg2MTIw.js?t=586120";document.head.appendChild(s)})();</script>`
+  + `<script>(function(){window.Stay22=window.Stay22||{};window.Stay22.params={lmaID:"6ad86dc1e41c8b89825ace27"};var s=document.createElement("script");s.async=1;s.src="https://lma.stay22.com/letmeallez.js";document.head.appendChild(s)})();</script>`;
 
 function page({ lang, pathFor, title, desc, image, h1html, body, ld, mapData }) {
   const self = SITE + pathFor(lang);

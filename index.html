@@ -10329,27 +10329,28 @@ if (store.get("trip", null)) { const th = $("#tripHint"); th.innerHTML = _t("Spa
    Fyll i dina ID:n när du har gått med i programmen. Tomt = vanlig länk utan provision och utan märkning.
    Travelpayouts: marker (ditt partner-id) och p = programmets id för varje partner. Båda står i
    Travelpayouts-panelen under "Tools → Links" – jämför med en länk du skapar där. trs = ditt projekt-id (valfritt).
-   Stay22: när aid och script finns laddas Stay22-skriptet, och då blir Booking-, Hotels.com- och Vrbo-länkarna partnerlänkar. */
+   Stay22: när lmaID och script finns laddas Stay22-skriptet (LinkSwap), och då blir Booking-, Hotels.com- och Vrbo-länkarna partnerlänkar.
+   Booking: språken i bookingCJ.langs går via CJ (Booking Nordics), övriga språk via Stay22. */
 const AFF = {
   links: { autoeurope: "https://autoeurope.tpk.lu/Yz7lDbLV", bikesbooking: "https://bikesbooking.tpk.lu/oRkkNugZ", localrent: "https://localrent.tpk.lu/3ZSj5X5q", klook: "https://klook.tpk.lu/i7hJSmxJ", welcomepickups: "https://tpk.lu/imiCPiSU" },
   homeLinks: { aviasales: "https://aviasales.tpk.lu/ITbLR8b1" }, // reservlänkar till startsidan (flygsökningen använder ifyllda länkar som Drive gör om), // färdiga partnerlänkar från Travelpayouts (Create link) – används som de är
   tpDrive: true,                 // Travelpayouts Drive är installerat i <head>: länkarna konverteras automatiskt och märks som annonslänkar
   tp: { marker: "790578", trs: "586120", p: { discovercars: "", omio: "", gyg: "", aviasales: "", bikesbooking: "" } },
   booking: { aid: "" },          // Booking.com med gammalt aid-nummer (används inte längre när programmet går via CJ)
-  bookingCJ: { pid: "101905306", aid: "13386174", aidByLang: { no: "13323638", da: "13375717" }, host: "www.dpbolvw.net" }, // Booking via CJ: pid = webbplatsens id i CJ, aid = Bookings länk-id (från en länk i Content Hub)
-  stay22: { aid: "", script: "" }, // Stay22: ditt aid och adressen till skriptet de ger dig
+  bookingCJ: { pid: "101905306", aid: "13386174", aidByLang: { no: "13323638", da: "13375717" }, langs: ["sv", "no", "da"], host: "www.dpbolvw.net" }, // Booking via CJ: pid = webbplatsens id i CJ, aid = Bookings länk-id (från en länk i Content Hub)
+  stay22: { lmaID: "6ad86dc1e41c8b89825ace27", script: "https://lma.stay22.com/letmeallez.js" }, // Stay22 (konto thomasbajer): lmaID och skriptet från Script Builder
   discovercars: { a_aid: "" },   // Discover Cars direkt (om du inte går via Travelpayouts)
   gyg: { partner_id: "" },       // GetYourGuide direkt (om du inte går via Travelpayouts)
   shops: [],                     // cykeluthyrare med eget avtal, t.ex. ["Lokki"] – visas först med märket Partner
 };
-if (AFF.stay22.aid && AFF.stay22.script) { try { window.Stay22 = Object.assign(window.Stay22 || {}, { aid: AFF.stay22.aid }); const sc = document.createElement("script"); sc.src = AFF.stay22.script; sc.async = true; document.head.appendChild(sc); } catch (e) {} }
+if (AFF.stay22.lmaID && AFF.stay22.script) { try { window.Stay22 = window.Stay22 || {}; window.Stay22.params = { lmaID: AFF.stay22.lmaID }; const sc = document.createElement("script"); sc.src = AFF.stay22.script; sc.async = true; document.head.appendChild(sc); } catch (e) {} }
 const addQ = (url, k, v) => { try { const x = new URL(url); x.searchParams.set(k, v); return x.href; } catch (e) { return url; } };
 const tpOn = k => !!(AFF.tp.marker && AFF.tp.p[k]);
 function affUrl(partner, url) {
   if (AFF.links && AFF.links[partner]) return { href: AFF.links[partner], ad: true };
-  if (partner === "booking" && AFF.bookingCJ.pid && AFF.bookingCJ.aid) return { href: `https://${AFF.bookingCJ.host}/click-${AFF.bookingCJ.pid}-${(AFF.bookingCJ.aidByLang || {})[LANG] || AFF.bookingCJ.aid}?url=${encodeURIComponent(url)}`, ad: true };
-  if (partner === "booking") return AFF.booking.aid ? { href: addQ(url, "aid", AFF.booking.aid), ad: true } : { href: url, ad: !!AFF.stay22.aid };
-  if (partner === "hotelscom" || partner === "vrbo") return { href: url, ad: !!AFF.stay22.aid };
+  if (partner === "booking" && AFF.bookingCJ.pid && AFF.bookingCJ.aid && (!AFF.bookingCJ.langs || AFF.bookingCJ.langs.includes(LANG))) return { href: `https://${AFF.bookingCJ.host}/click-${AFF.bookingCJ.pid}-${(AFF.bookingCJ.aidByLang || {})[LANG] || AFF.bookingCJ.aid}?url=${encodeURIComponent(url)}`, ad: true };
+  if (partner === "booking") return AFF.booking.aid ? { href: addQ(url, "aid", AFF.booking.aid), ad: true } : { href: url, ad: !!AFF.stay22.lmaID };
+  if (partner === "hotelscom" || partner === "vrbo") return { href: url, ad: !!AFF.stay22.lmaID };
   if (AFF.tpDrive && ["discovercars", "autoeurope", "omio", "gyg", "aviasales", "bikesbooking"].includes(partner) && !tpOn(partner)) return { href: url, ad: true };
   if (tpOn(partner)) return { href: `https://tp.media/r?marker=${encodeURIComponent(AFF.tp.marker)}${AFF.tp.trs ? "&trs=" + encodeURIComponent(AFF.tp.trs) : ""}&p=${encodeURIComponent(AFF.tp.p[partner])}&u=${encodeURIComponent(url)}`, ad: true };
   if (partner === "discovercars" && AFF.discovercars.a_aid) return { href: addQ(url, "a_aid", AFF.discovercars.a_aid), ad: true };
