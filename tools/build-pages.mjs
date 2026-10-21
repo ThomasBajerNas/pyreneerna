@@ -181,8 +181,9 @@ footer a{color:var(--muted)}
 
 const CSS_V = (() => { let h = 0; for (const c of CSS) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h.toString(36); })();
 const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">`;
-const DRIVE = `<script data-cfasync="false">(function(){var s=document.createElement("script");s.async=1;s.setAttribute("data-cmp-ab","2");s.src="https://emrldtp.cc/NTg2MTIw.js?t=586120";document.head.appendChild(s)})();</script>`
-  + `<script>(function(){window.Stay22=window.Stay22||{};window.Stay22.params={lmaID:"6ad86dc1e41c8b89825ace27"};var s=document.createElement("script");s.async=1;s.src="https://lma.stay22.com/letmeallez.js";document.head.appendChild(s)})();</script>`;
+const DRIVE = `<script data-cfasync="false">(function(){var s=document.createElement("script");s.async=1;s.setAttribute("data-cmp-ab","2");s.src="https://emrldtp.cc/NTg2MTIw.js?t=586120";document.head.appendChild(s)})();</script>`;
+// Stay22 bara på språk utan CJ (annars byter LinkSwap ut CJ-länkarna)
+const STAY22 = `<script>(function(){window.Stay22=window.Stay22||{};window.Stay22.params={lmaID:"6ad86dc1e41c8b89825ace27"};var s=document.createElement("script");s.async=1;s.src="https://lma.stay22.com/letmeallez.js";document.head.appendChild(s)})();</script>`;
 
 function page({ lang, pathFor, title, desc, image, h1html, body, ld, mapData }) {
   const self = SITE + pathFor(lang);
@@ -197,7 +198,7 @@ function page({ lang, pathFor, title, desc, image, h1html, body, ld, mapData }) 
 <meta property="og:type" content="article"><meta property="og:site_name" content="pyreneestrip.com"><meta property="og:url" content="${self}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:locale" content="${OGL[lang]}"><meta property="og:image" content="${esc(image || SITE + "/img/thomas-tdf.jpg")}"><meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d6b6e">
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/manifest-${lang}.webmanifest">
-${FONTS}${DRIVE}
+${FONTS}${DRIVE}${CJ_AID[lang] ? "" : STAY22}
 <link rel="stylesheet" href="/sidor.css?v=${CSS_V}">${map}
 ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, "\\u003c")}</script>` : ""}
 </head><body>
