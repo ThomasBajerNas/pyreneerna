@@ -30,6 +30,11 @@ Thomas Bajers reseguide över Pyrenéerna (2014, uppdaterad 2026): resmål, rutt
 - Sparas i Cloudflare KV via `functions/api/resor/` (`index.js` = läsa/spara, `img/` = bilder). **Engångsinställning i Cloudflare:** Workers & Pages → KV → Create namespace (t.ex. `pyreneerna-resor`). Sedan Pages-projektet *pyreneerna* → Settings → Bindings → Add → KV namespace, variabelnamn `RESOR`, välj namnområdet, spara och gör en ny deploy (eller Retry deployment).
 - Egna förslag visas på svenska tills de är översatta. Den schemalagda uppdateringen hämtar `/api/resor` och lägger in översättningar för nya texter.
 
+## Motionslopp
+- Under Cykling → Cykla själv → Motionslopp finns två vyer: **Kommande lopp** (resten av innevarande år + kalendern för nästa säsong) och **Genomförda lopp – cykla själv** (lopp som redan gått och lopp som inte längre körs, med banan att cykla på egen hand). Vyn väljs automatiskt utifrån dagens datum – inget behöver flyttas för hand när ett lopp har gått.
+- Data i `const MOTION` (`events`). Datum per upplaga i fälten `date_ÅÅÅÅ` (t.ex. `date_2027`), med `status_ÅÅÅÅ: "preliminär"` om datumet bara finns i loppkalendrar och `"oklart"` om det är osäkert att upplagan blev av. Övriga fält: `typical_sv` (kort, t.ex. "mitten av juli", visas i kalendern när datum saknas), `next_sv` (läget för nästa upplaga), `ride_sv` (extra text i Genomförda-vyn), `season: true` (valfritt datum, t.ex. Raid Pyrénéen), `next_year` (lopp som går vartannat år), `ended: true` (ingen ny upplaga i Pyrenéerna).
+- Banan: `course` = {`name`, `km`, `hm`, `cols`, `edition_sv`, `gpx` (arrangörens spår), `official` (true om via-punkterna kommer från arrangörens GPX), `waypoints` [[lat, lon, namn], …]}. Den vägföljande linjen ligger i `ROUTED["lopp:<id>"]` och räknas fram med BRouter från via-punkterna (samma kodning som `tools/route-stage.py`). Linjen ger höjdprofil, GPX (via köpdialogen) och "Gör till egen tur" i ritverktyget.
+
 ## Min guide och nedladdningar
 - Under Min resa → 4 · Min guide bygger besökaren en egen guide (av Min resa eller teman + områden, med valbara kapitel och GPX-paket) eller väljer en av Thomas färdiga guider. Förhandsvisningen visar två provsidor, resten är låst.
 - Allt som laddas ner – guiden och alla GPX-filer på sajten – går via köpdialogen (`shopCheckout`). Priser och färdiga guider ställs in i `SHOP` och `READY` i `index.html`.
