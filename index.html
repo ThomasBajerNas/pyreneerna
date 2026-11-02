@@ -9181,7 +9181,7 @@ const TRAIL_LINES = {"gr10":["sghbG_dbR|QvWk\\pwCPb`B_U~t@hkApfCzDvcAwOzPfTbqAoC
   if (q && L.indexOf(q) >= 0) { try { localStorage.setItem("pyr:lang", JSON.stringify(q)); } catch (e) {} }
   window.LANG = lang; window.I18N = {};
   document.documentElement.lang = lang === "no" ? "nb" : lang;
-  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=47"><\/script>');
+  if (lang !== "sv") document.write('<script src="i18n/' + lang + '.js?v=48"><\/script>');
 })();
 </script>
 <script>/* Översätter guidens innehåll (resmål, etapper, rundor m.m.) innan appen startar */
@@ -9985,7 +9985,7 @@ function courseBox1(e, view, c, key) {
     <div><b>${esc(_t(c.name))}</b>${c.edition_sv ? ` <small style="color:var(--muted)">(${esc(c.edition_sv)})</small>` : ""} · ${len ?? "–"} km${asc ? ` · ${Number(asc).toLocaleString(LOC)} ${_t(`hm`)}` : ""}${(c.cols || []).length ? `<small style="display:block;color:var(--muted)">${esc(c.cols.join(" · "))}</small>` : ""}</div>
     ${view === "genomforda" && e.ride_sv ? `<div style="margin-top:6px">${esc(e.ride_sv)}</div>` : ""}
     ${r ? `<div class="actions" style="margin-top:8px"><button class="btn${view === "genomforda" ? " primary" : ""}" data-ov-show="${key}">${ICON.map}${_t(`Visa banan på kartan`)}</button><button class="btn" data-tour-from="${key}">${ICON.edit}${_t(`Gör till egen tur`)}</button><button class="btn" data-gpx="${key}">${ICON.dl}${_t(`GPX`)}</button><a class="btn" href="${esc(gmapsRoute(key, c))}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a>${c.gpx ? `<a class="btn" href="${esc(c.gpx)}" target="_blank" rel="noopener">${_t(`Arrangörens bana`)}</a>` : ""}</div>` : ""}
-    ${r ? `<details class="lprof" style="margin-top:8px" data-lprof="${esc(key)}"><summary class="btn">${_t(`Höjdprofil och stigningar`)}</summary><div class="lprof-body"></div></details>` : ""}
+    ${r ? `<details class="lprof" style="margin-top:8px" data-lprof="${esc(key)}"><summary class="btn">${_t(`Höjdprofil och stigningar`)}</summary><div class="lprof-body"></div></details>${trainBox(key)}` : ""}
     ${r ? `<small style="display:block;margin-top:6px;color:var(--muted)">${c.official ? _t("Linjen följer arrangörens bana, beräknad längs vägarna.") : _t("Linjen är beräknad längs vägarna via orterna och passen på banan och kan avvika något från loppets exakta väg.")}</small>` : ""}</div>`;
 }
 function eventCard(e, view) {
@@ -10321,11 +10321,88 @@ function profileSVG(c) {
   let path = `M0,${H} `; for (let i = 0; i < c.length; i++) path += `L${X(xs[i]).toFixed(1)},${Y(zs[i]).toFixed(1)} `; path += `L${W},${H} Z`;
   return `<svg class="prof" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${_t(`Höjdprofil från`)} ${nf0(zmin)} ${_t(`till`)} ${nf0(zmax)} ${_t(`meter över`)} ${d.toFixed(0)} km"><path d="${path}" fill="color-mix(in srgb,var(--accent) 28%,transparent)" stroke="var(--accent)" stroke-width="1.5" vector-effect="non-scaling-stroke"/><text x="4" y="12" font-size="11" fill="var(--muted)">${nf0(zmax)} m</text><text x="4" y="${H - 4}" font-size="11" fill="var(--muted)">${nf0(zmin)} m</text><text x="${W - 4}" y="${H - 4}" font-size="11" fill="var(--muted)" text-anchor="end">${d.toFixed(0)} km</text></svg>`;
 }
+/* ---------- träna på banan hemma: tips för träningsappar och Zwift-pass (.zwo) ---------- */
+function trackFor(key) {
+  if (/^(seg|tur):/.test(key)) { const p = BY[key]; return p && p.st ? { name: p.name, pts: p.st.pts } : null; }
+  const c = routedFull(key); if (!c) return null;
+  const it = ovItem(key) || {};
+  return { len: ROUTED[key] ? +ROUTED[key].len / 1000 : null, name: it.r ? it.r.name : it.ev ? `${it.ev.name} – ${it.course ? _t(it.course.name) : ""}` : it.s ? `${RACES[it.s.race].name} ${it.s.year} ${_t(`etapp`)} ${it.s.stage}` : key, pts: c };
+}
+const ZW = { ftp: +store.get("zwFtp", 250) || 250, kg: +store.get("zwKg", 85) || 85 };
+/* fart på cykel för en viss effekt och lutning (enkel fysikmodell) */
+function bikeSpeed(P, grad, kg) {
+  const g = 9.81, crr = 0.005, cda = 0.32, rho = 1.1, s = grad / Math.sqrt(1 + grad * grad), cs = 1 / Math.sqrt(1 + grad * grad);
+  let lo = 0.5, hi = 25; // m/s
+  for (let i = 0; i < 50; i++) { const v = (lo + hi) / 2, need = (crr * kg * g * cs + kg * g * s) * v + 0.5 * cda * rho * v * v * v; if (need > P) hi = v; else lo = v; }
+  return Math.min(lo, 50 / 3.6);
+}
+const zwPower = gr => gr < -2 ? 0.45 : gr < 2 ? 0.65 : gr < 4 ? 0.75 : gr < 6 ? 0.83 : gr < 8 ? 0.88 : 0.92;
+function zwoXml(name, pts, ftp, kg, lenKm) {
+  const c = pts, d = [0];
+  for (let i = 1; i < c.length; i++) d.push(d[i - 1] + km({ lat: c[i - 1][0], lon: c[i - 1][1] }, { lat: c[i][0], lon: c[i][1] }));
+  if (lenKm && d[d.length - 1]) { const f = lenKm / d[d.length - 1]; for (let i = 0; i < d.length; i++) d[i] *= f; } // linjen är förenklad i serpentinerna
+  const tot = d[d.length - 1];
+  // delar om ca 1 km (500 m i branta backar), slås ihop när effektnivån är densamma
+  const blocks = [];
+  for (let a = 0; a < c.length - 1;) {
+    let b = a; while (b < c.length - 1 && d[b] - d[a] < 1) b++;
+    const len = d[b] - d[a], gr = (c[b][2] - c[a][2]) / Math.max(0.05, len) / 10, pw = zwPower(gr);
+    const sec = len * 1000 / bikeSpeed(pw * ftp, gr / 100, kg);
+    const last = blocks[blocks.length - 1];
+    if (last && last.pw === pw) { last.sec += sec; last.km += len; last.up += Math.max(0, c[b][2] - c[a][2]); }
+    else blocks.push({ pw, sec, km: len, up: Math.max(0, c[b][2] - c[a][2]), at: d[a] });
+    a = b;
+  }
+  let t = 0;
+  const xml = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const body = blocks.map(bk => {
+    const msg = `km ${Math.round(bk.at)}/${Math.round(tot)} · ${Math.round(bk.km * 10) / 10} km${bk.up > 40 ? ` · ${Math.round(bk.up / 10) * 10} hm` : ""}`;
+    const s = `    <SteadyState Duration="${Math.max(30, Math.round(bk.sec))}" Power="${bk.pw.toFixed(2)}" pace="0"><textevent timeoffset="0" message="${xml(msg)}"/></SteadyState>`;
+    t += bk.sec; return s;
+  }).join("\n");
+  const asc = c.reduce((s, p, i) => i ? s + Math.max(0, p[2] - c[i - 1][2]) : 0, 0);
+  return `<workout_file>
+  <author>Pyreneestrip – Reseguide Pyrenéerna</author>
+  <name>${xml(name)}</name>
+  <description>${xml(`${Math.round(tot)} km, ca ${Math.round(asc / 10) * 10} hm. ${_t("Lutningarna längs banan omräknade till watt-mål (andel av FTP). Beräknat för FTP")} ${ftp} W ${_t("och")} ${kg} kg. pyreneestrip.com`)}</description>
+  <sportType>bike</sportType>
+  <tags><tag name="Pyreneestrip"/></tags>
+  <workout>
+    <Warmup Duration="600" PowerLow="0.40" PowerHigh="0.65" pace="0"><textevent timeoffset="0" message="${xml(name)}"/></Warmup>
+${body}
+    <Cooldown Duration="300" PowerLow="0.60" PowerHigh="0.40" pace="0"/>
+  </workout>
+</workout_file>
+`;
+}
+function zwoCheckout(key) {
+  const tr = trackFor(key); if (!tr) return;
+  const title = tr.name + " – Zwift";
+  shopCheckout({ kind: "gpx", eyebrow: "Zwift", title, sub: `${_t("Zwift-träningspass, beräknat för FTP")} ${ZW.ftp} W ${_t("och")} ${ZW.kg} kg`, spec: { kind: "gpx", title },
+    getFile: () => ({ name: fileSafe(tr.name) + ".zwo", data: zwoXml(tr.name, tr.pts, ZW.ftp, ZW.kg, tr.len), mime: "application/xml" }),
+    lines: [[_t("Zwift-träningspass (.zwo)"), shopPrice("gpx")]],
+    what: [_t("Banans lutningar som watt-mål i ett Zwift-träningspass som du kör på valfri bana i Zwift (ERG-läge)."), _t("Zwift på dator: lägg filen i Dokument/Zwift/Workouts/<ditt Zwift-id>/ och starta om Zwift – passet finns sedan under Custom Workouts.")],
+    deliver: async () => { const f = { name: fileSafe(tr.name) + ".zwo", data: zwoXml(tr.name, tr.pts, ZW.ftp, ZW.kg, tr.len) }; return saveFile(f.name, f.data, "application/xml"); } });
+}
+function trainBox(key) {
+  if (!ROUTED[key] && !/^(seg|tur):/.test(key)) return "";
+  return `<details class="lprof train" style="margin-top:8px"><summary class="btn">${ICON.bike}${_t(`Träna på banan hemma`)}</summary>
+    <div class="prose" style="margin-top:8px;font-size:15px"><p>${_t(`Kör banan på din smarta trainer – lutningen styr motståndet:`)}</p><ul>
+      <li><b>Rouvy</b> – ${_t(`ladda upp GPX-filen under Routes → Import from file på Rouvys Riders Portal (högst 200 km och 10 MB per fil, prenumeration krävs) och kör banan i kartläge.`)}</li>
+      <li><b>TrainingPeaks Virtual</b> – ${_t(`importera GPX-filen under Routes på TrainingPeaks webbplats och skapa ett event med banan i appen (GPXplore). Vägen ritas i 3D.`)}</li>
+      <li><b>Kinomap, BKool, GPX Bicycle Trainer</b> – ${_t(`läser också egna GPX-filer.`)}</li>
+      <li><b>Zwift</b> – ${_t(`kan inte köra egna banor. Ladda i stället ner banan som Zwift-träningspass: lutningarna blir watt-mål (andel av din FTP) som du kör på valfri bana i Zwift, med kilometer och höjdmeter på skärmen. Kända pass som Tourmalet, Aspin och Peyresourde finns också i Zwifts Climb Portal.`)}</li></ul>
+      <div class="pl-inline" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><label>${_t(`Din FTP (W)`)} <input type="number" min="80" max="600" step="5" value="${ZW.ftp}" data-zw="ftp" style="width:80px"></label><label>${_t(`Vikt med cykel (kg)`)} <input type="number" min="35" max="200" value="${ZW.kg}" data-zw="kg" style="width:70px"></label></div>
+      <p style="font-size:13px;color:var(--muted)">${_t(`FTP och vikt används för att räkna ut hur länge varje del av passet tar.`)}</p></div>
+    <div class="actions"><button class="btn" data-gpx="${esc(key)}">${ICON.dl}${_t(`GPX (Rouvy, TrainingPeaks m.fl.)`)}</button><button class="btn" data-zwo="${esc(key)}">${ICON.dl}${_t(`Zwift-pass (.zwo)`)}</button></div></details>`;
+}
+document.addEventListener("change", e => { const i = e.target.closest("[data-zw]"); if (!i) return; const v = +i.value; if (!v) return; ZW[i.dataset.zw] = v; store.set(i.dataset.zw === "ftp" ? "zwFtp" : "zwKg", v); document.querySelectorAll(`[data-zw="${i.dataset.zw}"]`).forEach(x => { if (x !== i) x.value = v; }); });
+document.addEventListener("click", e => { const z = e.target.closest("[data-zwo]"); if (z) zwoCheckout(z.dataset.zwo); });
 function routedBlock(key) {
   const r = ROUTED[key], c = routedFull(key); if (!c) return "";
   const top = Math.max(...c.map(p => p[2]));
   return `<div><div class="eyebrow">${_t(`Längs vägarna`)}</div>${gisTable([[_t("Längd"), (r.len / 1000).toFixed(1).replace(".", ",") + " km"], [_t("Stigning"), nf0(r.asc) + " höjdmeter"], [_t("Högsta punkt"), nf0(top) + " m"]])}${profileSVG(c)}
-    <div class="actions" style="margin-top:8px"><button class="btn" data-gpx="${esc(key)}">${ICON.dl}${_t(`Ladda ner GPX`)}</button></div>
+    <div class="actions" style="margin-top:8px"><button class="btn" data-gpx="${esc(key)}">${ICON.dl}${_t(`Ladda ner GPX`)}</button></div>${/^lopp:/.test(key) ? "" : trainBox(key)}
     <p class="coords" style="margin-top:6px">${r.a ? `${_t(`Etappens exakta väg är inte känd. Den streckade linjen visar den kortaste vägen mellan start, pass och mål – den verkliga etappen var`)} ${String(r.a).replace(".", ",")} km. ` : ""}${_t(`Beräknad med BRouter på OpenStreetMap-data. Kontrollera alltid vägen på plats.`)}</p></div>`;
 }
 document.addEventListener("click", e => {
@@ -12632,7 +12709,7 @@ function shopCheckout(order) {
   _order = order;
   if (superOn()) { // superanvändare: allt ingår
     $("#sheet").classList.remove("wide");
-    $("#sheetBody").innerHTML = `<div class="shop d-pad"><span class="eyebrow">${order.kind === "gpx" ? _t("GPX-fil") : _t("Reseguide")}</span><h2 class="shop-h">${esc(order.title)}</h2>${order.sub ? `<p class="shop-sub">${esc(order.sub)}</p>` : ""}
+    $("#sheetBody").innerHTML = `<div class="shop d-pad"><span class="eyebrow">${order.eyebrow || (order.kind === "gpx" ? _t("GPX-fil") : _t("Reseguide"))}</span><h2 class="shop-h">${esc(order.title)}</h2>${order.sub ? `<p class="shop-sub">${esc(order.sub)}</p>` : ""}
       <div class="super-pitch">${SUPER_ICON}<div><b>${_t("Ingår för dig som superanvändare")}</b> – ${_t("gäller till")} ${esc(superDate())}.</div></div>
       <ul class="shop-what">${order.what.map(w => `<li>${esc(w)}</li>`).join("")}</ul>
       <button class="btn primary shop-buy" data-shop-dl>${ICON.dl}${_t("Ladda ner")}</button><p class="shop-st" id="shopSt" role="status"></p></div>`;
@@ -12642,7 +12719,7 @@ function shopCheckout(order) {
   const total = order.lines.reduce((s, l) => s + l[1], 0);
   const test = shopTest();
   $("#sheetBody").innerHTML = `<div class="shop d-pad">
-    <span class="eyebrow">${order.kind === "gpx" ? _t("GPX-fil") : _t("Reseguide")}</span>
+    <span class="eyebrow">${order.eyebrow || (order.kind === "gpx" ? _t("GPX-fil") : _t("Reseguide"))}</span>
     <h2 class="shop-h">${esc(order.title)}</h2>
     ${order.sub ? `<p class="shop-sub">${esc(order.sub)}</p>` : ""}
     <table class="shop-lines">${order.lines.map(([l, p]) => `<tr><td>${esc(l)}</td><td>${fmtCur(p)}</td></tr>`).join("")}<tr class="tot"><td>${_t("Att betala")}</td><td>${fmtCur(total)}</td></tr></table>
@@ -12811,6 +12888,7 @@ function guideOrder(c, M, readyId) {
 async function stripePay(order) {
   const pend = { spec: order.spec, at: Date.now() };
   if (order.kind === "gpx" && order.getTracks) pend.tracks = await order.getTracks();
+  if (order.getFile) pend.file = await order.getFile();
   store.set("pendingOrder", pend);
   const r = await fetch("/api/checkout", { method: "POST", headers: { "content-type": "application/json" },
     body: JSON.stringify({ kind: order.spec.kind, ready: order.spec.ready || null, gpx: !!order.spec.gpx, title: order.spec.title, cfg: order.spec.cfg || null, cur: SHOP.cur, lang: LANG }) });
@@ -12821,6 +12899,7 @@ async function stripePay(order) {
 fetch("/api/health", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => { if (j && j.stripe) { SHOP.provider = "stripe"; SHOP.pay = stripePay; SHOP.payTest = !!j.test; } }).catch(() => {});
 function deliveredOrder(v, pend) {
   if (v.kind === "gpx") {
+    if (pend && pend.file && pend.spec && pend.spec.kind === "gpx") return { kind: "gpx", title: pend.spec.title, deliver: () => saveFile(pend.file.name, pend.file.data, pend.file.mime || "application/octet-stream") };
     if (!pend || !pend.tracks || !pend.spec || pend.spec.kind !== "gpx") return null;
     return { kind: "gpx", title: pend.spec.title, deliver: () => saveFile(fileSafe(pend.spec.title) + ".gpx", gpxXml(pend.spec.title, pend.tracks), "application/gpx+xml") };
   }
