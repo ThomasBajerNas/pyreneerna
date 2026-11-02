@@ -9627,7 +9627,7 @@ function renderRoutes() {
       <h3>${esc(r.name)}</h3><div class="meta">${esc(r.sub)} ${_t(`· cirka`)} ${r.km} km${cols.length ? " · " + cols.length + _t(" pass, högst ") + Math.max(...cols.map(p => p.col.alt)).toLocaleString(LOC) + " m" : ""}</div>
       <p class="prose" style="margin:0;font-size:15.5px">${esc(r.text)}</p>
       <ol class="stops">${r.stops.map(id => `<li><button data-open="${id}">${esc(BY[id].name.split(" & ")[0].split(" – ")[0])}</button></li>`).join("")}</ol>
-      <div class="actions"><button class="btn primary" data-route="${r.id}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-route-trip="${r.id}">${ICON.bag}${_t(`Lägg alla i Min resa`)}</button>${ROUTED["rutt:" + r.id] ? `<button class="btn" data-tour-from="rutt:${r.id}">${ICON.bike}${_t(`Gör om till egen cykeltur`)}</button>` : ""}</div>
+      <div class="actions"><button class="btn primary" data-route="${r.id}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-route-trip="${r.id}">${ICON.bag}${_t(`Lägg alla i Min resa`)}</button>${ROUTED["rutt:" + r.id] ? `<button class="btn" data-tour-from="rutt:${r.id}">${ICON.bike}${_t(`Gör om till egen cykeltur`)}</button>` : ""}</div>${ROUTED["rutt:" + r.id] ? trainBox("rutt:" + r.id) : ""}
     </div></article>`;
   }).join("");
 }
@@ -9736,6 +9736,7 @@ function stageCard(s) {
         ${stayBtn(shortTown(s.finish), _t("Bo i målorten"), s.date)}
         ${rsForStage(s.key).map(t => `<button class="btn primary" data-rs="${esc(t.id)}">${ICON.trip}${_t(`Reseförslag`)}</button>`).join("")}
       </div>
+      ${ROUTED["stage:" + s.key] ? trainBox("stage:" + s.key) : ""}
       ${(s.sources || []).length ? `<details class="st-src"><summary>${_t(`Källor`)}</summary><ul>${s.sources.map(u => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\/(www\.)?/, "").split("/")[0])}</a></li>`).join("")}</ul></details>` : ""}
     </div></article>`;
 }
@@ -9893,6 +9894,7 @@ function rundaCard(r) {
       ${r.tips_sv ? `<div class="tdfbox" style="border-color:var(--accent)"><span class="eyebrow" style="color:var(--accent)">${_t(`Tips`)}</span><div>${esc(r.tips_sv)}</div></div>` : ""}
       ${r.season_sv ? `<div class="st-src">${_t(`Säsong:`)} ${esc(r.season_sv)}</div>` : ""}
       <div class="st-foot"><button class="btn primary" data-ov-show="runda:${r.id}">${ICON.map}${_t(`Visa på kartan`)}</button>${ROUTED["runda:" + r.id] ? `<button class="btn" data-tour-from="runda:${r.id}">${ICON.edit}${_t(`Ändra rundan`)}</button>` : ""}<a class="btn" href="${gmapsDir(r.waypoints)}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a>${r.link ? `<a class="btn" href="${esc(r.link)}" target="_blank" rel="noopener">${_t(`Ruttsida`)}</a>` : ""}</div>
+      ${trainBox("runda:" + r.id)}
       ${(r.sources || []).length ? `<details class="st-src"><summary>${_t(`Källor`)}</summary><ul>${r.sources.map(u => `<li>${linkA(u)}</li>`).join("")}</ul></details>` : ""}
     </div></article>`;
 }
@@ -10326,7 +10328,8 @@ function trackFor(key) {
   if (/^(seg|tur):/.test(key)) { const p = BY[key]; return p && p.st ? { name: p.name, pts: p.st.pts } : null; }
   const c = routedFull(key); if (!c) return null;
   const it = ovItem(key) || {};
-  return { len: ROUTED[key] ? +ROUTED[key].len / 1000 : null, name: it.r ? it.r.name : it.ev ? `${it.ev.name} – ${it.course ? _t(it.course.name) : ""}` : it.s ? `${RACES[it.s.race].name} ${it.s.year} ${_t(`etapp`)} ${it.s.stage}` : key, pts: c };
+  const ru = /^rutt:/.test(key) && ROUTES.find(x => "rutt:" + x.id === key);
+  return { len: ROUTED[key] ? +ROUTED[key].len / 1000 : null, name: ru ? ru.name : it.r ? it.r.name : it.ev ? `${it.ev.name} – ${it.course ? _t(it.course.name) : ""}` : it.s ? `${RACES[it.s.race].name} ${it.s.year} ${_t(`etapp`)} ${it.s.stage}` : key, pts: c };
 }
 const ZW = { ftp: +store.get("zwFtp", 250) || 250, kg: +store.get("zwKg", 85) || 85 };
 /* fart på cykel för en viss effekt och lutning (enkel fysikmodell) */
@@ -10375,8 +10378,13 @@ ${body}
 </workout_file>
 `;
 }
+function zwoTrack(key) {
+  if (key === "te") { const { st } = teCurrent(); return st && { name: ($("#teName").value || "").trim() || tourAutoName(te.wps), pts: st.pts.map(p => [+p[0], +p[1], Math.round(p[2])]) }; }
+  if (key === "sp") { const s = STAGES.find(x => x.key === sp.key), g = stageGeo(sp.key); return s && g && { name: ($("#spName") && $("#spName").value) || _t("Etappdel"), pts: segStats(s, g, sp.a, sp.b).pts }; }
+  return trackFor(key);
+}
 function zwoCheckout(key) {
-  const tr = trackFor(key); if (!tr) return;
+  const tr = zwoTrack(key); if (!tr || !tr.pts || tr.pts.length < 2) return;
   const title = tr.name + " – Zwift";
   shopCheckout({ kind: "gpx", eyebrow: "Zwift", title, sub: `${_t("Zwift-träningspass, beräknat för FTP")} ${ZW.ftp} W ${_t("och")} ${ZW.kg} kg`, spec: { kind: "gpx", title },
     getFile: () => ({ name: fileSafe(tr.name) + ".zwo", data: zwoXml(tr.name, tr.pts, ZW.ftp, ZW.kg, tr.len), mime: "application/xml" }),
@@ -10462,7 +10470,7 @@ function renderTrip() {
       ${p.seg ? `<div class="segline"><b>${fmt1(p.st.dist)} km</b><b>${nf0(hm(p.st.asc))} hm</b><span>${_t(`högst`)} ${altTxt(p.st.max)}</span><span>ca ${fmtH(rideTime(p.st)[0])}–${fmtH(rideTime(p.st)[1])}</span>${diffTag(segLevel(p.st))}</div>
         <button class="segmini" data-open="${p.id}" aria-label="${_t(`Fakta och tips om`)} ${esc(p.name)}">${segProfile(p.g, p.st.i0, p.st.i1, { rel: true, h: 70 })}</button>
         <div class="leg">${_t(`Start`)} ${/^km /.test(p.startLbl) ? "vid " + esc(p.startLbl) + _t(" av etappen") : esc(p.startLbl)}${p.st.gap >= 3 ? ` ${_t(`· mål`)} ${esc(p.endLbl)}, ${Math.round(p.st.gap)} ${_t(`km från starten`)}` : _t(" · slutar nära starten")}${from}</div>
-        <div class="segacts"><button class="linkish" data-open="${p.id}">${_t(`Fakta och tips`)}</button><button class="linkish" data-seg-map="${p.id}">${_t(`Karta`)}</button><button class="linkish" data-gpx="${p.id}">GPX</button>${p.tour ? `<button class="linkish" data-tour-edit="${p.id}">${_t(`Ändra turen`)}</button>` : `<button class="linkish" data-seg-edit="${p.id}">${_t(`Ändra del`)}</button><button class="linkish" data-tour-from="${p.id}">${_t(`Rita om vägen`)}</button>`}</div>`
+        <div class="segacts"><button class="linkish" data-open="${p.id}">${_t(`Fakta och tips`)}</button><button class="linkish" data-seg-map="${p.id}">${_t(`Karta`)}</button><button class="linkish" data-gpx="${p.id}">GPX</button><button class="linkish" data-zwo="${p.id}">Zwift</button>${p.tour ? `<button class="linkish" data-tour-edit="${p.id}">${_t(`Ändra turen`)}</button>` : `<button class="linkish" data-seg-edit="${p.id}">${_t(`Ändra del`)}</button><button class="linkish" data-tour-from="${p.id}">${_t(`Rita om vägen`)}</button>`}</div>`
       : `<div class="leg">${esc(p.sub)}${from}</div>`}
       <label class="sr" for="note-${p.id}">${_t(`Anteckning för`)} ${esc(p.name)}</label>
       <textarea id="note-${p.id}" data-note="${p.id}" placeholder="${_t(`Egen anteckning – datum, boende, bokning …`)}">${esc(state.notes[p.id] || "")}</textarea></div>
@@ -11827,7 +11835,7 @@ function openSegPicker(key, o = {}) {
     </div>
     <div id="spStats"></div>
     <label class="sp-name"><span class="eyebrow">${_t(`Namn i Min resa`)}</span><input id="spName" type="text" maxlength="80" value="${esc(name)}"></label>
-    <div class="actions" id="spAct"><button class="btn primary" data-sp-save>${ICON.bag}${o.edit ? _t("Spara ändringen") : _t("Lägg till i Min resa")}</button><button class="btn" data-sp-gpx>${ICON.dl}GPX</button><button class="btn" data-tour-from="segpick">${ICON.edit}${_t(`Ändra vägen fritt`)}</button></div>
+    <div class="actions" id="spAct"><button class="btn primary" data-sp-save>${ICON.bag}${o.edit ? _t("Spara ändringen") : _t("Lägg till i Min resa")}</button><button class="btn" data-sp-gpx>${ICON.dl}GPX</button><button class="btn" data-zwo="sp">${ICON.dl}Zwift</button><button class="btn" data-tour-from="segpick">${ICON.edit}${_t(`Ändra vägen fritt`)}</button></div>
     ${g.approx ? `<p class="pl-note warn" style="margin:0">${_t(`Etappens exakta väg är inte känd här. Linjen är den kortaste vägen mellan start, pass och mål (etappen var`)} ${esc(kmTxt(s.distance_km))}${_t(`), så delen kan avvika från loppets väg på flacka partier.`)}</p>` : ""}
     <p class="coords">${_t(`Vägen och höjderna är beräknade med BRouter på OpenStreetMap-data. Kontrollera alltid vägen på plats.`)}</p>
   </div>`;
@@ -11918,7 +11926,7 @@ function openSeg(id) {
     ${statsTable(st, s, g)}
     <div>${segProfile(g, st.i0, st.i1, { labels: true, s, rel: true })}${GRADKEY}</div>
     ${st.climbs.length ? `<div><div class="eyebrow">${_t(`Stigningar på vägen`)}</div>${climbList(st)}</div>` : ""}
-    <div class="actions"><button class="btn primary" data-seg-map="${id}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-gpx="${esc(id)}">${ICON.dl}${_t(`GPX till cykeldatorn`)}</button><a class="btn" href="${gm}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a></div>
+    <div class="actions"><button class="btn primary" data-seg-map="${id}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-gpx="${esc(id)}">${ICON.dl}${_t(`GPX till cykeldatorn`)}</button><a class="btn" href="${gm}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a></div>${trainBox(id)}
     <div class="actions"><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${startPt[0]},${startPt[1]}&travelmode=driving" target="_blank" rel="noopener">${ICON.pin}${_t(`Kör till starten`)}${/^km /.test(p.startLbl) ? "" : ` (${esc(p.startLbl.replace(/^nära /, ""))})`}</a><button class="btn" data-seg-edit="${id}">${_t(`Ändra start och mål`)}</button><button class="btn" data-tour-from="${id}">${ICON.edit}${_t(`Rita om vägen`)}</button><button class="btn ${inTrip ? "on" : "primary"}" data-toggle-trip="${id}">${ICON.bag}${inTrip ? _t("Sparad i Min resa") : _t("Spara i Min resa")}</button></div>
     <div class="tdfbox"><span class="eyebrow">${_t(`Så gick det för proffsen ·`)} ${esc(fmtDate(s.date))}</span>
       ${s.summary_sv ? `<p class="st-sum" style="margin:4px 0 8px">${esc(s.summary_sv)}</p>` : ""}${podiumHTML(s.podium)}
@@ -12215,8 +12223,8 @@ function teRender() {
     : st && g.approx ? `<p class="pl-note">${_t(`Streckade delar är raka linjer`)}${g.partEle || g.noEle ? _t(" utan höjddata – höjdmetrarna är ungefärliga") : ""}.</p>` : "";
   $("#teStats").innerHTML = st ? `${statsTable(st)}${g.noEle ? "" : `<div>${segProfile(g, 0, g.c.length - 1, { labels: true, climbs: st.climbs, h: 120 })}${GRADKEY}</div>`}${st.climbs.length ? `<div><div class="eyebrow">${_t(`Stigningar`)}</div>${climbList(st)}</div>` : ""}` : "";
   const ok = st && !busy;
-  $("#teAct").innerHTML = te.saved && te.id ? `<div class="pl-note" style="width:100%"><b>${_t(`Sparad i Min resa.`)}</b> ${_t(`Den ligger som en cykeldag i ruttförslaget, med karta, GPX och tips.`)}</div><button class="btn primary" data-te-open-trip>${ICON.bag}${_t(`Öppna Min resa`)}</button><button class="btn" data-gpx-te>${ICON.dl}GPX</button><button class="btn" data-te-link>${_t(`Kopiera länk`)}</button>`
-    : `<button class="btn primary" data-te-save ${ok ? "" : "disabled"}>${ICON.bag}${te.id ? _t("Spara ändringen") : _t("Spara i Min resa")}</button><button class="btn" data-gpx-te ${ok ? "" : "disabled"}>${ICON.dl}GPX</button>${n > 1 ? `<a class="btn" href="${gmapsDir(te.wps.map(w => [w.lat, w.lon]))}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps`)}</a><button class="btn" data-te-link>${_t(`Kopiera länk`)}</button>` : ""}`;
+  $("#teAct").innerHTML = te.saved && te.id ? `<div class="pl-note" style="width:100%"><b>${_t(`Sparad i Min resa.`)}</b> ${_t(`Den ligger som en cykeldag i ruttförslaget, med karta, GPX och tips.`)}</div><button class="btn primary" data-te-open-trip>${ICON.bag}${_t(`Öppna Min resa`)}</button><button class="btn" data-gpx-te>${ICON.dl}GPX</button><button class="btn" data-zwo="te">${ICON.dl}Zwift</button><button class="btn" data-te-link>${_t(`Kopiera länk`)}</button>`
+    : `<button class="btn primary" data-te-save ${ok ? "" : "disabled"}>${ICON.bag}${te.id ? _t("Spara ändringen") : _t("Spara i Min resa")}</button><button class="btn" data-gpx-te ${ok ? "" : "disabled"}>${ICON.dl}GPX</button><button class="btn" data-zwo="te" ${ok ? "" : "disabled"}>${ICON.dl}Zwift</button>${n > 1 ? `<a class="btn" href="${gmapsDir(te.wps.map(w => [w.lat, w.lon]))}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps`)}</a><button class="btn" data-te-link>${_t(`Kopiera länk`)}</button>` : ""}`;
 }
 function teSave() {
   const { st, busy } = teCurrent(); if (!st || busy) return;
@@ -12323,7 +12331,7 @@ function openTour(id) {
     ${statsTable(st)}
     ${g.noEle ? "" : `<div>${segProfile(g, 0, g.c.length - 1, { labels: true, climbs: st.climbs })}${GRADKEY}</div>`}
     ${st.climbs.length ? `<div><div class="eyebrow">${_t(`Stigningar på vägen`)}</div>${climbList(st)}</div>` : ""}
-    <div class="actions"><button class="btn primary" data-tour-edit="${esc(id)}">${ICON.edit}${_t(`Ändra turen`)}</button><button class="btn" data-seg-map="${esc(id)}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-gpx="${esc(id)}">${ICON.dl}${_t(`GPX till cykeldatorn`)}</button></div>
+    <div class="actions"><button class="btn primary" data-tour-edit="${esc(id)}">${ICON.edit}${_t(`Ändra turen`)}</button><button class="btn" data-seg-map="${esc(id)}">${ICON.map}${_t(`Visa på kartan`)}</button><button class="btn" data-gpx="${esc(id)}">${ICON.dl}${_t(`GPX till cykeldatorn`)}</button></div>${trainBox(id)}
     <div class="actions"><a class="btn" href="${gmapsDir(t.wps.map(w => [w.lat, w.lon]))}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=${startPt[0]},${startPt[1]}&travelmode=driving" target="_blank" rel="noopener">${ICON.pin}${_t(`Kör till starten`)}</a><button class="btn ${inTrip ? "on" : "primary"}" data-toggle-trip="${esc(id)}">${ICON.bag}${inTrip ? _t("Sparad i Min resa") : _t("Spara i Min resa")}</button></div>
     <div><div class="eyebrow">${_t(`Via`)}</div><ol class="wps">${t.wps.map(w => `<li>${esc(wpLabel(w))}</li>`).join("")}</ol></div>
     ${segPractical(p, tourTips(p))}
@@ -12355,7 +12363,7 @@ function renderEgen() {
       <div><div class="eyebrow">${p.st.gap < 3 ? _t("runda") : _t("från punkt till punkt")}${p.tour.from ? _t(" · utgår från ") + esc(p.tour.from.label) : ""}</div><h4>${esc(p.name)}</h4></div>
       <div class="tags">${diffTag(segLevel(p.st))}<span class="tag" style="--c:var(--ink)">${fmt1(p.st.dist)} km</span><span class="tag" style="--c:var(--ink)">${nf0(hm(p.st.asc))} hm</span>${state.trip.includes(p.id) ? `<span class="tag" style="--c:var(--accent)">${_t(`I Min resa`)}</span>` : ""}</div>
       ${p.g.noEle ? "" : `<button class="segmini" data-open="${esc(p.id)}" aria-label="${_t(`Fakta om`)} ${esc(p.name)}">${segProfile(p.g, 0, p.g.c.length - 1, { h: 70 })}</button>`}
-      <div class="st-foot"><button class="btn primary" data-tour-edit="${esc(p.id)}">${ICON.edit}${_t(`Ändra`)}</button><button class="btn" data-open="${esc(p.id)}">${_t(`Fakta och tips`)}</button><button class="btn" data-seg-map="${esc(p.id)}">${ICON.map}${_t(`Karta`)}</button><button class="btn" data-gpx="${esc(p.id)}">${ICON.dl}GPX</button></div>
+      <div class="st-foot"><button class="btn primary" data-tour-edit="${esc(p.id)}">${ICON.edit}${_t(`Ändra`)}</button><button class="btn" data-open="${esc(p.id)}">${_t(`Fakta och tips`)}</button><button class="btn" data-seg-map="${esc(p.id)}">${ICON.map}${_t(`Karta`)}</button><button class="btn" data-gpx="${esc(p.id)}">${ICON.dl}GPX</button><button class="btn" data-zwo="${esc(p.id)}">${ICON.dl}Zwift</button></div>
     </div></article>`).join("")}</div>` : ""}
     <h4 class="mh">${_t(`Börja från en klassisk runda`)}</h4>
     <p class="ty-note" style="color:var(--muted);font-size:15px;margin:0">${_t(`Ta en av guidens rundor och gör den till din egen – korta av, förläng eller lägg till ett pass.`)}</p>
