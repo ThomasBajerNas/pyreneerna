@@ -592,6 +592,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 .sp-chips .chip{padding:6px 12px;white-space:normal;text-align:left}
 .sp-chips .chip small{font-weight:500;color:var(--muted)}
 .segprof{color:var(--ink)}
+details.lprof>summary{list-style:none;cursor:pointer;display:inline-flex}details.lprof>summary::-webkit-details-marker{display:none}details.lprof>summary::before{content:"▸";margin-right:6px}details.lprof[open]>summary::before{content:"▾"}
 .gradkey{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted);margin-top:6px}
 .gradkey i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .sp-rng{display:grid;gap:12px}
@@ -9984,7 +9985,7 @@ function courseBox1(e, view, c, key) {
     <div><b>${esc(_t(c.name))}</b>${c.edition_sv ? ` <small style="color:var(--muted)">(${esc(c.edition_sv)})</small>` : ""} · ${len ?? "–"} km${asc ? ` · ${Number(asc).toLocaleString(LOC)} ${_t(`hm`)}` : ""}${(c.cols || []).length ? `<small style="display:block;color:var(--muted)">${esc(c.cols.join(" · "))}</small>` : ""}</div>
     ${view === "genomforda" && e.ride_sv ? `<div style="margin-top:6px">${esc(e.ride_sv)}</div>` : ""}
     ${r ? `<div class="actions" style="margin-top:8px"><button class="btn${view === "genomforda" ? " primary" : ""}" data-ov-show="${key}">${ICON.map}${_t(`Visa banan på kartan`)}</button><button class="btn" data-tour-from="${key}">${ICON.edit}${_t(`Gör till egen tur`)}</button><button class="btn" data-gpx="${key}">${ICON.dl}${_t(`GPX`)}</button><a class="btn" href="${esc(gmapsRoute(key, c))}" target="_blank" rel="noopener">${ICON.nav}${_t(`Google Maps (cykel)`)}</a>${c.gpx ? `<a class="btn" href="${esc(c.gpx)}" target="_blank" rel="noopener">${_t(`Arrangörens bana`)}</a>` : ""}</div>` : ""}
-    ${r ? `<details class="lprof"${evCourses(e).length > 1 ? " open" : ""} style="margin-top:8px"><summary>${_t(`Höjdprofil och stigningar`)}</summary>${loppProfiles(key, c)}</details>` : ""}
+    ${r ? `<details class="lprof" style="margin-top:8px" data-lprof="${esc(key)}"><summary class="btn">${_t(`Höjdprofil och stigningar`)}</summary><div class="lprof-body"></div></details>` : ""}
     ${r ? `<small style="display:block;margin-top:6px;color:var(--muted)">${c.official ? _t("Linjen följer arrangörens bana, beräknad längs vägarna.") : _t("Linjen är beräknad längs vägarna via orterna och passen på banan och kan avvika något från loppets exakta väg.")}</small>` : ""}</div>`;
 }
 function eventCard(e, view) {
@@ -10028,6 +10029,7 @@ function renderLopp() {
     ${selBtn("lopp", _t("Visa alla motionslopp på kartan"))}
     <div class="stages">${ev.map(e => eventCard(e, view)).join("")}</div>`;
 }
+document.addEventListener("toggle", e => { const d = e.target; if (!d.matches || !d.matches("details[data-lprof]") || !d.open) return; const body = d.querySelector(".lprof-body"); if (body.childElementCount) return; const key = d.dataset.lprof, o = loppCourse(key.slice(5)); if (o && o.c) body.innerHTML = loppProfiles(key, o.c); }, true);
 document.addEventListener("click", e => { const b = e.target.closest("[data-lview]"); if (!b) return; mState.lv = b.dataset.lview; store.set("loppView", mState.lv); renderMotion(); const m = $("#motionBody"); if (m && b.closest("section")) m.scrollIntoView({ block: "start", behavior: "smooth" }); });
 function renderHyr() {
   const groups = {};
